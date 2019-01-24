@@ -1,0 +1,115 @@
+\hypertarget{class_room_kit_1_1_room_group}{}\section{Room\+Kit.\+Room\+Group Class Reference}
+\label{class_room_kit_1_1_room_group}\index{Room\+Kit.\+Room\+Group@{Room\+Kit.\+Room\+Group}}
+
+
+A data structure recording room characteristics.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_a0beacdb6f228fcb1f624391f3c68bcdb}\label{class_room_kit_1_1_room_group_a0beacdb6f228fcb1f624391f3c68bcdb}} 
+{\bfseries Room\+Group} (Polygon perimeter, string name=\char`\"{}\char`\"{})
+\item 
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_a9c0eba03b62f1fc908239442c1089415}\label{class_room_kit_1_1_room_group_a9c0eba03b62f1fc908239442c1089415}} 
+{\bfseries Room\+Group} (Line row, string name=\char`\"{}\char`\"{})
+\item 
+bool \mbox{\hyperlink{class_room_kit_1_1_room_group_ae03763e59aac486b0d61709bb7cee038}{Add\+Room}} (\mbox{\hyperlink{class_room_kit_1_1_room}{Room}} room, I\+List$<$ Polygon $>$ among=null)
+\begin{DoxyCompactList}\small\item\em Attempts to place a room within the perimeter of the group or on its row line, depending on the grooup\textquotesingle{}s initial geometry. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_a417fd126a5e34d449608c1631def5bda}\label{class_room_kit_1_1_room_group_a417fd126a5e34d449608c1631def5bda}} 
+string {\bfseries Name}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_a8dbb76a89711abe54d050b5b9241a723}\label{class_room_kit_1_1_room_group_a8dbb76a89711abe54d050b5b9241a723}} 
+Polygon {\bfseries Perimeter}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_a7143373fa233225c88cb3bca95dfed52}\label{class_room_kit_1_1_room_group_a7143373fa233225c88cb3bca95dfed52}} 
+I\+List$<$ \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} $>$ {\bfseries Rooms}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\item 
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_afbd07e259d1e3938ab84c1e99a5456d9}\label{class_room_kit_1_1_room_group_afbd07e259d1e3938ab84c1e99a5456d9}} 
+Line {\bfseries Row}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\item 
+double \mbox{\hyperlink{class_room_kit_1_1_room_group_ab3bb576979e3e0c610b2afcb4d7744b3}{Available\+Area}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The unallocated area of the \mbox{\hyperlink{class_room_kit_1_1_room_group}{Room\+Group}} Perimeter. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_room_kit_1_1_room_group_ac1598a6191029a361787fe7d01bd2c94}{Available\+Length}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The unallocated area of the \mbox{\hyperlink{class_room_kit_1_1_room_group}{Room\+Group}} Row. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_room_kit_1_1_room_group_af3839f139987ea48a2e5db693d3ff957}{Area\+Placed}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The area allocated within the \mbox{\hyperlink{class_room_kit_1_1_room_group}{Room\+Group}}. \end{DoxyCompactList}\item 
+I\+List$<$ Polygon $>$ \mbox{\hyperlink{class_room_kit_1_1_room_group_ac489ddfd60ab7b2bbb894607d8271dc3}{Perimeters\+Rooms}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em A list of all placed room perimeters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A data structure recording room characteristics. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_ae03763e59aac486b0d61709bb7cee038}\label{class_room_kit_1_1_room_group_ae03763e59aac486b0d61709bb7cee038}} 
+\index{Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}!Add\+Room@{Add\+Room}}
+\index{Add\+Room@{Add\+Room}!Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}}
+\subsubsection{\texorpdfstring{Add\+Room()}{AddRoom()}}
+{\footnotesize\ttfamily bool Room\+Kit.\+Room\+Group.\+Add\+Room (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_room_kit_1_1_room}{Room}}}]{room,  }\item[{I\+List$<$ Polygon $>$}]{among = {\ttfamily null} }\end{DoxyParamCaption})}
+
+
+
+Attempts to place a room within the perimeter of the group or on its row line, depending on the grooup\textquotesingle{}s initial geometry. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room} & The \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} from which to derive the Polygon to place.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the room was successfully placed. 
+\end{DoxyReturn}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_af3839f139987ea48a2e5db693d3ff957}\label{class_room_kit_1_1_room_group_af3839f139987ea48a2e5db693d3ff957}} 
+\index{Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}!Area\+Placed@{Area\+Placed}}
+\index{Area\+Placed@{Area\+Placed}!Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}}
+\subsubsection{\texorpdfstring{Area\+Placed}{AreaPlaced}}
+{\footnotesize\ttfamily double Room\+Kit.\+Room\+Group.\+Area\+Placed\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The area allocated within the \mbox{\hyperlink{class_room_kit_1_1_room_group}{Room\+Group}}. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_ab3bb576979e3e0c610b2afcb4d7744b3}\label{class_room_kit_1_1_room_group_ab3bb576979e3e0c610b2afcb4d7744b3}} 
+\index{Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}!Available\+Area@{Available\+Area}}
+\index{Available\+Area@{Available\+Area}!Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}}
+\subsubsection{\texorpdfstring{Available\+Area}{AvailableArea}}
+{\footnotesize\ttfamily double Room\+Kit.\+Room\+Group.\+Available\+Area\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The unallocated area of the \mbox{\hyperlink{class_room_kit_1_1_room_group}{Room\+Group}} Perimeter. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_ac1598a6191029a361787fe7d01bd2c94}\label{class_room_kit_1_1_room_group_ac1598a6191029a361787fe7d01bd2c94}} 
+\index{Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}!Available\+Length@{Available\+Length}}
+\index{Available\+Length@{Available\+Length}!Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}}
+\subsubsection{\texorpdfstring{Available\+Length}{AvailableLength}}
+{\footnotesize\ttfamily double Room\+Kit.\+Room\+Group.\+Available\+Length\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The unallocated area of the \mbox{\hyperlink{class_room_kit_1_1_room_group}{Room\+Group}} Row. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_group_ac489ddfd60ab7b2bbb894607d8271dc3}\label{class_room_kit_1_1_room_group_ac489ddfd60ab7b2bbb894607d8271dc3}} 
+\index{Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}!Perimeters\+Rooms@{Perimeters\+Rooms}}
+\index{Perimeters\+Rooms@{Perimeters\+Rooms}!Room\+Kit\+::\+Room\+Group@{Room\+Kit\+::\+Room\+Group}}
+\subsubsection{\texorpdfstring{Perimeters\+Rooms}{PerimetersRooms}}
+{\footnotesize\ttfamily I\+List$<$Polygon$>$ Room\+Kit.\+Room\+Group.\+Perimeters\+Rooms\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+A list of all placed room perimeters. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Anthony/\+Oasis/\+Business/\+Hypar/\+Git\+Hub/\+Room\+Kit/\+Room\+Kit/Room\+Group.\+cs\end{DoxyCompactItemize}

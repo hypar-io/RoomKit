@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>RoomKit</id>
+    <version>0.1.0-alpha</version>
+    <title>RoomKit</title>
+    <authors>hummingburd</authors>
+    <owners>Hypar</owners>
+    <license type="expression">MIT</license>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>RoomKit provides an infrastructure for creating and placing architectural rooms.</description>
+    <releaseNotes>This is a raw version of a toolkit used for the Hypar office layout functons.</releaseNotes>
+    <copyright>Copyright 2019</copyright>
+    <tags>AEC Hypar</tags>
+  </metadata>
+</package>

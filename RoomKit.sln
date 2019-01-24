@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.168
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomKit", "RoomKit\RoomKit.csproj", "{3B0C5026-F191-4E2C-9D08-EDBBECFEA91E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RoomKitTest", "RoomKitTest\RoomKitTest.csproj", "{6BBDFFAD-C0A7-43C7-8460-B5932E71F73A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{3B0C5026-F191-4E2C-9D08-EDBBECFEA91E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B0C5026-F191-4E2C-9D08-EDBBECFEA91E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B0C5026-F191-4E2C-9D08-EDBBECFEA91E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BBDFFAD-C0A7-43C7-8460-B5932E71F73A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BBDFFAD-C0A7-43C7-8460-B5932E71F73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BBDFFAD-C0A7-43C7-8460-B5932E71F73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BBDFFAD-C0A7-43C7-8460-B5932E71F73A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

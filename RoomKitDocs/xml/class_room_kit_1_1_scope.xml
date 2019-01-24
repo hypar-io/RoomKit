@@ -1,0 +1,504 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="class_room_kit_1_1_scope" kind="class" language="C#" prot="public">
+    <compoundname>RoomKit::Scope</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1abdb1f8c3a8dfc6c0ddafc408d3b8b2af" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>List&lt;Room&gt; RoomKit.Scope.Circulation</definition>
+        <argsstring></argsstring>
+        <name>Circulation</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="13" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="13" bodyend="13"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a87ae2a0ad6f8577d4b8b8e3f59b5aa82" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>List&lt;Room&gt; RoomKit.Scope.Occupant</definition>
+        <argsstring></argsstring>
+        <name>Occupant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="14" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="14" bodyend="14"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1acf48a53dfd5f5a3173a6b519877aafb1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>List&lt;Room&gt; RoomKit.Scope.Service</definition>
+        <argsstring></argsstring>
+        <name>Service</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="15" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="15" bodyend="15"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1aaa56dc19dac96f7b98fb5dc6b99e4e24" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>List&lt;Room&gt; RoomKit.Scope.Tenant</definition>
+        <argsstring></argsstring>
+        <name>Tenant</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="16" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="16" bodyend="16"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a200fe506134a03f68c90643f725b41a5" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.AreaDesignCirculation</definition>
+        <argsstring></argsstring>
+        <name>AreaDesignCirculation</name>
+        <briefdescription>
+<para>The area available for horizontal circulation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="29" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="30" bodyend="35"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a77ffe9538de183ca2b5197816cd8ed36" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.AreaRooms</definition>
+        <argsstring></argsstring>
+        <name>AreaRooms</name>
+        <briefdescription>
+<para>The allocated aggregate area of all placed occupant rooms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="40" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="41" bodyend="54"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a363fdd1f291826cf4d4f34978fc50aad" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.AreaService</definition>
+        <argsstring></argsstring>
+        <name>AreaService</name>
+        <briefdescription>
+<para>The aggregate area of all services. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="59" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="60" bodyend="70"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1ad1a4f86a420ad61e5bfddefbf684858f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.AreaTenant</definition>
+        <argsstring></argsstring>
+        <name>AreaTenant</name>
+        <briefdescription>
+<para>The aggregate of all occupiable tenant areas. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="75" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="76" bodyend="90"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a71f0d1fbb750151e6c98c40cc57f1e80" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.DesignAreaOccupant</definition>
+        <argsstring></argsstring>
+        <name>DesignAreaOccupant</name>
+        <briefdescription>
+<para>The intended aggregate area of all occupant rooms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="95" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="96" bodyend="106"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a53abe5f7d253df5d928a5bb9d400518f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.MaxRoomDim</definition>
+        <argsstring></argsstring>
+        <name>MaxRoomDim</name>
+        <briefdescription>
+<para>The maximum fixed dimension of Occupant Rooms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="111" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="112" bodyend="129"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a4266a9754ac2ffa0020d89001ba7a972" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.MinRoomDim</definition>
+        <argsstring></argsstring>
+        <name>MinRoomDim</name>
+        <briefdescription>
+<para>The minimum fixed dimension of Occupant Rooms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="134" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="135" bodyend="152"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1aa5d3dfbda9e48bd38d1a66bfe7fc1779" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Polygon &gt;</type>
+        <definition>List&lt;Polygon&gt; RoomKit.Scope.PerimetersAllocated</definition>
+        <argsstring></argsstring>
+        <name>PerimetersAllocated</name>
+        <briefdescription>
+<para>A list of allocated Circulation, Occupant, and Service Polygon areas. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="157" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="158" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a50afa848202d6bfdad55a605c22cf3fe" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Polygon &gt;</type>
+        <definition>List&lt;Polygon&gt; RoomKit.Scope.PerimetersCirculation</definition>
+        <argsstring></argsstring>
+        <name>PerimetersCirculation</name>
+        <briefdescription>
+<para>Returns a list of all Polygons in the Circulation category. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Polygons. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="184" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="185" bodyend="199"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1ac7fcbc419e0f7b4242e38c69b96ae28f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Polygon &gt;</type>
+        <definition>List&lt;Polygon&gt; RoomKit.Scope.PerimetersOccupant</definition>
+        <argsstring></argsstring>
+        <name>PerimetersOccupant</name>
+        <briefdescription>
+<para>Returns a list of all Polygons in the Occupant category. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Polygons. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="207" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="208" bodyend="221"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a16f2c7376beddabff7a1e5f664faa12f" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Polygon &gt;</type>
+        <definition>List&lt;Polygon&gt; RoomKit.Scope.PerimetersService</definition>
+        <argsstring></argsstring>
+        <name>PerimetersService</name>
+        <briefdescription>
+<para>Returns a list of all Polygons in the Service category. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Polygons. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="229" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="230" bodyend="244"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a529c86de463bfe3ec9eb868778c161db" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Polygon &gt;</type>
+        <definition>List&lt;Polygon&gt; RoomKit.Scope.PerimetersTenant</definition>
+        <argsstring></argsstring>
+        <name>PerimetersTenant</name>
+        <briefdescription>
+<para>Returns a list of all Polygons in the Tenant category. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Polygons. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="252" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="253" bodyend="267"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a36faac20f6426794ed265d2e6f7671c1" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>IList&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>IList&lt;Room&gt; RoomKit.Scope.Placed</definition>
+        <argsstring></argsstring>
+        <name>Placed</name>
+        <briefdescription>
+<para>Returns all placed Rooms. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Rooms. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="275" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="276" bodyend="289"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1af42e82ed90f2d533b61f2dc9961a6be4" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>bool</type>
+        <definition>bool RoomKit.Scope.PlacedAll</definition>
+        <argsstring></argsstring>
+        <name>PlacedAll</name>
+        <briefdescription>
+<para>Returns whether all spaces in Spaces have been placed. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Returns true if all spaces in Spaces have been marked as placed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="297" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="298" bodyend="310"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a5d7f4fe62fc696475d893790877dd1c9" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.QuantityPlaced</definition>
+        <argsstring></argsstring>
+        <name>QuantityPlaced</name>
+        <briefdescription>
+<para>The quantity of placed Rooms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="315" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="316" bodyend="329"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a4c0f9330879c8a08814243ea72b72c73" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.QuantityUnplaced</definition>
+        <argsstring></argsstring>
+        <name>QuantityUnplaced</name>
+        <briefdescription>
+<para>The quantity of unplaced Rooms. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="334" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="335" bodyend="348"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a0d5784d6e9118af53345f55e1eccac4d" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.Scope.RatioCirculation</definition>
+        <argsstring></argsstring>
+        <name>RatioCirculation</name>
+        <briefdescription>
+<para>Returns the ratio of the aggregate area of all rooms against the circulation area. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Rooms. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="356" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="357" bodyend="362"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_scope_1a8dcaa9aea2885afdfd00ca6aaed03187" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>IList&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>IList&lt;Room&gt; RoomKit.Scope.Unplaced</definition>
+        <argsstring></argsstring>
+        <name>Unplaced</name>
+        <briefdescription>
+<para>Returns all unplaced Rooms. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A list of Rooms. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="370" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="371" bodyend="384"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_room_kit_1_1_scope_1a8187fecba341c3f52dc2b40e7f132094" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RoomKit.Scope.Scope</definition>
+        <argsstring>()</argsstring>
+        <name>Scope</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="18" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="18" bodyend="24"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_scope_1a110cfe2a56ee1b74e80727785066f198" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref></type>
+        <definition>Room RoomKit.Scope.Find</definition>
+        <argsstring>(double area)</argsstring>
+        <name>Find</name>
+        <param>
+          <type>double</type>
+          <declname>area</declname>
+        </param>
+        <briefdescription>
+<para>Finds the room with the design area closest to the supplied area. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>area</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The area to match from the list of all <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> definitions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="393" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="393" bodyend="423"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_scope_1a5891fa17bb22703dedc74dd4f35fb108" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref></type>
+        <definition>Room RoomKit.Scope.Find</definition>
+        <argsstring>(double designX, double designY)</argsstring>
+        <name>Find</name>
+        <param>
+          <type>double</type>
+          <declname>designX</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>designY</declname>
+        </param>
+        <briefdescription>
+<para>Finds the room with the designed x and y dimensions closest to the supplied values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>designX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The x-axis dimension to match.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>designY</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The y-axis dimension to match.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="433" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="433" bodyend="447"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_scope_1a9b2db21ca0a8c36a085e3ce37d3655dc" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref></type>
+        <definition>Room RoomKit.Scope.FindUnplaced</definition>
+        <argsstring>(double area)</argsstring>
+        <name>FindUnplaced</name>
+        <param>
+          <type>double</type>
+          <declname>area</declname>
+        </param>
+        <briefdescription>
+<para>Finds the unplaced <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> with the design area closest to the supplied area. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>area</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The area to match from the list of all unplaced <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> definitions.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>An unplaced <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="456" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="456" bodyend="473"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_scope_1a8e29aceacafb32cc1f260e5906c75d71" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref></type>
+        <definition>Room RoomKit.Scope.FindUnplaced</definition>
+        <argsstring>(double designX, double designY)</argsstring>
+        <name>FindUnplaced</name>
+        <param>
+          <type>double</type>
+          <declname>designX</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>designY</declname>
+        </param>
+        <briefdescription>
+<para>Finds the unplaced <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> with the designed x and y dimensions closest to the supplied values. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>designX</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The x-axis dimension to match.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>designY</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The y-axis dimension to match.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>An unplaced <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="483" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="483" bodyend="500"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_scope_1a59398f2335bda913a9f8ebb5f212fc06" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type><ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref></type>
+        <definition>Room RoomKit.Scope.FindUnplaced</definition>
+        <argsstring>(int resourceID)</argsstring>
+        <name>FindUnplaced</name>
+        <param>
+          <type>int</type>
+          <declname>resourceID</declname>
+        </param>
+        <briefdescription>
+<para>Finds the first unplaced <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> with the specifed ResourceID. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>resourceID</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The integer ID of a <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> type.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref>. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="509" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="509" bodyend="519"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A data structure recording space program characteristics and status of a <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> placing process. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" line="12" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Scope.cs" bodystart="11" bodyend="520"/>
+    <listofallmembers>
+      <member refid="class_room_kit_1_1_scope_1a200fe506134a03f68c90643f725b41a5" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>AreaDesignCirculation</name></member>
+      <member refid="class_room_kit_1_1_scope_1a77ffe9538de183ca2b5197816cd8ed36" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>AreaRooms</name></member>
+      <member refid="class_room_kit_1_1_scope_1a363fdd1f291826cf4d4f34978fc50aad" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>AreaService</name></member>
+      <member refid="class_room_kit_1_1_scope_1ad1a4f86a420ad61e5bfddefbf684858f" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>AreaTenant</name></member>
+      <member refid="class_room_kit_1_1_scope_1abdb1f8c3a8dfc6c0ddafc408d3b8b2af" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Circulation</name></member>
+      <member refid="class_room_kit_1_1_scope_1a71f0d1fbb750151e6c98c40cc57f1e80" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>DesignAreaOccupant</name></member>
+      <member refid="class_room_kit_1_1_scope_1a110cfe2a56ee1b74e80727785066f198" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Find</name></member>
+      <member refid="class_room_kit_1_1_scope_1a5891fa17bb22703dedc74dd4f35fb108" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Find</name></member>
+      <member refid="class_room_kit_1_1_scope_1a9b2db21ca0a8c36a085e3ce37d3655dc" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>FindUnplaced</name></member>
+      <member refid="class_room_kit_1_1_scope_1a8e29aceacafb32cc1f260e5906c75d71" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>FindUnplaced</name></member>
+      <member refid="class_room_kit_1_1_scope_1a59398f2335bda913a9f8ebb5f212fc06" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>FindUnplaced</name></member>
+      <member refid="class_room_kit_1_1_scope_1a53abe5f7d253df5d928a5bb9d400518f" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>MaxRoomDim</name></member>
+      <member refid="class_room_kit_1_1_scope_1a4266a9754ac2ffa0020d89001ba7a972" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>MinRoomDim</name></member>
+      <member refid="class_room_kit_1_1_scope_1a87ae2a0ad6f8577d4b8b8e3f59b5aa82" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Occupant</name></member>
+      <member refid="class_room_kit_1_1_scope_1aa5d3dfbda9e48bd38d1a66bfe7fc1779" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>PerimetersAllocated</name></member>
+      <member refid="class_room_kit_1_1_scope_1a50afa848202d6bfdad55a605c22cf3fe" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>PerimetersCirculation</name></member>
+      <member refid="class_room_kit_1_1_scope_1ac7fcbc419e0f7b4242e38c69b96ae28f" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>PerimetersOccupant</name></member>
+      <member refid="class_room_kit_1_1_scope_1a16f2c7376beddabff7a1e5f664faa12f" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>PerimetersService</name></member>
+      <member refid="class_room_kit_1_1_scope_1a529c86de463bfe3ec9eb868778c161db" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>PerimetersTenant</name></member>
+      <member refid="class_room_kit_1_1_scope_1a36faac20f6426794ed265d2e6f7671c1" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Placed</name></member>
+      <member refid="class_room_kit_1_1_scope_1af42e82ed90f2d533b61f2dc9961a6be4" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>PlacedAll</name></member>
+      <member refid="class_room_kit_1_1_scope_1a5d7f4fe62fc696475d893790877dd1c9" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>QuantityPlaced</name></member>
+      <member refid="class_room_kit_1_1_scope_1a4c0f9330879c8a08814243ea72b72c73" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>QuantityUnplaced</name></member>
+      <member refid="class_room_kit_1_1_scope_1a0d5784d6e9118af53345f55e1eccac4d" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>RatioCirculation</name></member>
+      <member refid="class_room_kit_1_1_scope_1a8187fecba341c3f52dc2b40e7f132094" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Scope</name></member>
+      <member refid="class_room_kit_1_1_scope_1acf48a53dfd5f5a3173a6b519877aafb1" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Service</name></member>
+      <member refid="class_room_kit_1_1_scope_1aaa56dc19dac96f7b98fb5dc6b99e4e24" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Tenant</name></member>
+      <member refid="class_room_kit_1_1_scope_1a8dcaa9aea2885afdfd00ca6aaed03187" prot="public" virt="non-virtual"><scope>RoomKit::Scope</scope><name>Unplaced</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

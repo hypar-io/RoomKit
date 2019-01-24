@@ -1,0 +1,315 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygenindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="index.xsd" version="1.8.14">
+  <compound refid="class_room_kit_1_1_coord_grid" kind="class"><name>RoomKit::CoordGrid</name>
+    <member refid="class_room_kit_1_1_coord_grid_1a4b516a308b2c0c8cea57e9b1bc8484b0" kind="property"><name>Allocated</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1ad8a24424728e02b5a8693a1be8b2155e" kind="property"><name>Available</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a3699e8b4c72626d50c589b900c796260" kind="property"><name>Perimeter</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a7c731b88924003f92e033c77f25b4036" kind="function"><name>CoordGrid</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1aa391c61e633bdbf883b9ba3ba9e29cff" kind="function"><name>Allocate</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a7f96fb5788564e43b2af28ecafd36765" kind="function"><name>Allocate</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1ab84486d4f82f59a37698784714c0deee" kind="function"><name>AllocatedNearTo</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a5b5e606530fdff2cea08391a1bf59f6e" kind="function"><name>AllocatedRandom</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a408f51d641e9bb3ec4e59fe8b62a0163" kind="function"><name>AvailableMax</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a1b5d8ba25a0e67b9f9b7c6123ae387c5" kind="function"><name>AvailableMin</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1a8f23bb3e3de818686337ab83304a576d" kind="function"><name>AvailableNearTo</name></member>
+    <member refid="class_room_kit_1_1_coord_grid_1afa27190e6d89efd3554f6cb95bf4c3e3" kind="function"><name>AvailableRandom</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_line_ex" kind="class"><name>RoomKit::LineEx</name>
+    <member refid="class_room_kit_1_1_line_ex_1a1a4a639d48832da60ab9d9c1b32eaf75" kind="function"><name>Rotate</name></member>
+    <member refid="class_room_kit_1_1_line_ex_1a0e1082b37dff187cfb13045b8d608ab6" kind="function"><name>MoveFromTo</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_messages" kind="class"><name>RoomKit::Messages</name>
+    <member refid="class_room_kit_1_1_messages_1a24ba890d43f400df4f374bb905bb19a7" kind="variable"><name>DIAGONAL_DIRECTION_EXCEPTION</name></member>
+    <member refid="class_room_kit_1_1_messages_1af4d9733365c89b95569517f6657eb124" kind="variable"><name>INVALID_POINT_EXCEPTION</name></member>
+    <member refid="class_room_kit_1_1_messages_1afd17b7a87f69059eda55170b5c682d88" kind="variable"><name>POLYGON_SHAPE_EXCEPTION</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_palette" kind="class"><name>RoomKit::Palette</name>
+    <member refid="class_room_kit_1_1_palette_1ad0b22572674e36b68133fb249ddf92b5" kind="variable"><name>Red</name></member>
+    <member refid="class_room_kit_1_1_palette_1a685861221fdf90877caf6fe6fbc20b29" kind="variable"><name>Blue</name></member>
+    <member refid="class_room_kit_1_1_palette_1aadac80f6a5272791d9adc6124bc1337a" kind="variable"><name>Green</name></member>
+    <member refid="class_room_kit_1_1_palette_1a53f151286bb770860f34988abc8b2a33" kind="variable"><name>Aqua</name></member>
+    <member refid="class_room_kit_1_1_palette_1a22ebb7af0bc5e008d087175dea72b468" kind="variable"><name>Beige</name></member>
+    <member refid="class_room_kit_1_1_palette_1ab5606d38f291f65e1a33ccedd364ad1f" kind="variable"><name>Black</name></member>
+    <member refid="class_room_kit_1_1_palette_1a47e9c6fe4cc8f2557fbf87a728b0600f" kind="variable"><name>Brown</name></member>
+    <member refid="class_room_kit_1_1_palette_1a9b7018d74e139872a47aae07a2080554" kind="variable"><name>Cobalt</name></member>
+    <member refid="class_room_kit_1_1_palette_1a6f2e4dbbd600a7a37e2244a60a3e173e" kind="variable"><name>Coral</name></member>
+    <member refid="class_room_kit_1_1_palette_1ae2b815945492e59ad5b086c75d542f9e" kind="variable"><name>Crimson</name></member>
+    <member refid="class_room_kit_1_1_palette_1aadbae83d1384dd32af60b64be36f3d2e" kind="variable"><name>Cyan</name></member>
+    <member refid="class_room_kit_1_1_palette_1aec3fd4cc34ef7bdf1df64bafa7b938da" kind="variable"><name>Darkgray</name></member>
+    <member refid="class_room_kit_1_1_palette_1ae487ddb809c0367748957175e06c3af1" kind="variable"><name>Emerald</name></member>
+    <member refid="class_room_kit_1_1_palette_1a3065c24b2547ebb9a207cb1c1b5101bf" kind="variable"><name>Granite</name></member>
+    <member refid="class_room_kit_1_1_palette_1aafa357fb8d455bb6d29e4b402eceb932" kind="variable"><name>Gray</name></member>
+    <member refid="class_room_kit_1_1_palette_1a10bd59b6f7215e2dc44d219ca68a2a1d" kind="variable"><name>Lavender</name></member>
+    <member refid="class_room_kit_1_1_palette_1a41181aaeb8748d212b3482bfe5c34cf6" kind="variable"><name>Lime</name></member>
+    <member refid="class_room_kit_1_1_palette_1ab70b727c00a5613dcba808459b4fef8c" kind="variable"><name>Magenta</name></member>
+    <member refid="class_room_kit_1_1_palette_1a44037a451dd660d37640a6cbc77c9473" kind="variable"><name>Maroon</name></member>
+    <member refid="class_room_kit_1_1_palette_1a546fa5ff5e66c1fd151e2ccd004c58a3" kind="variable"><name>Mint</name></member>
+    <member refid="class_room_kit_1_1_palette_1a2231111efa193f82a244f8c8595573c2" kind="variable"><name>Navy</name></member>
+    <member refid="class_room_kit_1_1_palette_1a7b15ff476ee9b8713bb8531ac5e6f23f" kind="variable"><name>Olive</name></member>
+    <member refid="class_room_kit_1_1_palette_1ab4e47a5b96c7640073491138e9bf5b6f" kind="variable"><name>Orange</name></member>
+    <member refid="class_room_kit_1_1_palette_1aac38868e7ca116d4e37e4982e261bd75" kind="variable"><name>Pink</name></member>
+    <member refid="class_room_kit_1_1_palette_1aa807287e3afa744f1cae4be3c6f238ed" kind="variable"><name>Purple</name></member>
+    <member refid="class_room_kit_1_1_palette_1a3fdb895a4f1afe70922543a6e97c8cf8" kind="variable"><name>Sand</name></member>
+    <member refid="class_room_kit_1_1_palette_1a7290fddfec8029486ee99d82b2ca39ca" kind="variable"><name>Stone</name></member>
+    <member refid="class_room_kit_1_1_palette_1a2e3af8721ec58f7d7ffaf2286d2a43d6" kind="variable"><name>Teal</name></member>
+    <member refid="class_room_kit_1_1_palette_1a2eab20ea3196e2b9555c52711e715648" kind="variable"><name>White</name></member>
+    <member refid="class_room_kit_1_1_palette_1a75a15332f5c8dfd029a3fe91cfc3f76a" kind="variable"><name>Yellow</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_place" kind="class"><name>RoomKit::Place</name>
+    <member refid="class_room_kit_1_1_place_1ae2d94bf1b9678a8c77c5f79d588884f5" kind="function"><name>Adjacent</name></member>
+    <member refid="class_room_kit_1_1_place_1a76bd43f08dcdc4ff533c8c6949f5dcc8" kind="function"><name>ByOrient</name></member>
+    <member refid="class_room_kit_1_1_place_1acd97a4dd8aa41d5e164ca4fa94b115c1" kind="function"><name>N</name></member>
+    <member refid="class_room_kit_1_1_place_1ac5548a3c050e44e0d8be905a37960f3b" kind="function"><name>S</name></member>
+    <member refid="class_room_kit_1_1_place_1a57a3326ec6ec8c9bdfa7d26e7a485eeb" kind="function"><name>W</name></member>
+    <member refid="class_room_kit_1_1_place_1aa40140cd5ba9ce411c823f12d11c8e74" kind="function"><name>E</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_polygon_ex" kind="class"><name>RoomKit::PolygonEx</name>
+    <member refid="class_room_kit_1_1_polygon_ex_1a9cbd0de25beeafaa61300ccd575908bf" kind="variable"><name>scale</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a3bc2d7fb8b1727535ff299d1a8d7a137" kind="function"><name>AdjacentArea</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1aa89c8befa838dc9ed2730b90b212d80a" kind="function"><name>AspectRatio</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a1607166a1e51129a6368242f40fa3909" kind="function"><name>AtCorner</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1aec6a188d377a216fb520d0e67a31308e" kind="function"><name>AtEdge</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1ac4c7f4862d2b7cffae424f4e6e29c708" kind="function"><name>AtSide</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1abfc91434f21a403ba975b74bc48ba770" kind="function"><name>Box</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a2f064ead003c4767b86524463f2e2046" kind="function"><name>BoxCorners</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1aa1c023a3aba92dae987abf8c22fbedd8" kind="function"><name>Contains</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a90ab5982bf93f7fc3939a4f80533ad8c" kind="function"><name>Covers</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1af8b71302e20f2ee39bcb400eab1bd078" kind="function"><name>Diff</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1ab5f3fdf3f552cbe61bb8299da110a42e" kind="function"><name>Difference</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1af90a8a6251ecfdbe61474e8544986afe" kind="function"><name>Disjoint</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a7b6f89ed532069b6f7baf8547087c7b5" kind="function"><name>Fits</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a4001a7f5b4f5663e89823dc6cf1e62ce" kind="function"><name>Intersects</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a4701abe38e201e90e04194a963591c20" kind="function"><name>Touches</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a48d92e8a0cbf097aaf89c9050f620598" kind="function"><name>MoveFromTo</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1ae6ab0db5e9b5d0655ec408d4701417e3" kind="function"><name>Covers</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1a0a367571271089bb0a23e519b5892ce6" kind="function"><name>ToClipperPath</name></member>
+    <member refid="class_room_kit_1_1_polygon_ex_1aeed6becd49f0410a0ef1f503cc7d30f7" kind="function"><name>ToPolygon</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_room" kind="class"><name>RoomKit::Room</name>
+    <member refid="class_room_kit_1_1_room_1af04fd604c093984cfd3670e41918dda6" kind="variable"><name>color</name></member>
+    <member refid="class_room_kit_1_1_room_1a18b3f8ccf5204007f0f82b0f17ea97f2" kind="variable"><name>height</name></member>
+    <member refid="class_room_kit_1_1_room_1ab265664b3206ab38e906d6bf4612ee80" kind="variable"><name>perimeter</name></member>
+    <member refid="class_room_kit_1_1_room_1a9a0ed1a4011c3759f5e39a97d4e7e986" kind="property"><name>AdjacentTo</name></member>
+    <member refid="class_room_kit_1_1_room_1ab988d7b6d772b68911acacc8da422052" kind="property"><name>Color</name></member>
+    <member refid="class_room_kit_1_1_room_1ac80adf0821785646dbf908dbcbbb29c8" kind="property"><name>DesignArea</name></member>
+    <member refid="class_room_kit_1_1_room_1a06bea9a7fbe4558b681f9a047ac03f57" kind="property"><name>DesignX</name></member>
+    <member refid="class_room_kit_1_1_room_1a7d78915f3033469333b61f59dded4ecd" kind="property"><name>DesignY</name></member>
+    <member refid="class_room_kit_1_1_room_1a4239b90e74d80b830816970b84494136" kind="property"><name>Elevation</name></member>
+    <member refid="class_room_kit_1_1_room_1a2e343291f564f8cba532bed978879106" kind="property"><name>Height</name></member>
+    <member refid="class_room_kit_1_1_room_1aabb40fd8aae88fa3a5c3b7ce6adee86e" kind="property"><name>Name</name></member>
+    <member refid="class_room_kit_1_1_room_1abe9afa0fc1d95dc7469e80bdd411c26b" kind="property"><name>Perimeter</name></member>
+    <member refid="class_room_kit_1_1_room_1ac33f1b7a0a0b1c42c3665068ea77cb89" kind="property"><name>ResourceID</name></member>
+    <member refid="class_room_kit_1_1_room_1a767254e52c6f4c84fdafa1cc1833cfcd" kind="property"><name>UniqueID</name></member>
+    <member refid="class_room_kit_1_1_room_1ad4567c8d712d9e6215bda0887148c4d7" kind="property"><name>Area</name></member>
+    <member refid="class_room_kit_1_1_room_1a236fb97b3f1d4275ba76da3523f94775" kind="property"><name>AreaVariance</name></member>
+    <member refid="class_room_kit_1_1_room_1ada0a8548f538069f902f76534eb91899" kind="property"><name>AsSpace</name></member>
+    <member refid="class_room_kit_1_1_room_1a15c13a2f850ec32872c0b95627ebbb04" kind="function"><name>Room</name></member>
+    <member refid="class_room_kit_1_1_room_1a9bcaf10fbec164053d9d510722ceeff5" kind="function"><name>Room</name></member>
+    <member refid="class_room_kit_1_1_room_1a4ebb8022be4e847cf614df791da51539" kind="function"><name>Room</name></member>
+    <member refid="class_room_kit_1_1_room_1a8556c2465decaeff214621c3e8606596" kind="function"><name>Room</name></member>
+    <member refid="class_room_kit_1_1_room_1abe395580dc9617c4596b18e520111673" kind="function"><name>MakePerimeter</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_room_group" kind="class"><name>RoomKit::RoomGroup</name>
+    <member refid="class_room_kit_1_1_room_group_1a43b10e0f1341effa8d3260489253c156" kind="variable"><name>angle</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a042c5dbeb7751f8cce5a06f4a930cd12" kind="variable"><name>mark</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a86b1cb86694a5e8ffa3376df8051c914" kind="variable"><name>Box</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a417fd126a5e34d449608c1631def5bda" kind="property"><name>Name</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a8dbb76a89711abe54d050b5b9241a723" kind="property"><name>Perimeter</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a7143373fa233225c88cb3bca95dfed52" kind="property"><name>Rooms</name></member>
+    <member refid="class_room_kit_1_1_room_group_1afbd07e259d1e3938ab84c1e99a5456d9" kind="property"><name>Row</name></member>
+    <member refid="class_room_kit_1_1_room_group_1ab3bb576979e3e0c610b2afcb4d7744b3" kind="property"><name>AvailableArea</name></member>
+    <member refid="class_room_kit_1_1_room_group_1ac1598a6191029a361787fe7d01bd2c94" kind="property"><name>AvailableLength</name></member>
+    <member refid="class_room_kit_1_1_room_group_1af3839f139987ea48a2e5db693d3ff957" kind="property"><name>AreaPlaced</name></member>
+    <member refid="class_room_kit_1_1_room_group_1ac489ddfd60ab7b2bbb894607d8271dc3" kind="property"><name>PerimetersRooms</name></member>
+    <member refid="class_room_kit_1_1_room_group_1af97dce7417dffdec2e0f2a8a53fbf955" kind="function"><name>RoomGroup</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a0beacdb6f228fcb1f624391f3c68bcdb" kind="function"><name>RoomGroup</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a9c0eba03b62f1fc908239442c1089415" kind="function"><name>RoomGroup</name></member>
+    <member refid="class_room_kit_1_1_room_group_1ae03763e59aac486b0d61709bb7cee038" kind="function"><name>AddRoom</name></member>
+    <member refid="class_room_kit_1_1_room_group_1af231557788de5cc7dc683e8ff516f781" kind="function"><name>AddToPerimeter</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a69de93d0e445036e659b457471d98b5d" kind="function"><name>AddToRow</name></member>
+    <member refid="class_room_kit_1_1_room_group_1a447ff354116e63f3a761ec6f31acc90f" kind="function"><name>RoomPerimeter</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_room_row" kind="class"><name>RoomKit::RoomRow</name>
+    <member refid="class_room_kit_1_1_room_row_1a8647555ee0f5bb907fb179686911b65b" kind="variable"><name>angle</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a86461b184f8a588882ad79e1e8991207" kind="variable"><name>circulation</name></member>
+    <member refid="class_room_kit_1_1_room_row_1ace87ad7bd2b2fe8cc48b0d872a68804c" kind="variable"><name>mark</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a599df29134a583704e48d2f7b59cb244" kind="property"><name>Circulation</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a3c5718e6696e88c4c0f91154751f59f8" kind="property"><name>Depth</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a99bed9136ed8a01c5174e734c24a264e" kind="property"><name>Name</name></member>
+    <member refid="class_room_kit_1_1_room_row_1aa4f80369bb6d0fbf1ae8d5cc31998383" kind="property"><name>Rooms</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a5101187caa26266fe0e1487cc6187cd9" kind="property"><name>Row</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a641180f7b37e1cb23b47b2a47441f6ea" kind="property"><name>AvailableLength</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a2ee541d26536306906eeb29953e496ed" kind="property"><name>AreaPlaced</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a57619fed2ddba58b0ece1c1d17040d48" kind="property"><name>PerimetersRooms</name></member>
+    <member refid="class_room_kit_1_1_room_row_1addd348f8431a2c6281b9be1b40373594" kind="function"><name>RoomRow</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a5f3de939efebb1560150ecf9be9f697c" kind="function"><name>RoomRow</name></member>
+    <member refid="class_room_kit_1_1_room_row_1a461c7592711caf1d35a96693d77fd4df" kind="function"><name>AddRoom</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_scope" kind="class"><name>RoomKit::Scope</name>
+    <member refid="class_room_kit_1_1_scope_1abdb1f8c3a8dfc6c0ddafc408d3b8b2af" kind="property"><name>Circulation</name></member>
+    <member refid="class_room_kit_1_1_scope_1a87ae2a0ad6f8577d4b8b8e3f59b5aa82" kind="property"><name>Occupant</name></member>
+    <member refid="class_room_kit_1_1_scope_1acf48a53dfd5f5a3173a6b519877aafb1" kind="property"><name>Service</name></member>
+    <member refid="class_room_kit_1_1_scope_1aaa56dc19dac96f7b98fb5dc6b99e4e24" kind="property"><name>Tenant</name></member>
+    <member refid="class_room_kit_1_1_scope_1a200fe506134a03f68c90643f725b41a5" kind="property"><name>AreaDesignCirculation</name></member>
+    <member refid="class_room_kit_1_1_scope_1a77ffe9538de183ca2b5197816cd8ed36" kind="property"><name>AreaRooms</name></member>
+    <member refid="class_room_kit_1_1_scope_1a363fdd1f291826cf4d4f34978fc50aad" kind="property"><name>AreaService</name></member>
+    <member refid="class_room_kit_1_1_scope_1ad1a4f86a420ad61e5bfddefbf684858f" kind="property"><name>AreaTenant</name></member>
+    <member refid="class_room_kit_1_1_scope_1a71f0d1fbb750151e6c98c40cc57f1e80" kind="property"><name>DesignAreaOccupant</name></member>
+    <member refid="class_room_kit_1_1_scope_1a53abe5f7d253df5d928a5bb9d400518f" kind="property"><name>MaxRoomDim</name></member>
+    <member refid="class_room_kit_1_1_scope_1a4266a9754ac2ffa0020d89001ba7a972" kind="property"><name>MinRoomDim</name></member>
+    <member refid="class_room_kit_1_1_scope_1aa5d3dfbda9e48bd38d1a66bfe7fc1779" kind="property"><name>PerimetersAllocated</name></member>
+    <member refid="class_room_kit_1_1_scope_1a50afa848202d6bfdad55a605c22cf3fe" kind="property"><name>PerimetersCirculation</name></member>
+    <member refid="class_room_kit_1_1_scope_1ac7fcbc419e0f7b4242e38c69b96ae28f" kind="property"><name>PerimetersOccupant</name></member>
+    <member refid="class_room_kit_1_1_scope_1a16f2c7376beddabff7a1e5f664faa12f" kind="property"><name>PerimetersService</name></member>
+    <member refid="class_room_kit_1_1_scope_1a529c86de463bfe3ec9eb868778c161db" kind="property"><name>PerimetersTenant</name></member>
+    <member refid="class_room_kit_1_1_scope_1a36faac20f6426794ed265d2e6f7671c1" kind="property"><name>Placed</name></member>
+    <member refid="class_room_kit_1_1_scope_1af42e82ed90f2d533b61f2dc9961a6be4" kind="property"><name>PlacedAll</name></member>
+    <member refid="class_room_kit_1_1_scope_1a5d7f4fe62fc696475d893790877dd1c9" kind="property"><name>QuantityPlaced</name></member>
+    <member refid="class_room_kit_1_1_scope_1a4c0f9330879c8a08814243ea72b72c73" kind="property"><name>QuantityUnplaced</name></member>
+    <member refid="class_room_kit_1_1_scope_1a0d5784d6e9118af53345f55e1eccac4d" kind="property"><name>RatioCirculation</name></member>
+    <member refid="class_room_kit_1_1_scope_1a8dcaa9aea2885afdfd00ca6aaed03187" kind="property"><name>Unplaced</name></member>
+    <member refid="class_room_kit_1_1_scope_1a8187fecba341c3f52dc2b40e7f132094" kind="function"><name>Scope</name></member>
+    <member refid="class_room_kit_1_1_scope_1a110cfe2a56ee1b74e80727785066f198" kind="function"><name>Find</name></member>
+    <member refid="class_room_kit_1_1_scope_1a5891fa17bb22703dedc74dd4f35fb108" kind="function"><name>Find</name></member>
+    <member refid="class_room_kit_1_1_scope_1a9b2db21ca0a8c36a085e3ce37d3655dc" kind="function"><name>FindUnplaced</name></member>
+    <member refid="class_room_kit_1_1_scope_1a8e29aceacafb32cc1f260e5906c75d71" kind="function"><name>FindUnplaced</name></member>
+    <member refid="class_room_kit_1_1_scope_1a59398f2335bda913a9f8ebb5f212fc06" kind="function"><name>FindUnplaced</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_shaper" kind="class"><name>RoomKit::Shaper</name>
+    <member refid="class_room_kit_1_1_shaper_1a4483a617ad452df6b3154a92d3286a90" kind="function"><name>AreaFromCorner</name></member>
+    <member refid="class_room_kit_1_1_shaper_1aaa92a5fa180431be1417f1e7abd08768" kind="function"><name>ExpandtoArea</name></member>
+    <member refid="class_room_kit_1_1_shaper_1a654ea774559259c572a6a90f8420353c" kind="function"><name>FitTo</name></member>
+    <member refid="class_room_kit_1_1_shaper_1ade929d9cc17f76266771766a6e08bd8a" kind="function"><name>PointWithin</name></member>
+    <member refid="class_room_kit_1_1_shaper_1a6379653035164576467050e74f55309b" kind="function"><name>PolygonBox</name></member>
+    <member refid="class_room_kit_1_1_shaper_1ae3c8d6ebbc4d1d536d13a63afc838792" kind="function"><name>PolygonC</name></member>
+    <member refid="class_room_kit_1_1_shaper_1a2823b650a81a2af8c788e0f85f57b440" kind="function"><name>PolygonE</name></member>
+    <member refid="class_room_kit_1_1_shaper_1ad681777b76e8232f4d3c468a7a718678" kind="function"><name>PolygonF</name></member>
+    <member refid="class_room_kit_1_1_shaper_1aa7a3e96ec7d2f307fc98f1db7aa01cf9" kind="function"><name>PolygonH</name></member>
+    <member refid="class_room_kit_1_1_shaper_1abe51fa4ae9231060c0caeb0fbaec0302" kind="function"><name>PolygonL</name></member>
+    <member refid="class_room_kit_1_1_shaper_1a831446ac7c6f34cca30b61930d50c8ee" kind="function"><name>PolygonT</name></member>
+    <member refid="class_room_kit_1_1_shaper_1a6d9e3e624ac252719702c44b954877a0" kind="function"><name>PolygonU</name></member>
+    <member refid="class_room_kit_1_1_shaper_1a6bc1ddc1a169c28607104d6fc5ace96a" kind="function"><name>PolygonX</name></member>
+    <member refid="class_room_kit_1_1_shaper_1ab0188b9f81d57cc389d352decbcf647f" kind="function"><name>RandomDouble</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_spacer" kind="class"><name>RoomKit::Spacer</name>
+    <member refid="class_room_kit_1_1_spacer_1a30469c7adc90f3a86e7d22bedcd942f2" kind="function"><name>CopyPlace</name></member>
+    <member refid="class_room_kit_1_1_spacer_1a6ea2541c8f7a6724fefa159bc5f0c1bf" kind="function"><name>CopyToArea</name></member>
+    <member refid="class_room_kit_1_1_spacer_1a717f9b1aec71d6d79937462ebadba4a0" kind="function"><name>Stack</name></member>
+    <member refid="class_room_kit_1_1_spacer_1af48a942ee2ca3075127ad102965cf675" kind="function"><name>StackToArea</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_topo_box" kind="class"><name>RoomKit::TopoBox</name>
+    <member refid="class_room_kit_1_1_topo_box_1a49b90eeff3ec40cba9f66ddfca10b75f" kind="property"><name>C</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a4c5e7153de4c0993e5aaa880d153f77b" kind="property"><name>N</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a2bbe15740eca32ac11b66ae9fdf71d56" kind="property"><name>NNW</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1ae0cfe37d3dad050ab24db7be23a6f7f3" kind="property"><name>NW</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a9bca590a5cc4f6f33bbb8a56c0fe39bd" kind="property"><name>WNW</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1ac67dffe4e3c7a1644bbe6b0624a16af5" kind="property"><name>W</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a49c18755a536e48d4e5b46c7165d38db" kind="property"><name>WSW</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a96491db4e36224e86065344e861ddc2d" kind="property"><name>SW</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a46d3cb0f5f8d2d65d89fc6006081d569" kind="property"><name>SSW</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1aef156cf605704315b5e6ac4beeaf4f5b" kind="property"><name>S</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a3ff7cd14b08159e6866bbce29da85438" kind="property"><name>SSE</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1addc8c3fb136547d2ebd0629777af31b6" kind="property"><name>SE</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a5a8765e2a48d12a20f69eba8d7323002" kind="property"><name>ESE</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1af742a07ce3ff59b25d24a82e0e927dfa" kind="property"><name>E</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1aa5873c259cd94bf30229a69d050ae5ba" kind="property"><name>ENE</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1ab367a61f9e9a37201387263ed4e62e6e" kind="property"><name>NE</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a10e29511f5cd07ce3a42027aa72bbda9" kind="property"><name>NNE</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1acf94cfba331d5e7851c6cfcc44051a21" kind="property"><name>SizeX</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a613dbd1e123b1c65751d58fa2ab162d4" kind="property"><name>SizeY</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1aaf2418c0258d9c87c1d1ad66a6426169" kind="function"><name>TopoBox</name></member>
+    <member refid="class_room_kit_1_1_topo_box_1a48b838c48267cf92b3511c51c12339ce" kind="function"><name>PointBy</name></member>
+  </compound>
+  <compound refid="class_room_kit_1_1_vector3_ex" kind="class"><name>RoomKit::Vector3Ex</name>
+    <member refid="class_room_kit_1_1_vector3_ex_1a1064deecf384a987cc94b09f7f6f5761" kind="function"><name>Rotate</name></member>
+  </compound>
+  <compound refid="namespace_clipper_lib" kind="namespace"><name>ClipperLib</name>
+  </compound>
+  <compound refid="namespace_hypar_1_1_elements" kind="namespace"><name>Hypar::Elements</name>
+  </compound>
+  <compound refid="namespace_hypar_1_1_geometry" kind="namespace"><name>Hypar::Geometry</name>
+  </compound>
+  <compound refid="namespace_room_kit" kind="namespace"><name>RoomKit</name>
+    <member refid="namespace_room_kit_1ad179e5d89fb3a10af01750dfa2f8e852" kind="enum"><name>Corner</name></member>
+    <member refid="namespace_room_kit_1ad179e5d89fb3a10af01750dfa2f8e852adc33066c3993e0d50896e533fd692ce0" kind="enumvalue"><name>NE</name></member>
+    <member refid="namespace_room_kit_1ad179e5d89fb3a10af01750dfa2f8e852af003c44deab679aa2edfaff864c77402" kind="enumvalue"><name>SE</name></member>
+    <member refid="namespace_room_kit_1ad179e5d89fb3a10af01750dfa2f8e852a6f56aa4e2561eb66f17f6d8de8070a77" kind="enumvalue"><name>SW</name></member>
+    <member refid="namespace_room_kit_1ad179e5d89fb3a10af01750dfa2f8e852a7f39ac71e81132daad44925b3bdfde5a" kind="enumvalue"><name>NW</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508d" kind="enum"><name>Orient</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da0d61f8370cad1d412f80b84d143e1257" kind="enumvalue"><name>C</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da8d9c307cb7f3c4a32822a51922d1ceaa" kind="enumvalue"><name>N</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da4532c4749bc2f7efd2902cb4b8c7287e" kind="enumvalue"><name>NNE</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508dadc33066c3993e0d50896e533fd692ce0" kind="enumvalue"><name>NE</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da66fbab0fb6ada703934d0c474adc65db" kind="enumvalue"><name>ENE</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da3a3ea00cfc35332cedf6e5e9a32e94da" kind="enumvalue"><name>E</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508daf821be3f799c89afb1e117b306b36e2c" kind="enumvalue"><name>ESE</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508daf003c44deab679aa2edfaff864c77402" kind="enumvalue"><name>SE</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da5fc53fc8197865c63285f74b1e147013" kind="enumvalue"><name>SSE</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da5dbc98dcc983a70728bd082d1a47546e" kind="enumvalue"><name>S</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da2b31b95924f051c8cbc0608c7f12c5d3" kind="enumvalue"><name>SSW</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da6f56aa4e2561eb66f17f6d8de8070a77" kind="enumvalue"><name>SW</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508dae1d9d2b1da068349a7174fd0d9b377d4" kind="enumvalue"><name>WSW</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da61e9c06ea9a85a5088a499df6458d276" kind="enumvalue"><name>W</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da2885d50f5c4d4443bea9e1f8b7c25b86" kind="enumvalue"><name>WNW</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508da7f39ac71e81132daad44925b3bdfde5a" kind="enumvalue"><name>NW</name></member>
+    <member refid="namespace_room_kit_1a46927f752f7751de2c23e9e644fb508dab618df618bf344b9907cf968c49b8518" kind="enumvalue"><name>NNW</name></member>
+  </compound>
+  <compound refid="namespace_system" kind="namespace"><name>System</name>
+  </compound>
+  <compound refid="namespace_system_1_1_collections_1_1_generic" kind="namespace"><name>System::Collections::Generic</name>
+  </compound>
+  <compound refid="namespace_system_1_1_linq" kind="namespace"><name>System::Linq</name>
+  </compound>
+  <compound refid="namespace_system_1_1_reflection" kind="namespace"><name>System::Reflection</name>
+  </compound>
+  <compound refid="namespace_system_1_1_text" kind="namespace"><name>System::Text</name>
+  </compound>
+  <compound refid="_coord_grid_8cs" kind="file"><name>CoordGrid.cs</name>
+  </compound>
+  <compound refid="_corner_8cs" kind="file"><name>Corner.cs</name>
+  </compound>
+  <compound refid="_line_ex_8cs" kind="file"><name>LineEx.cs</name>
+  </compound>
+  <compound refid="_messages_8cs" kind="file"><name>Messages.cs</name>
+  </compound>
+  <compound refid="_debug_2netstandard2_80_2_room_kit_8_assembly_info_8cs" kind="file"><name>RoomKit.AssemblyInfo.cs</name>
+  </compound>
+  <compound refid="_release_2netstandard2_80_2_room_kit_8_assembly_info_8cs" kind="file"><name>RoomKit.AssemblyInfo.cs</name>
+  </compound>
+  <compound refid="_orient_8cs" kind="file"><name>Orient.cs</name>
+  </compound>
+  <compound refid="_palette_8cs" kind="file"><name>Palette.cs</name>
+  </compound>
+  <compound refid="_place_8cs" kind="file"><name>Place.cs</name>
+  </compound>
+  <compound refid="_polygon_ex_8cs" kind="file"><name>PolygonEx.cs</name>
+  </compound>
+  <compound refid="_room_8cs" kind="file"><name>Room.cs</name>
+  </compound>
+  <compound refid="_room_group_8cs" kind="file"><name>RoomGroup.cs</name>
+  </compound>
+  <compound refid="_room_row_8cs" kind="file"><name>RoomRow.cs</name>
+  </compound>
+  <compound refid="_scope_8cs" kind="file"><name>Scope.cs</name>
+  </compound>
+  <compound refid="_shaper_8cs" kind="file"><name>Shaper.cs</name>
+  </compound>
+  <compound refid="_spacer_8cs" kind="file"><name>Spacer.cs</name>
+  </compound>
+  <compound refid="_topo_box_8cs" kind="file"><name>TopoBox.cs</name>
+  </compound>
+  <compound refid="_vector3_ex_8cs" kind="file"><name>Vector3Ex.cs</name>
+  </compound>
+  <compound refid="dir_dae8e2526330d2a2473319c4c80f4000" kind="dir"><name>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/obj/Debug</name>
+  </compound>
+  <compound refid="dir_70635454b7e0a50968b42fe69663e8d6" kind="dir"><name>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/obj/Debug/netstandard2.0</name>
+  </compound>
+  <compound refid="dir_37a622ae2df4d54389946e4b87ab4d7a" kind="dir"><name>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/obj/Release/netstandard2.0</name>
+  </compound>
+  <compound refid="dir_a60466feb15e6b2359568518b0b5c7ab" kind="dir"><name>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/obj</name>
+  </compound>
+  <compound refid="dir_5dfd36324b95168b84b82e31dd7d3901" kind="dir"><name>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/obj/Release</name>
+  </compound>
+  <compound refid="dir_ec0d75d7386a00d7e00f9c0f0d892fe2" kind="dir"><name>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit</name>
+  </compound>
+</doxygenindex>

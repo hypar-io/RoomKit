@@ -1,0 +1,256 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="class_room_kit_1_1_room_row" kind="class" language="C#" prot="public">
+    <compoundname>RoomKit::RoomRow</compoundname>
+      <sectiondef kind="private-attrib">
+      <memberdef kind="variable" id="class_room_kit_1_1_room_row_1a8647555ee0f5bb907fb179686911b65b" prot="private" static="no" mutable="no">
+        <type>readonly double</type>
+        <definition>readonly double RoomKit.RoomRow.angle</definition>
+        <argsstring></argsstring>
+        <name>angle</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+<para>The calculated angle of the Row in degrees. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="17" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="17" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_room_kit_1_1_room_row_1a86461b184f8a588882ad79e1e8991207" prot="private" static="no" mutable="no">
+        <type>Polygon</type>
+        <definition>Polygon RoomKit.RoomRow.circulation</definition>
+        <argsstring></argsstring>
+        <name>circulation</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+<para>The circulation envelope around the row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="22" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="22" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="class_room_kit_1_1_room_row_1ace87ad7bd2b2fe8cc48b0d872a68804c" prot="private" static="no" mutable="no">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.RoomRow.mark</definition>
+        <argsstring></argsstring>
+        <name>mark</name>
+        <initializer>= null</initializer>
+        <briefdescription>
+<para>A position indicating the limit of placed Rooms along the Row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="27" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="27" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a599df29134a583704e48d2f7b59cb244" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>Polygon</type>
+        <definition>Polygon RoomKit.RoomRow.Circulation</definition>
+        <argsstring></argsstring>
+        <name>Circulation</name>
+        <briefdescription>
+<para>The circulation envelope around the row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="32" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="33" bodyend="38"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a3c5718e6696e88c4c0f91154751f59f8" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="yes" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.RoomRow.Depth</definition>
+        <argsstring></argsstring>
+        <name>Depth</name>
+        <initializer>= 0.0</initializer>
+        <briefdescription>
+<para>The depth of the deepest room along the row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="43" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="43" bodyend="43"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a99bed9136ed8a01c5174e734c24a264e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="yes" privatesettable="no" protectedsettable="no">
+        <type>string</type>
+        <definition>string RoomKit.RoomRow.Name</definition>
+        <argsstring></argsstring>
+        <name>Name</name>
+        <briefdescription>
+<para>Arbitrary string identifier for this <ref refid="class_room_kit_1_1_room_row" kindref="compound">RoomRow</ref> instance. Has no effect on <ref refid="class_room_kit_1_1_room_row" kindref="compound">RoomRow</ref> operations. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="48" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="48" bodyend="48"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1aa4f80369bb6d0fbf1ae8d5cc31998383" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>IList&lt; <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> &gt;</type>
+        <definition>IList&lt;Room&gt; RoomKit.RoomRow.Rooms</definition>
+        <argsstring></argsstring>
+        <name>Rooms</name>
+        <briefdescription>
+<para>The list of Rooms placed along this Row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="53" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="53" bodyend="53"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a5101187caa26266fe0e1487cc6187cd9" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>Line</type>
+        <definition>Line RoomKit.RoomRow.Row</definition>
+        <argsstring></argsstring>
+        <name>Row</name>
+        <briefdescription>
+<para>The Line along which Rooms can be placed. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="58" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="58" bodyend="58"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a641180f7b37e1cb23b47b2a47441f6ea" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.RoomRow.AvailableLength</definition>
+        <argsstring></argsstring>
+        <name>AvailableLength</name>
+        <briefdescription>
+<para>The unallocated length of the <ref refid="class_room_kit_1_1_room_row" kindref="compound">RoomRow</ref>. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="87" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="88" bodyend="97"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a2ee541d26536306906eeb29953e496ed" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>double</type>
+        <definition>double RoomKit.RoomRow.AreaPlaced</definition>
+        <argsstring></argsstring>
+        <name>AreaPlaced</name>
+        <briefdescription>
+<para>The aggregate area of the Rooms placed on this Row. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="102" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="103" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_room_row_1a57619fed2ddba58b0ece1c1d17040d48" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>IList&lt; Polygon &gt;</type>
+        <definition>IList&lt;Polygon&gt; RoomKit.RoomRow.PerimetersRooms</definition>
+        <argsstring></argsstring>
+        <name>PerimetersRooms</name>
+        <briefdescription>
+<para>A list of all placed <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> perimeters. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="118" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="119" bodyend="129"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_room_kit_1_1_room_row_1addd348f8431a2c6281b9be1b40373594" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RoomKit.RoomRow.RoomRow</definition>
+        <argsstring>()</argsstring>
+        <name>RoomRow</name>
+        <briefdescription>
+<para>Constructor initializes the <ref refid="class_room_kit_1_1_room_row" kindref="compound">RoomRow</ref> with default empty values. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="63" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="63" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_room_row_1a5f3de939efebb1560150ecf9be9f697c" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RoomKit.RoomRow.RoomRow</definition>
+        <argsstring>(Line row, string name=&quot;&quot;)</argsstring>
+        <name>RoomRow</name>
+        <param>
+          <type>Line</type>
+          <declname>row</declname>
+        </param>
+        <param>
+          <type>string</type>
+          <declname>name</declname>
+          <defval>&quot;&quot;</defval>
+        </param>
+        <briefdescription>
+<para>Constructor initializes the <ref refid="class_room_kit_1_1_room_row" kindref="compound">RoomRow</ref> with a new Line and an optional name. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="74" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="74" bodyend="82"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_room_row_1a461c7592711caf1d35a96693d77fd4df" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>bool</type>
+        <definition>bool RoomKit.RoomRow.AddRoom</definition>
+        <argsstring>(Room room, Polygon within=null, IList&lt; Polygon &gt; among=null, double circ=2.0)</argsstring>
+        <name>AddRoom</name>
+        <param>
+          <type><ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref></type>
+          <declname>room</declname>
+        </param>
+        <param>
+          <type>Polygon</type>
+          <declname>within</declname>
+          <defval>null</defval>
+        </param>
+        <param>
+          <type>IList&lt; Polygon &gt;</type>
+          <declname>among</declname>
+          <defval>null</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>circ</declname>
+          <defval>2.0</defval>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Attempts to place a <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref>&apos;s Polygon must fit and a list of Polygons which it cannot intersect. </para><para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>room</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The <ref refid="class_room_kit_1_1_room" kindref="compound">Room</ref> from which to derive the Polygon to place.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>True if the room was successfully placed. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="138" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="138" bodyend="212"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>A data structure recording room characteristics. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" line="13" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomRow.cs" bodystart="12" bodyend="213"/>
+    <listofallmembers>
+      <member refid="class_room_kit_1_1_room_row_1a461c7592711caf1d35a96693d77fd4df" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>AddRoom</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a8647555ee0f5bb907fb179686911b65b" prot="private" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>angle</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a2ee541d26536306906eeb29953e496ed" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>AreaPlaced</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a641180f7b37e1cb23b47b2a47441f6ea" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>AvailableLength</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a86461b184f8a588882ad79e1e8991207" prot="private" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>circulation</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a599df29134a583704e48d2f7b59cb244" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>Circulation</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a3c5718e6696e88c4c0f91154751f59f8" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>Depth</name></member>
+      <member refid="class_room_kit_1_1_room_row_1ace87ad7bd2b2fe8cc48b0d872a68804c" prot="private" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>mark</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a99bed9136ed8a01c5174e734c24a264e" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>Name</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a57619fed2ddba58b0ece1c1d17040d48" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>PerimetersRooms</name></member>
+      <member refid="class_room_kit_1_1_room_row_1addd348f8431a2c6281b9be1b40373594" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>RoomRow</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a5f3de939efebb1560150ecf9be9f697c" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>RoomRow</name></member>
+      <member refid="class_room_kit_1_1_room_row_1aa4f80369bb6d0fbf1ae8d5cc31998383" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>Rooms</name></member>
+      <member refid="class_room_kit_1_1_room_row_1a5101187caa26266fe0e1487cc6187cd9" prot="public" virt="non-virtual"><scope>RoomKit::RoomRow</scope><name>Row</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

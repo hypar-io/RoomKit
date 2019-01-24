@@ -1,0 +1,278 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="class_room_kit_1_1_coord_grid" kind="class" language="C#" prot="public">
+    <compoundname>RoomKit::CoordGrid</compoundname>
+      <sectiondef kind="property">
+      <memberdef kind="property" id="class_room_kit_1_1_coord_grid_1a4b516a308b2c0c8cea57e9b1bc8484b0" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Vector3 &gt;</type>
+        <definition>List&lt;Vector3&gt; RoomKit.CoordGrid.Allocated</definition>
+        <argsstring></argsstring>
+        <name>Allocated</name>
+        <briefdescription>
+<para>The list of vector3 allocated points. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="18" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="18" bodyend="18"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_coord_grid_1ad8a24424728e02b5a8693a1be8b2155e" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>List&lt; Vector3 &gt;</type>
+        <definition>List&lt;Vector3&gt; RoomKit.CoordGrid.Available</definition>
+        <argsstring></argsstring>
+        <name>Available</name>
+        <briefdescription>
+<para>The list of Vector3 points available for allocation. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="23" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="23" bodyend="23"/>
+      </memberdef>
+      <memberdef kind="property" id="class_room_kit_1_1_coord_grid_1a3699e8b4c72626d50c589b900c796260" prot="public" static="no" readable="no" writable="no" gettable="yes" privategettable="no" protectedgettable="no" settable="no" privatesettable="no" protectedsettable="no">
+        <type>Polygon</type>
+        <definition>Polygon RoomKit.CoordGrid.Perimeter</definition>
+        <argsstring></argsstring>
+        <name>Perimeter</name>
+        <briefdescription>
+<para>The Polygon perimeter of the grid. </para>        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="28" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="28" bodyend="28"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1a7c731b88924003f92e033c77f25b4036" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type></type>
+        <definition>RoomKit.CoordGrid.CoordGrid</definition>
+        <argsstring>(Polygon polygon, double xInterval=1, double yInterval=1)</argsstring>
+        <name>CoordGrid</name>
+        <param>
+          <type>Polygon</type>
+          <declname>polygon</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>xInterval</declname>
+          <defval>1</defval>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>yInterval</declname>
+          <defval>1</defval>
+        </param>
+        <briefdescription>
+<para>Creates an orthogonal 2D grid of Vector3 points from the supplied Polygon and axis intervals. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>perimeter</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Polygon boundary of the point grid.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>xInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The spacing of the grid along the x-axis.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>yInterval</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The spacing of the grid along the y-axis.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+/// </para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="39" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="39" bodyend="61"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1aa391c61e633bdbf883b9ba3ba9e29cff" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoomKit.CoordGrid.Allocate</definition>
+        <argsstring>(Polygon polygon)</argsstring>
+        <name>Allocate</name>
+        <param>
+          <type>Polygon</type>
+          <declname>polygon</declname>
+        </param>
+        <briefdescription>
+<para>Allocates the points in the grid falling within or on the supplied Polygon. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>polygon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Polygon bounding the points to be allocated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="70" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="70" bodyend="88"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1a7f96fb5788564e43b2af28ecafd36765" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>void</type>
+        <definition>void RoomKit.CoordGrid.Allocate</definition>
+        <argsstring>(IList&lt; Polygon &gt; polygons)</argsstring>
+        <name>Allocate</name>
+        <param>
+          <type>IList&lt; Polygon &gt;</type>
+          <declname>polygons</declname>
+        </param>
+        <briefdescription>
+<para>Allocates points in the grid falling within the supplied Polygons. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>polygon</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Polygon bounding the points to be allocated.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>None. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="97" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="97" bodyend="118"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1ab84486d4f82f59a37698784714c0deee" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.CoordGrid.AllocatedNearTo</definition>
+        <argsstring>(Vector3 point)</argsstring>
+        <name>AllocatedNearTo</name>
+        <param>
+          <type>Vector3</type>
+          <declname>point</declname>
+        </param>
+        <briefdescription>
+<para>Returns the allocated grid point nearest to the supplied point. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>point</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Vector3 point to compare.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A Vector3 point. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="127" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="127" bodyend="143"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1a5b5e606530fdff2cea08391a1bf59f6e" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.CoordGrid.AllocatedRandom</definition>
+        <argsstring>()</argsstring>
+        <name>AllocatedRandom</name>
+        <briefdescription>
+<para>Returns a random allocated point. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A Vector3 point. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="151" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="151" bodyend="154"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1a408f51d641e9bb3ec4e59fe8b62a0163" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.CoordGrid.AvailableMax</definition>
+        <argsstring>()</argsstring>
+        <name>AvailableMax</name>
+        <briefdescription>
+<para>Returns the maximum available grid point. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A Vector3 point. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="163" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="163" bodyend="176"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1a1b5d8ba25a0e67b9f9b7c6123ae387c5" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.CoordGrid.AvailableMin</definition>
+        <argsstring>()</argsstring>
+        <name>AvailableMin</name>
+        <briefdescription>
+<para>Returns the minimum available grid point. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A Vector3 point. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="185" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="185" bodyend="198"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1a8f23bb3e3de818686337ab83304a576d" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.CoordGrid.AvailableNearTo</definition>
+        <argsstring>(Vector3 point)</argsstring>
+        <name>AvailableNearTo</name>
+        <param>
+          <type>Vector3</type>
+          <declname>point</declname>
+        </param>
+        <briefdescription>
+<para>Returns the available grid point nearest to the supplied Vector3 point. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>point</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Vector3 point to compare.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A Vector3 point. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="207" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="207" bodyend="224"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_coord_grid_1afa27190e6d89efd3554f6cb95bf4c3e3" prot="public" static="no" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>Vector3 RoomKit.CoordGrid.AvailableRandom</definition>
+        <argsstring>()</argsstring>
+        <name>AvailableRandom</name>
+        <briefdescription>
+<para>Returns a random available grid point. </para>        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>A Vector3 point. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="232" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="232" bodyend="235"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" line="14" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/CoordGrid.cs" bodystart="13" bodyend="236"/>
+    <listofallmembers>
+      <member refid="class_room_kit_1_1_coord_grid_1aa391c61e633bdbf883b9ba3ba9e29cff" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>Allocate</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a7f96fb5788564e43b2af28ecafd36765" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>Allocate</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a4b516a308b2c0c8cea57e9b1bc8484b0" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>Allocated</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1ab84486d4f82f59a37698784714c0deee" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>AllocatedNearTo</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a5b5e606530fdff2cea08391a1bf59f6e" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>AllocatedRandom</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1ad8a24424728e02b5a8693a1be8b2155e" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>Available</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a408f51d641e9bb3ec4e59fe8b62a0163" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>AvailableMax</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a1b5d8ba25a0e67b9f9b7c6123ae387c5" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>AvailableMin</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a8f23bb3e3de818686337ab83304a576d" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>AvailableNearTo</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1afa27190e6d89efd3554f6cb95bf4c3e3" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>AvailableRandom</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a7c731b88924003f92e033c77f25b4036" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>CoordGrid</name></member>
+      <member refid="class_room_kit_1_1_coord_grid_1a3699e8b4c72626d50c589b900c796260" prot="public" virt="non-virtual"><scope>RoomKit::CoordGrid</scope><name>Perimeter</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

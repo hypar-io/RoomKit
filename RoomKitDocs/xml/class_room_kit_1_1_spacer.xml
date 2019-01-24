@@ -1,0 +1,202 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="class_room_kit_1_1_spacer" kind="class" language="C#" prot="public">
+    <compoundname>RoomKit::Spacer</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_room_kit_1_1_spacer_1a30469c7adc90f3a86e7d22bedcd942f2" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Space</type>
+        <definition>static Space RoomKit.Spacer.CopyPlace</definition>
+        <argsstring>(Space space, Vector3 moveBy)</argsstring>
+        <name>CopyPlace</name>
+        <param>
+          <type>Space</type>
+          <declname>space</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>moveBy</declname>
+        </param>
+        <briefdescription>
+<para>Returns a copy of the supplied Space displaced by the supplied Vector3. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>space</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Space instance to be copied.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>moveBy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Displacement of each Space from the previous instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A new space. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" line="21" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" bodystart="21" bodyend="36"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_spacer_1a6ea2541c8f7a6724fefa159bc5f0c1bf" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IList&lt; Space &gt;</type>
+        <definition>static IList&lt;Space&gt; RoomKit.Spacer.CopyToArea</definition>
+        <argsstring>(Space space, double area, Vector3 moveBy)</argsstring>
+        <name>CopyToArea</name>
+        <param>
+          <type>Space</type>
+          <declname>space</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>area</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>moveBy</declname>
+        </param>
+        <briefdescription>
+<para>Returns the supplied Space and one or more copies displaced by the supplied vector from the previously created Space as many times as necessary for the aggregate area of created spaces to equal or exceed the supplied area value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>space</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Space instance to be copied.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>area</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The target area to be reached by the aggregate total areas of all created Spaces.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>moveBy</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Displacement of each Space from the previous instance.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>IEnumerable&lt;Space&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" line="47" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" bodystart="47" bodyend="65"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_spacer_1a717f9b1aec71d6d79937462ebadba4a0" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IList&lt; Space &gt;</type>
+        <definition>static IList&lt;Space&gt; RoomKit.Spacer.Stack</definition>
+        <argsstring>(Space space, int copies, double gap=0.0)</argsstring>
+        <name>Stack</name>
+        <param>
+          <type>Space</type>
+          <declname>space</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>copies</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>gap</declname>
+          <defval>0.0</defval>
+        </param>
+        <briefdescription>
+<para>Returns the supplied Space and one or more copies stacked vertically by the Space.Height + gap. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>space</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Space instance to be copied.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>copies</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The quantity of new Spaces to be created.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Additional vertical displacement added to the supplied Space.Height.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>IEnumerable&lt;Space&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" line="76" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" bodystart="76" bodyend="93"/>
+      </memberdef>
+      <memberdef kind="function" id="class_room_kit_1_1_spacer_1af48a942ee2ca3075127ad102965cf675" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>IList&lt; Space &gt;</type>
+        <definition>static IList&lt;Space&gt; RoomKit.Spacer.StackToArea</definition>
+        <argsstring>(Space space, double area, double gap=0.0)</argsstring>
+        <name>StackToArea</name>
+        <param>
+          <type>Space</type>
+          <declname>space</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>area</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>gap</declname>
+          <defval>0.0</defval>
+        </param>
+        <briefdescription>
+<para>Returns the supplied Space and one or more copies stacked vertically from the previously created Space as many times as necessary for the aggregate area of created spaces to equal or exceed the supplied area value. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>space</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Space instance to be copied.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>copies</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The quantity of new Spaces to be created.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gap</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Additional vertical displacement added to the supplied Space.Height.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>IEnumerable&lt;Space&gt; </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" line="104" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" bodystart="104" bodyend="127"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Copies and places Hypar Spaces in various spatial relationships to each other. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" line="12" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Spacer.cs" bodystart="11" bodyend="128"/>
+    <listofallmembers>
+      <member refid="class_room_kit_1_1_spacer_1a30469c7adc90f3a86e7d22bedcd942f2" prot="public" virt="non-virtual"><scope>RoomKit::Spacer</scope><name>CopyPlace</name></member>
+      <member refid="class_room_kit_1_1_spacer_1a6ea2541c8f7a6724fefa159bc5f0c1bf" prot="public" virt="non-virtual"><scope>RoomKit::Spacer</scope><name>CopyToArea</name></member>
+      <member refid="class_room_kit_1_1_spacer_1a717f9b1aec71d6d79937462ebadba4a0" prot="public" virt="non-virtual"><scope>RoomKit::Spacer</scope><name>Stack</name></member>
+      <member refid="class_room_kit_1_1_spacer_1af48a942ee2ca3075127ad102965cf675" prot="public" virt="non-virtual"><scope>RoomKit::Spacer</scope><name>StackToArea</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

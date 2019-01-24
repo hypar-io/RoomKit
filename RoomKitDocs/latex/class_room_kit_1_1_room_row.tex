@@ -1,0 +1,174 @@
+\hypertarget{class_room_kit_1_1_room_row}{}\section{Room\+Kit.\+Room\+Row Class Reference}
+\label{class_room_kit_1_1_room_row}\index{Room\+Kit.\+Room\+Row@{Room\+Kit.\+Room\+Row}}
+
+
+A data structure recording room characteristics.  
+
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_room_kit_1_1_room_row_addd348f8431a2c6281b9be1b40373594}{Room\+Row}} ()
+\begin{DoxyCompactList}\small\item\em Constructor initializes the \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} with default empty values. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{class_room_kit_1_1_room_row_a5f3de939efebb1560150ecf9be9f697c}{Room\+Row}} (Line row, string name=\char`\"{}\char`\"{})
+\begin{DoxyCompactList}\small\item\em Constructor initializes the \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} with a new Line and an optional name. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{class_room_kit_1_1_room_row_a461c7592711caf1d35a96693d77fd4df}{Add\+Room}} (\mbox{\hyperlink{class_room_kit_1_1_room}{Room}} room, Polygon within=null, I\+List$<$ Polygon $>$ among=null, double circ=2.\+0)
+\end{DoxyCompactItemize}
+\subsection*{Properties}
+\begin{DoxyCompactItemize}
+\item 
+Polygon \mbox{\hyperlink{class_room_kit_1_1_room_row_a599df29134a583704e48d2f7b59cb244}{Circulation}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The circulation envelope around the row. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_room_kit_1_1_room_row_a3c5718e6696e88c4c0f91154751f59f8}{Depth}} = 0.\+0\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The depth of the deepest room along the row. \end{DoxyCompactList}\item 
+string \mbox{\hyperlink{class_room_kit_1_1_room_row_a99bed9136ed8a01c5174e734c24a264e}{Name}}\hspace{0.3cm}{\ttfamily  \mbox{[}get, set\mbox{]}}
+\begin{DoxyCompactList}\small\item\em Arbitrary string identifier for this \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} instance. Has no effect on \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} operations. \end{DoxyCompactList}\item 
+I\+List$<$ \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} $>$ \mbox{\hyperlink{class_room_kit_1_1_room_row_aa4f80369bb6d0fbf1ae8d5cc31998383}{Rooms}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The list of Rooms placed along this Row. \end{DoxyCompactList}\item 
+Line \mbox{\hyperlink{class_room_kit_1_1_room_row_a5101187caa26266fe0e1487cc6187cd9}{Row}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The Line along which Rooms can be placed. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_room_kit_1_1_room_row_a641180f7b37e1cb23b47b2a47441f6ea}{Available\+Length}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The unallocated length of the \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_room_kit_1_1_room_row_a2ee541d26536306906eeb29953e496ed}{Area\+Placed}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em The aggregate area of the Rooms placed on this Row. \end{DoxyCompactList}\item 
+I\+List$<$ Polygon $>$ \mbox{\hyperlink{class_room_kit_1_1_room_row_a57619fed2ddba58b0ece1c1d17040d48}{Perimeters\+Rooms}}\hspace{0.3cm}{\ttfamily  \mbox{[}get\mbox{]}}
+\begin{DoxyCompactList}\small\item\em A list of all placed \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} perimeters. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A data structure recording room characteristics. 
+
+
+
+\subsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_addd348f8431a2c6281b9be1b40373594}\label{class_room_kit_1_1_room_row_addd348f8431a2c6281b9be1b40373594}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Room\+Row@{Room\+Row}}
+\index{Room\+Row@{Room\+Row}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Room\+Row()}{RoomRow()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Room\+Kit.\+Room\+Row.\+Room\+Row (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Constructor initializes the \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} with default empty values. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a5f3de939efebb1560150ecf9be9f697c}\label{class_room_kit_1_1_room_row_a5f3de939efebb1560150ecf9be9f697c}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Room\+Row@{Room\+Row}}
+\index{Room\+Row@{Room\+Row}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Room\+Row()}{RoomRow()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Room\+Kit.\+Room\+Row.\+Room\+Row (\begin{DoxyParamCaption}\item[{Line}]{row,  }\item[{string}]{name = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})}
+
+
+
+Constructor initializes the \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} with a new Line and an optional name. 
+
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a461c7592711caf1d35a96693d77fd4df}\label{class_room_kit_1_1_room_row_a461c7592711caf1d35a96693d77fd4df}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Add\+Room@{Add\+Room}}
+\index{Add\+Room@{Add\+Room}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Add\+Room()}{AddRoom()}}
+{\footnotesize\ttfamily bool Room\+Kit.\+Room\+Row.\+Add\+Room (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_room_kit_1_1_room}{Room}}}]{room,  }\item[{Polygon}]{within = {\ttfamily null},  }\item[{I\+List$<$ Polygon $>$}]{among = {\ttfamily null},  }\item[{double}]{circ = {\ttfamily 2.0} }\end{DoxyParamCaption})}
+
+
+
+
+
+Attempts to place a \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the \mbox{\hyperlink{class_room_kit_1_1_room}{Room}}\textquotesingle{}s Polygon must fit and a list of Polygons which it cannot intersect. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em room} & The \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} from which to derive the Polygon to place.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if the room was successfully placed. 
+\end{DoxyReturn}
+
+
+\subsection{Property Documentation}
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a2ee541d26536306906eeb29953e496ed}\label{class_room_kit_1_1_room_row_a2ee541d26536306906eeb29953e496ed}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Area\+Placed@{Area\+Placed}}
+\index{Area\+Placed@{Area\+Placed}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Area\+Placed}{AreaPlaced}}
+{\footnotesize\ttfamily double Room\+Kit.\+Room\+Row.\+Area\+Placed\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The aggregate area of the Rooms placed on this Row. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a641180f7b37e1cb23b47b2a47441f6ea}\label{class_room_kit_1_1_room_row_a641180f7b37e1cb23b47b2a47441f6ea}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Available\+Length@{Available\+Length}}
+\index{Available\+Length@{Available\+Length}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Available\+Length}{AvailableLength}}
+{\footnotesize\ttfamily double Room\+Kit.\+Room\+Row.\+Available\+Length\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The unallocated length of the \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}}. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a599df29134a583704e48d2f7b59cb244}\label{class_room_kit_1_1_room_row_a599df29134a583704e48d2f7b59cb244}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Circulation@{Circulation}}
+\index{Circulation@{Circulation}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Circulation}{Circulation}}
+{\footnotesize\ttfamily Polygon Room\+Kit.\+Room\+Row.\+Circulation\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The circulation envelope around the row. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a3c5718e6696e88c4c0f91154751f59f8}\label{class_room_kit_1_1_room_row_a3c5718e6696e88c4c0f91154751f59f8}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Depth@{Depth}}
+\index{Depth@{Depth}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Depth}{Depth}}
+{\footnotesize\ttfamily double Room\+Kit.\+Room\+Row.\+Depth = 0.\+0\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The depth of the deepest room along the row. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a99bed9136ed8a01c5174e734c24a264e}\label{class_room_kit_1_1_room_row_a99bed9136ed8a01c5174e734c24a264e}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Name@{Name}}
+\index{Name@{Name}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Name}{Name}}
+{\footnotesize\ttfamily string Room\+Kit.\+Room\+Row.\+Name\hspace{0.3cm}{\ttfamily [get]}, {\ttfamily [set]}}
+
+
+
+Arbitrary string identifier for this \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} instance. Has no effect on \mbox{\hyperlink{class_room_kit_1_1_room_row}{Room\+Row}} operations. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a57619fed2ddba58b0ece1c1d17040d48}\label{class_room_kit_1_1_room_row_a57619fed2ddba58b0ece1c1d17040d48}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Perimeters\+Rooms@{Perimeters\+Rooms}}
+\index{Perimeters\+Rooms@{Perimeters\+Rooms}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Perimeters\+Rooms}{PerimetersRooms}}
+{\footnotesize\ttfamily I\+List$<$Polygon$>$ Room\+Kit.\+Room\+Row.\+Perimeters\+Rooms\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+A list of all placed \mbox{\hyperlink{class_room_kit_1_1_room}{Room}} perimeters. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_aa4f80369bb6d0fbf1ae8d5cc31998383}\label{class_room_kit_1_1_room_row_aa4f80369bb6d0fbf1ae8d5cc31998383}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Rooms@{Rooms}}
+\index{Rooms@{Rooms}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Rooms}{Rooms}}
+{\footnotesize\ttfamily I\+List$<$\mbox{\hyperlink{class_room_kit_1_1_room}{Room}}$>$ Room\+Kit.\+Room\+Row.\+Rooms\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The list of Rooms placed along this Row. 
+
+\mbox{\Hypertarget{class_room_kit_1_1_room_row_a5101187caa26266fe0e1487cc6187cd9}\label{class_room_kit_1_1_room_row_a5101187caa26266fe0e1487cc6187cd9}} 
+\index{Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}!Row@{Row}}
+\index{Row@{Row}!Room\+Kit\+::\+Room\+Row@{Room\+Kit\+::\+Room\+Row}}
+\subsubsection{\texorpdfstring{Row}{Row}}
+{\footnotesize\ttfamily Line Room\+Kit.\+Room\+Row.\+Row\hspace{0.3cm}{\ttfamily [get]}}
+
+
+
+The Line along which Rooms can be placed. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+C\+:/\+Users/\+Anthony/\+Oasis/\+Business/\+Hypar/\+Git\+Hub/\+Room\+Kit/\+Room\+Kit/Room\+Row.\+cs\end{DoxyCompactItemize}

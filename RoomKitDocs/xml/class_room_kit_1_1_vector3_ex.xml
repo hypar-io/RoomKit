@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.8.14">
+  <compounddef id="class_room_kit_1_1_vector3_ex" kind="class" language="C#" prot="public">
+    <compoundname>RoomKit::Vector3Ex</compoundname>
+      <sectiondef kind="public-static-func">
+      <memberdef kind="function" id="class_room_kit_1_1_vector3_ex_1a1064deecf384a987cc94b09f7f6f5761" prot="public" static="yes" const="no" explicit="no" inline="yes" virt="non-virtual">
+        <type>Vector3</type>
+        <definition>static Vector3 RoomKit.Vector3Ex.Rotate</definition>
+        <argsstring>(this Vector3 point, Vector3 pivot, double angle)</argsstring>
+        <name>Rotate</name>
+        <param>
+          <type>this Vector3</type>
+          <declname>point</declname>
+        </param>
+        <param>
+          <type>Vector3</type>
+          <declname>pivot</declname>
+        </param>
+        <param>
+          <type>double</type>
+          <declname>angle</declname>
+        </param>
+        <briefdescription>
+<para>Returns a new Vector3 rotated around a supplied Vector3 by the specified angle in degrees. </para>        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>point</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Vector3 instance to be rotated.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>pivot</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The Vector3 base point of the rotation.</para></parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>angle</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The desired rotation angle in degrees.</para></parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>A new vector3. </para></simplesect>
+</para>        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Vector3Ex.cs" line="23" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Vector3Ex.cs" bodystart="23" bodyend="29"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Extends Hypar.Elements.Vector3 with utility methods. </para>    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Vector3Ex.cs" line="13" column="1" bodyfile="C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/Vector3Ex.cs" bodystart="12" bodyend="30"/>
+    <listofallmembers>
+      <member refid="class_room_kit_1_1_vector3_ex_1a1064deecf384a987cc94b09f7f6f5761" prot="public" virt="non-virtual"><scope>RoomKit::Vector3Ex</scope><name>Rotate</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
