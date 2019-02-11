@@ -4,9 +4,6 @@ using Hypar.Geometry;
 
 namespace RoomKit
 {
-    /// <summary>
-    /// Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
-    /// </summary>
     public class TopoBox
     {
         /// <summary>
@@ -74,7 +71,7 @@ namespace RoomKit
         /// </summary>
         /// <param name="orient">The Orient value to index point.</param>
         /// <returns>
-        /// A Vector3 point.
+        /// A 2D Vector3 point.
         /// </returns>
         public Vector3 PointBy(Orient orient)
         {
@@ -97,38 +94,6 @@ namespace RoomKit
                 case Orient.ENE: return ENE;
                 case Orient.NE: return NE;
                 case Orient.NNE: return NNE;
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Returns the reciprocal bounding box location by orientation.
-        /// </summary>
-        /// <param name="orient">The Orient value to find the reciprocal point.</param>
-        /// <returns>
-        /// A Vector3 point.
-        /// </returns>
-        public Vector3 PointOpposite(Orient orient)
-        {
-            switch (orient)
-            {
-                case Orient.C: return C;
-                case Orient.N: return S;
-                case Orient.NNW: return SSE;
-                case Orient.NW: return SE;
-                case Orient.WNW: return ESE;
-                case Orient.W: return E;
-                case Orient.WSW: return ENE;
-                case Orient.SW: return NE;
-                case Orient.SSW: return NNE;
-                case Orient.S: return N;
-                case Orient.SSE: return NNW;
-                case Orient.SE: return NW;
-                case Orient.ESE: return WNW;
-                case Orient.E: return W;
-                case Orient.ENE: return WSW;
-                case Orient.NE: return SW;
-                case Orient.NNE: return SSW;
             }
             return null;
         }

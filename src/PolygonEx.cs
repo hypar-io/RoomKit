@@ -257,6 +257,8 @@ namespace RoomKit
                 return false;
             }
             return Math.Abs(solution.First().ToPolygon().Area - cover.ToClipperPath().ToPolygon().Area) <= 0.0001;
+            //return Math.Abs(solution.First().ToPolygon().Area - polygon.ToClipperPath().ToPolygon().Area) <= 0.0001;
+            //return solution.First().ToPolygon().Area == polygon.ToClipperPath().ToPolygon().Area;
         }
 
         /// <summary>

@@ -3,14 +3,14 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon>roomrowcirc_buF_icon.ico</ApplicationIcon>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Anthony A. Hauck</Authors>
     <Company>Hypar</Company>
     <Product></Product>
-    <Copyright>Hypar LLC</Copyright>
+    <Copyright>Hypar Inc.</Copyright>
     <Description>RoomKit provides an infrastructure for creating and placing architectural rooms.</Description>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <AssemblyVersion>0.0.1.0</AssemblyVersion>
+    <AssemblyVersion>0.0.2.0</AssemblyVersion>
     <FileVersion>0.0.1.0</FileVersion>
     <PackageReleaseNotes>This is a raw version of a toolkit used for the Hypar office layout functons.</PackageReleaseNotes>
     <PackageTags>AEC Hypar</PackageTags>

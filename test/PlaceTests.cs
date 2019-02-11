@@ -4,9 +4,8 @@ using System.Linq;
 using Xunit;
 using Hypar.Elements;
 using Hypar.Geometry;
-using RoomKit;
 
-namespace RoomKitTest
+namespace HyparSpaces.Tests
 {
     public class PlaceTests
     {
@@ -72,7 +71,7 @@ namespace RoomKitTest
                                       (float)Shaper.RandomDouble(0, 1), 0.7f);
                 model.AddElement(new Space(polygon, height: 4.0, material: new Material(Guid.NewGuid().ToString(), color)));
             }
-            model.SaveGlb("../../../../adjacent.glb");
+            model.SaveGlb("adjacent.glb");
         }
 
         [Fact]

@@ -12,42 +12,104 @@ namespace RoomKitTest
     public class RoomGroupTests
     {
         [Fact]
+        public void RoomGroup()
+        {
+            var polygon = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(0.0, 0.0),
+                    new Vector3(60.0, 0.0),
+                    new Vector3(60.0, 20.0),
+                    new Vector3(0.0, 20.0)
+                }
+            );
+
+            var roomGroup = new RoomGroup(polygon, "", 4, 2);
+            var model = new Model();
+            foreach (Room room in roomGroup.Rooms)
+            {
+                model.AddElement(room.AsSpace);
+            }
+            model.SaveGlb("../../../../RoomGroup.glb");
+        }
+
+        [Fact]
         public void RoomRow()
         {
             var rooms = new List<Room>();
-            //{
-            //    new Room("Reception", 0, 27.0, Palette.Sand),
-            //    new Room("Conf Large", 2, 4.5, 9.5, Palette.Purple),
-            //    new Room("Kitchen", 3, 14.0, Palette.Yellow),
-            //    new Room("Kitchen", 3, 14.0, Palette.Yellow),
-            //    new Room("Break", 4, 56.0, Palette.Aqua),
-            //    new Room("IT", 5, 14.0, Palette.White),
-            //    new Room("Shipping", 6, 19.0, Palette.Orange),
-            //    new Room("Servers", 7, 38.0, Palette.Beige),
-            //};
             for (int i = 0; i < 1; i++)
             {
-                rooms.Add(new Room("Office Large", 7, 4.25, 3.65, Palette.Green));
+                var room = new Room()
+                {
+                    Name = "Office Large",
+                    ResourceID = 7,
+                    DesignX = 4.25,
+                    DesignY = 3.65,
+                    Color = Palette.Green
+                };
+                rooms.Add(room);
             }
             for (int i = 0; i < 1; i++)
             {
-                rooms.Add(new Room("Office Medium", 8, 4.25, 3.35, Palette.Lime));
+                var room = new Room()
+                {
+                    Name = "Office Medium",
+                    ResourceID = 8,
+                    DesignX = 4.25,
+                    DesignY = 3.35,
+                    Color = Palette.Lime
+                };
+                rooms.Add(room);
             }
             for (int i = 0; i < 1; i++)
             {
-                rooms.Add(new Room("Office Small", 9, 3.65, 2.75, Palette.Mint));
+                var room = new Room()
+                {
+                    Name = "Office Small",
+                    ResourceID = 9,
+                    DesignX = 3.65,
+                    DesignY = 2.75,
+                    Color = Palette.Mint
+                };
+                rooms.Add(room);
             }
             for (int i = 0; i < 1; i++)
             {
-                rooms.Add(new Room("Conference Large", 10, 9.5, 4.5, Palette.Purple));
+                var room = new Room()
+                {
+                    Name = "Conference Large",
+                    ResourceID = 10,
+                    DesignX = 9.5,
+                    DesignY = 4.5,
+                    Color = Palette.Purple
+                };
+                rooms.Add(room);
+
             }
             for (int i = 0; i < 1; i++)
             {
-                rooms.Add(new Room("Conference Medium", 11, 6.0, 4.25, Palette.Magenta));
+                var room = new Room()
+                {
+                    Name = "Conference Medium",
+                    ResourceID = 11,
+                    DesignX = 6.0,
+                    DesignY = 4.25,
+                    Color = Palette.Magenta
+                };
+                rooms.Add(room);
             }
             for (int i = 0; i < 1; i++)
             {
-                rooms.Add(new Room("Conference Small", 12, 5, 4.5, Palette.Lavender));
+                var room = new Room()
+                {
+                    Name = "Conference Small",
+                    ResourceID = 12,
+                    DesignX = 5.0,
+                    DesignY = 4.5,
+                    Color = Palette.Lavender
+                };
+                rooms.Add(room);
             }
             var line = new Line(new Vector3(30.0, 30.0), new Vector3(60.0, 40.0));
             var roomRow = new RoomRow(line);
@@ -61,7 +123,7 @@ namespace RoomKitTest
                 model.AddElement(room.AsSpace);
             }
             model.AddElement(new Space(roomRow.Circulation, 0.0, 0.01, BuiltInMaterials.Concrete));
-            model.SaveGlb("../../../../RoomGroup.glb");
+            model.SaveGlb("../../../../RoomRow.glb");
         }
     }
 }

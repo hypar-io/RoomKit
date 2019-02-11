@@ -3,9 +3,8 @@ using System.Diagnostics;
 using Xunit;
 using Hypar.Elements;
 using Hypar.Geometry;
-using RoomKit;
 
-namespace RoomKitTest
+namespace HyparSpaces.Tests
 {
     public class ShaperTests
     {
@@ -66,7 +65,7 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.SaveGlb("../../../../expandToArea.glb");
+            model.SaveGlb("expandToArea.glb");
         }
 
         [Fact]

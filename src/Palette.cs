@@ -8,6 +8,21 @@ namespace RoomKit
     public static class Palette
     {
         /// <summary>
+        /// Red
+        /// </summary>
+        public static Color Red => new Color(1.0f, 0.0f, 0.0f, 0.6f);
+
+        /// <summary>
+        /// Blue
+        /// </summary>
+        public static Color Blue => new Color(0.0f, 0.0f, 1.0f, 0.6f);
+
+        /// <summary>
+        /// Green
+        /// </summary>
+        public static Color Green => new Color(0.0f, 1.0f, 0.0f, 0.6f);
+
+        /// <summary>
         /// Aqua
         /// </summary>
         public static Color Aqua => new Color(0.3f, 0.7f, 0.7f, 0.6f);
@@ -21,11 +36,6 @@ namespace RoomKit
         /// Black
         /// </summary>
         public static Color Black => new Color(0.0f, 0.0f, 0.0f, 0.6f);
-
-        /// <summary>
-        /// Blue
-        /// </summary>
-        public static Color Blue => new Color(0.0f, 0.0f, 1.0f, 0.6f);
 
         /// <summary>
         /// Brown
@@ -71,11 +81,6 @@ namespace RoomKit
         /// Gray
         /// </summary>
         public static Color Gray => new Color(0.5f, 0.5f, 0.5f, 0.6f);
-
-        /// <summary>
-        /// Green
-        /// </summary>
-        public static Color Green => new Color(0.0f, 1.0f, 0.0f, 0.6f);
 
         /// <summary>
         /// Lavender
@@ -126,11 +131,6 @@ namespace RoomKit
         /// Purple
         /// </summary>
         public static Color Purple => new Color(0.7f, 0.1f, 1.0f, 0.6f);
-
-        /// <summary>
-        /// Red
-        /// </summary>
-        public static Color Red => new Color(1.0f, 0.0f, 0.0f, 0.6f);
 
         /// <summary>
         /// Sand
