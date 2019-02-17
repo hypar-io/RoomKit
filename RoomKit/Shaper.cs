@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using ClipperLib;
 using System.Linq;
-using Hypar.Geometry;
-using Hypar.Elements;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -55,7 +54,7 @@ namespace RoomKit
                 var factor = Math.Sqrt(area / polygon.Area);
                 var t = new Transform();
                 t.Scale(new Vector3(factor, factor));
-                tryPoly = polygon.Transform(t);
+                tryPoly = t.OfPolygon(polygon);
                 var centroid = tryPoly.Centroid;
                 tryPoly = tryPoly.MoveFromTo(centroid, position);
                 if (within != null && tryPoly.Intersects(within))
@@ -145,7 +144,7 @@ namespace RoomKit
             return
                 new Polygon
                 (
-                    new List<Vector3>
+                    new []
                     {
                         new Vector3(0.0, 0.0),
                         new Vector3(sizeX, 0.0),
@@ -189,7 +188,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         //public static Polygon PolygonCircle(Vector3 center, double radius)
@@ -258,7 +257,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>
@@ -297,7 +296,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>
@@ -340,7 +339,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>
@@ -373,7 +372,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>
@@ -410,7 +409,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>
@@ -445,7 +444,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>
@@ -487,7 +486,7 @@ namespace RoomKit
                 );
             Transform movTrans = new Transform();
             movTrans.Move(origin);
-            return polygon.Transform(movTrans);
+            return movTrans.OfPolygon(polygon);
         }
 
         /// <summary>

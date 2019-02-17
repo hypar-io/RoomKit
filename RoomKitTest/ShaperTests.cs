@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 using Xunit;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Geometry;
 using RoomKit;
 
 namespace RoomKitTest
@@ -56,10 +56,10 @@ namespace RoomKitTest
             Debug.WriteLine(polygon.Area);
             var spaces = new List<Space>
             {
-                new Space(polygon, 0, 2, new Material("blue", Palette.Blue)),
-                new Space(within, 0, 0.1, new Material("aqua", Palette.Aqua)),
-                new Space(among[0], 0, 2, new Material("yellow", Palette.Yellow)),
-                new Space(among[1], 0, 2, new Material("green", Palette.Green))
+                new Space(polygon, 3.0, 2, new Material("blue", Palette.Blue)),
+                new Space(within, 3.0, 0.1, new Material("aqua", Palette.Aqua)),
+                new Space(among[0], 3.0, 2, new Material("yellow", Palette.Yellow)),
+                new Space(among[1], 3.0, 2, new Material("green", Palette.Green))
             };
             var model = new Model();
             foreach (Space space in spaces)

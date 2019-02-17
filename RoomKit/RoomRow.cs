@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -147,7 +147,6 @@ namespace RoomKit
             var delta = 0.0;
             var newDepth = 0.0;
             var circDepth = 0.0;
-            var t = new Transform();
             var rotation = angle;
             if (box.SizeX <= AvailableLength)
             {
@@ -167,35 +166,38 @@ namespace RoomKit
             {
                 return false;
             }
+            var t = new Transform();
             t.Rotate(Vector3.ZAxis, rotation);
             var chkCirc =
                 new Polygon(
-                    new List<Vector3>
+                    new []
                     {
                         new Vector3(),
                         new Vector3(delta, 0.0),
                         new Vector3(delta, circDepth),
                         new Vector3(0.0, circDepth)
                     });
-            chkCirc = chkCirc.Transform(t).MoveFromTo(new Vector3(), mark);
+            chkCirc = t.OfPolygon(chkCirc).MoveFromTo(new Vector3(), mark);
+
+
             if (!chkCirc.Fits(within, among))
             {
                 if (Rooms.Count == 0)
                 {
-                    mark = Row.PointAt(Math.Abs(mark.DistanceTo(Row.Start) + delta) / Row.Length);
+                    mark = Row.PointAt(Math.Abs(mark.DistanceTo(Row.Start) + delta) / Row.Length());
                 }
                 return false;
             }
-            polygon = polygon.Transform(t).MoveFromTo(new Vector3(), mark);
+            polygon = t.OfPolygon(polygon).MoveFromTo(new Vector3(), mark);
             if (!polygon.Fits(within, among))
             {
                 if (Rooms.Count == 0)
                 {
-                    mark = Row.PointAt(Math.Abs(mark.DistanceTo(Row.Start) + delta) / Row.Length);
+                    mark = Row.PointAt(Math.Abs(mark.DistanceTo(Row.Start) + delta) / Row.Length());
                 }
                 return false;
             }
-            mark = Row.PointAt(Math.Abs(mark.DistanceTo(Row.Start) + delta) / Row.Length);
+            mark = Row.PointAt(Math.Abs(mark.DistanceTo(Row.Start) + delta) / Row.Length());
             if (newDepth > Depth)
             {
                 Depth = newDepth;
@@ -205,7 +207,7 @@ namespace RoomKit
             line1 = line1.Rotate(box.SW, rotation).MoveFromTo(new Vector3(), Row.Start);
             var line2 = new Line(box.SW, new Vector3(0.0, dpt));
             line2 = line2.Rotate(box.SW, rotation).MoveFromTo(new Vector3(), mark);
-            circulation = new Polygon(new List<Vector3> { Row.Start, mark, line2.End, line1.End });
+            circulation = new Polygon(new [] { Row.Start, mark, line2.End, line1.End });
             room.Perimeter = polygon;
             Rooms.Add(room);
             return true;

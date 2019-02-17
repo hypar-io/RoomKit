@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Xunit;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Geometry;
 using RoomKit;
 
 namespace RoomKitTest
@@ -122,7 +122,7 @@ namespace RoomKitTest
             {
                 model.AddElement(room.AsSpace);
             }
-            model.AddElement(new Space(roomRow.Circulation, 0.0, 0.01, BuiltInMaterials.Concrete));
+            model.AddElement(new Space(roomRow.Circulation, 0.1, 0.01, BuiltInMaterials.Concrete));
             model.SaveGlb("../../../../RoomRow.glb");
         }
     }

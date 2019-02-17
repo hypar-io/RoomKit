@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Interfaces;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -202,9 +203,9 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var space = new Space(Perimeter, Elevation, Height, new Material(Guid.NewGuid().ToString(), Color));
-                space.AddParameter("Name", new Parameter(this.Name, ParameterType.Text));
-                space.AddParameter("Area", new Parameter(this.Perimeter.Area, ParameterType.Area));
+                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
+                space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
+                space.AddProperty("Area", new NumericProperty(Perimeter.Area, UnitType.Area));
                 return space;
             }
         }

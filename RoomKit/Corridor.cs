@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -195,8 +195,8 @@ namespace RoomKit
                     return null;
                 }
                 var space = new Space(Perimeter, Elevation, Height, new Material(Guid.NewGuid().ToString(), Color));
-                space.AddParameter("Name", new Parameter(this.Name, ParameterType.Text));
-                space.AddParameter("Area", new Parameter(this.Perimeter.Area, ParameterType.Area));
+                space.AddProperty("Name", new StringProperty(this.Name, UnitType.Text));
+                space.AddProperty("Area", new NumericProperty(this.Perimeter.Area, UnitType.Area));
                 return space;
             }
         }

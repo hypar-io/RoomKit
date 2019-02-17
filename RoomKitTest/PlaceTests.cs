@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Geometry;
 using RoomKit;
 
 namespace RoomKitTest

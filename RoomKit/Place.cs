@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hypar.Geometry;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -71,7 +71,7 @@ namespace RoomKit
             {
                 var t = new Transform();
                 t.Rotate(Vector3.ZAxis, 90);
-                polygon = polygon.Transform(t);
+                polygon = t.OfPolygon(polygon);
                 tryPolygon = polygon.MoveFromTo(polygon.Box().PointBy(oPolygon), adjTo.Box().PointBy(oAdjTo));
                 if (tryPolygon.Fits(within, among))
                 {

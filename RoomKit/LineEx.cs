@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using Hypar.Geometry;
-using ClipperLib;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -11,6 +9,23 @@ namespace RoomKit
     /// </summary>
     public static class LineEx
     {
+        public static IList<Vector3> Divide(this Line line, int segments)
+        {
+            var pointList = new List<Vector3>()
+            {
+                line.Start
+            };
+            var percent = 1.0 / segments;
+            var factor = 1;
+            var at = percent * factor;
+            for (int i = 0; i < segments; i++)
+            {
+                pointList.Add(line.PointAt(at));
+                at = percent * ++factor;
+            }
+            return pointList;
+        }
+
         /// <summary>
         /// Returns a new line rotated by the specified angle in degrees.
         /// </summary>

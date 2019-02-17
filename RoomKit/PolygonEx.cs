@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hypar.Geometry;
+using Elements.Geometry;
 using ClipperLib;
 
 namespace RoomKit
@@ -50,7 +50,7 @@ namespace RoomKit
             return
                 new Polygon
                 (
-                    new List<Vector3>
+                    new []
                     {
                         origin,
                         new Vector3(origin.X + sizeX, origin.Y),
@@ -204,6 +204,7 @@ namespace RoomKit
                 return false;
             }
             var thisPath = ToClipperPath(polygon);
+   
             var intPoint = new IntPoint(point.X * scale, point.Y * scale);
             if (Clipper.PointInPolygon(intPoint, thisPath) != 1)
             {
@@ -425,7 +426,7 @@ namespace RoomKit
         {
             var t = new Transform();
             t.Move(new Vector3(to.X - from.X, to.Y - from.Y));
-            return polygon.Transform(t);
+            return t.OfPolygon(polygon);
         }
 
         private const double scale = 1024.0;

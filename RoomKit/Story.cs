@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Hypar.Elements;
-using Hypar.Geometry;
+using Elements;
+using Elements.Geometry;
 
 namespace RoomKit
 {
@@ -176,9 +176,9 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var space = new Space(Perimeter, Elevation, Height, new Material(Guid.NewGuid().ToString(), Color));
-                space.AddParameter("Name", new Parameter(this.Name, ParameterType.Text));
-                space.AddParameter("Area", new Parameter(this.Perimeter.Area, ParameterType.Area));
+                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
+                space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
+                space.AddProperty("Area", new NumericProperty(Perimeter.Area, UnitType.Area));
                 return space;
             }
         }
@@ -390,6 +390,48 @@ namespace RoomKit
             corridor.MakePerimeter(start, end, width);
             Corridors.Add(corridor);
             FitCorridorsToServices();
+            FitRoomsToCorridors();
+        }
+
+        public void AddCorridor(Polygon perimeter,
+                                double height = 3.0,
+                                Color color = null)
+        {
+            if (Perimeter == null)
+            {
+                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+            }
+            var corridor = new Room()
+            {
+                Color = color,
+                Elevation = elevation,
+                Height = height
+            };
+            corridor.Perimeter = perimeter;
+            Corridors.Add(corridor);
+            FitCorridorsToServices();
+            FitRoomsToCorridors();
+        }
+
+        public void AddRoom(Polygon perimeter,
+                            double height = 3.0,
+                            string name = "",
+                            Color color = null)
+        {
+            if (Perimeter == null)
+            {
+                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+            }
+            Rooms.Add(
+                new Room()
+                {
+                    Color = color,
+                    Elevation = Elevation,
+                    Height = height,
+                    Name = name,
+                    Perimeter = perimeter,
+                });
+            FitRoomsToServices();
             FitRoomsToCorridors();
         }
 
