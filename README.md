@@ -13,7 +13,7 @@ A library for managing architectural rooms and building area allocations.
 
 **RoomKit.CoordGrid**
 
-Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
+* Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
 
 **RoomKit.Room**
 
