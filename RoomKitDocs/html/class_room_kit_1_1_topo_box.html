@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -28,12 +20,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="RoomRowCirc.PNG"/></td>
+  <td id="projectlogo"><img alt="Logo" src="OfficeAskew.PNG"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">RoomKit
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
-   <div id="projectbrief">Library to handle AEC Rooms</div>
+   <div id="projectbrief">A library for creating and managing architectural rooms.</div>
   </td>
  </tr>
  </tbody>
@@ -56,23 +48,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_room_kit_1_1_topo_box.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -87,6 +62,11 @@ $(document).ready(function(){initNavTree('class_room_kit_1_1_topo_box.html','');
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_room_kit.html">RoomKit</a></li><li class="navelem"><a class="el" href="class_room_kit_1_1_topo_box.html">TopoBox</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -97,17 +77,20 @@ $(document).ready(function(){initNavTree('class_room_kit_1_1_topo_box.html','');
 </div><!--header-->
 <div class="contents">
 
-<p>Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.  
+<p>Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. Other compass points define points along the relevant side between the cardinal and corner points. C corresponds to the center of the box.  
  <a href="class_room_kit_1_1_topo_box.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aaf2418c0258d9c87c1d1ad66a6426169"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_topo_box.html#aaf2418c0258d9c87c1d1ad66a6426169">TopoBox</a> (Polygon polygon)</td></tr>
-<tr class="memdesc:aaf2418c0258d9c87c1d1ad66a6426169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor creates a new mathematical bounding box and populates all orientation points.  <a href="#aaf2418c0258d9c87c1d1ad66a6426169">More...</a><br /></td></tr>
+<tr class="memdesc:aaf2418c0258d9c87c1d1ad66a6426169"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points.  <a href="#aaf2418c0258d9c87c1d1ad66a6426169">More...</a><br /></td></tr>
 <tr class="separator:aaf2418c0258d9c87c1d1ad66a6426169"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a48b838c48267cf92b3511c51c12339ce"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_topo_box.html#a48b838c48267cf92b3511c51c12339ce">PointBy</a> (<a class="el" href="namespace_room_kit.html#a46927f752f7751de2c23e9e644fb508d">Orient</a> orient)</td></tr>
 <tr class="memdesc:a48b838c48267cf92b3511c51c12339ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the requested bounding box location by orientation.  <a href="#a48b838c48267cf92b3511c51c12339ce">More...</a><br /></td></tr>
 <tr class="separator:a48b838c48267cf92b3511c51c12339ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae889733c30aebd8fda77b70b611adca1"><td class="memItemLeft" align="right" valign="top">Vector3&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_topo_box.html#ae889733c30aebd8fda77b70b611adca1">PointOpposite</a> (<a class="el" href="namespace_room_kit.html#a46927f752f7751de2c23e9e644fb508d">Orient</a> orient)</td></tr>
+<tr class="memdesc:ae889733c30aebd8fda77b70b611adca1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the reciprocal bounding box location by orientation.  <a href="#ae889733c30aebd8fda77b70b611adca1">More...</a><br /></td></tr>
+<tr class="separator:ae889733c30aebd8fda77b70b611adca1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
@@ -162,15 +145,15 @@ Vector3&#160;</td><td class="memItemRight" valign="bottom"><b>NE</b><code> [get]
 <tr class="memitem:a10e29511f5cd07ce3a42027aa72bbda9"><td class="memItemLeft" align="right" valign="top"><a id="a10e29511f5cd07ce3a42027aa72bbda9"></a>
 Vector3&#160;</td><td class="memItemRight" valign="bottom"><b>NNE</b><code> [get]</code></td></tr>
 <tr class="separator:a10e29511f5cd07ce3a42027aa72bbda9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acf94cfba331d5e7851c6cfcc44051a21"><td class="memItemLeft" align="right" valign="top"><a id="acf94cfba331d5e7851c6cfcc44051a21"></a>
-double&#160;</td><td class="memItemRight" valign="bottom"><b>SizeX</b><code> [get]</code></td></tr>
+<tr class="memitem:acf94cfba331d5e7851c6cfcc44051a21"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_topo_box.html#acf94cfba331d5e7851c6cfcc44051a21">SizeX</a><code> [get]</code></td></tr>
+<tr class="memdesc:acf94cfba331d5e7851c6cfcc44051a21"><td class="mdescLeft">&#160;</td><td class="mdescRight">X and Y dimensions of the <a class="el" href="class_room_kit_1_1_topo_box.html" title="Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four ...">TopoBox</a> perimeter.  <a href="#acf94cfba331d5e7851c6cfcc44051a21">More...</a><br /></td></tr>
 <tr class="separator:acf94cfba331d5e7851c6cfcc44051a21"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a613dbd1e123b1c65751d58fa2ab162d4"><td class="memItemLeft" align="right" valign="top"><a id="a613dbd1e123b1c65751d58fa2ab162d4"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>SizeY</b><code> [get]</code></td></tr>
 <tr class="separator:a613dbd1e123b1c65751d58fa2ab162d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side. </p>
+<div class="textblock"><p>Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. Other compass points define points along the relevant side between the cardinal and corner points. C corresponds to the center of the box. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaf2418c0258d9c87c1d1ad66a6426169"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaf2418c0258d9c87c1d1ad66a6426169">&#9670;&nbsp;</a></span>TopoBox()</h2>
@@ -188,7 +171,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>SizeY</b><code> [ge
       </table>
 </div><div class="memdoc">
 
-<p>Constructor creates a new mathematical bounding box and populates all orientation points. </p>
+<p>Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points. </p>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_room_kit_1_1_topo_box.html" title="Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four ...">TopoBox</a>. </dd></dl>
 
 </div>
 </div>
@@ -216,7 +200,34 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>SizeY</b><code> [ge
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A 2D Vector3 point. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A Vector3 point. </dd></dl>
+
+</div>
+</div>
+<a id="ae889733c30aebd8fda77b70b611adca1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae889733c30aebd8fda77b70b611adca1">&#9670;&nbsp;</a></span>PointOpposite()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">Vector3 RoomKit.TopoBox.PointOpposite </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="namespace_room_kit.html#a46927f752f7751de2c23e9e644fb508d">Orient</a>&#160;</td>
+          <td class="paramname"><em>orient</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Returns the reciprocal bounding box location by orientation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">orient</td><td>The Orient value to find the reciprocal point.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A Vector3 point. </dd></dl>
 
 </div>
 </div>
@@ -245,19 +256,39 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>SizeY</b><code> [ge
 
 </div>
 </div>
+<a id="acf94cfba331d5e7851c6cfcc44051a21"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acf94cfba331d5e7851c6cfcc44051a21">&#9670;&nbsp;</a></span>SizeX</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double RoomKit.TopoBox.SizeX</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>X and Y dimensions of the <a class="el" href="class_room_kit_1_1_topo_box.html" title="Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four ...">TopoBox</a> perimeter. </p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/TopoBox.cs</li>
+<li>RoomKit/TopoBox.cs</li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespace_room_kit.html">RoomKit</a></li><li class="navelem"><a class="el" href="class_room_kit_1_1_topo_box.html">TopoBox</a></li>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.14
+</small></address>
 </body>
 </html>

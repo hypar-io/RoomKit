@@ -5,10 +5,17 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// Extends Hypar.Elements.Line with several utility methods.
+    /// Extends Elements.Geometry.Line with utility methods.
     /// </summary>
     public static class LineEx
     {
+        /// <summary>
+        /// Creates a collection of Vector3 points representing the division of the linear geometry into the supplied number of segments.
+        /// </summary>
+        /// <param name="segments">The quantity of desired segments.</param>
+        /// <returns>
+        /// A List of Vector3 points.
+        /// </returns>
         public static IList<Vector3> Divide(this Line line, int segments)
         {
             var pointList = new List<Vector3>()
@@ -27,7 +34,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a new line rotated by the specified angle in degrees.
+        /// Creates a new line from the supplied line rotated around the supplied pivot point by the specified angle in degrees.
         /// </summary>
         /// <param name="line">The Line instance to be copied.</param>
         /// <param name="pivot">The Vector3 base point of the rotation.</param>
@@ -46,7 +53,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a new line displaced along a vector calculated between the supplied Vector3 points.
+        /// Returns a new line displaced from the supplied line along a vector calculated between the supplied Vector3 points.
         /// </summary>
         /// <param name="line">The Line instance to be copied.</param>
         /// <param name="from">The Vector3 base point of the move.</param>

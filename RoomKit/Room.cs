@@ -13,7 +13,7 @@ namespace RoomKit
     public class Room
     {
         /// <summary>
-        /// Constructor setting all internal variables to default values.
+        /// Constructor setting all internal variables to default values, a 1.0 x 1.0 x 1.0 white cube placed on the zero plane with a blank name, no perimeter, and a numeric ID of -1.
         /// </summary>
         public Room()
         {
@@ -26,7 +26,7 @@ namespace RoomKit
             Height = 1.0;
             Name = "";
             Perimeter = null;
-            ResourceID = 0;
+            ResourceID = -1;
             UniqueID = Guid.NewGuid().ToString();
         }
 
@@ -187,7 +187,7 @@ namespace RoomKit
                 }
                 else
                 {
-                    return -1;
+                    return -1.0;
                 }
             }
         }
@@ -211,8 +211,22 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Places a Polygon east of another Polygon, attempting to align bounding box corners or the horizontal bounding box axis.
+        /// </summary>
+        /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
+        /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
+        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
+        /// <returns>
+        ///  A new Polygon or null if the conditions of placement cannot be satisfied.
+        /// </returns>
+
+
+
+        /// <summary>
         /// Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the supplied Vector3 point. If no point is supplied, the southwest corner is placed at the origin.
         /// </summary>
+        /// <param name="moveTo">The Vector3 indication the location of new Polygon's southwest corner.</param> 
         /// <returns>
         /// A new rectilinear Polygon derived either from fixed DesignX and DesignY dimensions or as a rectilinear target area of a random ratio between 1 and 2 of the Room's X to Y dimensions.
         /// </returns>
@@ -234,8 +248,10 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Creates and sets a rectangular Room Perimeter with dimensions derived from a supplied Line and a width. Intended for creating corridors.
+        /// Creates and sets a rectangular Room perimeter with dimensions derived from a supplied Line and a width. Intended for creating corridors.
         /// </summary>
+        /// <param name="axis">The Line defining the centerline of the perimeter.</param> 
+        /// <param name="width">The width of the perimeter along the axis Line.</param> 
         /// <returns>
         /// A new rectilinear Polygon derived from the axis and the width.
         /// </returns>
@@ -250,8 +266,11 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Creates and sets a rectangular Room Perimeter with dimensions derived from two points and a width. Intended for creating corridors.
+        /// Creates and sets a rectangular Room perimeter with dimensions derived from two points and a width. Intended for creating corridors.
         /// </summary>
+        /// <param name="start">The start point of an axis defining centerline of the perimeter.</param> 
+        /// <param name="end">The end point of an axis defining centerline of the perimeter.</param> 
+        /// <param name="width">The width of the perimeter along the axis Line.</param> 
         /// <returns>
         /// A new rectilinear Polygon derived from the axis and the width.
         /// </returns>

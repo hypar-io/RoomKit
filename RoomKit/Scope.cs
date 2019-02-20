@@ -6,14 +6,36 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// A data structure recording space program characteristics and status of a Room placing process.
+    /// A data structure recording space program characteristics and the status of a Room placing process.
     /// </summary>
     public class Scope
     {
+        /// <summary>
+        /// A list of Rooms designated as circulation.
+        /// </summary>
         public List<Room> Circulation { get; }
+
+        /// <summary>
+        /// A list of Rooms designated for occupation, rather than circulation.
+        /// </summary>
         public List<Room> Occupant { get; }
+
+        /// <summary>
+        /// A list of Rooms designated for building services.
+        /// </summary>
         public List<Room> Service { get; }
+
+        /// <summary>
+        /// A list of Rooms intended as a series of tenant space containers of other Rooms.
+        /// </summary>
         public List<Room> Tenant { get; }
+
+        /// <summary>
+        /// Contructor creates empty Room lists for Circulation, Occupation, Service, and Tenant.
+        /// </summary>
+        /// <returns>
+        /// A new Scope.
+        /// </returns>
 
         public Scope()
         {
@@ -31,6 +53,25 @@ namespace RoomKit
             get
             {
                 return AreaTenant - (DesignAreaOccupant + AreaService);
+            }
+        }
+
+        /// <summary>
+        /// The allocated aggregate area of all placed circulation rooms.
+        /// </summary>
+        public double AreaCirculation
+        {
+            get
+            {
+                double area = 0.0;
+                foreach (Room room in Circulation)
+                {
+                    if (room.Perimeter != null)
+                    {
+                        area += room.Perimeter.Area;
+                    }
+                }
+                return area;
             }
         }
 
@@ -152,7 +193,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A list of allocated Circulation, Occupant, and Service Polygon areas.
+        /// A list of allocated Circulation, Occupant, and Service Polygon perimeters.
         /// </summary>
         public List<Polygon> PerimetersAllocated
         {
@@ -176,7 +217,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a list of all Polygons in the Circulation category.
+        /// A list of all Circulation perimeter Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
@@ -199,7 +240,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a list of all Polygons in the Occupant category.
+        /// A list of all Occupant perimeter Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
@@ -221,7 +262,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a list of all Polygons in the Service category.
+        /// A list of all Service perimeter Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
@@ -244,7 +285,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a list of all Polygons in the Tenant category.
+        /// A list of all Tenant perimeter Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
@@ -289,10 +330,10 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns whether all spaces in Spaces have been placed.
+        /// Returns whether Occupant Rooms have been placed.
         /// </summary>
         /// <returns>
-        /// Returns true if all spaces in Spaces have been marked as placed.
+        /// Returns true each Room in Occupant has a perimeter.
         /// </returns>
         public bool PlacedAll
         {
@@ -348,7 +389,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns the ratio of the aggregate area of all rooms against the circulation area.
+        /// Returns the ratio of the aggregate area of all rooms against the available circulation area.
         /// </summary>
         /// <returns>
         /// A list of Rooms.

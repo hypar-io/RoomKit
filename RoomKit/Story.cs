@@ -7,10 +7,19 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// Creates and manages Corridors, Rooms, and Services.
+    /// Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.
     /// </summary>
     public class Story
     {
+        /// <summary>
+        /// Creates a Story at a 1.0 Height on the zero plane with new lists for Corridors, Rooms, and Services.
+        /// Perimeter is set to null, Name is blank, and SlabThickness is s0.1.
+        /// </summary>
+        /// <param name="ratio">The ratio of width to depth</param>
+        /// <param name="area">The required area of the Polygon.</param>
+        /// <returns>
+        /// A new Story.
+        /// </returns>
 
         public Story()
         {
@@ -26,7 +35,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The area of the perimeter.
+        /// Area of the perimeter.
         /// </summary>
         public double Area
         {
@@ -41,7 +50,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The area allocated to Corridors, Rooms, and Services.
+        /// Area allocated to Corridors, Rooms, and Services.
         /// </summary>
         public double AreaPlaced
         {
@@ -65,7 +74,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The unallocated area.
+        /// Unallocated area within the Story.
         /// </summary>
         public double AreaAvailable
         {
@@ -91,6 +100,9 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Rendering color of the Story returned as a Space.
+        /// </summary>
         private Color color;
         public Color Color
         {
@@ -108,8 +120,14 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// List of Rooms designated as cooridors.
+        /// </summary>
         public List<Room> Corridors { get; }
 
+        /// <summary>
+        /// List of Spaces created from Room characteristics within the Corridors list.
+        /// </summary>
         public List<Space> CorridorsAsSpaces
         {
             get
@@ -140,6 +158,9 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Elevation of the Story relative to the zero plane. A change in this value will also change the elevations of all Rooms in all Story lists.
+        /// </summary>
         private double elevation;
         public double Elevation
         {
@@ -166,7 +187,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A Space created from Story characteristics.
+        /// Space created from Story characteristics.
         /// </summary>
         public Space Envelope
         {
@@ -183,6 +204,9 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Height of the Story relative to its elevation.
+        /// </summary>
         private double height;
         public double Height
         {
@@ -219,6 +243,9 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Returns all Corridors, Rooms, and Services as Spaces.
+        /// </summary>
         public IList<Space> InteriorsAsSpaces
         {
             get
@@ -252,8 +279,15 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Arbitrary string identifier.
+        /// </summary>
         public string Name { get; set; }
 
+
+        /// <summary>
+        /// The perimeter of the Story.
+        /// </summary>
         private Polygon perimeter;
         public Polygon Perimeter
         {
@@ -267,8 +301,14 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// List of Rooms designated as occupiable rooms.
+        /// </summary>
         public List<Room> Rooms { get; }
 
+        /// <summary>
+        /// List of Spaces created from Room characteristics within the Rooms list.
+        /// </summary>
         public List<Space> RoomsAsSpaces
         {
             get
@@ -289,7 +329,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Sets the Rooms color.
+        /// Sets the Rooms Space rendering color.
         /// </summary>
         public Color RoomsColor
         {
@@ -302,8 +342,14 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// A list of Rooms designated as building services.
+        /// </summary>
         public List<Room> Services { get; }
 
+        /// <summary>
+        /// List of Spaces created from Room characteristics within the Services list.
+        /// </summary>
         public List<Space> ServicesAsSpaces
         {
             get
@@ -321,7 +367,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Sets the Services color.
+        /// Sets the Services Space rendering color.
         /// </summary>
         public Color ServicesColor
         {
@@ -334,6 +380,9 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Concrete Floor created from Story and Slab characteristics.
+        /// </summary>
         public Floor Slab
         {
             get
@@ -342,6 +391,9 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Thickness of the Story's floor slab.
+        /// </summary>
         private double slabThickness;
         public double SlabThickness
         {
@@ -356,18 +408,32 @@ namespace RoomKit
             }
         }
 
-
-
+        /// <summary>
+        /// Creates a rectangular corridor Room from a centerline axis, width, and height, at the Story elevation.
+        /// Adds the new Room to the Corrdors list.
+        /// Corridors conform to Service perimeters.
+        /// Corridors change intersecting Room perimeters to conform to the corridor's perimeter.
+        /// </summary>
+        /// <param name="axis">Center Line of the corridor.</param>
+        /// <param name="width">Width of the corridor.</param>
+        /// <param name="height">Height of the corridor.</param>
+        /// <param name="name">String identifier.</param>
+        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
         public void AddCorridor(Line axis, 
                                 double width = 2.0, 
-                                double height = 3.0, 
+                                double height = 3.0,
+                                string name = "",
                                 Color color = null)
         {
             var corridor = new Room()
             {
                 Color = color,
                 Elevation = Elevation,
-                Height = height
+                Height = height,
+                Name = name
             };
             corridor.MakePerimeter(axis, width);
             Corridors.Add(corridor);
@@ -375,17 +441,34 @@ namespace RoomKit
             FitRoomsToCorridors();
         }
 
+        /// <summary>
+        /// Creates a rectangular corridor Room from a centerline axis, width, and height, at the Story elevation.
+        /// Adds the new Room to the Corrdors list.
+        /// Corridors conform to Service perimeters.
+        /// Corridors change intersecting Room perimeters to conform to the corridor's perimeter.
+        /// </summary>
+        /// <param name="start">First endpoint of the centerline of the corridor.</param>
+        /// <param name="end">Second endpoint of the centerline of the corridor.</param>
+        /// <param name="width">Width of the corridor.</param>
+        /// <param name="height">Height of the corridor.</param>
+        /// <param name="name">String identifier.</param>
+        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
         public void AddCorridor(Vector3 start, 
                                 Vector3 end, 
                                 double width = 2.0, 
-                                double height = 3.0, 
+                                double height = 3.0,
+                                string name = "",
                                 Color color = null)
         {
             var corridor = new Room()
             {
                 Color = color,
-                Elevation = elevation,
-                Height = height
+                Elevation = Elevation,
+                Height = height,
+                Name = name
             };
             corridor.MakePerimeter(start, end, width);
             Corridors.Add(corridor);
@@ -393,8 +476,22 @@ namespace RoomKit
             FitRoomsToCorridors();
         }
 
+        /// <summary>
+        /// Creates a corridor Room from a perimeter and height, at the Story elevation.
+        /// Adds the new Room to the Corrdors list.
+        /// Corridors conform to Service perimeters.
+        /// Corridors change intersecting Room perimeters to conform to the corridor's perimeter.
+        /// </summary>
+        /// <param name="perimeter">Polygon perimeter of the corridor.</param>
+        /// <param name="height">Height of the corridor.</param>
+        /// <param name="name">String identifier.</param>
+        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
         public void AddCorridor(Polygon perimeter,
                                 double height = 3.0,
+                                string name = "",
                                 Color color = null)
         {
             if (Perimeter == null)
@@ -405,14 +502,27 @@ namespace RoomKit
             {
                 Color = color,
                 Elevation = elevation,
-                Height = height
+                Height = height,
+                Name = name,
+                Perimeter = perimeter
             };
-            corridor.Perimeter = perimeter;
             Corridors.Add(corridor);
             FitCorridorsToServices();
             FitRoomsToCorridors();
         }
 
+        /// <summary>
+        /// Creates an occupied Room from a perimeter and height, at the Story elevation.
+        /// Adds the new Room to the Rooms list.
+        /// Rooms conform to corridor and service perimeters.
+        /// </summary>
+        /// <param name="perimeter">Polygon perimeter of the corridor.</param>
+        /// <param name="height">Height of the corridor.</param>
+        /// <param name="name">String identifier.</param>
+        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
         public void AddRoom(Polygon perimeter,
                             double height = 3.0,
                             string name = "",
@@ -435,13 +545,25 @@ namespace RoomKit
             FitRoomsToCorridors();
         }
 
-        public void AddService(Polygon perimeter, Color color = null)
+        /// <summary>
+        /// Creates a Service from a perimeter at the Story's height and elevation.
+        /// Adds the new Room to the Services list.
+        /// Corridors and Rooms conform to Service perimeters.
+        /// </summary>
+        /// <param name="perimeter">Polygon perimeter of the corridor.</param>
+        /// <param name="name">String identifier.</param>
+        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void AddService(Polygon perimeter, string name = "", Color color = null)
         {
             var service = new Room()
             {
                 Color = color,
                 Elevation = Elevation,
                 Height = Height,
+                Name = name,
                 Perimeter = perimeter
             };
             Services.Add(service);
@@ -449,6 +571,12 @@ namespace RoomKit
             FitRoomsToServices();
         }
 
+        /// <summary>
+        /// Private function configuring all Corridor perimeters to conform to all Service perimeters.
+        /// </summary>
+        /// <returns>
+        /// None.
+        /// </returns>
         private void FitCorridorsToServices()
         {
             foreach (Room service in Services)
@@ -496,6 +624,12 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Private function configuring all Room perimeters to conform to all Corridor perimeters.
+        /// </summary>
+        /// <returns>
+        /// None.
+        /// </returns>
         private void FitRoomsToCorridors()
         {
             foreach (Room corridor in Corridors)
@@ -543,6 +677,12 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Private function configuring all Room perimeters to conform to all Service perimeters.
+        /// </summary>
+        /// <returns>
+        /// None.
+        /// </returns>
         private void FitRoomsToServices()
         {
             foreach (Room service in Services)
@@ -590,10 +730,25 @@ namespace RoomKit
             }
         }
 
+        /// <summary>
+        /// Creates Rooms by orthogonally dividing the interior of the Story perimeter by a quantity of x-axis and y-axis intervals.
+        /// Adds the new Rooms to the Rooms list.
+        /// New Rooms conform to Corridor and Service perimeters.
+        /// </summary>
+        /// <param name="xRooms">Quantity Rooms along the orthogonal x-axis.</param>
+        /// <param name="yRooms">Quantity Rooms along the orthogonal y-axis.</param>
+        /// <param name="height">Height of the new Rooms.</param>
+        /// <param name="setback">Offset from the Story perimeter.</param>
+        ///  <param name="name">String identifier applied to every new Room.</param>
+        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
         public void RoomsByDivision(int xRooms = 1,
                                     int yRooms = 1,
                                     double height = 3.0,
                                     double setback = 0.0,
+                                    string name = "",
                                     Color color = null)
         {
             if (Perimeter == null)
@@ -606,7 +761,7 @@ namespace RoomKit
             }
             Rooms.Clear();
             var polygon = Perimeter.Offset(setback * -1.0).First();
-            var roomGroup = new RoomGroup(polygon, "", xRooms, yRooms);
+            var roomGroup = new RoomGroup(polygon, xRooms, yRooms, name);
             roomGroup.SetElevation(Elevation);
             roomGroup.SetHeight(height);
             Rooms.AddRange(roomGroup.Rooms);

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['name',['Name',['../class_room_kit_1_1_room.html#aabb40fd8aae88fa3a5c3b7ce6adee86e',1,'RoomKit.Room.Name()'],['../class_room_kit_1_1_room_row.html#a99bed9136ed8a01c5174e734c24a264e',1,'RoomKit.RoomRow.Name()']]]
+  ['maxroomdim',['MaxRoomDim',['../class_room_kit_1_1_scope.html#a53abe5f7d253df5d928a5bb9d400518f',1,'RoomKit::Scope']]],
+  ['minroomdim',['MinRoomDim',['../class_room_kit_1_1_scope.html#a4266a9754ac2ffa0020d89001ba7a972',1,'RoomKit::Scope']]]
 ];

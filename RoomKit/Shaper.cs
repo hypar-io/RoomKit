@@ -13,9 +13,8 @@ namespace RoomKit
     public static class Shaper
     {
         /// <summary>
-        /// Creates a rectangular Polygon of the supplied length to width proportion and the supplied area.
+        /// Creates a rectangular Polygon of the supplied length to width proportion at the supplied area with its southwest corner at the origin.
         /// </summary>
-        /// <param name="corner">The lower left corner of the desired Polygon.</param>
         /// <param name="ratio">The ratio of width to depth</param>
         /// <param name="area">The required area of the Polygon.</param>
         /// <returns>
@@ -33,9 +32,10 @@ namespace RoomKit
         /// </summary>
         /// <param name="polygon">The Polygon to expand to the specified area.</param>
         /// <param name="area">The target area of the Polygon.</param>
-        /// <param name="within">The Polygon acting as an outer boundary.</param>
-        /// <param name="among">The list of Polygons to avoid intersecting.</param>
-        /// <param name="tolerance">The .</param>
+        /// <param name="within">The optional Polygon acting as a constraining outer boundary.</param>
+        /// <param name="among">The optional list of Polygons to avoid intersecting.</param>
+        /// <param name="tolerance">The area total tolerance.</param>
+        /// <param name="trials">The number of times to attempt to scale the Polygon to the desired area.</param>
         /// <returns>
         /// A new Polygon.
         /// </returns>
@@ -79,8 +79,8 @@ namespace RoomKit
         /// Creates a new Polygon fitted within a supplied perimeter and conforming to supplied intersecting Polygons.
         /// </summary>
         /// <param name="polygon">The Polygon to fit to the context.</param>
-        /// <param name="within">The Polygon acting as an outer boundary.</param>
-        /// <param name="among">The list of Polygons against which this Polygon must conform.</param>
+        /// <param name="within">The optional Polygon acting as a constraining outer boundary.</param>
+        /// <param name="among">The optional list of Polygons against which this Polygon must conform.</param>
         /// <returns>
         /// A new Polygon.
         /// </returns>
@@ -108,12 +108,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Tests whether the supplied 2D Vector3 point falls within or on any Polygon in the supplied collection.
+        /// Tests whether the supplied Vector3 point falls within or on any Polygon in the supplied collection when compared on a shared plane.
         /// </summary>
-        /// <param name="point">The 2D Vector3 point to test.</param>
+        /// <param name="point">The Vector3 point to test.</param>
         /// <param name="polygons">The collection of Polygons to test for point coincidence.</param>
         /// <returns>
-        /// True if the supplied 2D Vector3 point falls withon or on the perimeter of any of supplied Polygon.
+        /// True if the supplied Vector3 point falls within or on the perimeter of any of supplied Polygon.
         /// </returns>
         public static bool PointWithin(Vector3 point, IList<Polygon> polygons)
         {
@@ -128,7 +128,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Creates an orthogonal box Polygon with the lower left corner at the origin.
+        /// Creates an orthogonal box Polygon with the southwest corner at the origin.
         /// </summary>
         /// <param name="sizeX">The x dimension of the Polygon.</param>
         /// <param name="sizeY">The y dimension of the Polygon.</param>
@@ -155,9 +155,9 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Creates an C-shaped Polygon within a specified rectangle.
+        /// Creates an C-shaped Polygon within a specified rectangle with its southwest corner at the origin.
         /// </summary>
-        /// <param name="origin">The initial enclosing box corner.</param>
+        /// <param name="origin">The southwest enclosing box corner.</param>
         /// <param name="size">The positive x and y delta defining the size of the enclosing box.</param>
         /// <param name="width">Width of each stroke of the shape.</param>
         /// <returns>
@@ -191,38 +191,10 @@ namespace RoomKit
             return movTrans.OfPolygon(polygon);
         }
 
-        //public static Polygon PolygonCircle(Vector3 center, double radius)
-        //{
-        //    if (size.X <= 0 || size.Y <= 0 || width >= size.X || width * 3 >= size.Y)
-        //    {
-        //        throw new ArgumentOutOfRangeException(Messages.POLYGON_SHAPE_EXCEPTION);
-        //    }
-        //    var halfWidth = width * 0.5;
-        //    var xAxis = size.Y * 0.5;
-        //    var polygon =
-        //        new Polygon
-        //        (
-        //            new[]
-        //            {
-        //                new Vector3(),
-        //                new Vector3(size.X, 0),
-        //                new Vector3(size.X, width),
-        //                new Vector3(width, width),
-        //                new Vector3(width, size.Y - width),
-        //                new Vector3(size.X, size.Y - width),
-        //                new Vector3(size.X, size.Y),
-        //                new Vector3(0, size.Y),
-        //            }
-        //        );
-        //    Transform movTrans = new Transform();
-        //    movTrans.Move(origin);
-        //    return polygon.Transform(movTrans);
-        //}
-
         /// <summary>
         /// Creates an E-shaped Polygon within a specified rectangle.
         /// </summary>
-        /// <param name="origin">The initial enclosing box corner.</param>
+        /// <param name="origin">The southwest enclosing box corner.</param>
         /// <param name="size">The positive x and y delta defining the size of the enclosing box.</param>
         /// <param name="width">Width of each stroke of the shape.</param>
         /// <returns>
@@ -487,6 +459,35 @@ namespace RoomKit
             Transform movTrans = new Transform();
             movTrans.Move(origin);
             return movTrans.OfPolygon(polygon);
+        }
+
+        /// <summary>
+        /// Creates a regular Polygon inscribed within the supplied radius from the supplied center.
+        /// </summary>
+        /// <param name="center">The Vector3 center point of the Polygon.</param>
+        /// <param name="radius">The radius of the inscribed Polygon.</param>
+        /// <param name="sides">The number of sides of the inscribed Polygon.</param>
+        /// <returns>
+        /// A new regular Polygon.
+        /// </returns>
+
+        public static Polygon PolygonRegular(Vector3 center, double radius, int sides = 3)
+        {
+            if (radius <= 0 || sides < 3)
+            {
+                throw new ArgumentOutOfRangeException(Messages.POLYGON_SHAPE_EXCEPTION);
+            }
+            var vertices = new List<Vector3>();
+            var angle = Math.PI * 0.5;
+            var nxtAngle = Math.PI * 2 / sides;
+            for (int i = 0; i < sides; i++)
+            {
+                var x = center.X + (radius * Math.Cos(angle));
+                var y = center.Y + (radius * Math.Sin(angle));
+                vertices.Add(new Vector3(x, y));
+                angle += nxtAngle;
+            }
+            return new Polygon(vertices.ToArray());
         }
 
         /// <summary>

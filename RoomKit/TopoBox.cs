@@ -7,6 +7,10 @@ namespace RoomKit
 {
     /// <summary>
     /// Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
+    /// N, S, E, and W define middle points on each orthogonal side of the box.
+    /// NE, NW, SE, and SW correspond to the corners of the box.
+    /// Other compass points define points along the relevant side between the cardinal and corner points.
+    /// C corresponds to the center of the box.
     /// </summary>
     public class TopoBox
     {
@@ -30,12 +34,19 @@ namespace RoomKit
         public Vector3 ENE { get; }
         public Vector3 NE { get; }
         public Vector3 NNE { get; }
+
+        /// <summary>
+        /// X and Y dimensions of the TopoBox perimeter.
+        /// </summary>
         public double SizeX { get; }
         public double SizeY { get; }
 
         /// <summary>
-        /// Constructor creates a new mathematical bounding box and populates all orientation points.
+        /// Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points.
         /// </summary>
+        /// <returns>
+        /// A new TopoBox.
+        /// </returns>
         public TopoBox(Polygon polygon)
         {
             var vertices = new List<Vector3>(polygon.Vertices);

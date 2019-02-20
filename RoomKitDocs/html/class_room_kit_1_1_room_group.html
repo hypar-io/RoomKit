@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -28,12 +20,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="RoomRowCirc.PNG"/></td>
+  <td id="projectlogo"><img alt="Logo" src="OfficeAskew.PNG"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">RoomKit
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
-   <div id="projectbrief">Library to handle AEC Rooms</div>
+   <div id="projectbrief">A library for creating and managing architectural rooms.</div>
   </td>
  </tr>
  </tbody>
@@ -56,23 +48,6 @@ $(function() {
 });
 /* @license-end */</script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('class_room_kit_1_1_room_group.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -87,6 +62,11 @@ $(document).ready(function(){initNavTree('class_room_kit_1_1_room_group.html',''
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespace_room_kit.html">RoomKit</a></li><li class="navelem"><a class="el" href="class_room_kit_1_1_room_group.html">RoomGroup</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -97,68 +77,74 @@ $(document).ready(function(){initNavTree('class_room_kit_1_1_room_group.html',''
 </div><!--header-->
 <div class="contents">
 
-<p>A data structure recording room characteristics.  
+<p>Creates and manages Rooms within a perimeter.  
  <a href="class_room_kit_1_1_room_group.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0beacdb6f228fcb1f624391f3c68bcdb"><td class="memItemLeft" align="right" valign="top"><a id="a0beacdb6f228fcb1f624391f3c68bcdb"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RoomGroup</b> (Polygon perimeter, string name=&quot;&quot;)</td></tr>
-<tr class="separator:a0beacdb6f228fcb1f624391f3c68bcdb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9c0eba03b62f1fc908239442c1089415"><td class="memItemLeft" align="right" valign="top"><a id="a9c0eba03b62f1fc908239442c1089415"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>RoomGroup</b> (Line row, string name=&quot;&quot;)</td></tr>
-<tr class="separator:a9c0eba03b62f1fc908239442c1089415"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae03763e59aac486b0d61709bb7cee038"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#ae03763e59aac486b0d61709bb7cee038">AddRoom</a> (<a class="el" href="class_room_kit_1_1_room.html">Room</a> room, IList&lt; Polygon &gt; among=null)</td></tr>
-<tr class="memdesc:ae03763e59aac486b0d61709bb7cee038"><td class="mdescLeft">&#160;</td><td class="mdescRight">Attempts to place a room within the perimeter of the group or on its row line, depending on the grooup's initial geometry.  <a href="#ae03763e59aac486b0d61709bb7cee038">More...</a><br /></td></tr>
-<tr class="separator:ae03763e59aac486b0d61709bb7cee038"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af0d6782eb5bfc487ed76baa7eea28646"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#af0d6782eb5bfc487ed76baa7eea28646">RoomGroup</a> (Polygon perimeter, int xRooms=1, int yRooms=1, string name=&quot;&quot;)</td></tr>
+<tr class="memdesc:af0d6782eb5bfc487ed76baa7eea28646"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a group of rooms by dividing the supplied Polygon perimeter by the quantity of supplied divisions along the orthogonal x and y axes. <a class="el" href="class_room_kit_1_1_room.html" title="A data structure recording room characteristics. ">Room</a> perimeters conform to fit within the supplied Polygon.  <a href="#af0d6782eb5bfc487ed76baa7eea28646">More...</a><br /></td></tr>
+<tr class="separator:af0d6782eb5bfc487ed76baa7eea28646"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede2c58689acbed27c21b393c3989329"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#aede2c58689acbed27c21b393c3989329">SetElevation</a> (double elevation)</td></tr>
+<tr class="memdesc:aede2c58689acbed27c21b393c3989329"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uniformly sets the elevation of all Rooms in the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>.  <a href="#aede2c58689acbed27c21b393c3989329">More...</a><br /></td></tr>
+<tr class="separator:aede2c58689acbed27c21b393c3989329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c91d1d150b9f207ae6b67d5f3134b08"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#a2c91d1d150b9f207ae6b67d5f3134b08">SetHeight</a> (double height)</td></tr>
+<tr class="memdesc:a2c91d1d150b9f207ae6b67d5f3134b08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Uniformly sets the height of all Rooms in the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>.  <a href="#a2c91d1d150b9f207ae6b67d5f3134b08">More...</a><br /></td></tr>
+<tr class="separator:a2c91d1d150b9f207ae6b67d5f3134b08"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="properties"></a>
 Properties</h2></td></tr>
-<tr class="memitem:a417fd126a5e34d449608c1631def5bda"><td class="memItemLeft" align="right" valign="top"><a id="a417fd126a5e34d449608c1631def5bda"></a>
-string&#160;</td><td class="memItemRight" valign="bottom"><b>Name</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a417fd126a5e34d449608c1631def5bda"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#a417fd126a5e34d449608c1631def5bda">Name</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a417fd126a5e34d449608c1631def5bda"><td class="mdescLeft">&#160;</td><td class="mdescRight">An arbitrary string identifier for this <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>.  <a href="#a417fd126a5e34d449608c1631def5bda">More...</a><br /></td></tr>
 <tr class="separator:a417fd126a5e34d449608c1631def5bda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8dbb76a89711abe54d050b5b9241a723"><td class="memItemLeft" align="right" valign="top"><a id="a8dbb76a89711abe54d050b5b9241a723"></a>
-Polygon&#160;</td><td class="memItemRight" valign="bottom"><b>Perimeter</b><code> [get]</code></td></tr>
+<tr class="memitem:a8dbb76a89711abe54d050b5b9241a723"><td class="memItemLeft" align="right" valign="top">Polygon&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#a8dbb76a89711abe54d050b5b9241a723">Perimeter</a><code> [get]</code></td></tr>
+<tr class="memdesc:a8dbb76a89711abe54d050b5b9241a723"><td class="mdescLeft">&#160;</td><td class="mdescRight">The Polygon within which all Rooms are placed.  <a href="#a8dbb76a89711abe54d050b5b9241a723">More...</a><br /></td></tr>
 <tr class="separator:a8dbb76a89711abe54d050b5b9241a723"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7143373fa233225c88cb3bca95dfed52"><td class="memItemLeft" align="right" valign="top"><a id="a7143373fa233225c88cb3bca95dfed52"></a>
-IList&lt; <a class="el" href="class_room_kit_1_1_room.html">Room</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>Rooms</b><code> [get, set]</code></td></tr>
+<tr class="memitem:a7143373fa233225c88cb3bca95dfed52"><td class="memItemLeft" align="right" valign="top">IList&lt; <a class="el" href="class_room_kit_1_1_room.html">Room</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#a7143373fa233225c88cb3bca95dfed52">Rooms</a><code> [get]</code></td></tr>
+<tr class="memdesc:a7143373fa233225c88cb3bca95dfed52"><td class="mdescLeft">&#160;</td><td class="mdescRight">The list of Rooms placed within the Perimeter.  <a href="#a7143373fa233225c88cb3bca95dfed52">More...</a><br /></td></tr>
 <tr class="separator:a7143373fa233225c88cb3bca95dfed52"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afbd07e259d1e3938ab84c1e99a5456d9"><td class="memItemLeft" align="right" valign="top"><a id="afbd07e259d1e3938ab84c1e99a5456d9"></a>
-Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</code></td></tr>
-<tr class="separator:afbd07e259d1e3938ab84c1e99a5456d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab3bb576979e3e0c610b2afcb4d7744b3"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#ab3bb576979e3e0c610b2afcb4d7744b3">AvailableArea</a><code> [get]</code></td></tr>
-<tr class="memdesc:ab3bb576979e3e0c610b2afcb4d7744b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unallocated area of the <a class="el" href="class_room_kit_1_1_room_group.html" title="A data structure recording room characteristics. ">RoomGroup</a> Perimeter.  <a href="#ab3bb576979e3e0c610b2afcb4d7744b3">More...</a><br /></td></tr>
+<tr class="memdesc:ab3bb576979e3e0c610b2afcb4d7744b3"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unallocated area of the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a> perimeter.  <a href="#ab3bb576979e3e0c610b2afcb4d7744b3">More...</a><br /></td></tr>
 <tr class="separator:ab3bb576979e3e0c610b2afcb4d7744b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac1598a6191029a361787fe7d01bd2c94"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#ac1598a6191029a361787fe7d01bd2c94">AvailableLength</a><code> [get]</code></td></tr>
-<tr class="memdesc:ac1598a6191029a361787fe7d01bd2c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">The unallocated area of the <a class="el" href="class_room_kit_1_1_room_group.html" title="A data structure recording room characteristics. ">RoomGroup</a> Row.  <a href="#ac1598a6191029a361787fe7d01bd2c94">More...</a><br /></td></tr>
-<tr class="separator:ac1598a6191029a361787fe7d01bd2c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3839f139987ea48a2e5db693d3ff957"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#af3839f139987ea48a2e5db693d3ff957">AreaPlaced</a><code> [get]</code></td></tr>
-<tr class="memdesc:af3839f139987ea48a2e5db693d3ff957"><td class="mdescLeft">&#160;</td><td class="mdescRight">The area allocated within the <a class="el" href="class_room_kit_1_1_room_group.html" title="A data structure recording room characteristics. ">RoomGroup</a>.  <a href="#af3839f139987ea48a2e5db693d3ff957">More...</a><br /></td></tr>
+<tr class="memdesc:af3839f139987ea48a2e5db693d3ff957"><td class="mdescLeft">&#160;</td><td class="mdescRight">The area allocated within the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>.  <a href="#af3839f139987ea48a2e5db693d3ff957">More...</a><br /></td></tr>
 <tr class="separator:af3839f139987ea48a2e5db693d3ff957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac489ddfd60ab7b2bbb894607d8271dc3"><td class="memItemLeft" align="right" valign="top">IList&lt; Polygon &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_room_group.html#ac489ddfd60ab7b2bbb894607d8271dc3">PerimetersRooms</a><code> [get]</code></td></tr>
-<tr class="memdesc:ac489ddfd60ab7b2bbb894607d8271dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of all placed room perimeters.  <a href="#ac489ddfd60ab7b2bbb894607d8271dc3">More...</a><br /></td></tr>
+<tr class="memdesc:ac489ddfd60ab7b2bbb894607d8271dc3"><td class="mdescLeft">&#160;</td><td class="mdescRight">A list of all placed <a class="el" href="class_room_kit_1_1_room.html" title="A data structure recording room characteristics. ">Room</a> perimeters.  <a href="#ac489ddfd60ab7b2bbb894607d8271dc3">More...</a><br /></td></tr>
 <tr class="separator:ac489ddfd60ab7b2bbb894607d8271dc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A data structure recording room characteristics. </p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="ae03763e59aac486b0d61709bb7cee038"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae03763e59aac486b0d61709bb7cee038">&#9670;&nbsp;</a></span>AddRoom()</h2>
+<div class="textblock"><p>Creates and manages Rooms within a perimeter. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="af0d6782eb5bfc487ed76baa7eea28646"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af0d6782eb5bfc487ed76baa7eea28646">&#9670;&nbsp;</a></span>RoomGroup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool RoomKit.RoomGroup.AddRoom </td>
+          <td class="memname">RoomKit.RoomGroup.RoomGroup </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="class_room_kit_1_1_room.html">Room</a>&#160;</td>
-          <td class="paramname"><em>room</em>, </td>
+          <td class="paramtype">Polygon&#160;</td>
+          <td class="paramname"><em>perimeter</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">IList&lt; Polygon &gt;&#160;</td>
-          <td class="paramname"><em>among</em> = <code>null</code>&#160;</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>xRooms</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>yRooms</em> = <code>1</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>name</em> = <code>&quot;&quot;</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -168,14 +154,72 @@ Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</
       </table>
 </div><div class="memdoc">
 
-<p>Attempts to place a room within the perimeter of the group or on its row line, depending on the grooup's initial geometry. </p>
+<p>Creates a group of rooms by dividing the supplied Polygon perimeter by the quantity of supplied divisions along the orthogonal x and y axes. <a class="el" href="class_room_kit_1_1_room.html" title="A data structure recording room characteristics. ">Room</a> perimeters conform to fit within the supplied Polygon. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">room</td><td>The <a class="el" href="class_room_kit_1_1_room.html" title="A data structure recording room characteristics. ">Room</a> from which to derive the Polygon to place.</td></tr>
+    <tr><td class="paramname">perimeter</td><td>The Polygon to divide with a number of <a class="el" href="class_room_kit_1_1_room.html" title="A data structure recording room characteristics. ">Room</a> perimeters.</td></tr>
+    <tr><td class="paramname">xRooms</td><td>The quantity of Rooms along the x axis.</td></tr>
+    <tr><td class="paramname">yRooms</td><td>The quantity of Rooms along the y axis.</td></tr>
+    <tr><td class="paramname">name</td><td>An arbitrary string identifier for this <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True if the room was successfully placed. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A new <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>. </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aede2c58689acbed27c21b393c3989329"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede2c58689acbed27c21b393c3989329">&#9670;&nbsp;</a></span>SetElevation()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RoomKit.RoomGroup.SetElevation </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>elevation</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uniformly sets the elevation of all Rooms in the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">elevation</td><td>The new elevation of the Rooms.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
+
+</div>
+</div>
+<a id="a2c91d1d150b9f207ae6b67d5f3134b08"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c91d1d150b9f207ae6b67d5f3134b08">&#9670;&nbsp;</a></span>SetHeight()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void RoomKit.RoomGroup.SetHeight </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>height</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Uniformly sets the height of all Rooms in the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">elevation</td><td>The new height of the Rooms.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>None. </dd></dl>
 
 </div>
 </div>
@@ -200,7 +244,7 @@ Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</
 </table>
 </div><div class="memdoc">
 
-<p>The area allocated within the <a class="el" href="class_room_kit_1_1_room_group.html" title="A data structure recording room characteristics. ">RoomGroup</a>. </p>
+<p>The area allocated within the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>. </p>
 
 </div>
 </div>
@@ -224,12 +268,12 @@ Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</
 </table>
 </div><div class="memdoc">
 
-<p>The unallocated area of the <a class="el" href="class_room_kit_1_1_room_group.html" title="A data structure recording room characteristics. ">RoomGroup</a> Perimeter. </p>
+<p>The unallocated area of the <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a> perimeter. </p>
 
 </div>
 </div>
-<a id="ac1598a6191029a361787fe7d01bd2c94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac1598a6191029a361787fe7d01bd2c94">&#9670;&nbsp;</a></span>AvailableLength</h2>
+<a id="a417fd126a5e34d449608c1631def5bda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a417fd126a5e34d449608c1631def5bda">&#9670;&nbsp;</a></span>Name</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -238,7 +282,31 @@ Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">double RoomKit.RoomGroup.AvailableLength</td>
+          <td class="memname">string RoomKit.RoomGroup.Name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>An arbitrary string identifier for this <a class="el" href="class_room_kit_1_1_room_group.html" title="Creates and manages Rooms within a perimeter. ">RoomGroup</a>. </p>
+
+</div>
+</div>
+<a id="a8dbb76a89711abe54d050b5b9241a723"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8dbb76a89711abe54d050b5b9241a723">&#9670;&nbsp;</a></span>Perimeter</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Polygon RoomKit.RoomGroup.Perimeter</td>
         </tr>
       </table>
   </td>
@@ -248,7 +316,7 @@ Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</
 </table>
 </div><div class="memdoc">
 
-<p>The unallocated area of the <a class="el" href="class_room_kit_1_1_room_group.html" title="A data structure recording room characteristics. ">RoomGroup</a> Row. </p>
+<p>The Polygon within which all Rooms are placed. </p>
 
 </div>
 </div>
@@ -272,23 +340,43 @@ Line&#160;</td><td class="memItemRight" valign="bottom"><b>Row</b><code> [get]</
 </table>
 </div><div class="memdoc">
 
-<p>A list of all placed room perimeters. </p>
+<p>A list of all placed <a class="el" href="class_room_kit_1_1_room.html" title="A data structure recording room characteristics. ">Room</a> perimeters. </p>
+
+</div>
+</div>
+<a id="a7143373fa233225c88cb3bca95dfed52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7143373fa233225c88cb3bca95dfed52">&#9670;&nbsp;</a></span>Rooms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">IList&lt;<a class="el" href="class_room_kit_1_1_room.html">Room</a>&gt; RoomKit.RoomGroup.Rooms</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The list of Rooms placed within the Perimeter. </p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/Users/Anthony/Oasis/Business/Hypar/GitHub/RoomKit/RoomKit/RoomGroup.cs</li>
+<li>RoomKit/RoomGroup.cs</li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespace_room_kit.html">RoomKit</a></li><li class="navelem"><a class="el" href="class_room_kit_1_1_room_group.html">RoomGroup</a></li>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.14
+</small></address>
 </body>
 </html>

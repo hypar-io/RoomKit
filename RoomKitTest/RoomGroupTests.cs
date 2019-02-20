@@ -25,7 +25,7 @@ namespace RoomKitTest
                 }
             );
 
-            var roomGroup = new RoomGroup(polygon, "", 4, 2);
+            var roomGroup = new RoomGroup(polygon, 4, 2, "");
             var model = new Model();
             foreach (Room room in roomGroup.Rooms)
             {

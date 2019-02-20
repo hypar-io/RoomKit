@@ -4,6 +4,7 @@ namespace RoomKit
 {
     /// <summary>
     /// Commonly used Colors for Space rendering.
+    /// These colors are translucent to allow viewing of representions several layers deep.
     /// </summary>
     public static class Palette
     {

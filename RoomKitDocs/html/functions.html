@@ -9,14 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-  $(document).ready(initResizable);
-/* @license-end */</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -28,12 +20,12 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="RoomRowCirc.PNG"/></td>
+  <td id="projectlogo"><img alt="Logo" src="OfficeAskew.PNG"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">RoomKit
-   &#160;<span id="projectnumber">0.1.0</span>
+   &#160;<span id="projectnumber">0.2.0</span>
    </div>
-   <div id="projectbrief">Library to handle AEC Rooms</div>
+   <div id="projectbrief">A library for creating and managing architectural rooms.</div>
   </td>
  </tr>
  </tbody>
@@ -57,22 +49,6 @@ $(function() {
 /* @license-end */</script>
 <div id="main-nav"></div>
 </div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-/* @license magnet:?xt=urn:btih:cf05388f2679ee054f2beb29a391d25f4e673ac3&amp;dn=gpl-2.0.txt GPL-v2 */
-$(document).ready(function(){initNavTree('functions.html','');});
-/* @license-end */
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -91,9 +67,15 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
 <h3><a id="index_a"></a>- a -</h3><ul>
+<li>AddCorridor()
+: <a class="el" href="class_room_kit_1_1_story.html#aaa29dbb7472599d527c24590cf41d0a4">RoomKit.Story</a>
+</li>
 <li>AddRoom()
-: <a class="el" href="class_room_kit_1_1_room_group.html#ae03763e59aac486b0d61709bb7cee038">RoomKit.RoomGroup</a>
-, <a class="el" href="class_room_kit_1_1_room_row.html#a461c7592711caf1d35a96693d77fd4df">RoomKit.RoomRow</a>
+: <a class="el" href="class_room_kit_1_1_room_row.html#a461c7592711caf1d35a96693d77fd4df">RoomKit.RoomRow</a>
+, <a class="el" href="class_room_kit_1_1_story.html#ad196c4eee3858639ea4d00f76516f70c">RoomKit.Story</a>
+</li>
+<li>AddService()
+: <a class="el" href="class_room_kit_1_1_story.html#a7be4277f7e2351e7d22a5bc32ce169bd">RoomKit.Story</a>
 </li>
 <li>AdjacentTo
 : <a class="el" href="class_room_kit_1_1_room.html#a9a0ed1a4011c3759f5e39a97d4e7e986">RoomKit.Room</a>
@@ -112,6 +94,13 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>Area
 : <a class="el" href="class_room_kit_1_1_room.html#ad4567c8d712d9e6215bda0887148c4d7">RoomKit.Room</a>
+, <a class="el" href="class_room_kit_1_1_story.html#a021d58f60191d0fd3feb732710823b6a">RoomKit.Story</a>
+</li>
+<li>AreaAvailable
+: <a class="el" href="class_room_kit_1_1_story.html#a9a889c515c5aea30cc4564986bb13a99">RoomKit.Story</a>
+</li>
+<li>AreaCirculation
+: <a class="el" href="class_room_kit_1_1_scope.html#a3f2816ae697601d75dc265e9c33a171a">RoomKit.Scope</a>
 </li>
 <li>AreaDesignCirculation
 : <a class="el" href="class_room_kit_1_1_scope.html#a200fe506134a03f68c90643f725b41a5">RoomKit.Scope</a>
@@ -119,6 +108,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>AreaPlaced
 : <a class="el" href="class_room_kit_1_1_room_group.html#af3839f139987ea48a2e5db693d3ff957">RoomKit.RoomGroup</a>
 , <a class="el" href="class_room_kit_1_1_room_row.html#a2ee541d26536306906eeb29953e496ed">RoomKit.RoomRow</a>
+, <a class="el" href="class_room_kit_1_1_story.html#a0fda05a8bcc1a0371d034c38e4db0df2">RoomKit.Story</a>
 </li>
 <li>AreaRooms
 : <a class="el" href="class_room_kit_1_1_scope.html#a77ffe9538de183ca2b5197816cd8ed36">RoomKit.Scope</a>
@@ -142,8 +132,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_room_kit_1_1_room_group.html#ab3bb576979e3e0c610b2afcb4d7744b3">RoomKit.RoomGroup</a>
 </li>
 <li>AvailableLength
-: <a class="el" href="class_room_kit_1_1_room_group.html#ac1598a6191029a361787fe7d01bd2c94">RoomKit.RoomGroup</a>
-, <a class="el" href="class_room_kit_1_1_room_row.html#a641180f7b37e1cb23b47b2a47441f6ea">RoomKit.RoomRow</a>
+: <a class="el" href="class_room_kit_1_1_room_row.html#a641180f7b37e1cb23b47b2a47441f6ea">RoomKit.RoomRow</a>
 </li>
 <li>AvailableMax()
 : <a class="el" href="class_room_kit_1_1_coord_grid.html#a408f51d641e9bb3ec4e59fe8b62a0163">RoomKit.CoordGrid</a>
@@ -166,12 +155,19 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 <li>Circulation
 : <a class="el" href="class_room_kit_1_1_room_row.html#a599df29134a583704e48d2f7b59cb244">RoomKit.RoomRow</a>
-</li>
-<li>Color
-: <a class="el" href="class_room_kit_1_1_room.html#ab988d7b6d772b68911acacc8da422052">RoomKit.Room</a>
+, <a class="el" href="class_room_kit_1_1_scope.html#abdb1f8c3a8dfc6c0ddafc408d3b8b2af">RoomKit.Scope</a>
 </li>
 <li>CoordGrid()
 : <a class="el" href="class_room_kit_1_1_coord_grid.html#a7c731b88924003f92e033c77f25b4036">RoomKit.CoordGrid</a>
+</li>
+<li>Corridors
+: <a class="el" href="class_room_kit_1_1_story.html#aa82f005024828e8ec5fb2e8f0660ba97">RoomKit.Story</a>
+</li>
+<li>CorridorsAsSpaces
+: <a class="el" href="class_room_kit_1_1_story.html#a1ea69602513247160f7537ef7f92b3ac">RoomKit.Story</a>
+</li>
+<li>CorridorsColor
+: <a class="el" href="class_room_kit_1_1_story.html#a40ed8d1e90c4fcf4cfb6eab70069876c">RoomKit.Story</a>
 </li>
 </ul>
 
@@ -180,17 +176,8 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>Depth
 : <a class="el" href="class_room_kit_1_1_room_row.html#a3c5718e6696e88c4c0f91154751f59f8">RoomKit.RoomRow</a>
 </li>
-<li>DesignArea
-: <a class="el" href="class_room_kit_1_1_room.html#ac80adf0821785646dbf908dbcbbb29c8">RoomKit.Room</a>
-</li>
 <li>DesignAreaOccupant
 : <a class="el" href="class_room_kit_1_1_scope.html#a71f0d1fbb750151e6c98c40cc57f1e80">RoomKit.Scope</a>
-</li>
-<li>DesignX
-: <a class="el" href="class_room_kit_1_1_room.html#a06bea9a7fbe4558b681f9a047ac03f57">RoomKit.Room</a>
-</li>
-<li>DesignY
-: <a class="el" href="class_room_kit_1_1_room.html#a7d78915f3033469333b61f59dded4ecd">RoomKit.Room</a>
 </li>
 </ul>
 
@@ -198,6 +185,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a id="index_e"></a>- e -</h3><ul>
 <li>Elevation
 : <a class="el" href="class_room_kit_1_1_room.html#a4239b90e74d80b830816970b84494136">RoomKit.Room</a>
+</li>
+<li>Envelope
+: <a class="el" href="class_room_kit_1_1_story.html#a67f30d9a617d9d053d49616e4b6a6ed1">RoomKit.Story</a>
 </li>
 </ul>
 
@@ -207,21 +197,28 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_room_kit_1_1_scope.html#a110cfe2a56ee1b74e80727785066f198">RoomKit.Scope</a>
 </li>
 <li>FindUnplaced()
-: <a class="el" href="class_room_kit_1_1_scope.html#a8e29aceacafb32cc1f260e5906c75d71">RoomKit.Scope</a>
+: <a class="el" href="class_room_kit_1_1_scope.html#a9b2db21ca0a8c36a085e3ce37d3655dc">RoomKit.Scope</a>
 </li>
 </ul>
 
 
 <h3><a id="index_h"></a>- h -</h3><ul>
-<li>Height
-: <a class="el" href="class_room_kit_1_1_room.html#a2e343291f564f8cba532bed978879106">RoomKit.Room</a>
+<li>HeightInteriors
+: <a class="el" href="class_room_kit_1_1_story.html#ae62b3d217ea9c24d3d38cc10de7b0a3a">RoomKit.Story</a>
+</li>
+</ul>
+
+
+<h3><a id="index_i"></a>- i -</h3><ul>
+<li>InteriorsAsSpaces
+: <a class="el" href="class_room_kit_1_1_story.html#af4d53dcb3e78360e77166d179eb11399">RoomKit.Story</a>
 </li>
 </ul>
 
 
 <h3><a id="index_m"></a>- m -</h3><ul>
 <li>MakePerimeter()
-: <a class="el" href="class_room_kit_1_1_room.html#abe395580dc9617c4596b18e520111673">RoomKit.Room</a>
+: <a class="el" href="class_room_kit_1_1_room.html#ac8b4ad61e8d2f8dc823882228dce6402">RoomKit.Room</a>
 </li>
 <li>MaxRoomDim
 : <a class="el" href="class_room_kit_1_1_scope.html#a53abe5f7d253df5d928a5bb9d400518f">RoomKit.Scope</a>
@@ -235,7 +232,16 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a id="index_n"></a>- n -</h3><ul>
 <li>Name
 : <a class="el" href="class_room_kit_1_1_room.html#aabb40fd8aae88fa3a5c3b7ce6adee86e">RoomKit.Room</a>
+, <a class="el" href="class_room_kit_1_1_room_group.html#a417fd126a5e34d449608c1631def5bda">RoomKit.RoomGroup</a>
 , <a class="el" href="class_room_kit_1_1_room_row.html#a99bed9136ed8a01c5174e734c24a264e">RoomKit.RoomRow</a>
+, <a class="el" href="class_room_kit_1_1_story.html#a848e477d66b97487c74f91df3ae25910">RoomKit.Story</a>
+</li>
+</ul>
+
+
+<h3><a id="index_o"></a>- o -</h3><ul>
+<li>Occupant
+: <a class="el" href="class_room_kit_1_1_scope.html#a87ae2a0ad6f8577d4b8b8e3f59b5aa82">RoomKit.Scope</a>
 </li>
 </ul>
 
@@ -243,7 +249,7 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <h3><a id="index_p"></a>- p -</h3><ul>
 <li>Perimeter
 : <a class="el" href="class_room_kit_1_1_coord_grid.html#a3699e8b4c72626d50c589b900c796260">RoomKit.CoordGrid</a>
-, <a class="el" href="class_room_kit_1_1_room.html#abe9afa0fc1d95dc7469e80bdd411c26b">RoomKit.Room</a>
+, <a class="el" href="class_room_kit_1_1_room_group.html#a8dbb76a89711abe54d050b5b9241a723">RoomKit.RoomGroup</a>
 </li>
 <li>PerimetersAllocated
 : <a class="el" href="class_room_kit_1_1_scope.html#aa5d3dfbda9e48bd38d1a66bfe7fc1779">RoomKit.Scope</a>
@@ -273,6 +279,9 @@ $(document).ready(function(){initNavTree('functions.html','');});
 <li>PointBy()
 : <a class="el" href="class_room_kit_1_1_topo_box.html#a48b838c48267cf92b3511c51c12339ce">RoomKit.TopoBox</a>
 </li>
+<li>PointOpposite()
+: <a class="el" href="class_room_kit_1_1_topo_box.html#ae889733c30aebd8fda77b70b611adca1">RoomKit.TopoBox</a>
+</li>
 </ul>
 
 
@@ -294,13 +303,27 @@ $(document).ready(function(){initNavTree('functions.html','');});
 : <a class="el" href="class_room_kit_1_1_room.html#ac33f1b7a0a0b1c42c3665068ea77cb89">RoomKit.Room</a>
 </li>
 <li>Room()
-: <a class="el" href="class_room_kit_1_1_room.html#a9bcaf10fbec164053d9d510722ceeff5">RoomKit.Room</a>
+: <a class="el" href="class_room_kit_1_1_room.html#a15c13a2f850ec32872c0b95627ebbb04">RoomKit.Room</a>
+</li>
+<li>RoomGroup()
+: <a class="el" href="class_room_kit_1_1_room_group.html#af0d6782eb5bfc487ed76baa7eea28646">RoomKit.RoomGroup</a>
 </li>
 <li>RoomRow()
-: <a class="el" href="class_room_kit_1_1_room_row.html#a5f3de939efebb1560150ecf9be9f697c">RoomKit.RoomRow</a>
+: <a class="el" href="class_room_kit_1_1_room_row.html#addd348f8431a2c6281b9be1b40373594">RoomKit.RoomRow</a>
 </li>
 <li>Rooms
-: <a class="el" href="class_room_kit_1_1_room_row.html#aa4f80369bb6d0fbf1ae8d5cc31998383">RoomKit.RoomRow</a>
+: <a class="el" href="class_room_kit_1_1_room_group.html#a7143373fa233225c88cb3bca95dfed52">RoomKit.RoomGroup</a>
+, <a class="el" href="class_room_kit_1_1_room_row.html#aa4f80369bb6d0fbf1ae8d5cc31998383">RoomKit.RoomRow</a>
+, <a class="el" href="class_room_kit_1_1_story.html#a5fc410844a1a64da015d29a6d065b0ed">RoomKit.Story</a>
+</li>
+<li>RoomsAsSpaces
+: <a class="el" href="class_room_kit_1_1_story.html#af512c4ffcc4ab0a83ec699668acd7089">RoomKit.Story</a>
+</li>
+<li>RoomsByDivision()
+: <a class="el" href="class_room_kit_1_1_story.html#ad72dd5f3d0b2dfea1b192048f83f7925">RoomKit.Story</a>
+</li>
+<li>RoomsColor
+: <a class="el" href="class_room_kit_1_1_story.html#a25c7b3a801106830a77e6fa286bbd1db">RoomKit.Story</a>
 </li>
 <li>Row
 : <a class="el" href="class_room_kit_1_1_room_row.html#a5101187caa26266fe0e1487cc6187cd9">RoomKit.RoomRow</a>
@@ -308,7 +331,44 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </ul>
 
 
+<h3><a id="index_s"></a>- s -</h3><ul>
+<li>Scope()
+: <a class="el" href="class_room_kit_1_1_scope.html#a8187fecba341c3f52dc2b40e7f132094">RoomKit.Scope</a>
+</li>
+<li>Service
+: <a class="el" href="class_room_kit_1_1_scope.html#acf48a53dfd5f5a3173a6b519877aafb1">RoomKit.Scope</a>
+</li>
+<li>Services
+: <a class="el" href="class_room_kit_1_1_story.html#ad8b4b05d411bf6209b1d29208c658b43">RoomKit.Story</a>
+</li>
+<li>ServicesAsSpaces
+: <a class="el" href="class_room_kit_1_1_story.html#ad084cd691945911fabf181f38abd9c93">RoomKit.Story</a>
+</li>
+<li>ServicesColor
+: <a class="el" href="class_room_kit_1_1_story.html#ae03c2ca3bfb4f95a119138b8a22dc051">RoomKit.Story</a>
+</li>
+<li>SetElevation()
+: <a class="el" href="class_room_kit_1_1_room_group.html#aede2c58689acbed27c21b393c3989329">RoomKit.RoomGroup</a>
+</li>
+<li>SetHeight()
+: <a class="el" href="class_room_kit_1_1_room_group.html#a2c91d1d150b9f207ae6b67d5f3134b08">RoomKit.RoomGroup</a>
+</li>
+<li>SizeX
+: <a class="el" href="class_room_kit_1_1_topo_box.html#acf94cfba331d5e7851c6cfcc44051a21">RoomKit.TopoBox</a>
+</li>
+<li>Slab
+: <a class="el" href="class_room_kit_1_1_story.html#a7100274ee3dae390d43d63fc5d306fee">RoomKit.Story</a>
+</li>
+<li>Story()
+: <a class="el" href="class_room_kit_1_1_story.html#af0afabcb99aa48b828c8959ddc1b9227">RoomKit.Story</a>
+</li>
+</ul>
+
+
 <h3><a id="index_t"></a>- t -</h3><ul>
+<li>Tenant
+: <a class="el" href="class_room_kit_1_1_scope.html#aaa56dc19dac96f7b98fb5dc6b99e4e24">RoomKit.Scope</a>
+</li>
 <li>TopoBox()
 : <a class="el" href="class_room_kit_1_1_topo_box.html#aaf2418c0258d9c87c1d1ad66a6426169">RoomKit.TopoBox</a>
 </li>
@@ -324,14 +384,11 @@ $(document).ready(function(){initNavTree('functions.html','');});
 </li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="footer">Generated by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.14
+</small></address>
 </body>
 </html>

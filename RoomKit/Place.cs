@@ -11,7 +11,7 @@ namespace RoomKit
     public static class Place
     {
         /// <summary>
-        /// Attempts to place a supplied Polygon adjacent to another Polygon, aligning bounding box corners at an orthogonal bounding box axis while optionally maintaining coverage by a supplied perimeter Polygon and avoiding intersection with a supplied collection of Polygons.
+        /// Attempts to place a supplied Polygon adjacent to another Polygon, aligning bounding box corners at the orthogonal bounding box axis. Optionally restricts Polygon placement within a perimeter and/or avoiding intersection with a supplied list of Polygons.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
@@ -42,7 +42,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Attempts to place a supplied Polygon in a position relative to another Polygon, using specified paired bounding box orientation points on each Polygon. Optionally will also restrict Polygon placement within a perimeter and / or also avoiding intersection with a supplied list of Polygons.
+        /// Attempts to place a supplied Polygon in a position relative to another Polygon, using specified paired bounding box orientation points on each Polygon. Optionally restricts Polygon placement within a perimeter and/or avoiding intersection with a supplied list of Polygons.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="oPolygon">The Polygon TopoBox orientation to use as an insertion point.</param>

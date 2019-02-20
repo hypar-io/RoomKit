@@ -34,8 +34,8 @@ namespace RoomKit
         /// <param name="xInterval">The spacing of the grid along the x-axis.</param>
         /// <param name="yInterval">The spacing of the grid along the y-axis.</param>
         /// <returns>
-        /// None.
-        /// </returns>/// 
+        /// A new Coordgrid object.
+        /// </returns>
         public CoordGrid(Polygon polygon, double xInterval = 1,  double yInterval = 1)
         {
             Allocated = new List<Vector3>();

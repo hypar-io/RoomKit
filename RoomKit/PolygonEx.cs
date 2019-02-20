@@ -9,7 +9,7 @@ namespace RoomKit
     public static class PolygonEx
     {
         /// <summary>
-        /// Creates a rectilinear Polygon in the specified adjacent quadrant to the supplied Polygon.
+        /// Creates a rectilinear Polygon in the specified adjacent quadrant to the supplied Polygon's bounding box.
         /// </summary>
         /// <param name="area">The area of the new Polygon.</param>
         /// <param name="orient">The relative direction in which the new Polygon will be placed.</param>
@@ -61,7 +61,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns the ratio of the longer side to the shorter side of the Polygon's bounding box.
+        /// The ratio of the longer side to the shorter side of the Polygon's bounding box.
         /// </summary>
         public static double AspectRatio(this Polygon polygon)
         {
@@ -74,6 +74,37 @@ namespace RoomKit
             {
                 return box.SizeY / box.SizeX;
             }
+        }
+
+        /// <summary>
+        /// Returns a TopoBox representation of the Polygon's bounding box.
+        /// </summary>
+        public static TopoBox Box(this Polygon polygon)
+        {
+            return new TopoBox(polygon);
+        }
+
+        /// <summary>
+        /// Returns a list of Vector3 points representig the corners of the Polygon's orthogonal bounding box.
+        /// </summary>
+        public static List<Vector3> BoxCorners(this Polygon polygon)
+        {
+            var vertices = new List<Vector3>(polygon.Vertices);
+            vertices.Sort((a, b) => a.X.CompareTo(b.X));
+            double minX = vertices[0].X;
+            vertices.Sort((a, b) => b.X.CompareTo(a.X));
+            double maxX = vertices[0].X;
+            vertices.Sort((a, b) => a.Y.CompareTo(b.Y));
+            double minY = vertices[0].Y;
+            vertices.Sort((a, b) => b.Y.CompareTo(a.Y));
+            double maxY = vertices[0].Y;
+            return new List<Vector3>
+            {
+                new Vector3(minX, minY),
+                new Vector3(maxX, minY),
+                new Vector3(maxX, maxY),
+                new Vector3(minX, maxY)
+            };
         }
 
         /// <summary>
@@ -157,37 +188,6 @@ namespace RoomKit
                 return false;
             }
             return true;
-        }
-
-        /// <summary>
-        /// Returns a TopoBox representation of the polygon's bounding box.
-        /// </summary>
-        public static TopoBox Box(this Polygon polygon)
-        {
-            return new TopoBox(polygon);
-        }
-
-        /// <summary>
-        /// Returns a list of Vector3 points representig the corners of the Polygon's orthogonal bounding box.
-        /// </summary>
-        public static List<Vector3> BoxCorners(this Polygon polygon)
-        {
-            var vertices = new List<Vector3>(polygon.Vertices);
-            vertices.Sort((a, b) => a.X.CompareTo(b.X));
-            double minX = vertices[0].X;
-            vertices.Sort((a, b) => b.X.CompareTo(a.X));
-            double maxX = vertices[0].X;
-            vertices.Sort((a, b) => a.Y.CompareTo(b.Y));
-            double minY = vertices[0].Y;
-            vertices.Sort((a, b) => b.Y.CompareTo(a.Y));
-            double maxY = vertices[0].Y;
-            return new List<Vector3>
-            {
-                new Vector3(minX, minY),
-                new Vector3(maxX, minY),
-                new Vector3(maxX, maxY),
-                new Vector3(minX, maxY)
-            };
         }
 
         /// <summary>

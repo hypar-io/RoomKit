@@ -5,15 +5,14 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// Extends Hypar.Elements.Line with several utility methods.
+    /// Extends Elements.Geometry.Arc with utility methods.
     /// </summary>
     public static class ArcEx
     {
-
         /// <summary>
-        /// Returns collection of Vector3 points representing the division of the geomtry into the supplied number of segments.
+        /// Creates a collection of Vector3 points representing the division of the linear geometry into the supplied number of segments.
         /// </summary>
-        /// <param name="segments">The quantity of designed segments.</param>
+        /// <param name="segments">The quantity of desired segments.</param>
         /// <returns>
         /// A List of Vector3 points.
         /// </returns>

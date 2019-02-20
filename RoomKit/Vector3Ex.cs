@@ -7,7 +7,7 @@ using ClipperLib;
 namespace RoomKit
 {
     /// <summary>
-    /// Extends Hypar.Elements.Vector3 with utility methods.
+    /// Extends Elements.Geometry.Vector3 with utility methods.
     /// </summary>
     public static class Vector3Ex
     {
@@ -18,7 +18,7 @@ namespace RoomKit
         /// <param name="pivot">The Vector3 base point of the rotation.</param>
         /// <param name="angle">The desired rotation angle in degrees.</param>
         /// <returns>
-        /// A new vector3.
+        /// A new Vector3.
         /// </returns>
         public static Vector3 Rotate(this Vector3 point, Vector3 pivot, double angle)
         {

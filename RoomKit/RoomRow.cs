@@ -7,7 +7,7 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// A data structure recording room characteristics.
+    /// Creates and manages Rooms placed along a line.
     /// </summary>
     public class RoomRow
     {
@@ -38,17 +38,17 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The depth of the deepest room along the row.
+        /// The depth of the deepest room along the Row.
         /// </summary>
         public double Depth { get; private set; } = 0.0;
 
         /// <summary>
-        /// Arbitrary string identifier for this RoomRow instance. Has no effect on RoomRow operations.
+        /// Arbitrary string identifier for this RoomRow.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The list of Rooms placed along this Row.
+        /// The list of Rooms placed along the Row.
         /// </summary>
         public IList<Room> Rooms { get; }
 
@@ -58,7 +58,7 @@ namespace RoomKit
         public Line Row { get; }
 
         /// <summary>
-        /// Constructor initializes the RoomRow with default empty values.
+        /// Constructor initializes the RoomRow with default values.
         /// </summary>
         public RoomRow()
         {
@@ -74,6 +74,19 @@ namespace RoomKit
         public RoomRow(Line row, string name = "")
         {
             Row = new Line(row.Start, row.End);
+            Name = name;
+            Depth = 0.0;
+            Rooms = new List<Room>();
+            mark = new Vector3(Row.Start.X, Row.Start.Y);
+            angle = Math.Atan2(Row.End.Y - Row.Start.Y, Row.End.X - Row.Start.X) * (180 / Math.PI);
+        }
+
+        /// <summary>
+        /// Constructor initializes the RoomRow with line endpoints and an optional name.
+        /// </summary>
+        public RoomRow(Vector3 start, Vector3 end, string name = "")
+        {
+            Row = new Line(start, end);
             Name = name;
             Depth = 0.0;
             Rooms = new List<Room>();
@@ -128,10 +141,13 @@ namespace RoomKit
             }
         }
 
-         /// <summary>
-        /// Attempts to place a Room perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the Room's Polygon must fit and a list of Polygons which it cannot intersect.
+        /// <summary>
+        /// Attempts to place a Room perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the Room's perimeter must fit and a list of Polygons which it cannot intersect.
         /// </summary>
         /// <param name="room">The Room from which to derive the Polygon to place.</param>
+        /// <param name="within">The optional Polygon perimeter within which a new Room must fit.</param>
+        /// <param name="among">The optional list of Polygon perimeters the new Room cannot intersect.</param>
+        /// <param name="circ">The optional additional allowance opposite the Row to allow for circulation to the Rooms.</param>
         /// <returns>
         /// True if the room was successfully placed.
         /// </returns>
@@ -178,8 +194,6 @@ namespace RoomKit
                         new Vector3(0.0, circDepth)
                     });
             chkCirc = t.OfPolygon(chkCirc).MoveFromTo(new Vector3(), mark);
-
-
             if (!chkCirc.Fits(within, among))
             {
                 if (Rooms.Count == 0)
