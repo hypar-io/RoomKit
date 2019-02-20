@@ -13,31 +13,31 @@ A library for managing architectural rooms and building area allocations.
 
 **RoomKit.CoordGrid**
 
-Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.**
+Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
 
 **RoomKit.Room**
 
-A data structure recording room characteristics.**
+A data structure recording room characteristics.
 
 **RoomKit.RoomGroup**
 
-Creates and manages Rooms within a perimeter.**
+Creates and manages Rooms within a perimeter.
 
 **RoomKit.RoomRow**
 
-Creates and manages Rooms placed along a line**
+Creates and manages Rooms placed along a line
 
 **RoomKit.Scope**
 
-A data structure recording space program characteristics and the status of a**  **Room**  **placing process.**
+* A data structure recording space program characteristics and the status of a **Room** placing process.
 
 **RoomKit.Story**
 
-Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.**
+Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.
 
 **RoomKit.TopoBox**
 
-Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. Other compass points define points along the relevant side between the cardinal and corner points. C corresponds to the center of the box.**
+Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. Other compass points define points along the relevant side between the cardinal and corner points. C corresponds to the center of the box.
 
 # Namespace Documentation
 
