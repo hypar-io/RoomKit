@@ -44,61 +44,63 @@ Creates and manages Rooms placed along a line
 
 ### Classes
 
-### class **ArcEx**
+### **ArcEx**
 
 _Extends Elements.Geometry.Arc with utility methods._
 
-### class CoordGrid
+### CoordGrid
 
 _Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon._
 
-### class **LineEx**
+### **LineEx**
 
 _Extends Elements.Geometry.Line with utility methods._
 
-### class **Messages**
+### **Messages**
 
 _Common exception messages._
 
-### class **Palette**
+### **Palette**
 
 _Commonly used Colors for Space rendering. These colors are translucent to allow viewing of representions several layers deep._
 
-### class **Place**
+### **Place**
 
 _Places 2D Polygons in various spatial relationships to each other._
 
-### class **PolygonEx**
+### **PolygonEx**
 
-### class **Room**
+_Extends Elements.Geometry.Polygon with utility methods._
+
+### **Room**
 
 _A data structure recording room characteristics._
 
-## class RoomGroup
+### RoomGroup
 
 _Creates and manages Rooms within a perimeter._
 
-- class RoomRow
+### RoomRow
 
 _Creates and manages Rooms placed along a line._
 
-- class Scope
+### Scope
 
 _A data structure recording space program characteristics and the status of a_ _Room_ _placing process._
 
-- class **Shaper**
+### **Shaper**
 
 _Utilities for creating and editing Polygons._
 
-- class Story
+### Story
 
 _Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services._
 
-- class TopoBox
+### TopoBox
 
 _Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. Other compass points define points along the relevant side between the cardinal and corner points. C corresponds to the center of the box._
 
-- class **Vector3Ex**
+### **Vector3Ex**
 
 _Extends Elements.Geometry.Vector3 with utility methods._
 
