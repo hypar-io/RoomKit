@@ -44,36 +44,37 @@ Creates and manages Rooms placed along a line
 
 ### Classes
 
-- class **ArcEx**
+### class **ArcEx**
 
 _Extends Elements.Geometry.Arc with utility methods._
 
-- class CoordGrid
+### class CoordGrid
 
 _Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon._
 
-- class **LineEx**
+### class **LineEx**
 
 _Extends Elements.Geometry.Line with utility methods._
 
-- class **Messages**
+### class **Messages**
 
 _Common exception messages._
 
-- class **Palette**
+### class **Palette**
 
 _Commonly used Colors for Space rendering. These colors are translucent to allow viewing of representions several layers deep._
 
-- class **Place**
+### class **Place**
 
 _Places 2D Polygons in various spatial relationships to each other._
 
-- class **PolygonEx**
-- class Room
+### class **PolygonEx**
+
+### class **Room**
 
 _A data structure recording room characteristics._
 
-- class RoomGroup
+## class RoomGroup
 
 _Creates and manages Rooms within a perimeter._
 
