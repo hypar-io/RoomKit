@@ -1,11 +1,10 @@
 # RoomKit
 A library for managing architectural rooms and building area allocations.
 
-## Hypar Inc.
+# Hypar Inc.
 
-## Version 0.2.0
-
-## 02/20/2019
+# Version 0.2.0
+# 02/20/2019
 
 # Class Index
 
