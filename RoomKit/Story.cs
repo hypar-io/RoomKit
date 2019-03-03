@@ -11,12 +11,11 @@ namespace RoomKit
     /// </summary>
     public class Story
     {
+        #region Constructors
         /// <summary>
         /// Creates a Story at a 1.0 Height on the zero plane with new lists for Corridors, Rooms, and Services.
         /// Perimeter is set to null, Name is blank, and SlabThickness is s0.1.
         /// </summary>
-        /// <param name="ratio">The ratio of width to depth</param>
-        /// <param name="area">The required area of the Polygon.</param>
         /// <returns>
         /// A new Story.
         /// </returns>
@@ -24,6 +23,7 @@ namespace RoomKit
         public Story()
         {
             Corridors = new List<Room>();
+            Exclusions = new List<Room>();
             Rooms = new List<Room>();
             Services = new List<Room>();
             Color = Palette.White;
@@ -32,8 +32,10 @@ namespace RoomKit
             Name = "";
             Perimeter = null;
             SlabThickness = 0.1;
-        }
+        } 
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Area of the perimeter.
         /// </summary>
@@ -50,30 +52,6 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Area allocated to Corridors, Rooms, and Services.
-        /// </summary>
-        public double AreaPlaced
-        {
-            get
-            {
-                var area = 0.0;
-                foreach (Room room in Corridors)
-                {
-                    area += room.Perimeter.Area;
-                }
-                foreach (Room room in Rooms)
-                {
-                    area += room.Perimeter.Area;
-                }
-                foreach (Room room in Services)
-                {
-                    area += room.Perimeter.Area;
-                }
-                return area;
-            }
-        }
-
-        /// <summary>
         /// Unallocated area within the Story.
         /// </summary>
         public double AreaAvailable
@@ -85,7 +63,11 @@ namespace RoomKit
                     return 0.0;
                 }
                 var area = Perimeter.Area;
-                foreach (Room room in Rooms)
+                var rooms = new List<Room>(Corridors);
+                rooms.AddRange(Exclusions);
+                rooms.AddRange(Rooms);
+                rooms.AddRange(Services);
+                foreach (Room room in rooms)
                 {
                     if (room.Perimeter != null)
                     {
@@ -95,6 +77,25 @@ namespace RoomKit
                 if (area < 0.0)
                 {
                     area = 0.0;
+                }
+                return area;
+            }
+        }
+
+        /// <summary>
+        /// Area allocated to Corridors, Rooms, and Services.
+        /// </summary>
+        public double AreaPlaced
+        {
+            get
+            {
+                var area = 0.0;
+                var placed = new List<Room>(Corridors);
+                placed.AddRange(Rooms);
+                placed.AddRange(Services);
+                foreach (Room room in placed)
+                {
+                    area += room.Perimeter.Area;
                 }
                 return area;
             }
@@ -123,7 +124,24 @@ namespace RoomKit
         /// <summary>
         /// List of Rooms designated as cooridors.
         /// </summary>
-        public List<Room> Corridors { get; }
+        public List<Room> Corridors { get; private set;  }
+
+        /// <summary>
+        /// Polygons representing Corridors.
+        /// Rooms Perimeters in the Story conform to Corridor Perimeters.
+        /// </summary>
+        public List<Polygon> CorridorsAsPolygons
+        {
+            get
+            {
+                var polygons = new List<Polygon>();
+                foreach (Room room in Corridors)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                return polygons;
+            }
+        }
 
         /// <summary>
         /// List of Spaces created from Room characteristics within the Corridors list.
@@ -153,7 +171,7 @@ namespace RoomKit
             {
                 foreach (Room room in Corridors)
                 {
-                    room.Color = color;
+                    room.Color = value;
                 }
             }
         }
@@ -205,6 +223,29 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Rooms representing areas that must not be intersected, but which will not be available as Spaces.
+        /// All other Room Perimeters in the Story conform to Exclusion Room Perimeters.
+        /// </summary>
+        public List<Room> Exclusions { get; }
+
+        /// <summary>
+        /// Polygons representing areas that must not be intersected.
+        /// All other Room Perimeters in the Story conform to Exclusion Room Perimeters.
+        /// </summary>
+        public List<Polygon> ExclusionsAsPolygons
+        {
+            get
+            {
+                var polygons = new List<Polygon>();
+                foreach (Room room in Exclusions)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                return polygons;
+            }
+        }
+
+        /// <summary>
         /// Height of the Story relative to its elevation.
         /// </summary>
         private double height;
@@ -244,16 +285,41 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns all Corridors, Exclusions, Rooms, and Services as Polygons.
+        /// </summary>
+        public IList<Polygon> InteriorsAsPolygons
+        {
+            get
+            {
+                List<Polygon> polygons = new List<Polygon>();
+                foreach (Room room in Corridors)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                foreach (Room room in Exclusions)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                foreach (Room room in Rooms)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                foreach (Room room in Services)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                return polygons;
+            }
+        }
+
+        /// <summary>
         /// Returns all Corridors, Rooms, and Services as Spaces.
         /// </summary>
         public IList<Space> InteriorsAsSpaces
         {
             get
             {
-                List<Space> spaces = new List<Space>
-                {
-                    Envelope
-                };
+                List<Space> spaces = new List<Space>();
                 foreach (Room room in Corridors)
                 {
                     if (room.Perimeter != null)
@@ -284,7 +350,6 @@ namespace RoomKit
         /// </summary>
         public string Name { get; set; }
 
-
         /// <summary>
         /// The perimeter of the Story.
         /// </summary>
@@ -304,7 +369,24 @@ namespace RoomKit
         /// <summary>
         /// List of Rooms designated as occupiable rooms.
         /// </summary>
-        public List<Room> Rooms { get; }
+        public List<Room> Rooms { get; private set; }
+
+        /// <summary>
+        /// Polygons representing Services.
+        /// Corridors and Rooms Perimeters in the Story conform to Service Room Perimeters.
+        /// </summary>
+        public List<Polygon> RoomsAsPolygons
+        {
+            get
+            {
+                var polygons = new List<Polygon>();
+                foreach (Room room in Rooms)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                return polygons;
+            }
+        }
 
         /// <summary>
         /// List of Spaces created from Room characteristics within the Rooms list.
@@ -313,10 +395,7 @@ namespace RoomKit
         {
             get
             {
-                List<Space> spaces = new List<Space>
-                {
-                    Envelope
-                };
+                List<Space> spaces = new List<Space>();
                 foreach (Room room in Rooms)
                 {
                     if (room.Perimeter != null)
@@ -329,7 +408,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Sets the Rooms Space rendering color.
+        /// Sets the Rooms rendering color.
         /// </summary>
         public Color RoomsColor
         {
@@ -337,7 +416,7 @@ namespace RoomKit
             {
                 foreach (Room room in Rooms)
                 {
-                    room.Color = color;
+                    room.Color = value;
                 }
             }
         }
@@ -345,7 +424,24 @@ namespace RoomKit
         /// <summary>
         /// A list of Rooms designated as building services.
         /// </summary>
-        public List<Room> Services { get; }
+        public List<Room> Services { get; private set;  }
+
+        /// <summary>
+        /// Polygons representing Services.
+        /// Corridors and Rooms Perimeters in the Story conform to Service Room Perimeters.
+        /// </summary>
+        public List<Polygon> ServicesAsPolygons
+        {
+            get
+            {
+                var polygons = new List<Polygon>();
+                foreach (Room room in Services)
+                {
+                    polygons.Add(room.Perimeter);
+                }
+                return polygons;
+            }
+        }
 
         /// <summary>
         /// List of Spaces created from Room characteristics within the Services list.
@@ -375,7 +471,7 @@ namespace RoomKit
             {
                 foreach (Room room in Services)
                 {
-                    room.Color = color;
+                    room.Color = value;
                 }
             }
         }
@@ -387,7 +483,7 @@ namespace RoomKit
         {
             get
             {
-                return new Floor(Perimeter, new FloorType("slab", SlabThickness), Elevation,BuiltInMaterials.Concrete);
+                return new Floor(Perimeter, new FloorType("slab", SlabThickness), Elevation, BuiltInMaterials.Concrete);
             }
         }
 
@@ -407,327 +503,225 @@ namespace RoomKit
                 slabThickness = value;
             }
         }
+        #endregion
 
+        #region Private Methods
         /// <summary>
-        /// Creates a rectangular corridor Room from a centerline axis, width, and height, at the Story elevation.
-        /// Adds the new Room to the Corrdors list.
-        /// Corridors conform to Service perimeters.
-        /// Corridors change intersecting Room perimeters to conform to the corridor's perimeter.
+        /// Private function conforming a list of Rooms to another list of Rooms.
         /// </summary>
-        /// <param name="axis">Center Line of the corridor.</param>
-        /// <param name="width">Width of the corridor.</param>
-        /// <param name="height">Height of the corridor.</param>
-        /// <param name="name">String identifier.</param>
-        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <param name="fitRooms">Rooms that will conform the 'to' list of Rooms.</param>
+        /// <param name="toRooms">List of Rooms to which the 'fitted' Rooms will conform.</param>
+        /// <param name="toStory">Indicates whether the new Room should conform to the Story Perimeter. True by default.</param>     
         /// <returns>
-        /// None.
+        /// A list of Rooms.
         /// </returns>
-        public void AddCorridor(Line axis, 
-                                double width = 2.0, 
-                                double height = 3.0,
-                                string name = "",
-                                Color color = null)
+        private List<Room> FitRooms(List<Room> fitRooms, List<Room> toRooms, bool toStory = true)
         {
-            var corridor = new Room()
+            if (toRooms.Count == 0)
             {
-                Color = color,
-                Elevation = Elevation,
-                Height = height,
-                Name = name
-            };
-            corridor.MakePerimeter(axis, width);
-            Corridors.Add(corridor);
-            FitCorridorsToServices();
-            FitRoomsToCorridors();
+                return fitRooms;
+            }
+            var addRooms = new List<Room>();
+            var toPolygons = new List<Polygon>();
+            foreach (Room toRoom in toRooms)
+            {
+                toPolygons.Add(toRoom.Perimeter);
+            }
+            Polygon storyPerimeter = Perimeter;
+            if (!toStory)
+            {
+                storyPerimeter = null;
+            }
+            foreach (Room fitRoom in fitRooms)
+            {
+                var perimeters = Shaper.FitTo(fitRoom.Perimeter, storyPerimeter, toPolygons);
+                for (int i = 0; i < perimeters.Count; i++)
+                {
+                    var addRoom = new Room()
+                    {
+                        Color = fitRoom.Color,
+                        Elevation = fitRoom.Elevation,
+                        Height = fitRoom.Height,
+                        Name = fitRoom.Name,
+                        Perimeter = perimeters[i]
+                    };
+                    addRooms.Add(addRoom);
+                }
+            }
+            return addRooms;
         }
 
-        /// <summary>
-        /// Creates a rectangular corridor Room from a centerline axis, width, and height, at the Story elevation.
-        /// Adds the new Room to the Corrdors list.
-        /// Corridors conform to Service perimeters.
-        /// Corridors change intersecting Room perimeters to conform to the corridor's perimeter.
-        /// </summary>
-        /// <param name="start">First endpoint of the centerline of the corridor.</param>
-        /// <param name="end">Second endpoint of the centerline of the corridor.</param>
-        /// <param name="width">Width of the corridor.</param>
-        /// <param name="height">Height of the corridor.</param>
-        /// <param name="name">String identifier.</param>
-        /// <param name="color">Rendering color of the Room as a Space.</param>
-        /// <returns>
-        /// None.
-        /// </returns>
-        public void AddCorridor(Vector3 start, 
-                                Vector3 end, 
-                                double width = 2.0, 
-                                double height = 3.0,
-                                string name = "",
-                                Color color = null)
-        {
-            var corridor = new Room()
-            {
-                Color = color,
-                Elevation = Elevation,
-                Height = height,
-                Name = name
-            };
-            corridor.MakePerimeter(start, end, width);
-            Corridors.Add(corridor);
-            FitCorridorsToServices();
-            FitRoomsToCorridors();
-        }
+        #endregion
+
+        #region Public Methods
 
         /// <summary>
-        /// Creates a corridor Room from a perimeter and height, at the Story elevation.
-        /// Adds the new Room to the Corrdors list.
-        /// Corridors conform to Service perimeters.
-        /// Corridors change intersecting Room perimeters to conform to the corridor's perimeter.
+        /// Adds a Room to the Corridors list.
         /// </summary>
-        /// <param name="perimeter">Polygon perimeter of the corridor.</param>
-        /// <param name="height">Height of the corridor.</param>
-        /// <param name="name">String identifier.</param>
-        /// <param name="color">Rendering color of the Room as a Space.</param>
+        /// <param name="room">Room to add.</param>
+        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
         /// <returns>
-        /// None.
+        /// True if one or more rooms were added to the Story.
         /// </returns>
-        public void AddCorridor(Polygon perimeter,
-                                double height = 3.0,
-                                string name = "",
-                                Color color = null)
+        public bool AddCorridor(Room room, bool fit = true)
         {
-            if (Perimeter == null)
+            if (Perimeter == null || room.Perimeter == null)
             {
                 throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
             }
-            var corridor = new Room()
+            if (!Perimeter.Covers(perimeter))
             {
-                Color = color,
-                Elevation = elevation,
-                Height = height,
-                Name = name,
-                Perimeter = perimeter
-            };
-            Corridors.Add(corridor);
-            FitCorridorsToServices();
-            FitRoomsToCorridors();
-        }
-
-        /// <summary>
-        /// Creates an occupied Room from a perimeter and height, at the Story elevation.
-        /// Adds the new Room to the Rooms list.
-        /// Rooms conform to corridor and service perimeters.
-        /// </summary>
-        /// <param name="perimeter">Polygon perimeter of the corridor.</param>
-        /// <param name="height">Height of the corridor.</param>
-        /// <param name="name">String identifier.</param>
-        /// <param name="color">Rendering color of the Room as a Space.</param>
-        /// <returns>
-        /// None.
-        /// </returns>
-        public void AddRoom(Polygon perimeter,
-                            double height = 3.0,
-                            string name = "",
-                            Color color = null)
-        {
-            if (Perimeter == null)
-            {
-                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+                throw new ArgumentNullException(Messages.PERIMETER_PLACEMENT_EXCEPTION);
             }
-            Rooms.Add(
+            var newRoom =
                 new Room()
                 {
-                    Color = color,
+                    Color = room.Color,
                     Elevation = Elevation,
-                    Height = height,
-                    Name = name,
-                    Perimeter = perimeter,
-                });
-            FitRoomsToServices();
-            FitRoomsToCorridors();
-        }
-
-        /// <summary>
-        /// Creates a Service from a perimeter at the Story's height and elevation.
-        /// Adds the new Room to the Services list.
-        /// Corridors and Rooms conform to Service perimeters.
-        /// </summary>
-        /// <param name="perimeter">Polygon perimeter of the corridor.</param>
-        /// <param name="name">String identifier.</param>
-        /// <param name="color">Rendering color of the Room as a Space.</param>
-        /// <returns>
-        /// None.
-        /// </returns>
-        public void AddService(Polygon perimeter, string name = "", Color color = null)
-        {
-            var service = new Room()
+                    Height = room.Height,
+                    Name = room.Name,
+                    Perimeter = room.Perimeter
+                };
+            var fitRooms = new List<Room> { newRoom };
+            if (fit)
             {
-                Color = color,
-                Elevation = Elevation,
-                Height = Height,
-                Name = name,
-                Perimeter = perimeter
-            };
-            Services.Add(service);
-            FitCorridorsToServices();
-            FitRoomsToServices();
-        }
-
-        /// <summary>
-        /// Private function configuring all Corridor perimeters to conform to all Service perimeters.
-        /// </summary>
-        /// <returns>
-        /// None.
-        /// </returns>
-        private void FitCorridorsToServices()
-        {
-            foreach (Room service in Services)
-            {
-                if (service.Perimeter == null)
-                {
-                    continue;
-                }
-                int index = 0;
-                List<int> indices = new List<int>();
-                var addRooms = new List<Room>();
-                foreach (Room room in Corridors)
-                {
-                    var perimeters = room.Perimeter.Difference(service.Perimeter);
-                    if (perimeters != null && perimeters.Count > 0)
-                    {
-                        room.Perimeter = perimeters.First();
-                        for (int i = 1; i < perimeters.Count; i++)
-                        {
-                            var addRoom = new Room()
-                            {
-                                Color = room.Color,
-                                Elevation = room.Elevation,
-                                Height = room.Height,
-                                Name = room.Name,
-                                Perimeter = perimeters[i]
-                            };
-                            addRooms.Add(addRoom);
-                        }
-                    }
-                    else
-                    {
-                        indices.Add(index);
-                    }
-                    index++;
-                }
-                foreach (int remove in indices)
-                {
-                    Corridors.RemoveAt(remove);
-                }
-                if (addRooms.Count > 0)
-                {
-                    Corridors.AddRange(addRooms);
-                }
+                var toRooms = new List<Room>(Exclusions);
+                toRooms.AddRange(Services);
+                fitRooms = FitRooms(fitRooms, toRooms, false);
+                Rooms = FitRooms(Rooms, fitRooms);
             }
+            if (fitRooms.Count == 0)
+            {
+                return false;
+            }
+            Corridors.AddRange(fitRooms);
+            return true;
         }
 
         /// <summary>
-        /// Private function configuring all Room perimeters to conform to all Corridor perimeters.
+        /// Adds a Room to the Exclusions list.
         /// </summary>
+        /// <param name="room">Room to add.</param>
+        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
         /// <returns>
-        /// None.
+        /// True if one or more rooms were added to the Story.
         /// </returns>
-        private void FitRoomsToCorridors()
+        public bool AddExclusion(Room room, bool fit = true)
         {
-            foreach (Room corridor in Corridors)
+            if (Perimeter == null || room.Perimeter == null)
             {
-                if (corridor.Perimeter == null)
-                {
-                    continue;
-                }
-                int index = 0;
-                List<int> indices = new List<int>();
-                var addRooms = new List<Room>();
-                foreach (Room room in Rooms)
-                {
-                    var perimeters = room.Perimeter.Difference(corridor.Perimeter);
-                    if (perimeters != null && perimeters.Count > 0)
-                    {
-                        room.Perimeter = perimeters.First();
-                        for (int i = 1; i < perimeters.Count; i++)
-                        {
-                            var addRoom = new Room()
-                            {
-                                Color = room.Color,
-                                Elevation = room.Elevation,
-                                Height = room.Height,
-                                Name = room.Name,
-                                Perimeter = perimeters[i]
-                            };
-                            addRooms.Add(addRoom);
-                        }
-                    }
-                    else
-                    {
-                        indices.Add(index);
-                    }
-                    index++;
-                }
-                foreach (int remove in indices)
-                {
-                    Rooms.RemoveAt(remove);
-                }
-                if (addRooms.Count > 0)
-                {
-                    Rooms.AddRange(addRooms);
-                }
+                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
             }
+            if (!Perimeter.Covers(perimeter))
+            {
+                throw new ArgumentNullException(Messages.PERIMETER_PLACEMENT_EXCEPTION);
+            }
+            var newRoom =
+                new Room()
+                {
+                    Elevation = Elevation,
+                    Name = room.Name,
+                    Perimeter = room.Perimeter
+                };
+            var toRooms = new List<Room> { newRoom };
+            if (fit)
+            {
+                Services = FitRooms(Services, toRooms);
+                toRooms.AddRange(Services);
+                Corridors = FitRooms(Corridors, toRooms);
+                toRooms.AddRange(Corridors);
+                Rooms = FitRooms(Rooms, toRooms);
+            }
+            Exclusions.Add(newRoom);
+            return true;
         }
 
         /// <summary>
-        /// Private function configuring all Room perimeters to conform to all Service perimeters.
+        /// Adds a Room to the Rooms list.
         /// </summary>
+        /// <param name="room">Room to add.</param>
+        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
         /// <returns>
-        /// None.
+        /// True if one or more rooms were added to the Story.
         /// </returns>
-        private void FitRoomsToServices()
+        public bool AddRoom(Room room, bool fit = true)
         {
-            foreach (Room service in Services)
+            if (Perimeter == null || room.Perimeter == null)
             {
-                if (service.Perimeter == null)
-                {
-                    continue;
-                }
-                int index = 0;
-                List<int> indices = new List<int>();
-                var addRooms = new List<Room>();
-                foreach (Room room in Rooms)
-                {
-                    var perimeters = room.Perimeter.Difference(service.Perimeter);
-                    if (perimeters != null && perimeters.Count > 0)
-                    {
-                        room.Perimeter = perimeters.First();
-                        for (int i = 1; i < perimeters.Count; i++)
-                        {
-                            var addRoom = new Room()
-                            {
-                                Color = room.Color,
-                                Elevation = room.Elevation,
-                                Height = room.Height,
-                                Name = room.Name,
-                                Perimeter = perimeters[i]
-                            };
-                            addRooms.Add(addRoom);
-                        }
-                    }
-                    else
-                    {
-                        indices.Add(index);
-                    }
-                    index++;
-                }
-                foreach (int remove in indices)
-                {
-                    Rooms.RemoveAt(remove);
-                }
-                if (addRooms.Count > 0)
-                {
-                    Rooms.AddRange(addRooms);
-                }
+                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
             }
+            if (!Perimeter.Covers(perimeter))
+            {
+                throw new ArgumentNullException(Messages.PERIMETER_PLACEMENT_EXCEPTION);
+            }
+            var newRoom =
+                new Room()
+                {
+                    Color = room.Color,
+                    Elevation = Elevation,
+                    Height = room.Height,
+                    Name = room.Name,
+                    Perimeter = room.Perimeter
+                };
+            var fitRooms = new List<Room> { newRoom };
+            if (fit)
+            {
+                var toRooms = new List<Room>(Exclusions);
+                toRooms.AddRange(Services);
+                toRooms.AddRange(Corridors);
+                fitRooms = FitRooms(fitRooms, toRooms);
+            }
+            if (fitRooms.Count == 0)
+            {
+                return false;
+            }
+            Rooms.AddRange(fitRooms);
+            return true;
+        }
+
+        /// <summary>
+        /// Adds a Room to the Services list.
+        /// </summary>
+        /// <param name="room">Room to add.</param>
+        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
+        /// <returns>
+        /// True if one or more rooms were added to the Story.
+        /// </returns>
+        public bool AddService(Room room, bool fit = true)
+        {
+            if (Perimeter == null || room.Perimeter == null)
+            {
+                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+            }
+            if (!Perimeter.Covers(perimeter))
+            {
+                throw new ArgumentNullException(Messages.PERIMETER_PLACEMENT_EXCEPTION);
+            }
+            var newRoom =
+                new Room()
+                {
+                    Color = room.Color,
+                    Elevation = Elevation,
+                    Height = Height,
+                    Name = room.Name,
+                    Perimeter = room.Perimeter
+                };
+            var fitRooms = new List<Room> { newRoom };
+            if (fit)
+            {
+                var toRooms = new List<Room>(Exclusions);
+                fitRooms = FitRooms(fitRooms, toRooms);
+                toRooms.AddRange(fitRooms);
+                Corridors = FitRooms(Corridors, toRooms);
+                toRooms.AddRange(Corridors);
+                Rooms = FitRooms(Rooms, toRooms);
+            }
+            if (fitRooms.Count == 0)
+            {
+                return false;
+            }
+            Services.AddRange(fitRooms);
+            return true;
         }
 
         /// <summary>
@@ -744,30 +738,45 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public void RoomsByDivision(int xRooms = 1,
+        public bool RoomsByDivision(int xRooms = 1,
                                     int yRooms = 1,
                                     double height = 3.0,
                                     double setback = 0.0,
                                     string name = "",
-                                    Color color = null)
+                                    Color color = null,
+                                    bool fit = true)
         {
-            if (Perimeter == null)
+            if (Perimeter == null || height < 0.0 || setback < 0.0 || xRooms < 1 || yRooms < 1)
             {
-                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+                return false;
             }
-            if (setback < 0.0)
-            {
-                throw new ArgumentNullException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
-            }
-            Rooms.Clear();
             var polygon = Perimeter.Offset(setback * -1.0).First();
-            var roomGroup = new RoomGroup(polygon, xRooms, yRooms, name);
+            var roomGroup =
+                new RoomGroup()
+                {
+                    Name = name,
+                    Perimeter = polygon
+                };
+            roomGroup.RoomsByDivision(xRooms, yRooms);
             roomGroup.SetElevation(Elevation);
             roomGroup.SetHeight(height);
-            Rooms.AddRange(roomGroup.Rooms);
-            RoomsColor = color;
-            FitRoomsToServices();
-            FitRoomsToCorridors();
-        }
+            roomGroup.SetColor(color);
+            var fitRooms = new List<Room>(roomGroup.Rooms);
+            if (fit)
+            {
+                var toRooms = new List<Room>(Exclusions);
+                toRooms.AddRange(Services);
+                toRooms.AddRange(Corridors);
+                fitRooms = FitRooms(fitRooms, toRooms);
+            }
+            if (fitRooms.Count == 0)
+            {
+                return false;
+            }
+            Rooms.Clear();
+            Rooms.AddRange(fitRooms);
+            return true;
+        } 
+        #endregion
     }
 }

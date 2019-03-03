@@ -7,32 +7,92 @@ namespace RoomKit
 {
     /// <summary>
     /// Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
-    /// N, S, E, and W define middle points on each orthogonal side of the box.
-    /// NE, NW, SE, and SW correspond to the corners of the box.
-    /// Other compass points define points along the relevant side between the cardinal and corner points.
-    /// C corresponds to the center of the box.
     /// </summary>
     public class TopoBox
     {
         /// <summary>
-        /// Vector3 location identifiers corresponding to points on the box perimeter.
+        /// Vector3 location identifier corresponding to the center of the box perimeter.
         /// </summary>
         public Vector3 C { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint of the maximum Y side of the box perimeter.
+        /// </summary>
         public Vector3 N { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the NW and N points of the box perimeter.
+        /// </summary>
         public Vector3 NNW { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the mimimum X and maximum Y corner of the box perimeter.
+        /// </summary>
         public Vector3 NW { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the NW and W points of the box perimeter.
+        /// </summary>
         public Vector3 WNW { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint of the minimum X side of the box perimeter.
+        /// </summary>
         public Vector3 W { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the SW and W points of the box perimeter.
+        /// </summary>
         public Vector3 WSW { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the mimimum X and Y corner of the box perimeter.
+        /// </summary>
         public Vector3 SW { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the SW and S points of the box perimeter.
+        /// </summary>
         public Vector3 SSW { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint of the minimum Y side of the box perimeter.
+        /// </summary>
         public Vector3 S { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the SE and S points of the box perimeter.
+        /// </summary>
         public Vector3 SSE { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the maximum X and minimum Y corner of the box perimeter.
+        /// </summary>
         public Vector3 SE { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the SE and E points of the box perimeter.
+        /// </summary>
         public Vector3 ESE { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint of the maximum X side of the box perimeter.
+        /// </summary>
         public Vector3 E { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the NE and E points of the box perimeter.
+        /// </summary>
         public Vector3 ENE { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the maximum X and Y corner of the box perimeter.
+        /// </summary>
         public Vector3 NE { get; }
+
+        /// <summary>
+        /// Vector3 location identifier corresponding to the midpoint between the NE and N  points of the box perimeter.
+        /// </summary>
         public Vector3 NNE { get; }
 
         /// <summary>

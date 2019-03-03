@@ -13,29 +13,66 @@ namespace RoomKit
     public static class Shaper
     {
         /// <summary>
-        /// Creates a rectangular Polygon of the supplied length to width proportion at the supplied area with its southwest corner at the origin.
+        /// Creates a rectilinear Polygon in the specified adjacent quadrant to the supplied Polygon's bounding box.
         /// </summary>
-        /// <param name="ratio">The ratio of width to depth</param>
-        /// <param name="area">The required area of the Polygon.</param>
+        /// <param name="area">The area of the new Polygon.</param>
+        /// <param name="orient">The relative cardinal direction in which the new Polygon will be placed.</param>
         /// <returns>
         /// A new Polygon.
         /// </returns>
-        public static Polygon AreaFromCorner(double area, double ratio)
+        public static Polygon AdjacentArea(Polygon polygon, double area, Orient orient)
         {
-            var x = Math.Sqrt(area * ratio);
-            var y = area / x;
-            return PolygonBox(x, y);
+            var box = new TopoBox(polygon);
+            double sizeX = 0.0;
+            double sizeY = 0.0;
+            if (orient == Orient.N || orient == Orient.S)
+            {
+                sizeX = box.SizeX;
+                sizeY = area / box.SizeX;
+            }
+            else
+            {
+                sizeX = area / box.SizeY;
+                sizeY = box.SizeY;
+            }
+            Vector3 origin = null;
+            switch (orient)
+            {
+                case Orient.N:
+                    origin = box.NW;
+                    break;
+                case Orient.E:
+                    origin = box.SE;
+                    break;
+                case Orient.S:
+                    origin = new Vector3(box.SW.X, box.SW.Y - sizeY);
+                    break;
+                case Orient.W:
+                    origin = new Vector3(box.SW.X - sizeX, box.SW.Y);
+                    break;
+            }
+            return
+                new Polygon
+                (
+                    new[]
+                    {
+                        origin,
+                        new Vector3(origin.X + sizeX, origin.Y),
+                        new Vector3(origin.X + sizeX, origin.Y + sizeY),
+                        new Vector3(origin.X, origin.Y + sizeY)
+                    }
+                );
         }
 
         /// <summary>
         /// Attempts to expand a Polygon horizontally until coming within the tolerance percentage of the target area.
         /// </summary>
-        /// <param name="polygon">The Polygon to expand to the specified area.</param>
-        /// <param name="area">The target area of the Polygon.</param>
-        /// <param name="within">The optional Polygon acting as a constraining outer boundary.</param>
-        /// <param name="among">The optional list of Polygons to avoid intersecting.</param>
-        /// <param name="tolerance">The area total tolerance.</param>
-        /// <param name="trials">The number of times to attempt to scale the Polygon to the desired area.</param>
+        /// <param name="polygon">Polygon to expand to the specified area.</param>
+        /// <param name="area">Target area of the Polygon.</param>
+        /// <param name="within">Polygon acting as a constraining outer boundary.</param>
+        /// <param name="among">Llist of Polygons to avoid intersecting.</param>
+        /// <param name="tolerance">Area total tolerance.</param>
+        /// <param name="trials">Number of times to attempt to scale the Polygon to the desired area.</param>
         /// <returns>
         /// A new Polygon.
         /// </returns>
@@ -63,48 +100,54 @@ namespace RoomKit
                 }
                 if (among != null && tryPoly.Intersects(among))
                 {
-                    tryPoly = tryPoly.Diff(among).First();
+                    tryPoly = tryPoly.Difference(among).First();
                 }
                 i++;
             }
             while ((tryPoly.Area < area - (area * tolerance) || tryPoly.Area > area + (area * tolerance)) && i < trials);
-            if (i == trials)
-            {
-                return polygon;
-            }
             return tryPoly;
         }
 
         /// <summary>
-        /// Creates a new Polygon fitted within a supplied perimeter and conforming to supplied intersecting Polygons.
+        /// Creates a new list of Polygons fitted within a supplied perimeter and conforming to supplied intersecting Polygons.
         /// </summary>
-        /// <param name="polygon">The Polygon to fit to the context.</param>
-        /// <param name="within">The optional Polygon acting as a constraining outer boundary.</param>
-        /// <param name="among">The optional list of Polygons against which this Polygon must conform.</param>
+        /// <param name="polygon">Polygon to fit to the context.</param>
+        /// <param name="within">Polygon acting as a constraining outer boundary.</param>
+        /// <param name="among">List of Polygons against which this Polygon must conform.</param>
         /// <returns>
-        /// A new Polygon.
+        /// A list of Polygons.
         /// </returns>
-        public static Polygon FitTo(Polygon polygon,
-                                    Polygon within = null,
-                                    List<Polygon> among = null)
+        public static List<Polygon> FitTo(Polygon polygon,
+                                          Polygon within = null,
+                                          List<Polygon> among = null)
         {
+            var polyWithin = new List<Polygon>();
             if (within != null && polygon.Intersects(within))
             {
-                var polygons = within.Intersection(polygon);
-                if (polygons != null && polygons.Count > 0)
-                {
-                    polygon = polygons.First();
-                }
+                polyWithin.AddRange(within.Intersection(polygon));
             }
-            if (among != null && polygon.Intersects(among))
+            else
             {
-                var polygons = polygon.Difference(among);
-                if (polygons != null && polygons.Count > 0)
+                polyWithin.Add(polygon);
+            }
+            if (among == null)
+            {
+                return polyWithin;
+            }
+            var polyAmong = new List<Polygon>();
+            foreach (Polygon poly in polyWithin)
+            {
+                var polygons = poly.Difference(among);
+                if (polygons != null)
                 {
-                    polygon = polygons.First();
+                    polyAmong.AddRange(polygons);
+                }
+                else
+                {
+                    polyAmong.Add(poly);
                 }
             }
-            return polygon;
+            return polyAmong;
         }
 
         /// <summary>
@@ -135,13 +178,13 @@ namespace RoomKit
         /// <returns>
         /// A new Polygon.
         /// </returns>
-        public static Polygon PolygonBox(double sizeX, double sizeY)
+        public static Polygon PolygonBox(double sizeX, double sizeY, Vector3 moveTo = null)
         {
             if (sizeX <= 0 || sizeY <= 0)
             {
                 throw new ArgumentOutOfRangeException(Messages.POLYGON_SHAPE_EXCEPTION);
             }
-            return
+            var polygon = 
                 new Polygon
                 (
                     new []
@@ -152,6 +195,31 @@ namespace RoomKit
                         new Vector3(0.0, sizeY)
                     }
                 );
+            if (moveTo != null)
+            {
+                return polygon.MoveFromTo(Vector3.Origin, moveTo);
+            }
+            return polygon;
+        }
+
+        /// <summary>
+        /// Creates a rectangular Polygon of the supplied length to width proportion at the supplied area with its southwest corner at the origin.
+        /// </summary>
+        /// <param name="area">Required area of the Polygon.</param>
+        /// <param name="ratio">Ratio of width to depth.</param>
+        /// <param name="moveTo">Location of the southwest corner of the new Polygon.</param>
+        /// <returns>
+        /// A new Polygon.
+        /// </returns>
+        public static Polygon PolygonByArea(double area, double ratio, Vector3 moveTo = null)
+        {
+            var x = Math.Sqrt(area * ratio);
+            var y = area / x;
+            if (moveTo != null)
+            {
+                return PolygonBox(x, y).MoveFromTo(Vector3.Origin, moveTo);
+            }
+            return PolygonBox(x, y);
         }
 
         /// <summary>
@@ -176,7 +244,7 @@ namespace RoomKit
                 (
                     new[]
                     {
-                        new Vector3(),
+                        Vector3.Origin,
                         new Vector3(size.X, 0),
                         new Vector3(size.X, width),
                         new Vector3(width, width),
@@ -213,7 +281,7 @@ namespace RoomKit
                 (
                     new []
                     {
-                        new Vector3(),
+                        Vector3.Origin,
                         new Vector3(size.X, 0),
                         new Vector3(size.X, width),
                         new Vector3(width, width),
@@ -254,7 +322,7 @@ namespace RoomKit
                 (
                     new []
                     {
-                        new Vector3(),
+                        Vector3.Origin,
                         new Vector3(width, origin.Y),
                         new Vector3(width, xAxis - halfWidth),
                         new Vector3(size.X, xAxis - halfWidth),
@@ -295,7 +363,7 @@ namespace RoomKit
                 (
                     new []
                     {
-                        new Vector3(),
+                        Vector3.Origin,
                         new Vector3(width, 0),
                         new Vector3(width, xAxis - halfWidth),
                         new Vector3(rightWest, xAxis - halfWidth),
@@ -473,7 +541,7 @@ namespace RoomKit
 
         public static Polygon PolygonRegular(Vector3 center, double radius, int sides = 3)
         {
-            if (radius <= 0 || sides < 3)
+            if (radius <= 0.0 || sides < 3)
             {
                 throw new ArgumentOutOfRangeException(Messages.POLYGON_SHAPE_EXCEPTION);
             }

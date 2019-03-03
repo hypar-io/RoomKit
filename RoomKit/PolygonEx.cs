@@ -9,58 +9,6 @@ namespace RoomKit
     public static class PolygonEx
     {
         /// <summary>
-        /// Creates a rectilinear Polygon in the specified adjacent quadrant to the supplied Polygon's bounding box.
-        /// </summary>
-        /// <param name="area">The area of the new Polygon.</param>
-        /// <param name="orient">The relative direction in which the new Polygon will be placed.</param>
-        /// <returns>
-        /// A new Polygon.
-        /// </returns>
-        public static Polygon AdjacentArea(this Polygon polygon, double area, Orient orient)
-        {
-            var box = new TopoBox(polygon);
-            double sizeX = 0.0;
-            double sizeY = 0.0;
-            if (orient == Orient.N || orient == Orient.S)
-            {
-                sizeX = box.SizeX;
-                sizeY = area / box.SizeX;
-            }
-            else
-            {
-                sizeX = area / box.SizeY;
-                sizeY = box.SizeY;
-            }
-            Vector3 origin = null;
-            switch (orient)
-            {
-                case Orient.N:
-                    origin = box.NW;
-                    break;
-                case Orient.E:
-                    origin = box.SE;
-                    break;
-                case Orient.S:
-                    origin = new Vector3(box.SW.X, box.SW.Y - sizeY);
-                    break;
-                case Orient.W:
-                    origin = new Vector3(box.SW.X - sizeX, box.SW.Y);
-                    break;
-            }
-            return
-                new Polygon
-                (
-                    new []
-                    {
-                        origin,
-                        new Vector3(origin.X + sizeX, origin.Y),
-                        new Vector3(origin.X + sizeX, origin.Y + sizeY),
-                        new Vector3(origin.X, origin.Y + sizeY)
-                    }
-                );
-        }
-
-        /// <summary>
         /// The ratio of the longer side to the shorter side of the Polygon's bounding box.
         /// </summary>
         public static double AspectRatio(this Polygon polygon)
@@ -89,21 +37,13 @@ namespace RoomKit
         /// </summary>
         public static List<Vector3> BoxCorners(this Polygon polygon)
         {
-            var vertices = new List<Vector3>(polygon.Vertices);
-            vertices.Sort((a, b) => a.X.CompareTo(b.X));
-            double minX = vertices[0].X;
-            vertices.Sort((a, b) => b.X.CompareTo(a.X));
-            double maxX = vertices[0].X;
-            vertices.Sort((a, b) => a.Y.CompareTo(b.Y));
-            double minY = vertices[0].Y;
-            vertices.Sort((a, b) => b.Y.CompareTo(a.Y));
-            double maxY = vertices[0].Y;
+            var box = new TopoBox(polygon);
             return new List<Vector3>
             {
-                new Vector3(minX, minY),
-                new Vector3(maxX, minY),
-                new Vector3(maxX, maxY),
-                new Vector3(minX, maxY)
+                box.SW,
+                box.SE,
+                box.NE,
+                box.NW
             };
         }
 
@@ -119,7 +59,7 @@ namespace RoomKit
         {
             var count = 0;
             var box = new TopoBox(perimeter);
-            var boundary = Shaper.PolygonBox(box.SizeX, box.SizeY).MoveFromTo(new Vector3(), box.SW);
+            var boundary = Shaper.PolygonBox(box.SizeX, box.SizeY).MoveFromTo(Vector3.Origin, box.SW);
             foreach (Vector3 vertex in BoxCorners(polygon))
             {
                 if (boundary.Touches(vertex))
@@ -175,7 +115,7 @@ namespace RoomKit
         {
             var count = 0;
             var box = new TopoBox(perimeter);
-            var boundary = Shaper.PolygonBox(box.SizeX, box.SizeY).MoveFromTo(new Vector3(), box.SW);
+            var boundary = Shaper.PolygonBox(box.SizeX, box.SizeY).MoveFromTo(Vector3.Origin, box.SW);
             foreach (Vector3 vertex in BoxCorners(polygon))
             {
                 if (boundary.Touches(vertex) || perimeter.Touches(vertex))
@@ -269,40 +209,6 @@ namespace RoomKit
         /// Returns null if the area of this Polygon is entirely subtracted.
         /// Returns a list containing a representation of the perimeter of this Polygon if the two Polygons do not intersect.
         /// </returns>
-        public static IList<Polygon> Diff(this Polygon polygon, IList<Polygon> difPolys)
-        {
-            var thisPath = polygon.ToClipperPath();
-            var polyPaths = new List<List<IntPoint>>();
-            foreach (Polygon poly in difPolys)
-            {
-                polyPaths.Add(poly.ToClipperPath());
-            }
-            Clipper clipper = new Clipper();
-            clipper.AddPath(thisPath, PolyType.ptSubject, true);
-            clipper.AddPaths(polyPaths, PolyType.ptClip, true);
-            var solution = new List<List<IntPoint>>();
-            clipper.Execute(ClipType.ctDifference, solution);
-            if (solution.Count == 0)
-            {
-                return null;
-            }
-            var polygons = new List<Polygon>();
-            foreach (List<IntPoint> path in solution)
-            {
-                polygons.Add(ToPolygon(path.Distinct().ToList()));
-            }
-            return polygons;
-        }
-
-        /// <summary>
-        /// Constructs the geometric difference between this Polygon and the supplied Polygons.
-        /// </summary>
-        /// <param name="difPolys">The list of intersecting Polygons.</param>
-        /// <returns>
-        /// Returns a list of Polygons representing the subtraction of the supplied Polygons from this Polygon.
-        /// Returns null if the area of this Polygon is entirely subtracted.
-        /// Returns a list containing a representation of the perimeter of this Polygon if the two Polygons do not intersect.
-        /// </returns>
         public static IList<Polygon> Difference(this Polygon polygon, IList<Polygon> difPolys)
         {
             var thisPath = ToClipperPath(polygon);
@@ -323,7 +229,7 @@ namespace RoomKit
             var polygons = new List<Polygon>();
             foreach (List<IntPoint> path in solution)
             {
-                polygons.Add(ToPolygon(path));
+                polygons.Add(ToPolygon(path.Distinct().ToList()));
             }
             return polygons;
         }
@@ -392,6 +298,22 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns a new Polygon displaced along a 2D vector calculated between the supplied Vector3 points.
+        /// </summary>
+        /// <param name="polygon">Polygon instance to be copied.</param>
+        /// <param name="from">Vector3 base point of the move.</param>
+        /// <param name="to">Vector3 target point of the move.</param>
+        /// <returns>
+        /// A new Polygon.
+        /// </returns>
+        public static Polygon MoveFromTo(this Polygon polygon, Vector3 from, Vector3 to)
+        {
+            var t = new Transform();
+            t.Move(new Vector3(to.X - from.X, to.Y - from.Y));
+            return t.OfPolygon(polygon);
+        }
+
+        /// <summary>
         /// Tests if the supplied Vector3 point is coincident with an edge of this Polygon when compared on a shared plane.
         /// </summary>
         /// <param name="point">The Vector3 point to compare to this Polygon.</param>
@@ -413,22 +335,6 @@ namespace RoomKit
             return true;
         }
 
-        /// <summary>
-        /// Returns a new Polygon displaced along a vector calculated between the supplied Vector3 points.
-        /// </summary>
-        /// <param name="polygon">The Polygon instance to be copied.</param>
-        /// <param name="from">The Vector3 base point of the move.</param>
-        /// <param name="to">The Vector3 target point of the move.</param>
-        /// <returns>
-        /// A new Polygon.
-        /// </returns>
-        public static Polygon MoveFromTo(this Polygon polygon, Vector3 from, Vector3 to)
-        {
-            var t = new Transform();
-            t.Move(new Vector3(to.X - from.X, to.Y - from.Y));
-            return t.OfPolygon(polygon);
-        }
-
         private const double scale = 1024.0;
 
         /// <summary>
@@ -443,7 +349,7 @@ namespace RoomKit
             {
                 path.Add(new IntPoint(v.X * scale, v.Y * scale));
             }
-            return path;
+            return path.Distinct().ToList();
         }
 
         /// <summary>
@@ -453,7 +359,7 @@ namespace RoomKit
         /// <returns></returns>
         internal static Polygon ToPolygon(this List<IntPoint> p)
         {
-            return new Polygon(p.Select(v => new Vector3(v.X / scale, v.Y / scale)).ToArray());
+            return new Polygon(p.Select(v => new Vector3(v.X / scale, v.Y / scale)).Distinct().ToArray());
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
+using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
@@ -14,18 +14,20 @@ namespace RoomKitTest
         [Fact]
         public void RoomGroup()
         {
-            var polygon = new Polygon
-            (
-                new[]
-                {
-                    new Vector3(0.0, 0.0),
-                    new Vector3(60.0, 0.0),
-                    new Vector3(60.0, 20.0),
-                    new Vector3(0.0, 20.0)
-                }
-            );
-
-            var roomGroup = new RoomGroup(polygon, 4, 2, "");
+            var polygon = 
+                new Polygon(
+                    new[]
+                    {
+                        new Vector3(0.0, 0.0),
+                        new Vector3(60.0, 0.0),
+                        new Vector3(60.0, 20.0),
+                        new Vector3(0.0, 20.0)
+                    });
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter = polygon
+            };
+            roomGroup.RoomsByDivision(4, 2, 3.5);
             var model = new Model();
             foreach (Room room in roomGroup.Rooms)
             {
@@ -35,95 +37,258 @@ namespace RoomKitTest
         }
 
         [Fact]
-        public void RoomRow()
+        public void AreaAvailable()
         {
-            var rooms = new List<Room>();
-            for (int i = 0; i < 1; i++)
+            var roomGroup = new RoomGroup()
             {
-                var room = new Room()
-                {
-                    Name = "Office Large",
-                    ResourceID = 7,
-                    DesignX = 4.25,
-                    DesignY = 3.65,
-                    Color = Palette.Green
-                };
-                rooms.Add(room);
-            }
-            for (int i = 0; i < 1; i++)
-            {
-                var room = new Room()
-                {
-                    Name = "Office Medium",
-                    ResourceID = 8,
-                    DesignX = 4.25,
-                    DesignY = 3.35,
-                    Color = Palette.Lime
-                };
-                rooms.Add(room);
-            }
-            for (int i = 0; i < 1; i++)
-            {
-                var room = new Room()
-                {
-                    Name = "Office Small",
-                    ResourceID = 9,
-                    DesignX = 3.65,
-                    DesignY = 2.75,
-                    Color = Palette.Mint
-                };
-                rooms.Add(room);
-            }
-            for (int i = 0; i < 1; i++)
-            {
-                var room = new Room()
-                {
-                    Name = "Conference Large",
-                    ResourceID = 10,
-                    DesignX = 9.5,
-                    DesignY = 4.5,
-                    Color = Palette.Purple
-                };
-                rooms.Add(room);
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            Assert.Equal(1200.0, roomGroup.AreaAvailable, 10);
+            roomGroup.RoomsByDivision(4, 2);
+            Assert.Equal(0.0, roomGroup.AreaAvailable, 10);
+        }
 
-            }
-            for (int i = 0; i < 1; i++)
+        [Fact]
+        public void AreaPlaced()
+        {
+            var roomGroup = new RoomGroup()
             {
-                var room = new Room()
-                {
-                    Name = "Conference Medium",
-                    ResourceID = 11,
-                    DesignX = 6.0,
-                    DesignY = 4.25,
-                    Color = Palette.Magenta
-                };
-                rooms.Add(room);
-            }
-            for (int i = 0; i < 1; i++)
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            Assert.Equal(1200.0, roomGroup.AreaPlaced, 10);
+        }
+
+        [Fact]
+        public void Name()
+        {
+            var roomGroup = new RoomGroup()
             {
-                var room = new Room()
-                {
-                    Name = "Conference Small",
-                    ResourceID = 12,
-                    DesignX = 5.0,
-                    DesignY = 4.5,
-                    Color = Palette.Lavender
-                };
-                rooms.Add(room);
-            }
-            var line = new Line(new Vector3(30.0, 30.0), new Vector3(60.0, 40.0));
-            var roomRow = new RoomRow(line);
-            foreach (Room room in rooms)
+                Name = "Test"
+            };
+            Assert.Equal("Test", roomGroup.Name);
+        }
+
+        [Fact]
+        public void Perimeter()
+        {
+            var room = new Room
             {
-                roomRow.AddRoom(room, null, null, 10.0);
-            }
-            var model = new Model();
-            foreach (Room room in roomRow.Rooms)
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(10.0, 0.0),
+                            new Vector3(10.0, 10.0),
+                            new Vector3(0.0, 10.0)
+                        })
+            };
+            Assert.Contains(new Vector3(0.0, 10.0), room.Perimeter.Vertices);
+            Assert.Contains(new Vector3(10.0, 10.0), room.Perimeter.Vertices);
+            room.Perimeter = null;
+            Assert.Contains(new Vector3(0.0, 0.0), room.Perimeter.Vertices);
+            Assert.Contains(new Vector3(10.0, 0.0), room.Perimeter.Vertices);
+        }
+
+        [Fact]
+        public void Rooms()
+        {
+            var roomGroup = new RoomGroup()
             {
-                model.AddElement(room.AsSpace);
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            Assert.Equal(8.0, roomGroup.Rooms.Count, 10);
+        }
+
+        [Fact]
+        public void RoomsAsPolygons()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            Assert.Equal(8.0, roomGroup.RoomsAsPolygons.Count, 10);
+        }
+
+        [Fact]
+        public void RoomsAsSpaces()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            Assert.Equal(8.0, roomGroup.RoomsAsSpaces.Count, 10);
+            Assert.Equal(150.0, roomGroup.RoomsAsSpaces.First().Profile.Area(), 10);
+        }
+
+        [Fact]
+        public void SizeXY()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            Assert.Equal(60.0, roomGroup.SizeX, 10);
+            Assert.Equal(20.0, roomGroup.SizeY, 10);
+        }
+
+        [Fact]
+        public void UniqueID()
+        {
+            var roomGroup = new RoomGroup();
+            Assert.NotNull(roomGroup.UniqueID);
+        }
+
+        [Fact]
+        public void SetColor()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                Assert.Equal(Palette.White, room.Color);
             }
-            model.AddElement(new Space(roomRow.Circulation, 0.1, 0.01, BuiltInMaterials.Concrete));
-            model.SaveGlb("../../../../RoomRow.glb");
+            roomGroup.SetColor(Palette.Green);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                Assert.Equal(Palette.Green, room.Color);
+            }
+        }
+
+        [Fact]
+        public void SetElevation()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                Assert.Equal(0.0, room.Elevation, 10);
+            }
+            roomGroup.SetElevation(10.2);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                Assert.Equal(10.2, room.Elevation, 10);
+            }
+        }
+
+        [Fact]
+        public void SetHeight()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2, 3.0);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                Assert.Equal(3.0, room.Height, 10);
+            }
+            roomGroup.SetHeight(4.5);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                Assert.Equal(4.5, room.Height, 10);
+            }
+        }
+
+        [Fact]
+        public void RoomsByDivision()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(60.0, 0.0),
+                            new Vector3(60.0, 20.0),
+                            new Vector3(0.0, 20.0)
+                        })
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            Assert.Equal(8.0, roomGroup.Rooms.Count, 10);
         }
     }
 }

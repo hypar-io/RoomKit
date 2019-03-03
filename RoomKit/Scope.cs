@@ -6,30 +6,11 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// A data structure recording space program characteristics and the status of a Room placing process.
+    /// Data structure recording space program characteristics and the status of a Room placing process.
     /// </summary>
     public class Scope
     {
-        /// <summary>
-        /// A list of Rooms designated as circulation.
-        /// </summary>
-        public List<Room> Circulation { get; }
-
-        /// <summary>
-        /// A list of Rooms designated for occupation, rather than circulation.
-        /// </summary>
-        public List<Room> Occupant { get; }
-
-        /// <summary>
-        /// A list of Rooms designated for building services.
-        /// </summary>
-        public List<Room> Service { get; }
-
-        /// <summary>
-        /// A list of Rooms intended as a series of tenant space containers of other Rooms.
-        /// </summary>
-        public List<Room> Tenant { get; }
-
+        #region Constructors
         /// <summary>
         /// Contructor creates empty Room lists for Circulation, Occupation, Service, and Tenant.
         /// </summary>
@@ -44,20 +25,112 @@ namespace RoomKit
             Service = new List<Room>();
             Tenant = new List<Room>();
         }
+        #endregion
+
+        #region Properties
+        /// <summary>
+        /// List of Rooms designated as circulation.
+        /// </summary>
+        public List<Room> Circulation { get; }
 
         /// <summary>
-        /// The area available for horizontal circulation.
+        /// List of Rooms designated for occupation, rather than circulation.
+        /// </summary>
+        public List<Room> Occupant { get; }
+
+        /// <summary>
+        /// List of Rooms designated for building services.
+        /// </summary>
+        public List<Room> Service { get; }
+
+        /// <summary>
+        /// List of Rooms intended as a series of tenant space containers of other Rooms.
+        /// </summary>
+        public List<Room> Tenant { get; }
+
+        /// <summary>
+        /// List of allocated Circulation, Occupant, and Service Room Perimeters as Polygons.
+        /// </summary>
+        public List<Polygon> AllocatedAsPolygons
+        {
+            get
+            {
+                List<Polygon> allocated = new List<Polygon>();
+                foreach (Polygon polygon in CirculationAsPolygons)
+                {
+                    allocated.Add(polygon);
+                }
+                foreach (Polygon polygon in OccupantAsPolygons)
+                {
+                    allocated.Add(polygon);
+                }
+                foreach (Polygon polygon in ServiceAsPolygons)
+                {
+                    allocated.Add(polygon);
+                }
+                return allocated;
+            }
+        }
+
+        /// <summary>
+        /// Area available for horizontal circulation.
+        /// </summary>
+        public double AreaDesignAvailable
+        {
+            get
+            {
+                return AreaTenant - (AreaDesignCirculation + AreaDesignOccupant + AreaService);
+            }
+        }
+
+        /// <summary>
+        /// Intended aggregate area of all Occupant Rooms.
         /// </summary>
         public double AreaDesignCirculation
         {
             get
             {
-                return AreaTenant - (DesignAreaOccupant + AreaService);
+                double area = 0.0;
+                foreach (Room room in Circulation)
+                {
+                    if (room.DesignSet)
+                    {
+                        area += room.DesignLength * room.DesignWidth;
+                    }
+                    else
+                    {
+                        area += room.DesignArea;
+                    }
+                }
+                return area;
             }
         }
 
         /// <summary>
-        /// The allocated aggregate area of all placed circulation rooms.
+        /// Intended aggregate area of all Occupant Rooms.
+        /// </summary>
+        public double AreaDesignOccupant
+        {
+            get
+            {
+                double area = 0.0;
+                foreach (Room room in Occupant)
+                {
+                    if (room.DesignSet)
+                    {
+                        area += room.DesignLength * room.DesignWidth;
+                    }
+                    else
+                    {
+                        area += room.DesignArea;
+                    }
+                }
+                return area;
+            }
+        }
+
+        /// <summary>
+        /// Allocated aggregate area of all placed Circulation Rooms.
         /// </summary>
         public double AreaCirculation
         {
@@ -76,9 +149,9 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The allocated aggregate area of all placed occupant rooms.
+        /// Allocated aggregate area of all placed Occupant Rooms.
         /// </summary>
-        public double AreaRooms
+        public double AreaOccupant
         {
             get
             {
@@ -95,14 +168,14 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The aggregate area of all services.
+        /// Aggregate area of all Services Rooms.
         /// </summary>
         public double AreaService
         {
             get
             {
                 double area = 0.0;
-                foreach (Polygon polygon in PerimetersService)
+                foreach (Polygon polygon in ServiceAsPolygons)
                 {
                     area += polygon.Area;
                 }
@@ -111,118 +184,28 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The aggregate of all occupiable tenant areas.
+        /// Aggregate area of all occupiable Tenant Rooms.
         /// </summary>
         public double AreaTenant
         {
             get
             {
                 double area = 0.0;
-                foreach (Polygon polygon in PerimetersTenant)
+                foreach (Polygon polygon in TenantAsPolygons)
                 {
                     area += polygon.Area;
                 }
-                foreach (Polygon polygon in PerimetersService)
-                {
-                    area -= polygon.Area;
-                }
                 return area;
             }
         }
 
         /// <summary>
-        /// The intended aggregate area of all occupant rooms.
-        /// </summary>
-        public double DesignAreaOccupant
-        {
-            get
-            {
-                double area = 0.0;
-                foreach (Room room in Occupant)
-                {
-                    area += room.DesignArea;
-                }
-                return area;
-            }
-        }
-
-        /// <summary>
-        /// The maximum fixed dimension of Occupant Rooms.
-        /// </summary>
-        public double MaxRoomDim
-        {
-            get
-            {
-                var sorter = new List<Room>(Occupant);
-                sorter.Sort((a, b) => b.DesignY.CompareTo(a.DesignY));
-                var maxDepth = sorter[0].DesignY;
-                sorter.Sort((a, b) => b.DesignX.CompareTo(a.DesignX));
-                var maxWidth = sorter[0].DesignX;
-                if(maxDepth >= maxWidth)
-                {
-                    return maxDepth;
-                }
-                else
-                {
-                    return maxWidth;
-                }
-            }
-        }
-
-        /// <summary>
-        /// The minimum fixed dimension of Occupant Rooms.
-        /// </summary>
-        public double MinRoomDim
-        {
-            get
-            {
-                var sorter = new List<Room>(Occupant);
-                sorter.Sort((a, b) => a.DesignY.CompareTo(b.DesignY));
-                var minDepth = sorter.Find(d => d.DesignY > 0).DesignY;
-                sorter.Sort((a, b) => a.DesignX.CompareTo(b.DesignX));
-                var minWidth = sorter.Find(d => d.DesignX > 0).DesignX;
-                if (minDepth <= minWidth)
-                {
-                    return minDepth;
-                }
-                else
-                {
-                    return minWidth;
-                }
-            }
-        }
-
-        /// <summary>
-        /// A list of allocated Circulation, Occupant, and Service Polygon perimeters.
-        /// </summary>
-        public List<Polygon> PerimetersAllocated
-        {
-            get
-            {
-                List<Polygon> allocated = new List<Polygon>();
-                foreach (Polygon polygon in PerimetersCirculation)
-                {
-                    allocated.Add(polygon);
-                }
-                foreach (Polygon polygon in PerimetersOccupant)
-                {
-                    allocated.Add(polygon);
-                }
-                foreach (Polygon polygon in PerimetersService)
-                {
-                    allocated.Add(polygon);
-                }
-                return allocated;
-            }
-        }
-
-        /// <summary>
-        /// A list of all Circulation perimeter Polygons.
+        /// List of all Circulation Room Perimeters as Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
         /// </returns>
-        public List<Polygon> PerimetersCirculation
+        public List<Polygon> CirculationAsPolygons
         {
             get
             {
@@ -240,12 +223,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A list of all Occupant perimeter Polygons.
+        /// List of all Occupant Room Perimeters as Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
         /// </returns>
-        public List<Polygon> PerimetersOccupant
+        public List<Polygon> OccupantAsPolygons
         {
             get
             {
@@ -262,12 +245,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A list of all Service perimeter Polygons.
+        /// List of all Service Room Perimeters as Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
         /// </returns>
-        public List<Polygon> PerimetersService
+        public List<Polygon> ServiceAsPolygons
         {
             get
             {
@@ -285,12 +268,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A list of all Tenant perimeter Polygons.
+        /// List of all Tenant Room Perimeter Polygons.
         /// </summary>
         /// <returns>
         /// A list of Polygons.
         /// </returns>
-        public List<Polygon> PerimetersTenant
+        public List<Polygon> TenantAsPolygons
         {
             get
             {
@@ -308,19 +291,19 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns all placed Rooms.
+        /// List of all Rooms marked as Placed.
         /// </summary>
         /// <returns>
         /// A list of Rooms.
         /// </returns>
-        public IList<Room> Placed
+        public List<Room> Placed
         {
             get
             {
                 var placed = new List<Room>();
                 foreach (Room room in Occupant)
                 {
-                    if (room.Perimeter != null)
+                    if (room.Placed)
                     {
                         placed.Add(room);
                     }
@@ -330,10 +313,10 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns whether Occupant Rooms have been placed.
+        /// Returns whether all Occupant Rooms have been Placed.
         /// </summary>
         /// <returns>
-        /// Returns true each Room in Occupant has a perimeter.
+        /// Returns true if each Room in Occupant has been marked with Room.Placed = true.
         /// </returns>
         public bool PlacedAll
         {
@@ -341,7 +324,7 @@ namespace RoomKit
             {
                 foreach (Room room in Occupant)
                 {
-                    if (room.Perimeter == null)
+                    if (!room.Placed)
                     {
                         return false;
                     }
@@ -353,14 +336,14 @@ namespace RoomKit
         /// <summary>
         /// The quantity of placed Rooms.
         /// </summary>
-        public double QuantityPlaced
+        public double PlacedQuantity
         {
             get
             {
                 double rooms = 0;
                 foreach (Room room in Occupant)
                 {
-                    if (room.Perimeter != null)
+                    if (room.Placed)
                     {
                         rooms++;
                     }
@@ -370,26 +353,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The quantity of unplaced Rooms.
-        /// </summary>
-        public double QuantityUnplaced
-        {
-            get
-            {
-                double rooms = 0;
-                foreach (Room room in Occupant)
-                {
-                    if (room.Perimeter == null)
-                    {
-                        rooms++;
-                    }
-                }
-                return rooms;
-            }
-        }
-
-        /// <summary>
-        /// Returns the ratio of the aggregate area of all rooms against the available circulation area.
+        /// Returns the ratio of the aggregate area of all Occupant Rooms against the Circulation area.
         /// </summary>
         /// <returns>
         /// A list of Rooms.
@@ -398,24 +362,38 @@ namespace RoomKit
         {
             get
             {
-                return AreaRooms / (AreaTenant - AreaRooms);
+                return AreaCirculation / AreaOccupant;
             }
         }
 
         /// <summary>
-        /// Returns all unplaced Rooms.
+        /// Returns the ratio of the aggregate area of all designed Occupant Rooms against the designed Circulation area.
         /// </summary>
         /// <returns>
         /// A list of Rooms.
         /// </returns>
-        public IList<Room> Unplaced
+        public double RatioDesignCirculation
+        {
+            get
+            {
+                return AreaDesignCirculation / AreaDesignOccupant;
+            }
+        }
+
+        /// <summary>
+        /// Returns all Rooms with Placed = false.
+        /// </summary>
+        /// <returns>
+        /// A list of Rooms.
+        /// </returns>
+        public List<Room> Unplaced
         {
             get
             {
                 var unPlaced = new List<Room>();
                 foreach (Room room in Occupant)
                 {
-                    if (room.Perimeter == null)
+                    if (!room.Placed)
                     {
                         unPlaced.Add(room);
                     }
@@ -425,34 +403,77 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Finds the room with the design area closest to the supplied area.
+        /// The quantity of unplaced Rooms.
         /// </summary>
-        /// <param name="area">The area to match from the list of all Room definitions.</param>
+        public double UnplacedQuantity
+        {
+            get
+            {
+                double rooms = 0;
+                foreach (Room room in Occupant)
+                {
+                    if (!room.Placed)
+                    {
+                        rooms++;
+                    }
+                }
+                return rooms;
+            }
+        }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Finds the first Occupant Room with the DesignArea value closest to the supplied area. C
+        /// </summary>
+        /// <param name="area">Area to match from the list of all Occupant Room definitions.</param>
         /// <returns>
         /// A Room.
         /// </returns>
-        public Room Find(double area)
+        public Room FindByDesignArea(double area, bool unplaced = true)
         {
-            Room match = null;
-            var closest = 0.0;
-            if (Occupant.First().DesignArea > 0.0)
+            List<Room> rooms = null;
+            if (unplaced)
             {
-                closest = Math.Abs(Occupant.First().DesignArea - area);
+                rooms = Unplaced;
             }
             else
             {
-                closest = Math.Abs(Occupant.First().DesignX * Occupant.First().DesignY);
+                rooms = Occupant;
             }
-            foreach (Room room in Occupant)
+            Room firstRoom = null;
+            foreach (Room room in rooms)
             {
-                var delta = 0.0;
-                if (room.DesignArea > 0.0)
+                if (room.DesignSet || room.DesignArea > 0.0)
+                {
+                    firstRoom = room;
+                    break;
+                }
+            }
+            if (firstRoom == null)
+            {
+                return null;
+            }
+            var delta = 0.0;
+            if (firstRoom.DesignSet)
+            {
+                delta = Math.Abs(firstRoom.DesignLength * firstRoom.DesignWidth - area);
+            }
+            else if (firstRoom.DesignArea > 0.0)
+            {
+                delta = Math.Abs(firstRoom.DesignArea - area);
+            }
+            var closest = delta;
+            Room match = firstRoom;
+            foreach (Room room in rooms)
+            {
+                if (room.DesignSet)
+                {
+                    delta = Math.Abs(room.DesignLength * room.DesignWidth - area);
+                }
+                else if (room.DesignArea > 0.0)
                 {
                     delta = Math.Abs(room.DesignArea - area);
-                }
-                else
-                {
-                    delta = Math.Abs(room.DesignX * room.DesignY);
                 }
                 if (delta < closest)
                 {
@@ -464,23 +485,53 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Finds the room with the designed x and y dimensions closest to the supplied values.
+        /// Finds the first Occupant Room with the designed x and y dimensions closest to the supplied values.
         /// </summary>
         /// <param name="designX">The x-axis dimension to match.</param>
         /// <param name="designY">The y-axis dimension to match.</param>
         /// <returns>
         /// A Room.
         /// </returns>
-        public Room Find(double designX, double designY)
+        public Room FindByDesignXY(double designLength, double designWidth, bool unplaced = true)
         {
-            Room match = null;
-            var closestRatio = Math.Abs(designX / designY);
+            List<Room> rooms = null;
+            if (unplaced)
+            {
+                rooms = Unplaced;
+            }
+            else
+            {
+                rooms = Occupant;
+            }
+            Room firstRoom = null;
             foreach (Room room in Occupant)
             {
-                var deltaProp = Math.Abs(room.DesignX / room.DesignY);
-                if (deltaProp < closestRatio)
+                if (room.DesignSet)
                 {
-                    closestRatio = deltaProp;
+                    firstRoom = room;
+                    break;
+                }
+            }
+            if (firstRoom == null)
+            {
+                return null;
+            }
+            var deltaL = Math.Abs(firstRoom.DesignLength - designLength);
+            var deltaW = Math.Abs(firstRoom.DesignWidth - designWidth);
+            var closestL = deltaL;
+            var closestW = deltaW;
+            Room match = firstRoom;
+            foreach (Room room in Occupant)
+            {
+                if (room.DesignSet)
+                {
+                    deltaL = Math.Abs(firstRoom.DesignLength - designLength);
+                    deltaW = Math.Abs(firstRoom.DesignWidth - designWidth);
+                }
+                if (deltaL < closestL && deltaW < closestW)
+                {
+                    closestL = deltaL;
+                    closestL = deltaW;
                     match = room;
                 }
             }
@@ -488,75 +539,32 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Finds the unplaced Room with the design area closest to the supplied area.
+        /// Finds the first unplaced Room with the specifed TypeID.
         /// </summary>
-        /// <param name="area">The area to match from the list of all unplaced Room definitions.</param>
-        /// <returns>
-        /// An unplaced Room.
-        /// </returns>
-        public Room FindUnplaced(double area)
-        {
-            Room match = null;
-            var closest = Math.Abs(Occupant[0].DesignArea - area);
-            foreach (Room room in Occupant)
-            {
-                if (room.Perimeter == null)
-                {
-                    var delta = Math.Abs(room.DesignArea - area);
-                    if (delta < closest)
-                    {
-                        closest = delta;
-                        match = room;
-                    }
-                }
-            }
-            return match;
-        }
-
-        /// <summary>
-        /// Finds the unplaced Room with the designed x and y dimensions closest to the supplied values.
-        /// </summary>
-        /// <param name="designX">The x-axis dimension to match.</param>
-        /// <param name="designY">The y-axis dimension to match.</param>
-        /// <returns>
-        /// An unplaced Room.
-        /// </returns> 
-        public Room FindUnplaced(double designX, double designY)
-        {
-            Room match = null;
-            var closestProp = Math.Abs(designX / designY);
-            foreach (Room room in Occupant)
-            {
-                if (room.Perimeter == null)
-                {
-                    var deltaProp = Math.Abs(room.DesignX / room.DesignY);
-                    if (deltaProp < closestProp)
-                    {
-                        closestProp = deltaProp;
-                        match = room;
-                    }
-                }
-            }
-            return match;
-        }
-
-        /// <summary>
-        /// Finds the first unplaced Room with the specifed ResourceID.
-        /// </summary>
-        /// <param name="resourceID">The integer ID of a Room type.</param>
+        /// <param name="typeID">The integer ID of a Room type.</param>
         /// <returns>
         /// A Room.
         /// </returns>
-        public Room FindUnplaced(int resourceID)
+        public Room FindByTypeID(int typeID, bool unplaced = true)
         {
-            foreach (Room room in Occupant)
+            List<Room> rooms = null;
+            if (unplaced)
             {
-                if (room.Perimeter == null && room.ResourceID == resourceID)
+                rooms = Unplaced;
+            }
+            else
+            {
+                rooms = Occupant;
+            }
+            foreach (Room room in rooms)
+            {
+                if (room.TypeID == typeID)
                 {
                     return room;
                 }
             }
             return null;
-        }
+        } 
+        #endregion
     }
 }

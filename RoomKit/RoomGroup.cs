@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Elements;
 using Elements.Geometry;
+using RoomKit;
 
 namespace RoomKit
 {
@@ -11,71 +12,25 @@ namespace RoomKit
     /// </summary>
     public class RoomGroup
     {
-        /// <summary>
-        /// An arbitrary string identifier for this RoomGroup.
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
-        /// The Polygon within which all Rooms are placed.
+        /// Creates an empty group of Rooms.
         /// </summary>
-        public Polygon Perimeter { get; }
-
-        /// <summary>
-        /// The list of Rooms placed within the Perimeter.
-        /// </summary>
-        public IList<Room> Rooms { get; }
-
-        /// <summary>
-        /// A private bounding box used for placing new Rooms.
-        /// </summary>
-        private TopoBox Box;
-
-        /// <summary>
-        /// Creates a group of rooms by dividing the supplied Polygon perimeter by the quantity of supplied divisions along the orthogonal x and y axes. Room perimeters conform to fit within the supplied Polygon.
-        /// </summary>
-        /// <param name="perimeter">The Polygon to divide with a number of Room perimeters.</param> 
-        /// <param name="xRooms">The quantity of Rooms along the x axis.</param> 
-        /// <param name="yRooms">The quantity of Rooms along the y axis.</param> 
-        /// <param name="name">An arbitrary string identifier for this RoomGroup.</param> 
         /// <returns>
         /// A new RoomGroup.
         /// </returns>
-        public RoomGroup(Polygon perimeter, int xRooms = 1, int yRooms = 1, string name = "")
+        public RoomGroup() 
         {
-            Perimeter = new Polygon(perimeter.Vertices);
-            Name = name;
-            Box = new TopoBox(perimeter);
+            Name = "";
+            Perimeter = null;
             Rooms = new List<Room>();
-
-            var sizeX = Box.SizeX / xRooms;
-            var sizeY = Box.SizeY / yRooms;
-            var count = xRooms * yRooms;
-
-            for (int xIdx = 0; xIdx < xRooms; xIdx++)
-            {
-                var xCoord = Box.SW.X + (xIdx * sizeX);
-                for (int yIdx = 0; yIdx < yRooms; yIdx++)
-                {
-                    var yCoord = Box.SW.Y + (yIdx * sizeY);
-                    var polygon = Shaper.PolygonBox(sizeX, sizeY);
-                    polygon = polygon.MoveFromTo(new Vector3(), new Vector3(xCoord, yCoord)).Intersection(perimeter).First();
-
-                    var room = new Room()
-                    {
-                        Color = Palette.Aqua,
-                        Perimeter = polygon
-
-                    };
-                    Rooms.Add(room);
-                }
-            }
+            UniqueID = Guid.NewGuid().ToString();
         }
 
         /// <summary>
-        /// The unallocated area of the RoomGroup perimeter.
+        /// Unallocated area of the RoomGroup perimeter.
         /// </summary>
-        public double AvailableArea
+        public double AreaAvailable
         {
             get
             {
@@ -100,7 +55,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// The area allocated within the RoomGroup.
+        /// Area allocated within the RoomGroup.
         /// </summary>
         public double AreaPlaced
         {
@@ -116,18 +71,110 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A list of all placed Room perimeters.
+        /// Arbitrary string identifier for this RoomGroup.
         /// </summary>
-        public IList<Polygon> PerimetersRooms
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Polygon within which all Rooms are placed.
+        /// </summary>
+        private Polygon perimeter;
+        public Polygon Perimeter
+        {
+            get { return perimeter; }
+            set
+            {
+                if (value != null)
+                {
+                    perimeter = value;
+                }
+            }
+        }
+
+        /// <summary>
+        /// List of Rooms placed within the Perimeter.
+        /// </summary>
+        public List<Room> Rooms { get; }
+
+        /// <summary>
+        /// List of all Room perimeters as Polygons.
+        /// </summary>
+        public List<Polygon> RoomsAsPolygons
         {
             get
             {
-                var perimeters = new List<Polygon>();
+                var polygons = new List<Polygon>();
                 foreach (Room room in Rooms)
                 {
-                    perimeters.Add(room.Perimeter);
+                    polygons.Add(room.Perimeter);
                 }
-                return perimeters;
+                return polygons;
+            }
+        }
+
+        /// <summary>
+        /// List of all Rooms as Spaces.
+        /// </summary>
+        public List<Space> RoomsAsSpaces
+        {
+            get
+            {
+                var spaces = new List<Space>();
+                foreach (Room room in Rooms)
+                {
+                    spaces.Add(room.AsSpace);
+                }
+                return spaces;
+            }
+        }
+
+        /// <summary>
+        /// X dimension of the Perimeter orthogonal bounding box.
+        /// </summary>
+        public double SizeX
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return 0.0;
+                }
+                return new TopoBox(Perimeter).SizeX;
+            }
+        }
+
+        /// <summary>
+        /// Y dimension of the Perimeter orthogonal bounding box.
+        /// </summary>
+        public double SizeY
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return 0.0;
+                }
+                return new TopoBox(Perimeter).SizeY;
+            }
+        }
+
+        /// <summary>
+        /// UUID for this RoomGroup instance, set on initialization.
+        /// </summary>
+        public string UniqueID { get; }
+
+        /// <summary>
+        /// Uniformly sets the color of all Rooms in the RoomGroup.
+        /// </summary>
+        /// <param name="color">The new color of the Rooms.</param> 
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void SetColor(Color color)
+        {
+            foreach (Room room in Rooms)
+            {
+                room.Color = color;
             }
         }
 
@@ -159,6 +206,50 @@ namespace RoomKit
             {
                 room.Height = height;
             }
+        }
+
+        /// <summary>
+        /// Clears the current Rooms list and creates new Rooms defined by orthogonal x- and y-axis divisions of the RoomGroup Perimeter.
+        /// </summary>
+        /// <param name="xRooms">The quantity of Rooms along orthogonal x-axis. Must be positive.</param> 
+        /// <param name="yRooms">The quantity of Rooms along orthogonal y-axis. Must be positive.</param> 
+        /// <returns>
+        /// True if the Rooms are created.
+        /// </returns>
+        public bool RoomsByDivision(int xRooms = 1, int yRooms = 1, double height = 3.0)
+        {
+            if (Perimeter == null || xRooms < 1 || yRooms < 1 || height <= 0.0)
+            {
+                return false;
+            }
+            var sizeX = SizeX / xRooms;
+            var sizeY = SizeY / yRooms;
+            var count = xRooms * yRooms;
+            var box = new TopoBox(Perimeter);
+            var newRooms = new List<Room>();
+            for (int xIdx = 0; xIdx < xRooms; xIdx++)
+            {
+                var xCoord = box.SW.X + (xIdx * sizeX);
+                for (int yIdx = 0; yIdx < yRooms; yIdx++)
+                {
+                    var yCoord = box.SW.Y + (yIdx * sizeY);
+                    var polygon = Shaper.PolygonBox(sizeX, sizeY);
+                    polygon = polygon.MoveFromTo(Vector3.Origin, new Vector3(xCoord, yCoord)).Intersection(Perimeter).First();
+                    var room = new Room()
+                    {
+                        Height = height,
+                        Perimeter = polygon
+                    };
+                    newRooms.Add(room);
+                }
+            }
+            if (newRooms.Count == 0)
+            {
+                return false;
+            }
+            Rooms.Clear();
+            Rooms.AddRange(newRooms);
+            return true;
         }
 
     }

@@ -12,6 +12,12 @@ namespace RoomKit
     /// </summary>
     public class CoordGrid
     {
+
+        /// <summary>
+        /// Providing a random seed value ensures reproducible results.
+        /// </summary>
+        private Random random;
+
         /// <summary>
         /// The list of vector3 allocated points.
         /// </summary>
@@ -23,9 +29,20 @@ namespace RoomKit
         public List<Vector3> Available { get; }
 
         /// <summary>
-        /// The Polygon perimeter of the grid.
+        /// Polygon perimeter of the grid. 
         /// </summary>
-        public Polygon Perimeter { get; }
+        private Polygon perimeter;
+        public Polygon Perimeter
+        {
+            get { return perimeter; }
+            set
+            {
+                if (value != null)
+                {
+                    perimeter = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Creates an orthogonal 2D grid of Vector3 points from the supplied Polygon and axis intervals.
@@ -34,10 +51,11 @@ namespace RoomKit
         /// <param name="xInterval">The spacing of the grid along the x-axis.</param>
         /// <param name="yInterval">The spacing of the grid along the y-axis.</param>
         /// <returns>
-        /// A new Coordgrid object.
+        /// A new CoordGrid.
         /// </returns>
-        public CoordGrid(Polygon polygon, double xInterval = 1,  double yInterval = 1)
+        public CoordGrid(Polygon polygon, double xInterval = 1,  double yInterval = 1, int randomSeed = 1)
         {
+            random = new Random(randomSeed);
             Allocated = new List<Vector3>();
             Available = new List<Vector3>();
             Perimeter = new Polygon(polygon.Vertices);
@@ -150,7 +168,7 @@ namespace RoomKit
         /// </returns>
         public Vector3 AllocatedRandom()
         {
-            return Allocated[new Random().Next(0, Allocated.Count - 1)];
+            return Allocated[random.Next(0, Allocated.Count - 1)];
         }
 
         /// <summary>
@@ -231,7 +249,7 @@ namespace RoomKit
         /// </returns>
         public Vector3 AvailableRandom()
         {
-            return Available[new Random().Next(0, Available.Count - 1)];
+            return Available[random.Next(0, Available.Count - 1)];
         }
     }
 }

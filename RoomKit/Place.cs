@@ -6,7 +6,7 @@ using Elements.Geometry;
 namespace RoomKit
 {
     /// <summary>
-    /// Places 2D Polygons in various spatial relationships to each other.
+    /// Rooms 2D Polygons in various spatial relationships to each other.
     /// </summary>
     public static class Place
     {
@@ -15,28 +15,28 @@ namespace RoomKit
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
-        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <returns>
         /// A new Polygon or null if the conditions of placement cannot be satisfied.
         /// </returns>
         public static Polygon Adjacent(Polygon polygon,
                                        Polygon adjTo,
-                                       Polygon perimeter = null,
+                                       Polygon within = null,
                                        IList<Polygon> among = null)
         {
-            var tryPolygon = N(polygon, adjTo, perimeter, among);
+            var tryPolygon = N(polygon, adjTo, within, among);
             if (tryPolygon == null)
             {
-                tryPolygon = E(polygon, adjTo, perimeter, among);
+                tryPolygon = E(polygon, adjTo, within, among);
             }
             if (tryPolygon == null)
             {
-                tryPolygon = S(polygon, adjTo, perimeter, among);
+                tryPolygon = S(polygon, adjTo, within, among);
             }
             if (tryPolygon == null)
             {
-                tryPolygon = W(polygon, adjTo, perimeter, among);
+                tryPolygon = W(polygon, adjTo, within, among);
             }
             return tryPolygon;
         }
@@ -48,7 +48,7 @@ namespace RoomKit
         /// <param name="oPolygon">The Polygon TopoBox orientation to use as an insertion point.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
         /// <param name="oAdjTo">The Polygon TopoBox orientation to use as a placement point.</param>
-        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <param name="rotateToFit">Boolean indicating whether the Polygon should be rotated to fit.</param>
         /// <returns>
@@ -82,115 +82,115 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Places a Polygon north of another Polygon, attempting to align bounding box corners or the vertical bounding box axis.
+        /// Places a Polygon north of another Polygon, attempting to align first the S and N bounding box points, then SW and NW corners, and finally SE to NE points.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
-        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <returns>
         ///  A new Polygon or null if the conditions of placement cannot be satisfied.
         /// </returns>
         public static Polygon N(Polygon polygon, 
                                 Polygon adjTo,
-                                Polygon perimeter = null,
+                                Polygon within = null,
                                 IList<Polygon> among = null)
         {
-            var tryPolygon = ByOrient(polygon, Orient.SW, adjTo, Orient.NW, perimeter, among, true);
+            var tryPolygon = ByOrient(polygon, Orient.S, adjTo, Orient.N, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            tryPolygon = ByOrient(polygon, Orient.SE, adjTo, Orient.NE, perimeter, among, true);
+            tryPolygon = ByOrient(polygon, Orient.SW, adjTo, Orient.NW, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            return ByOrient(polygon, Orient.S, adjTo, Orient.N, perimeter, among, true);
+            return ByOrient(polygon, Orient.SE, adjTo, Orient.NE, within, among, true);
         }
 
         /// <summary>
-        /// Places a Polygon south of another Polygon, attempting to align bounding box corners or the vertical bounding box axis.
+        /// Places a Polygon south of another Polygon, attempting to align first the N and S bounding box points, then NW and SW corners, and finally NE to SE points.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
-        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <returns>
         ///  A new Polygon or null if the conditions of placement cannot be satisfied.
         /// </returns>
         public static Polygon S(Polygon polygon,
                                 Polygon adjTo,
-                                Polygon perimeter = null,
+                                Polygon within = null,
                                 IList<Polygon> among = null)
         {
-            var tryPolygon = ByOrient(polygon, Orient.NW, adjTo, Orient.SW, perimeter, among, true);
+            var tryPolygon = ByOrient(polygon, Orient.N, adjTo, Orient.S, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            tryPolygon = ByOrient(polygon, Orient.NE, adjTo, Orient.SE, perimeter, among, true);
+            tryPolygon = ByOrient(polygon, Orient.NW, adjTo, Orient.SW, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            return ByOrient(polygon, Orient.N, adjTo, Orient.S, perimeter, among, true);
+            return ByOrient(polygon, Orient.NE, adjTo, Orient.SE, within, among, true);
         }
 
         /// <summary>
-        /// Places a Polygon west of another Polygon, attempting to align bounding box corners or the horizontal bounding box axis.
+        /// Places a Polygon west of another Polygon, attempting to align first the E and W bounding box points, then NE and NW corners, and finally SE to SW points.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
-        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <returns>
         ///  A new Polygon or null if the conditions of placement cannot be satisfied.
         /// </returns>
         public static Polygon W(Polygon polygon,
                                 Polygon adjTo,
-                                Polygon perimeter = null,
+                                Polygon within = null,
                                 IList<Polygon> among = null)
         {
-            var tryPolygon = ByOrient(polygon, Orient.NE, adjTo, Orient.NW, perimeter, among, true);
+            var tryPolygon = ByOrient(polygon, Orient.E, adjTo, Orient.W, within, among, true); ;
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            tryPolygon = ByOrient(polygon, Orient.SE, adjTo, Orient.SW, perimeter, among, true);
+            tryPolygon = ByOrient(polygon, Orient.NE, adjTo, Orient.NW, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            return ByOrient(polygon, Orient.E, adjTo, Orient.W, perimeter, among, true);
+            return ByOrient(polygon, Orient.SE, adjTo, Orient.SW, within, among, true);
         }
 
         /// <summary>
-        /// Places a Polygon east of another Polygon, attempting to align bounding box corners or the horizontal bounding box axis.
+        /// Places a Polygon east of another Polygon, attempting to align first the W and E bounding box points, then NW and NE corners, and finally SW to SE points.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
-        /// <param name="perimeter">The Polygon that must cover the resulting Polygon.</param>
+        /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <returns>
         ///  A new Polygon or null if the conditions of placement cannot be satisfied.
         /// </returns>
         public static Polygon E(Polygon polygon,
                                 Polygon adjTo,
-                                Polygon perimeter = null,
+                                Polygon within = null,
                                 IList<Polygon> among = null)
         {
-            var tryPolygon = ByOrient(polygon, Orient.NW, adjTo, Orient.NE, perimeter, among, true);
+            var tryPolygon = ByOrient(polygon, Orient.W, adjTo, Orient.E, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            tryPolygon = ByOrient(polygon, Orient.SW, adjTo, Orient.SE, perimeter, among, true);
+            tryPolygon = ByOrient(polygon, Orient.NW, adjTo, Orient.NE, within, among, true);
             if (tryPolygon != null)
             {
                 return tryPolygon;
             }
-            return ByOrient(polygon, Orient.W, adjTo, Orient.E, perimeter, among, true);
+            return ByOrient(polygon, Orient.SW, adjTo, Orient.SE, within, among, true);
         }
     }
 

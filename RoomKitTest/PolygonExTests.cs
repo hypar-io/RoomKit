@@ -11,16 +11,17 @@ namespace RoomKitTest
         [Fact]
         public void AspectRatio()
         {
-            var polygon = new Polygon
-            (
-                new[]
-                {
-                    new Vector3(0.0, 0.0),
-                    new Vector3(10.0, 0.0),
-                    new Vector3(10.0, 20.0),
-                    new Vector3(0.0, 20.0)
-                }
-            );
+            var polygon = 
+                new Polygon
+                (
+                    new[]
+                    {
+                        new Vector3(0.0, 0.0),
+                        new Vector3(10.0, 0.0),
+                        new Vector3(10.0, 20.0),
+                        new Vector3(0.0, 20.0)
+                    }
+                );
             Assert.Equal(2.0, polygon.AspectRatio());
         }
 
@@ -136,6 +137,28 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Contains()
+        {
+            var polygon = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(0.0, 0.0),
+                    new Vector3(10.0, 0.0),
+                    new Vector3(10.0, 10.0),
+                    new Vector3(0.0, 10.0)
+                }
+            );
+            var pnt1 = Vector3.Origin;
+            var pnt2 = new Vector3(5.0, 5.0);
+            var pnt3 = new Vector3(20.0, 20.0);
+
+            Assert.False(polygon.Contains(pnt1));
+            Assert.True(polygon.Contains(pnt2));
+            Assert.False(polygon.Contains(pnt3));
+        }
+
+        [Fact]
         public void Covers()
         {
             var p1 = new Polygon
@@ -164,51 +187,76 @@ namespace RoomKitTest
             Assert.True(p1.Covers(new Vector3(2.0, 0.0)));
         }
 
-        //[Fact]
-        //public void Fits()
-        //{
-        //    var within = new Polygon
-        //    (
-        //        new[]
-        //        {
-        //            new Vector3(0.0, 0.0),
-        //            new Vector3(60.0, 0.0),
-        //            new Vector3(0.0, 60.0)
-        //        }
-        //    );
-        //    var p1 = new Polygon
-        //    (
-        //        new[]
-        //        {
-        //            new Vector3(0.0, 0.0),
-        //            new Vector3(5.0, 0.0),
-        //            new Vector3(5.0, 5.0),
-        //            new Vector3(0.0, 5.0)
-        //        }
-        //    );
-        //    var p2 = new Polygon
-        //    (
-        //        new[]
-        //        {
-        //            new Vector3(5.0, 0.0),
-        //            new Vector3(10.0, 0.0),
-        //            new Vector3(10.0, 5.0),
-        //            new Vector3(5.0, 5.0)
-        //        }
-        //    );
-        //    var p3 = new Polygon
-        //    (
-        //        new[]
-        //        {
-        //            new Vector3(55.0, 0.0),
-        //            new Vector3(60.0, 0.0),
-        //            new Vector3(60.0, 10.0),
-        //            new Vector3(55.0, 10.0)
-        //        }
-        //    );
-        //    var among = new List<Polygon> { p1, p2 };
-        //    Assert.False(p3.Fits(within, among));
-        //}
+        [Fact]
+        public void Difference()
+        {
+            var polygon = 
+                new Polygon
+                (
+                    new[]
+                    {
+                        new Vector3(0.0, 3.0),
+                        new Vector3(11.0, 3.0),
+                        new Vector3(11.0, 12.0),
+                        new Vector3(0.0, 12.0),
+                        new Vector3(0.0, 9.0),
+                        new Vector3(8.0, 9.0),
+                        new Vector3(8.0, 6.0),
+                        new Vector3(0.0, 6.0)
+                    }
+                );
+            var difference = 
+                new Polygon
+                (
+                    new[]
+                    {
+                        new Vector3(2.0, 0.0),
+                        new Vector3(5.0, 0.0),
+                        new Vector3(5.0, 15.0),
+                        new Vector3(2.0, 15.0)
+                    }
+                );
+            var diffList = polygon.Difference(difference);
+            Assert.Equal(3, diffList.Count);
+        }
+
+        [Fact]
+        public void Disjoint()
+        {
+            var p1 = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(0.0, 0.0),
+                    new Vector3(4.0, 0.0),
+                    new Vector3(4.0, 4.0),
+                    new Vector3(0.0, 4.0)
+                }
+            );
+            var p2 = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(5.0, 0.0),
+                    new Vector3(10.0, 0.0),
+                    new Vector3(10.0, 10.0),
+                    new Vector3(5.0, 10.0)
+                }
+            );
+            var p3 = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(3.0, 2.0),
+                    new Vector3(7.0, 2.0),
+                    new Vector3(7.0, 6.0),
+                    new Vector3(3.0, 6.0)
+                }
+            );
+            Assert.True(p1.Disjoint(p2));
+            Assert.False(p1.Disjoint(p3));
+            Assert.False(p2.Disjoint(p3));
+        }
 
         [Fact]
         public void Fits()
@@ -290,6 +338,25 @@ namespace RoomKitTest
             Assert.False(p1.Intersects(p3));
             Assert.True(p3.Intersects(p4));
             Assert.True(p1.Intersects(polygons));
+        }
+
+        [Fact]
+        public void MoveFromTo()
+        {
+            var polygon =
+                new Polygon
+                (
+                    new[]
+                    {
+                        new Vector3(0.0, 0.0),
+                        new Vector3(4.0, 0.0),
+                        new Vector3(4.0, 4.0),
+                        new Vector3(0.0, 4.0)
+                    }
+                );
+            polygon = polygon.MoveFromTo(Vector3.Origin, new Vector3(4.0, 4.0));
+            Assert.Contains(new Vector3(4.0, 4.0), polygon.Vertices);
+            Assert.Contains(new Vector3(8.0, 8.0), polygon.Vertices);
         }
 
         [Fact]

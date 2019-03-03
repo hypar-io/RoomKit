@@ -12,6 +12,23 @@ namespace RoomKitTest
     public class CoordGridTests
     {
         [Fact]
+        public void CoordGrid()
+        {
+            var perimeter = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(0, 0),
+                    new Vector3(60, 0),
+                    new Vector3(60, 36),
+                    new Vector3(0, 36)
+                }
+            );
+            var grid = new CoordGrid(perimeter);
+            Assert.Equal(2257, grid.Available.Count);
+        }
+
+        [Fact]
         public void Allocate()
         {
             var perimeter = new Polygon
@@ -26,7 +43,7 @@ namespace RoomKitTest
             );
             var grid = new CoordGrid(perimeter);
             Assert.Equal(2257, grid.Available.Count);
-            var allocate = new Polygon
+            var allocate1 = new Polygon
             (
                 new[]
                 {
@@ -36,8 +53,22 @@ namespace RoomKitTest
                     new Vector3(10, 20)
                 }
             );
-            grid.Allocate(allocate);
+            grid.Allocate(allocate1);
             Assert.Equal(2136, grid.Available.Count);
+            var allocate2 = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(30, 10),
+                    new Vector3(40, 10),
+                    new Vector3(40, 30),
+                    new Vector3(30, 30)
+                }
+            );
+            grid = new CoordGrid(perimeter);
+            var allocate = new List<Polygon> { allocate1, allocate2 };
+            grid.Allocate(allocate);
+            Assert.Equal(1905, grid.Available.Count);
         }
 
         [Fact]
@@ -59,7 +90,7 @@ namespace RoomKitTest
                 (
                     new []
                     {
-                        new Vector3(),
+                        Vector3.Origin,
                         new Vector3(8, 0),
                         new Vector3(8, 9),
                         new Vector3(0, 9)
@@ -94,6 +125,37 @@ namespace RoomKitTest
             var nearPoint = grid.AllocatedNearTo(new Vector3(26.6, 34.1));
             Assert.Equal(27, nearPoint.X);
             Assert.Equal(36, nearPoint.Y);
+        }
+
+        [Fact]
+        public void AllocatedRandom()
+        {
+            var perimeter = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(0, 0),
+                    new Vector3(60, 0),
+                    new Vector3(60, 36),
+                    new Vector3(0, 36)
+                }
+            );
+            var grid = new CoordGrid(perimeter);
+            var allocate = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(10, 10),
+                    new Vector3(20, 10),
+                    new Vector3(20, 20),
+                    new Vector3(10, 20)
+                }
+            );
+            grid.Allocate(allocate);
+            var point = grid.AllocatedRandom();
+            Assert.Contains(point, grid.Allocated);
+            Assert.Equal(17.0, point.X);
+            Assert.Equal(12.0, point.Y);
         }
 
         [Fact]
@@ -135,23 +197,6 @@ namespace RoomKitTest
         }
 
         [Fact]
-        public void CoordGrid()
-        {
-            var perimeter = new Polygon
-            (
-                new[]
-                {
-                    new Vector3(0, 0),
-                    new Vector3(60, 0),
-                    new Vector3(60, 36),
-                    new Vector3(0, 36)
-                }
-            );
-            var grid = new CoordGrid(perimeter);
-            Assert.Equal(2257, grid.Available.Count);
-        }
-
-        [Fact]
         public void AvailableNearTo()
         {
             var perimeter = new Polygon
@@ -168,6 +213,37 @@ namespace RoomKitTest
             var nearPoint = grid.AvailableNearTo(new Vector3(50.6, 40.1));
             Assert.Equal(51, nearPoint.X);
             Assert.Equal(36, nearPoint.Y);
+        }
+
+        [Fact]
+        public void AvailableRandom()
+        {
+            var perimeter = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(0, 0),
+                    new Vector3(60, 0),
+                    new Vector3(60, 36),
+                    new Vector3(0, 36)
+                }
+            );
+            var grid = new CoordGrid(perimeter);
+            var allocate = new Polygon
+            (
+                new[]
+                {
+                    new Vector3(10, 10),
+                    new Vector3(20, 10),
+                    new Vector3(20, 20),
+                    new Vector3(10, 20)
+                }
+            );
+            grid.Allocate(allocate);
+            var point = grid.AvailableRandom();
+            Assert.Contains(point, grid.Available);
+            Assert.Equal(42.0, point.X);
+            Assert.Equal(8.0, point.Y);
         }
     }
 }
