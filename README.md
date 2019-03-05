@@ -1,5 +1,6 @@
-Namespace Documentation
+RoomKit Documentation
 =======================
+RoomKit is a C# library for defining architectural rooms, corridors, service areas, building stories, building service cores, and towers. It expands and depend on the Hypar Elements library, and can be used on the Hypar platform at https://hypar.io.
 
 RoomKit Namespace Reference
 ---------------------------
