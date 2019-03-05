@@ -98,15 +98,11 @@ documentation.*
 
 #### enum [[RoomKit.Corner]{.underline}](#AAAAAAAAAJ)\[strong\]
 
-[]{#AAAAAAAAAJ .anchor}
-
 A list of box corners as compass designations. NE = maximum X and Y
 corner. SE = maximum X and minimum Y corner. SW = minimum X and Y
 corner. NW = minimum X and maximum Y corner.
 
 #### enum [[RoomKit.Orient]{.underline}](#AAAAAAAAAK)\[strong\]
-
-[]{#AAAAAAAAAK .anchor}
 
 A list of compass orientations used to designate locations on a 2D box.
 N, S, E, and W define middle points on each orthogonal side of the box.
@@ -121,8 +117,6 @@ Class Documentation
 
 RoomKit.CoordGrid Class Reference
 ---------------------------------
-
-[]{#AAAAAAAAAB .anchor}
 
 Maintains a list of available and allocated points in a grid of the
 specified interval within the orthogonal bounding box of a Polygon.
@@ -191,8 +185,6 @@ specified interval within the orthogonal bounding box of a Polygon.
 
 #### RoomKit.CoordGrid.CoordGrid (Polygon *polygon*, double *xInterval* = 1, double *yInterval* = 1, int *randomSeed* = 1)
 
-[]{#AAAAAAAAAL .anchor}
-
 Creates an orthogonal 2D grid of Vector3 points from the supplied
 Polygon and axis intervals.
 
@@ -212,8 +204,6 @@ A new [[CoordGrid]{.underline}](#AAAAAAAAAB).
 
 #### void RoomKit.CoordGrid.Allocate (Polygon *polygon*)
 
-[]{#AAAAAAAAAM .anchor}
-
 Allocates the points in the grid falling within or on the supplied
 Polygon.
 
@@ -229,8 +219,6 @@ None.
 
 #### void RoomKit.CoordGrid.Allocate (IList\< Polygon \> *polygons*)
 
-[]{#AAAAAAAAAN .anchor}
-
 Allocates points in the grid falling within the supplied Polygons.
 
 ##### Parameters:
@@ -244,8 +232,6 @@ Allocates points in the grid falling within the supplied Polygons.
 None.
 
 #### Vector3 RoomKit.CoordGrid.AllocatedNearTo (Vector3 *point*)
-
-[]{#AAAAAAAAAO .anchor}
 
 Returns the allocated grid point nearest to the supplied point.
 
