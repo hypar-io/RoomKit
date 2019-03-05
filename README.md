@@ -1,9 +1,9 @@
-## RoomKit Documentation
+# RoomKit Documentation
 RoomKit is a C# library for defining architectural rooms, corridors, service areas, building stories, building service cores, and towers. It expands and depend on the Hypar Elements library at https://github.com/hypar-io/elements, and can be used on the Hypar platform at https://hypar.io.
 
 See the RoomKitTest folder for examples of using the library.
 
-# Hypar Inc.
+## Hypar Inc.
 - Version 0.3.0
 - 03/05/2019
 
