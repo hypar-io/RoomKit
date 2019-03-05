@@ -314,6 +314,27 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns a new Polygon rotated around a supplied Vector3 by the specified angle in degrees.
+        /// </summary>
+        /// <param name="pivot">The Vector3 base point of the rotation.</param>
+        /// <param name="angle">The desired rotation angle in degrees.</param>
+        /// <returns>
+        /// A new Polygon.
+        /// </returns>
+        public static Polygon Rotate(this Polygon polygon, Vector3 pivot, double angle)
+        {
+            var theta = angle * (Math.PI / 180);
+            var vertices = new List<Vector3>();
+            foreach(Vector3 vertex in polygon.Vertices)
+            {
+                var rX = (Math.Cos(theta) * (vertex.X - pivot.X)) - (Math.Sin(theta) * (vertex.Y - pivot.Y)) + pivot.X;
+                var rY = (Math.Sin(theta) * (vertex.X - pivot.X)) + (Math.Cos(theta) * (vertex.Y - pivot.Y)) + pivot.Y;
+                vertices.Add(new Vector3(rX, rY));
+            }
+            return new Polygon(vertices.ToArray());
+        }
+
+        /// <summary>
         /// Tests if the supplied Vector3 point is coincident with an edge of this Polygon when compared on a shared plane.
         /// </summary>
         /// <param name="point">The Vector3 point to compare to this Polygon.</param>

@@ -34,7 +34,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a new line displaced from the supplied line along a vector calculated between the supplied Vector3 points.
+        /// Returns a new line displaced from the supplied line along a 2D vector calculated between the supplied Vector3 points.
         /// </summary>
         /// <param name="line">The Line instance to be copied.</param>
         /// <param name="from">The Vector3 base point of the move.</param>
@@ -45,7 +45,6 @@ namespace RoomKit
         public static Line MoveFromTo(this Line line, Vector3 from, Vector3 to)
         {
             var v = new Vector3(to.X - from.X, to.Y - from.Y);
-            var start = line.Start + v;
             return new Line(line.Start + v, line.End + v);
         }
 

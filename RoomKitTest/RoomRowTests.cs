@@ -220,6 +220,46 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void MoveFromTo()
+        {
+            var roomRow = new RoomRow(Vector3.Origin, new Vector3(10.0, 0.0));
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.True(roomRow.AddRoom(new Room() { DesignArea = 9.0 }));
+            }
+            roomRow.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
+            Assert.Equal(20.0, roomRow.Elevation);
+            Assert.Equal(20.0, roomRow.Row.Start.X);
+            Assert.Equal(20.0, roomRow.Row.Start.Y);
+            Assert.Equal(0.0, roomRow.Row.Start.Z);
+
+            Assert.Equal(30.0, roomRow.Row.End.X);
+            Assert.Equal(20.0, roomRow.Row.Start.Y);
+            Assert.Equal(0.0, roomRow.Row.Start.Z);
+        }
+
+        [Fact]
+        public void Rotate()
+        {
+            var roomRow = new RoomRow(Vector3.Origin, new Vector3(10.0, 0.0));
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.True(roomRow.AddRoom(new Room() { DesignArea = 9.0 }));
+            }
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(room.AsSpace);
+            }
+            roomRow.Rotate(Vector3.Origin, 180);
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(room.AsSpace);
+            }
+            model.SaveGlb("../../../../RoomRowRotate.glb");
+        }
+
+        [Fact]
         public void SetColor()
         {
             var roomRow = new RoomRow(Vector3.Origin, new Vector3(10.0, 0.0));
@@ -242,7 +282,7 @@ namespace RoomKitTest
             {
                 Assert.True(roomRow.AddRoom(new Room() { DesignArea = 9.0 }));
             }
-            roomRow.SetElevation(20.0);
+            roomRow.Elevation = 20.0;
             foreach (Room room in roomRow.Rooms)
             {
                 Assert.Equal(20.0, room.Elevation);

@@ -125,18 +125,6 @@ namespace RoomKitTest
         }
 
         [Fact]
-        public void Elevation()
-        {
-            var room = new Room
-            {
-                Elevation = 15
-            };
-            Assert.Equal(15, room.Elevation);
-            room.Elevation = -15;
-            Assert.Equal(-15, room.Elevation);
-        }
-
-        [Fact]
         public void Height()
         {
             var room = new Room();
@@ -189,6 +177,26 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Rotate()
+        {
+            var room = new Room
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(10.0, 0.0),
+                            new Vector3(10.0, 10.0),
+                            new Vector3(0.0, 10.0)
+                        })
+            };
+            Assert.True(room.Rotate(Vector3.Origin, 90));
+            Assert.Contains(new Vector3(-10.0, 0.0), room.Perimeter.Vertices);
+            Assert.Contains(new Vector3(-10.0, 10.0), room.Perimeter.Vertices);
+        }
+
+        [Fact]
         public void SizeXY()
         {
             var room = new Room
@@ -222,6 +230,17 @@ namespace RoomKitTest
         {
             var room = new Room();
             Assert.NotNull(room.UniqueID);
+        }
+
+        [Fact]
+        public void MoveFromTo()
+        {
+            var room = new Room();
+            Assert.True(room.SetDimensions(new Vector3(10.0, 10.0, 4.0), new Vector3(10.0, 10.0)));
+            Assert.Equal(4.0, room.Height);
+            room.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
+            Assert.Contains(new Vector3(30.0, 30.0, 0.0), room.Perimeter.Vertices);
+            Assert.Equal(20.0, room.Elevation);
         }
 
 

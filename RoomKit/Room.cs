@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using Elements;
 using Elements.Interfaces;
 using Elements.Geometry;
@@ -243,7 +243,7 @@ namespace RoomKit
 
         /// <summary>
         /// The vertical position of the Room's lowest plane, parallel to the ground plane.
-        /// </summary>
+        /// </summary> 
         public double Elevation { get; set; }
 
         /// <summary>
@@ -337,6 +337,42 @@ namespace RoomKit
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Moves the Room along a 3D vector calculated between the supplied Vector3 points.
+        /// </summary>
+        /// <param name="from">Vector3 base point of the move.</param>
+        /// <param name="to">Vector3 target point of the move.</param>
+        /// <returns>
+        /// A Polygon represeting the Room's new Perimeter.
+        /// </returns>
+        public Polygon MoveFromTo(Vector3 from, Vector3 to)
+        {
+            if (Perimeter != null)
+            {
+                Perimeter = Perimeter.MoveFromTo(from, to);
+            }
+            Elevation = to.Z - from.Z;
+            return Perimeter;
+        }
+
+        /// <summary>
+        /// Rotates the Room Perimeter in the horizontal plane around the supplied pivot point.
+        /// </summary>
+        /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
+        /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
+        /// <returns>
+        /// True if the Perimeter is successfully rotated.
+        /// </returns>
+        public bool Rotate(Vector3 pivot, double angle)
+        {
+            if (Perimeter == null)
+            {
+                return false;
+            }
+            Perimeter = Perimeter.Rotate(pivot, angle);
+            return true;
+        }
 
         /// <summary>
         /// Creates and sets a rectangular Room Perimeter, Height, and southwest corner location with a supplied vectors.

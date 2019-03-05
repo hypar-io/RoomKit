@@ -14,15 +14,7 @@ namespace RoomKitTest
         [Fact]
         public void RoomGroup()
         {
-            var polygon = 
-                new Polygon(
-                    new[]
-                    {
-                        new Vector3(0.0, 0.0),
-                        new Vector3(60.0, 0.0),
-                        new Vector3(60.0, 20.0),
-                        new Vector3(0.0, 20.0)
-                    });
+            var polygon = Shaper.PolygonBox(60.0, 20.0);
             var roomGroup = new RoomGroup()
             {
                 Perimeter = polygon
@@ -41,15 +33,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             Assert.Equal(1200.0, roomGroup.AreaAvailable, 10);
             roomGroup.RoomsByDivision(4, 2);
@@ -61,18 +45,25 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             Assert.Equal(1200.0, roomGroup.AreaPlaced, 10);
+        }
+
+        [Fact]
+        public void MoveFromTo()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
+            };
+            roomGroup.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
+            Assert.Equal(20.0, roomGroup.Elevation);
+            Assert.Contains(new Vector3(20.0, 20.0, 0.0), roomGroup.Perimeter.Vertices);
+            Assert.Contains(new Vector3(80.0, 20.0, 0.0), roomGroup.Perimeter.Vertices);
+            Assert.Contains(new Vector3(80.0, 40.0, 0.0), roomGroup.Perimeter.Vertices);
+            Assert.Contains(new Vector3(20.0, 40.0, 0.0), roomGroup.Perimeter.Vertices);
         }
 
         [Fact]
@@ -90,15 +81,7 @@ namespace RoomKitTest
         {
             var room = new Room
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(10.0, 0.0),
-                            new Vector3(10.0, 10.0),
-                            new Vector3(0.0, 10.0)
-                        })
+                Perimeter = Shaper.PolygonBox(10.0, 10.0)
             };
             Assert.Contains(new Vector3(0.0, 10.0), room.Perimeter.Vertices);
             Assert.Contains(new Vector3(10.0, 10.0), room.Perimeter.Vertices);
@@ -112,15 +95,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             Assert.Equal(8.0, roomGroup.Rooms.Count, 10);
@@ -131,15 +106,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             Assert.Equal(8.0, roomGroup.RoomsAsPolygons.Count, 10);
@@ -150,15 +117,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             Assert.Equal(8.0, roomGroup.RoomsAsSpaces.Count, 10);
@@ -166,19 +125,32 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Rotate()
+        {
+            var roomGroup = new RoomGroup()
+            {
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
+            };
+            roomGroup.RoomsByDivision(4, 2);
+            var model = new Model();
+            foreach (Room room in roomGroup.Rooms)
+            {
+                model.AddElement(room.AsSpace);
+            }
+            roomGroup.Rotate(Vector3.Origin, 180);
+            foreach (Room room in roomGroup.Rooms)
+            {
+                model.AddElement(room.AsSpace);
+            }
+            model.SaveGlb("../../../../RoomGroupRotate.glb");
+        }
+
+        [Fact]
         public void SizeXY()
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             Assert.Equal(60.0, roomGroup.SizeX, 10);
             Assert.Equal(20.0, roomGroup.SizeY, 10);
@@ -196,15 +168,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             foreach (Room room in roomGroup.Rooms)
@@ -223,22 +187,14 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             foreach (Room room in roomGroup.Rooms)
             {
                 Assert.Equal(0.0, room.Elevation, 10);
             }
-            roomGroup.SetElevation(10.2);
+            roomGroup.Elevation = 10.2;
             foreach (Room room in roomGroup.Rooms)
             {
                 Assert.Equal(10.2, room.Elevation, 10);
@@ -250,15 +206,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2, 3.0);
             foreach (Room room in roomGroup.Rooms)
@@ -277,15 +225,7 @@ namespace RoomKitTest
         {
             var roomGroup = new RoomGroup()
             {
-                Perimeter =
-                    new Polygon(
-                        new[]
-                        {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(60.0, 0.0),
-                            new Vector3(60.0, 20.0),
-                            new Vector3(0.0, 20.0)
-                        })
+                Perimeter = Shaper.PolygonBox(60.0, 20.0)
             };
             roomGroup.RoomsByDivision(4, 2);
             Assert.Equal(8.0, roomGroup.Rooms.Count, 10);

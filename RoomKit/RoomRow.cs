@@ -127,6 +127,26 @@ namespace RoomKit
         public double Depth { get; private set; } = 0.0;
 
         /// <summary>
+        /// Elevation of all Rooms in the RoomRow.
+        /// </summary>
+        private double elevation;
+        public double Elevation
+        {
+            get
+            {
+                return elevation;
+            }
+            set
+            {
+                elevation = value;
+                foreach (Room room in Rooms)
+                {
+                    room.Elevation = elevation;
+                }
+            }
+        }
+
+        /// <summary>
         /// Arbitrary string identifier for this RoomRow.
         /// </summary>
         public string Name { get; set; }
@@ -171,7 +191,7 @@ namespace RoomKit
         /// <summary>
         /// Line along which Rooms can be placed.
         /// </summary>
-        public Line Row { get; }
+        public Line Row { get; private set; }
 
         /// <summary>
         /// X dimension of the Circulation orthogonal bounding box.
@@ -292,6 +312,44 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Moves all Rooms in the RoomRow and the RoomRow Row along a 3D vector calculated between the supplied Vector3 points.
+        /// </summary>
+        /// <param name="from">Vector3 base point of the move.</param>
+        /// <param name="to">Vector3 target point of the move.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void MoveFromTo(Vector3 from, Vector3 to)
+        {
+            foreach (Room room in Rooms)
+            {
+                room.MoveFromTo(from, to);
+            }
+            Row = Row.MoveFromTo(from, to);
+            Elevation = to.Z - from.Z;
+        }
+
+        /// <summary>
+        /// Rotates the RoomRow Row and Rooms in the horizontal plane around the supplied pivot point.
+        /// </summary>
+        /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
+        /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void Rotate(Vector3 pivot, double angle)
+        {
+            foreach (Room room in Rooms)
+            {
+                room.Rotate(pivot, angle);
+            }
+            if (Row != null)
+            {
+                Row = Row.Rotate(pivot, angle);
+            }
+        }
+
+        /// <summary>
         /// Uniformly sets the color of all Rooms in the RoomRow.
         /// </summary>
         /// <param name="color">New color of the Rooms.</param> 
@@ -303,21 +361,6 @@ namespace RoomKit
             foreach (Room room in Rooms)
             {
                 room.Color = color;
-            }
-        }
-
-        /// <summary>
-        /// Uniformly sets the elevation of all Rooms in the RoomRow.
-        /// </summary>
-        /// <param name="elevation">New elevation of the Rooms.</param> 
-        /// <returns>
-        /// None.
-        /// </returns>
-        public void SetElevation(double elevation)
-        {
-            foreach (Room room in Rooms)
-            {
-                room.Elevation = elevation;
             }
         }
 

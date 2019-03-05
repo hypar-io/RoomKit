@@ -13,20 +13,23 @@ namespace RoomKit
     public class RoomGroup
     {
 
+        #region Constructors
         /// <summary>
         /// Creates an empty group of Rooms.
         /// </summary>
         /// <returns>
         /// A new RoomGroup.
         /// </returns>
-        public RoomGroup() 
+        public RoomGroup()
         {
             Name = "";
             Perimeter = null;
             Rooms = new List<Room>();
             UniqueID = Guid.NewGuid().ToString();
-        }
+        } 
+        #endregion
 
+        #region Properties
         /// <summary>
         /// Unallocated area of the RoomGroup perimeter.
         /// </summary>
@@ -67,6 +70,26 @@ namespace RoomKit
                     area += room.Perimeter.Area;
                 }
                 return area;
+            }
+        }
+
+        /// <summary>
+        /// Elevation of all Rooms in the RoomGroup.
+        /// </summary>
+        private double elevation;
+        public double Elevation
+        {
+            get
+            {
+                return elevation;
+            }
+            set
+            {
+                elevation = value;
+                foreach (Room room in Rooms)
+                {
+                    room.Elevation = elevation;
+                }
             }
         }
 
@@ -162,6 +185,49 @@ namespace RoomKit
         /// UUID for this RoomGroup instance, set on initialization.
         /// </summary>
         public string UniqueID { get; }
+        #endregion
+
+        #region Methods
+        /// <summary>
+        /// Moves all Rooms in the RoomGroup and the RoomGroup Perimeter along a 3D vector calculated between the supplied Vector3 points.
+        /// </summary>
+        /// <param name="from">Vector3 base point of the move.</param>
+        /// <param name="to">Vector3 target point of the move.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void MoveFromTo(Vector3 from, Vector3 to)
+        {
+            foreach(Room room in Rooms)
+            {
+                room.MoveFromTo(from, to);
+            }
+            if (Perimeter != null)
+            {
+                Perimeter = Perimeter.MoveFromTo(from, to);
+            }
+            Elevation = to.Z - from.Z;
+        }
+
+        /// <summary>
+        /// Rotates the RoomGroup Perimeter and Rooms in the horizontal plane around the supplied pivot point.
+        /// </summary>
+        /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
+        /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void Rotate(Vector3 pivot, double angle)
+        {
+            foreach (Room room in Rooms)
+            {
+                room.Rotate(pivot, angle);
+            }
+            if (Perimeter != null)
+            {
+                Perimeter = Perimeter.Rotate(pivot, angle);
+            }
+        }
 
         /// <summary>
         /// Uniformly sets the color of all Rooms in the RoomGroup.
@@ -175,21 +241,6 @@ namespace RoomKit
             foreach (Room room in Rooms)
             {
                 room.Color = color;
-            }
-        }
-
-        /// <summary>
-        /// Uniformly sets the elevation of all Rooms in the RoomGroup.
-        /// </summary>
-        /// <param name="elevation">The new elevation of the Rooms.</param> 
-        /// <returns>
-        /// None.
-        /// </returns>
-        public void SetElevation(double elevation)
-        {
-            foreach(Room room in Rooms)
-            {
-                room.Elevation = elevation;
             }
         }
 
@@ -250,7 +301,8 @@ namespace RoomKit
             Rooms.Clear();
             Rooms.AddRange(newRooms);
             return true;
-        }
+        } 
+        #endregion
 
     }
 }

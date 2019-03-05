@@ -205,9 +205,38 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Room representing the Story envelope.
+        /// </summary>
+        public Room Envelope
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                return
+                    new Room()
+                    {
+                        Color = Color,
+                        Height = Height,
+                        Perimeter = Perimeter,
+                    };
+            }
+        }
+
+        /// <summary>
+        /// Polygon representation of the Story Perimeter.
+        /// </summary>
+        public Polygon EnvelopeAsPolygon
+        {
+            get { return Envelope.Perimeter; }
+        }
+
+        /// <summary>
         /// Space created from Story characteristics.
         /// </summary>
-        public Space Envelope
+        public Space EnvelopeAsSpace
         {
             get
             {
@@ -725,6 +754,38 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Moves all Rooms in the Story and the Story Envelope along a 3D vector calculated between the supplied Vector3 points.
+        /// </summary>
+        /// <param name="from">Vector3 base point of the move.</param>
+        /// <param name="to">Vector3 target point of the move.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void MoveFromTo(Vector3 from, Vector3 to)
+        {
+            if (Perimeter != null)
+            {
+                Perimeter = Perimeter.MoveFromTo(from, to);
+            }
+            foreach (Room room in Corridors)
+            {
+                room.MoveFromTo(from, to);
+            }
+            foreach (Room room in Exclusions)
+            {
+                room.MoveFromTo(from, to);
+            }
+            foreach (Room room in Rooms)
+            {
+                room.MoveFromTo(from, to);
+            }
+            foreach (Room room in Services)
+            {
+                room.MoveFromTo(from, to);
+            }
+        }
+
+        /// <summary>
         /// Creates Rooms by orthogonally dividing the interior of the Story perimeter by a quantity of x-axis and y-axis intervals.
         /// Adds the new Rooms to the Rooms list.
         /// New Rooms conform to Corridor and Service perimeters.
@@ -758,7 +819,7 @@ namespace RoomKit
                     Perimeter = polygon
                 };
             roomGroup.RoomsByDivision(xRooms, yRooms);
-            roomGroup.SetElevation(Elevation);
+            roomGroup.Elevation = Elevation;
             roomGroup.SetHeight(height);
             roomGroup.SetColor(color);
             var fitRooms = new List<Room>(roomGroup.Rooms);
@@ -776,7 +837,39 @@ namespace RoomKit
             Rooms.Clear();
             Rooms.AddRange(fitRooms);
             return true;
-        } 
+        }
+
+        /// <summary>
+        /// Rotates the Story Perimeter and Rooms in the horizontal plane around the supplied pivot point.
+        /// </summary>
+        /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
+        /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void Rotate(Vector3 pivot, double angle)
+        {
+            if (Perimeter != null)
+            {
+                Perimeter = Perimeter.Rotate(pivot, angle);
+            }
+            foreach (Room room in Corridors)
+            {
+                room.Rotate(pivot, angle);
+            }
+            foreach (Room room in Exclusions)
+            {
+                room.Rotate(pivot, angle);
+            }
+            foreach (Room room in Rooms)
+            {
+                room.Rotate(pivot, angle);
+            }
+            foreach (Room room in Services)
+            {
+                room.Rotate(pivot, angle);
+            }
+        }
         #endregion
     }
 }

@@ -360,6 +360,25 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Rotate()
+        {
+            var polygon =
+                new Polygon
+                (
+                    new[]
+                    {
+                        new Vector3(0.0, 0.0),
+                        new Vector3(4.0, 0.0),
+                        new Vector3(4.0, 4.0),
+                        new Vector3(0.0, 4.0)
+                    }
+                );
+            polygon = polygon.Rotate(Vector3.Origin, 90);
+            Assert.Contains(new Vector3(-4.0, 4.0), polygon.Vertices);
+            Assert.Contains(new Vector3(-4.0, 0.0), polygon.Vertices);
+        }
+
+        [Fact]
         public void Touches()
         {
             var p1 = new Polygon
