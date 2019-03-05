@@ -2007,7 +2007,3 @@ List of all Spaces from every Story in the Tower.
 #### The documentation for this class was generated from the following file:
 
 - RoomKit/Tower.cs
-
-# Index
-
-INDE
