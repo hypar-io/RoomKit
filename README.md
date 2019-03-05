@@ -4,8 +4,8 @@ RoomKit is a C# library for defining architectural rooms, corridors, service are
 See the RoomKitTest folder for examples of using the library.
 
 # Hypar Inc.
-# Version 0.3.0
-03/05/2019
+- Version 0.3.0
+- 03/05/2019
 
 ## RoomKit Namespace Reference
 
