@@ -1,253 +1,210 @@
-RoomKit Documentation
-=======================
-RoomKit is a C# library for defining architectural rooms, corridors, service areas, building stories, building service cores, and towers. It expands and depend on the Hypar Elements library, and can be used on the Hypar platform at https://hypar.io.
+# RoomKit Documentation
+RoomKit is a C# library for defining architectural rooms, corridors, service areas, building stories, building service cores, and towers. It expands and depend on the Hypar Elements library at https://github.com/hypar-io/elements, and can be used on the Hypar platform at https://hypar.io.
 
-See the RoomKitTest folder above for example code.
+See the RoomKitTest folder for examples of using the library.
 
-RoomKit Namespace Reference
----------------------------
+## Hypar Inc.
+## Version 0.3.0
+# 03/05/2019
+
+## RoomKit Namespace Reference
 
 ### Classes
 
--   class **ArcEx**
+- class **ArcEx**
 
-*Extends Elements.Geometry.Arc with utility methods.*
+_Extends Elements.Geometry.Arc with utility methods._
 
--   class [[CoordGrid]{.underline}](#AAAAAAAAAB)
+- class CoordGrid
 
-*Maintains a list of available and allocated points in a grid of the
-specified interval within the orthogonal bounding box of a Polygon.*
+_Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon._
 
--   class **LineEx**
+- class **LineEx**
 
-*Extends Elements.Geometry.Line with utility methods.*
+_Extends Elements.Geometry.Line with utility methods._
 
--   class **Messages**
+- class **Messages**
 
-*Common exception messages.*
+_Common exception messages._
 
--   class **Palette**
+- class **Palette**
 
-*Commonly used colors for Space rendering. These colors are translucent
-to allow viewing of representions several layers deep.*
+_Commonly used colors for Space rendering. These colors are translucent to allow viewing of representions several layers deep._
 
--   class **Place**
+- class **Place**
 
-*Rooms 2D Polygons in various spatial relationships to each other.*
+_Rooms 2D Polygons in various spatial relationships to each other._
 
--   class **PolygonEx**
+- class **PolygonEx**
+- class Room
 
--   class [[Room]{.underline}](#AAAAAAAAAC)
+_A data structure recording room characteristics._
 
-*A data structure recording room characteristics.*
+- class RoomGroup
 
--   class [[RoomGroup]{.underline}](#AAAAAAAAAD)
+_Creates and manages Rooms within a perimeter._
 
-*Creates and manages Rooms within a perimeter.*
+- class RoomRow
 
--   class [[RoomRow]{.underline}](#AAAAAAAAAE)
+_Creates and manages Rooms placed along a line._
 
-*Creates and manages Rooms placed along a line.*
+- class Scope
 
--   class [[Scope]{.underline}](#AAAAAAAAAF)
+_Data structure recording space program characteristics and the status of a_ _Room_ _placing process._
 
-*Data structure recording space program characteristics and the status
-of a [[Room]{.underline}](#AAAAAAAAAC) placing process.*
+- class **Shaper**
 
--   class **Shaper**
+_Utilities for creating and editing Polygons._
 
-*Utilities for creating and editing Polygons.*
+- class Story
 
--   class [[Story]{.underline}](#AAAAAAAAAG)
+_Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services._
 
-*Creates and manages the geometry of a slab and Rooms representing
-corridors, occupied rooms, and services.*
+- class TopoBox
 
--   class [[TopoBox]{.underline}](#AAAAAAAAAH)
+_Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side._
 
-*Maintains a set of points on the orthogonal bounding box of a supplied
-Polygon corresponding to four divisions of each side.*
+- class Tower
+- class **Vector3Ex**
 
--   class [[Tower]{.underline}](#public-member-functions-7)
-
--   class **Vector3Ex**
-
-*Extends Elements.Geometry.Vector3 with utility methods.*
+_Extends Elements.Geometry.Vector3 with utility methods._
 
 ### Enumerations
 
--   enum [[Corner]{.underline}](#AAAAAAAAAJ) { **NE**, **SE**, **SW**,
-    **NW** }
+- enum Corner { **NE** , **SE** , **SW** , **NW** }
+- _A list of box corners as compass designations. NE = maximum X and Y corner. SE = maximum X and minimum Y corner. SW = minimum X and Y corner. NW = minimum X and maximum Y corner._ enum Orient { **C** , **N** , **NNE** , **NE** , **ENE** , **E** , **ESE** , **SE** , **SSE** , **S** , **SSW** , **SW** , **WSW** , **W** , **WNW** , **NW** , **NNW** }
 
--   *A list of box corners as compass designations. NE = maximum X and Y
-    corner. SE = maximum X and minimum Y corner. SW = minimum X and Y
-    corner. NW = minimum X and maximum Y corner.* enum
-    [[Orient]{.underline}](#AAAAAAAAAK) { **C**, **N**, **NNE**, **NE**,
-    **ENE**, **E**, **ESE**, **SE**, **SSE**, **S**, **SSW**, **SW**,
-    **WSW**, **W**, **WNW**, **NW**, **NNW** }
-
-*A list of compass orientations used to designate locations on a 2D box.
-N, S, E, and W define middle points on each orthogonal side of the box.
-NE, NW, SE, and SW correspond to the corners of the box. C corresponds
-to the center of the box. Other compass points define locations along
-the relevant side between the cardinal and corner points. See
-documentation of corresponding properties of the TopoBox class for full
-documentation.*
+_A list of compass orientations used to designate locations on a 2D box. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. C corresponds to the center of the box. Other compass points define locations along the relevant side between the cardinal and corner points. See documentation of corresponding properties of the TopoBox class for full documentation._
 
 ### Enumeration Type Documentation
 
-#### enum [[RoomKit.Corner]{.underline}](#AAAAAAAAAJ)\[strong\]
+#### enum RoomKit.Corner[strong]
 
-A list of box corners as compass designations. NE = maximum X and Y
-corner. SE = maximum X and minimum Y corner. SW = minimum X and Y
-corner. NW = minimum X and maximum Y corner.
+A list of box corners as compass designations. NE = maximum X and Y corner. SE = maximum X and minimum Y corner. SW = minimum X and Y corner. NW = minimum X and maximum Y corner.
 
-#### enum [[RoomKit.Orient]{.underline}](#AAAAAAAAAK)\[strong\]
+#### enum RoomKit.Orient[strong]
 
-A list of compass orientations used to designate locations on a 2D box.
-N, S, E, and W define middle points on each orthogonal side of the box.
-NE, NW, SE, and SW correspond to the corners of the box. C corresponds
-to the center of the box. Other compass points define locations along
-the relevant side between the cardinal and corner points. See
-documentation of corresponding properties of the
-[[TopoBox]{.underline}](#AAAAAAAAAH) class for full documentation.
+A list of compass orientations used to designate locations on a 2D box. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. C corresponds to the center of the box. Other compass points define locations along the relevant side between the cardinal and corner points. See documentation of corresponding properties of the TopoBox class for full documentation.
 
-Class Documentation
-===================
+# Class Documentation
 
-RoomKit.CoordGrid Class Reference
----------------------------------
+## RoomKit.CoordGrid Class Reference
 
-Maintains a list of available and allocated points in a grid of the
-specified interval within the orthogonal bounding box of a Polygon.
+Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
 
 ### Public Member Functions
 
--   [[CoordGrid]{.underline}](#AAAAAAAAAL) (Polygon polygon, double
-    xInterval=1, double yInterval=1, int randomSeed=1)
+- CoordGrid (Polygon polygon, double xInterval=1, double yInterval=1, int randomSeed=1)
 
-*Creates an orthogonal 2D grid of Vector3 points from the supplied
-Polygon and axis intervals.*
+_Creates an orthogonal 2D grid of Vector3 points from the supplied Polygon and axis intervals._
 
--   void [[Allocate]{.underline}](#AAAAAAAAAM) (Polygon polygon)
+- void Allocate (Polygon polygon)
 
-*Allocates the points in the grid falling within or on the supplied
-Polygon.*
+_Allocates the points in the grid falling within or on the supplied Polygon._
 
--   void [[Allocate]{.underline}](#AAAAAAAAAN) (IList\< Polygon \>
-    polygons)
+- void Allocate (IList\&lt; Polygon \&gt; polygons)
 
-*Allocates points in the grid falling within the supplied Polygons.*
+_Allocates points in the grid falling within the supplied Polygons._
 
--   Vector3 [[AllocatedNearTo]{.underline}](#AAAAAAAAAO) (Vector3 point)
+- Vector3 AllocatedNearTo (Vector3 point)
 
-*Returns the allocated grid point nearest to the supplied point.*
+_Returns the allocated grid point nearest to the supplied point._
 
--   Vector3 [[AllocatedRandom]{.underline}](#AAAAAAAAAP) ()
+- Vector3 AllocatedRandom ()
 
-*Returns a random allocated point.*
+_Returns a random allocated point._
 
--   Vector3 [[AvailableMax]{.underline}](#AAAAAAAAAQ) ()
+- Vector3 AvailableMax ()
 
-*Returns the maximum available grid point.*
+_Returns the maximum available grid point._
 
--   Vector3 [[AvailableMin]{.underline}](#AAAAAAAAAR) ()
+- Vector3 AvailableMin ()
 
-*Returns the minimum available grid point.*
+_Returns the minimum available grid point._
 
--   Vector3 [[AvailableNearTo]{.underline}](#AAAAAAAAAS) (Vector3 point)
+- Vector3 AvailableNearTo (Vector3 point)
 
-*Returns the available grid point nearest to the supplied Vector3
-point.*
+_Returns the available grid point nearest to the supplied Vector3 point._
 
--   Vector3 [[AvailableRandom]{.underline}](#AAAAAAAAAT) ()
+- Vector3 AvailableRandom ()
 
-*Returns a random available grid point.*
+_Returns a random available grid point._
 
 ### Properties
 
--   List\< Vector3 \> [[Allocated]{.underline}](#AAAAAAAAAU) \[get\]
+- List\&lt; Vector3 \&gt; Allocated [get]
 
-*The list of vector3 allocated points.*
+_The list of vector3 allocated points._
 
--   List\< Vector3 \> [[Available]{.underline}](#AAAAAAAAAV) \[get\]
+- List\&lt; Vector3 \&gt; Available [get]
 
-*The list of Vector3 points available for allocation.*
+_The list of Vector3 points available for allocation._
 
--   Polygon **Perimeter** \[get, set\]
+- Polygon **Perimeter** [get, set]
 
 ### Detailed Description
 
-Maintains a list of available and allocated points in a grid of the
-specified interval within the orthogonal bounding box of a Polygon.
+Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
-#### RoomKit.CoordGrid.CoordGrid (Polygon *polygon*, double *xInterval* = 1, double *yInterval* = 1, int *randomSeed* = 1)
+#### RoomKit.CoordGrid.CoordGrid (Polygon  _polygon_, double  _xInterval_ = 1, double  _yInterval_ = 1, int  _randomSeed_ = 1)
 
-Creates an orthogonal 2D grid of Vector3 points from the supplied
-Polygon and axis intervals.
+Creates an orthogonal 2D grid of Vector3 points from the supplied Polygon and axis intervals.
 
 ##### Parameters:
 
-  ------------- -------------------------------------------
-  *perimeter*   The Polygon boundary of the point grid.
-  *xInterval*   The spacing of the grid along the x-axis.
-  *yInterval*   The spacing of the grid along the y-axis.
-  ------------- -------------------------------------------
+| _perimeter_ | The Polygon boundary of the point grid. |
+| --- | --- |
+| _xInterval_ | The spacing of the grid along the x-axis. |
+| _yInterval_ | The spacing of the grid along the y-axis. |
 
 ##### Returns:
 
-A new [[CoordGrid]{.underline}](#AAAAAAAAAB).
+A new CoordGrid.
 
 ### Member Function Documentation
 
-#### void RoomKit.CoordGrid.Allocate (Polygon *polygon*)
+#### void RoomKit.CoordGrid.Allocate (Polygon  _polygon_)
 
-Allocates the points in the grid falling within or on the supplied
-Polygon.
+Allocates the points in the grid falling within or on the supplied Polygon.
 
 ##### Parameters:
 
-  ----------- --------------------------------------------------
-  *polygon*   The Polygon bounding the points to be allocated.
-  ----------- --------------------------------------------------
+| _polygon_ | The Polygon bounding the points to be allocated. |
+| --- | --- |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.CoordGrid.Allocate (IList\< Polygon \> *polygons*)
+#### void RoomKit.CoordGrid.Allocate (IList\&lt; Polygon \&gt;  _polygons_)
 
 Allocates points in the grid falling within the supplied Polygons.
 
 ##### Parameters:
 
-  ----------- --------------------------------------------------
-  *polygon*   The Polygon bounding the points to be allocated.
-  ----------- --------------------------------------------------
+| _polygon_ | The Polygon bounding the points to be allocated. |
+| --- | --- |
 
 ##### Returns:
 
 None.
 
-#### Vector3 RoomKit.CoordGrid.AllocatedNearTo (Vector3 *point*)
+#### Vector3 RoomKit.CoordGrid.AllocatedNearTo (Vector3  _point_)
 
 Returns the allocated grid point nearest to the supplied point.
 
 ##### Parameters:
 
-  --------- -------------------------------
-  *point*   The Vector3 point to compare.
-  --------- -------------------------------
+| _point_ | The Vector3 point to compare. |
+| --- | --- |
 
 ##### Returns:
 
 A Vector3 point.
 
 #### Vector3 RoomKit.CoordGrid.AllocatedRandom ()
-
-[]{#AAAAAAAAAP .anchor}
 
 Returns a random allocated point.
 
@@ -257,8 +214,6 @@ A Vector3 point.
 
 #### Vector3 RoomKit.CoordGrid.AvailableMax ()
 
-[]{#AAAAAAAAAQ .anchor}
-
 Returns the maximum available grid point.
 
 ##### Returns:
@@ -267,33 +222,26 @@ A Vector3 point.
 
 #### Vector3 RoomKit.CoordGrid.AvailableMin ()
 
-[]{#AAAAAAAAAR .anchor}
-
 Returns the minimum available grid point.
 
 ##### Returns:
 
 A Vector3 point.
 
-#### Vector3 RoomKit.CoordGrid.AvailableNearTo (Vector3 *point*)
-
-[]{#AAAAAAAAAS .anchor}
+#### Vector3 RoomKit.CoordGrid.AvailableNearTo (Vector3  _point_)
 
 Returns the available grid point nearest to the supplied Vector3 point.
 
 ##### Parameters:
 
-  --------- -------------------------------
-  *point*   The Vector3 point to compare.
-  --------- -------------------------------
+| _point_ | The Vector3 point to compare. |
+| --- | --- |
 
 ##### Returns:
 
 A Vector3 point.
 
 #### Vector3 RoomKit.CoordGrid.AvailableRandom ()
-
-[]{#AAAAAAAAAT .anchor}
 
 Returns a random available grid point.
 
@@ -303,317 +251,224 @@ A Vector3 point.
 
 ### Property Documentation
 
-#### List\<Vector3\> RoomKit.CoordGrid.Allocated\[get\]
-
-[]{#AAAAAAAAAU .anchor}
+#### List\&lt;Vector3\&gt; RoomKit.CoordGrid.Allocated[get]
 
 The list of vector3 allocated points.
 
-#### List\<Vector3\> RoomKit.CoordGrid.Available\[get\]
-
-[]{#AAAAAAAAAV .anchor}
+#### List\&lt;Vector3\&gt; RoomKit.CoordGrid.Available[get]
 
 The list of Vector3 points available for allocation.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/CoordGrid.cs
+- RoomKit/CoordGrid.cs
 
-#### 
-
-RoomKit.Room Class Reference
-----------------------------
-
-[]{#AAAAAAAAAC .anchor}
+## RoomKit.Room Class Reference
 
 A data structure recording room characteristics.
 
 ### Public Member Functions
 
--   [[Room]{.underline}](#AAAAAAAAAX) ()
+- Room ()
 
-*Constructor setting all internal variables to default values to create
-a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the
-zero plane with an empty string, null perimeter, and an integer TypeID
-of -1.*
+_Constructor setting all internal variables to default values to create a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1._
 
--   Polygon [[MoveFromTo]{.underline}](#AAAAAAAAAY) (Vector3 from,
-    Vector3 to)
+- Polygon MoveFromTo (Vector3 from, Vector3 to)
 
-*Moves the [[Room]{.underline}](#AAAAAAAAAC) along a 3D vector
-calculated between the supplied Vector3 points.*
+_Moves the_ _Room_ _along a 3D vector calculated between the supplied Vector3 points._
 
--   bool [[Rotate]{.underline}](#AAAAAAAAAZ) (Vector3 pivot, double
-    angle)
+- bool Rotate (Vector3 pivot, double angle)
 
-*Rotates the [[Room]{.underline}](#AAAAAAAAAC) Perimeter in the
-horizontal plane around the supplied pivot point.*
+_Rotates the_ _Room_ _Perimeter in the horizontal plane around the supplied pivot point._
 
--   bool [[SetDimensions]{.underline}](#AAAAAAAABA) (Vector3 xyz,
-    Vector3 moveTo=null)
+- bool SetDimensions (Vector3 xyz, Vector3 moveTo=null)
 
-*Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-Perimeter, Height, and southwest corner location with a supplied
-vectors. Sets the DesignX and DesignY properties.*
+_Creates and sets a rectangular_ _Room_ _Perimeter, Height, and southwest corner location with a supplied vectors. Sets the DesignX and DesignY properties._
 
--   bool [[SetPerimeter]{.underline}](#AAAAAAAABB) (Vector3 moveTo=null)
+- bool SetPerimeter (Vector3 moveTo=null)
 
-*Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-Perimeter with dimensions derived from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics with its southwest corner at the origin or at the 2D
-location implied by the supplied Vector3.*
+_Creates and sets a rectangular_ _Room_ _Perimeter with dimensions derived from_ _Room_ _characteristics with its southwest corner at the origin or at the 2D location implied by the supplied Vector3._
 
--   bool [[SetPerimeter]{.underline}](#AAAAAAAABC) (double area, double
-    ratio=1.5, Vector3 moveTo=null)
+- bool SetPerimeter (double area, double ratio=1.5, Vector3 moveTo=null)
 
-*Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-Perimeter with dimensions derived from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics with its southwest corner at the supplied Vector3 point.
-If no point is supplied, the southwest corner is placed at the origin.*
+_Creates and sets a rectangular_ _Room_ _Perimeter with dimensions derived from_ _Room_ _characteristics with its southwest corner at the supplied Vector3 point. If no point is supplied, the southwest corner is placed at the origin._
 
--   bool [[SetPerimeter]{.underline}](#AAAAAAAABD) (Line axis, double
-    width)
+- bool SetPerimeter (Line axis, double width)
 
-*Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-perimeter with dimensions derived from a supplied Line and a width.
-Intended for creating corridors.*
+_Creates and sets a rectangular_ _Room_ _perimeter with dimensions derived from a supplied Line and a width. Intended for creating corridors._
 
--   bool [[SetPerimeter]{.underline}](#AAAAAAAABE) (Vector3 start,
-    Vector3 end, double width)
+- bool SetPerimeter (Vector3 start, Vector3 end, double width)
 
-*Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-perimeter with dimensions derived from two points and a width. Intended
-for creating corridors.*
+_Creates and sets a rectangular_ _Room_ _perimeter with dimensions derived from two points and a width. Intended for creating corridors._
 
 ### Properties
 
--   int \[\] [[AdjacentTo]{.underline}](#AAAAAAAABF) \[get, set\]
+- int [] AdjacentTo [get, set]
 
-*A list of Resource ID integers indicating the desired adjacencies of
-this [[Room]{.underline}](#AAAAAAAAAC) type to other
-[[Room]{.underline}](#AAAAAAAAAC) types.*
+_A list of Resource ID integers indicating the desired adjacencies of this_ _Room_ _type to other_ _Room_ _types._
 
--   double [[Area]{.underline}](#AAAAAAAABG) \[get\]
+- double Area [get]
 
-*The area of the room\'s perimeter Polygon. Returns -1.0 if the
-[[Room]{.underline}](#AAAAAAAAAC)\'s Perimeter is null.*
+_The area of the room&#39;s perimeter Polygon. Returns -1.0 if the_ _Room__&#39;s Perimeter is null._
 
--   double [[AreaVariance]{.underline}](#AAAAAAAABH) \[get\]
+- double AreaVariance [get]
 
-*The ratio between the intended area and the actual area of the
-[[Room]{.underline}](#AAAAAAAAAC). Returns a negative value if the
-[[Room]{.underline}](#AAAAAAAAAC) has no Perimeter value.*
+_The ratio between the intended area and the actual area of the_ _Room__. Returns a negative value if the_ _Room_ _has no Perimeter value._
 
--   Space [[AsSpace]{.underline}](#AAAAAAAABI) \[get\]
+- Space AsSpace [get]
 
-*A Space created from [[Room]{.underline}](#AAAAAAAAAC) characteristics.
-Adds properties to the Space recording Name TypeID as Type DesignArea as
-Design Area DesignX as Design Length DesignY as Design Width
-Perimeter.Area as Area Elevation Height*
+_A Space created from_ _Room_ _characteristics. Adds properties to the Space recording Name TypeID as Type DesignArea as Design Area DesignX as Design Length DesignY as Design Width Perimeter.Area as Area Elevation Height_
 
--   Color **Color** \[get, set\]
+- Color **Color** [get, set]
+- double **DesignArea** [get, set]
+- double DesignLength [get, set]
 
--   double **DesignArea** \[get, set\]
+_Desired x-axis dimension of this_ _Room__._
 
--   double [[DesignLength]{.underline}](#AAAAAAAABL) \[get, set\]
+- double DesignWidth [get, set]
 
-*Desired x-axis dimension of this [[Room]{.underline}](#AAAAAAAAAC).*
+_Desired y-axis dimension of this_ _Room__._
 
--   double [[DesignWidth]{.underline}](#AAAAAAAABM) \[get, set\]
+- double **DesignRatio** [get, set]
+- bool DesignSet [get]
 
-*Desired y-axis dimension of this [[Room]{.underline}](#AAAAAAAAAC).*
+_Returns true if both DesignLength and DesignWidth are positive values._
 
--   double **DesignRatio** \[get, set\]
+- Vector3 **DesignXYZ** [get, set]
+- double Elevation [get, set]
 
--   bool [[DesignSet]{.underline}](#AAAAAAAABO) \[get\]
+_The vertical position of the_ _Room__&#39;s lowest plane, parallel to the ground plane._
 
-*Returns true if both DesignLength and DesignWidth are positive values.*
+- double Height [get, set]
 
--   Vector3 **DesignXYZ** \[get, set\]
+_Height of the_ _Room_ _prism. Set ignores non-positive values._
 
--   double [[Elevation]{.underline}](#AAAAAAAABQ) \[get, set\]
+- string Name [get, set]
 
-*The vertical position of the [[Room]{.underline}](#AAAAAAAAAC)\'s
-lowest plane, parallel to the ground plane.*
+_Arbitrary string identifier for this_ _Room_ _instance._
 
--   double [[Height]{.underline}](#AAAAAAAABR) \[get, set\]
+- Polygon **Perimeter** [get, set]
+- bool Placed [get, set]
 
-*Height of the [[Room]{.underline}](#AAAAAAAAAC) prism. Set ignores
-non-positive values.*
+_Manual flag to record if the_ _Room_ _has been placed in its final position._
 
--   string [[Name]{.underline}](#AAAAAAAABS) \[get, set\]
+- double SizeX [get]
 
-*Arbitrary string identifier for this [[Room]{.underline}](#AAAAAAAAAC)
-instance.*
+_X dimensions of the_ _Room_ _Perimeter orthogonal bounding box._
 
--   Polygon **Perimeter** \[get, set\]
+- double SizeY [get]
 
--   bool [[Placed]{.underline}](#AAAAAAAABU) \[get, set\]
+_X dimensions of the_ _Room_ _Perimeter orthogonal bounding box._
 
-*Manual flag to record if the [[Room]{.underline}](#AAAAAAAAAC) has been
-placed in its final position.*
+- int TypeID [get, set]
 
--   double [[SizeX]{.underline}](#AAAAAAAABV) \[get\]
+_Arbitrary integer identifier of this_ _Room_ _type. Can be used to identify desired adjacencies._
 
-*X dimensions of the [[Room]{.underline}](#AAAAAAAAAC) Perimeter
-orthogonal bounding box.*
+- string UniqueID [get]
 
--   double [[SizeY]{.underline}](#AAAAAAAABW) \[get\]
-
-*X dimensions of the [[Room]{.underline}](#AAAAAAAAAC) Perimeter
-orthogonal bounding box.*
-
--   int [[TypeID]{.underline}](#AAAAAAAABX) \[get, set\]
-
-*Arbitrary integer identifier of this [[Room]{.underline}](#AAAAAAAAAC)
-type. Can be used to identify desired adjacencies.*
-
--   string [[UniqueID]{.underline}](#AAAAAAAABY) \[get\]
-
-*UUID for this [[Room]{.underline}](#AAAAAAAAAC) instance, set on
-initialization.*
+_UUID for this_ _Room_ _instance, set on initialization._
 
 ### Detailed Description
 
 A data structure recording room characteristics.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
 #### RoomKit.Room.Room ()
 
-[]{#AAAAAAAAAX .anchor}
-
-Constructor setting all internal variables to default values to create a
-1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the
-zero plane with an empty string, null perimeter, and an integer TypeID
-of -1.
+Constructor setting all internal variables to default values to create a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1.
 
 ### Member Function Documentation
 
-#### Polygon RoomKit.Room.MoveFromTo (Vector3 *from*, Vector3 *to*)
+#### Polygon RoomKit.Room.MoveFromTo (Vector3  _from_, Vector3  _to_)
 
-[]{#AAAAAAAAAY .anchor}
-
-Moves the [[Room]{.underline}](#AAAAAAAAAC) along a 3D vector calculated
-between the supplied Vector3 points.
+Moves the Room along a 3D vector calculated between the supplied Vector3 points.
 
 ##### Parameters:
 
-  -------- -----------------------------------
-  *from*   Vector3 base point of the move.
-  *to*     Vector3 target point of the move.
-  -------- -----------------------------------
+| _from_ | Vector3 base point of the move. |
+| --- | --- |
+| _to_ | Vector3 target point of the move. |
 
 ##### Returns:
 
-A Polygon represeting the [[Room]{.underline}](#AAAAAAAAAC)\'s new
-Perimeter.
+A Polygon represeting the Room&#39;s new Perimeter.
 
-#### bool RoomKit.Room.Rotate (Vector3 *pivot*, double *angle*)
+#### bool RoomKit.Room.Rotate (Vector3  _pivot_, double  _angle_)
 
-[]{#AAAAAAAAAZ .anchor}
-
-Rotates the [[Room]{.underline}](#AAAAAAAAAC) Perimeter in the
-horizontal plane around the supplied pivot point.
+Rotates the Room Perimeter in the horizontal plane around the supplied pivot point.
 
 ##### Parameters:
 
-  --------- ---------------------------------------------------------------------------------------------
-  *pivot*   Vector3 point around which the [[Room]{.underline}](#AAAAAAAAAC) Perimeter will be rotated.
-  *angle*   Angle in degrees to rotate the Perimeter.
-  --------- ---------------------------------------------------------------------------------------------
+| _pivot_ | Vector3 point around which the Room Perimeter will be rotated. |
+| --- | --- |
+| _angle_ | Angle in degrees to rotate the Perimeter. |
 
 ##### Returns:
 
 True if the Perimeter is successfully rotated.
 
-#### bool RoomKit.Room.SetDimensions (Vector3 *xyz*, Vector3 *moveTo* = null)
+#### bool RoomKit.Room.SetDimensions (Vector3  _xyz_, Vector3  _moveTo_ = null)
 
-[]{#AAAAAAAABA .anchor}
-
-Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-Perimeter, Height, and southwest corner location with a supplied
-vectors. Sets the DesignX and DesignY properties.
+Creates and sets a rectangular Room Perimeter, Height, and southwest corner location with a supplied vectors. Sets the DesignX and DesignY properties.
 
 ##### Parameters:
 
-  ---------- -----------------------------------------------------------------------------------------------------------------------------
-  *xyz*      Vector3 dimensions of a new Polygon Perimeter. If xy.Z is \> 0.0, sets the height of the [[Room]{.underline}](#AAAAAAAAAC).
-  *moveTo*   Vector3 location of the new Polygon\'s southwest corner.
-  ---------- -----------------------------------------------------------------------------------------------------------------------------
+| _xyz_ | Vector3 dimensions of a new Polygon Perimeter. If xy.Z is \&gt; 0.0, sets the height of the Room. |
+| --- | --- |
+| _moveTo_ | Vector3 location of the new Polygon&#39;s southwest corner. |
 
 ##### Returns:
 
 True if the Perimeter is successfully set.
 
-#### bool RoomKit.Room.SetPerimeter (Vector3 *moveTo* = null)
+#### bool RoomKit.Room.SetPerimeter (Vector3  _moveTo_ = null)
 
-[]{#AAAAAAAABB .anchor}
-
-Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-Perimeter with dimensions derived from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics with its southwest corner at the origin or at the 2D
-location implied by the supplied Vector3.
+Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the origin or at the 2D location implied by the supplied Vector3.
 
 ##### Returns:
 
 True if the Perimeter is successfully set.
 
-#### bool RoomKit.Room.SetPerimeter (double *area*, double *ratio* = 1.5, Vector3 *moveTo* = null)
+#### bool RoomKit.Room.SetPerimeter (double  _area_, double  _ratio_ = 1.5, Vector3  _moveTo_ = null)
 
-[]{#AAAAAAAABC .anchor}
-
-Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-Perimeter with dimensions derived from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics with its southwest corner at the supplied Vector3 point.
-If no point is supplied, the southwest corner is placed at the origin.
+Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the supplied Vector3 point. If no point is supplied, the southwest corner is placed at the origin.
 
 ##### Parameters:
 
-  ---------- ----------------------------------------------------------------------------------------------------------------------
-  *area*     Area override for the new [[Room]{.underline}](#AAAAAAAAAC) Perimeter. If zero, defaults to the value of DesignArea.
-  *ratio*    Desired ratio of X to Y [[Room]{.underline}](#AAAAAAAAAC) dimensions.
-  *moveTo*   Vector3 location of the new Polygon\'s southwest corner.
-  ---------- ----------------------------------------------------------------------------------------------------------------------
+| _area_ | Area override for the new Room Perimeter. If zero, defaults to the value of DesignArea. |
+| --- | --- |
+| _ratio_ | Desired ratio of X to Y Room dimensions. |
+| _moveTo_ | Vector3 location of the new Polygon&#39;s southwest corner. |
 
 ##### Returns:
 
 True if the Perimeter is successfully set.
 
-#### bool RoomKit.Room.SetPerimeter (Line *axis*, double *width*)
+#### bool RoomKit.Room.SetPerimeter (Line  _axis_, double  _width_)
 
-[]{#AAAAAAAABD .anchor}
-
-Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-perimeter with dimensions derived from a supplied Line and a width.
-Intended for creating corridors.
+Creates and sets a rectangular Room perimeter with dimensions derived from a supplied Line and a width. Intended for creating corridors.
 
 ##### Parameters:
 
-  --------- ----------------------------------------------------
-  *axis*    The Line defining the centerline of the perimeter.
-  *width*   The width of the perimeter along the axis Line.
-  --------- ----------------------------------------------------
+| _axis_ | The Line defining the centerline of the perimeter. |
+| --- | --- |
+| _width_ | The width of the perimeter along the axis Line. |
 
 ##### Returns:
 
 True if the Perimeter is successfully set.
 
-#### bool RoomKit.Room.SetPerimeter (Vector3 *start*, Vector3 *end*, double *width*)
+#### bool RoomKit.Room.SetPerimeter (Vector3  _start_, Vector3  _end_, double  _width_)
 
-[]{#AAAAAAAABE .anchor}
-
-Creates and sets a rectangular [[Room]{.underline}](#AAAAAAAAAC)
-perimeter with dimensions derived from two points and a width. Intended
-for creating corridors.
+Creates and sets a rectangular Room perimeter with dimensions derived from two points and a width. Intended for creating corridors.
 
 ##### Parameters:
 
-  --------- ------------------------------------------------------------------
-  *start*   The start point of an axis defining centerline of the perimeter.
-  *end*     The end point of an axis defining centerline of the perimeter.
-  *width*   The width of the perimeter along the axis Line.
-  --------- ------------------------------------------------------------------
+| _start_ | The start point of an axis defining centerline of the perimeter. |
+| --- | --- |
+| _end_ | The end point of an axis defining centerline of the perimeter. |
+| _width_ | The width of the perimeter along the axis Line. |
 
 ##### Returns:
 
@@ -621,311 +476,219 @@ True if the Perimeter is successfully set.
 
 ### Property Documentation
 
-#### int \[\] RoomKit.Room.AdjacentTo\[get\], \[set\]
+#### int [] RoomKit.Room.AdjacentTo[get], [set]
 
-[]{#AAAAAAAABF .anchor}
+A list of Resource ID integers indicating the desired adjacencies of this Room type to other Room types.
 
-A list of Resource ID integers indicating the desired adjacencies of
-this [[Room]{.underline}](#AAAAAAAAAC) type to other
-[[Room]{.underline}](#AAAAAAAAAC) types.
+#### double RoomKit.Room.Area[get]
 
-#### double RoomKit.Room.Area\[get\]
+The area of the room&#39;s perimeter Polygon. Returns -1.0 if the Room&#39;s Perimeter is null.
 
-[]{#AAAAAAAABG .anchor}
+#### double RoomKit.Room.AreaVariance[get]
 
-The area of the room\'s perimeter Polygon. Returns -1.0 if the
-[[Room]{.underline}](#AAAAAAAAAC)\'s Perimeter is null.
+The ratio between the intended area and the actual area of the Room. Returns a negative value if the Room has no Perimeter value.
 
-#### double RoomKit.Room.AreaVariance\[get\]
+#### Space RoomKit.Room.AsSpace[get]
 
-[]{#AAAAAAAABH .anchor}
+A Space created from Room characteristics. Adds properties to the Space recording Name TypeID as Type DesignArea as Design Area DesignX as Design Length DesignY as Design Width Perimeter.Area as Area Elevation Height
 
-The ratio between the intended area and the actual area of the
-[[Room]{.underline}](#AAAAAAAAAC). Returns a negative value if the
-[[Room]{.underline}](#AAAAAAAAAC) has no Perimeter value.
+#### double RoomKit.Room.DesignLength[get], [set]
 
-#### Space RoomKit.Room.AsSpace\[get\]
+Desired x-axis dimension of this Room.
 
-[]{#AAAAAAAABI .anchor}
-
-A Space created from [[Room]{.underline}](#AAAAAAAAAC) characteristics.
-Adds properties to the Space recording Name TypeID as Type DesignArea as
-Design Area DesignX as Design Length DesignY as Design Width
-Perimeter.Area as Area Elevation Height
-
-#### double RoomKit.Room.DesignLength\[get\], \[set\]
-
-[]{#AAAAAAAABL .anchor}
-
-Desired x-axis dimension of this [[Room]{.underline}](#AAAAAAAAAC).
-
-#### bool RoomKit.Room.DesignSet\[get\]
-
-[]{#AAAAAAAABO .anchor}
+#### bool RoomKit.Room.DesignSet[get]
 
 Returns true if both DesignLength and DesignWidth are positive values.
 
-#### double RoomKit.Room.DesignWidth\[get\], \[set\]
+#### double RoomKit.Room.DesignWidth[get], [set]
 
-[]{#AAAAAAAABM .anchor}
+Desired y-axis dimension of this Room.
 
-Desired y-axis dimension of this [[Room]{.underline}](#AAAAAAAAAC).
+#### double RoomKit.Room.Elevation[get], [set]
 
-#### double RoomKit.Room.Elevation\[get\], \[set\]
+The vertical position of the Room&#39;s lowest plane, parallel to the ground plane.
 
-[]{#AAAAAAAABQ .anchor}
+#### double RoomKit.Room.Height[get], [set]
 
-The vertical position of the [[Room]{.underline}](#AAAAAAAAAC)\'s lowest
-plane, parallel to the ground plane.
+Height of the Room prism. Set ignores non-positive values.
 
-#### double RoomKit.Room.Height\[get\], \[set\]
+#### string RoomKit.Room.Name[get], [set]
 
-[]{#AAAAAAAABR .anchor}
+Arbitrary string identifier for this Room instance.
 
-Height of the [[Room]{.underline}](#AAAAAAAAAC) prism. Set ignores
-non-positive values.
+#### bool RoomKit.Room.Placed[get], [set]
 
-#### string RoomKit.Room.Name\[get\], \[set\]
+Manual flag to record if the Room has been placed in its final position.
 
-[]{#AAAAAAAABS .anchor}
+#### double RoomKit.Room.SizeX[get]
 
-Arbitrary string identifier for this [[Room]{.underline}](#AAAAAAAAAC)
-instance.
+X dimensions of the Room Perimeter orthogonal bounding box.
 
-#### bool RoomKit.Room.Placed\[get\], \[set\]
+#### double RoomKit.Room.SizeY[get]
 
-[]{#AAAAAAAABU .anchor}
+X dimensions of the Room Perimeter orthogonal bounding box.
 
-Manual flag to record if the [[Room]{.underline}](#AAAAAAAAAC) has been
-placed in its final position.
+#### int RoomKit.Room.TypeID[get], [set]
 
-#### double RoomKit.Room.SizeX\[get\]
+Arbitrary integer identifier of this Room type. Can be used to identify desired adjacencies.
 
-[]{#AAAAAAAABV .anchor}
+#### string RoomKit.Room.UniqueID[get]
 
-X dimensions of the [[Room]{.underline}](#AAAAAAAAAC) Perimeter
-orthogonal bounding box.
-
-#### double RoomKit.Room.SizeY\[get\]
-
-[]{#AAAAAAAABW .anchor}
-
-X dimensions of the [[Room]{.underline}](#AAAAAAAAAC) Perimeter
-orthogonal bounding box.
-
-#### int RoomKit.Room.TypeID\[get\], \[set\]
-
-[]{#AAAAAAAABX .anchor}
-
-Arbitrary integer identifier of this [[Room]{.underline}](#AAAAAAAAAC)
-type. Can be used to identify desired adjacencies.
-
-#### string RoomKit.Room.UniqueID\[get\]
-
-[]{#AAAAAAAABY .anchor}
-
-UUID for this [[Room]{.underline}](#AAAAAAAAAC) instance, set on
-initialization.
+UUID for this Room instance, set on initialization.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/Room.cs
+- RoomKit/Room.cs
 
-#### 
-
-RoomKit.RoomGroup Class Reference
----------------------------------
-
-[]{#AAAAAAAAAD .anchor}
+## RoomKit.RoomGroup Class Reference
 
 Creates and manages Rooms within a perimeter.
 
 ### Public Member Functions
 
--   [[RoomGroup]{.underline}](#AAAAAAAABZ) ()
+- RoomGroup ()
 
-*Creates an empty group of Rooms.*
+_Creates an empty group of Rooms._
 
--   void [[MoveFromTo]{.underline}](#AAAAAAAACA) (Vector3 from, Vector3
-    to)
+- void MoveFromTo (Vector3 from, Vector3 to)
 
-*Moves all Rooms in the [[RoomGroup]{.underline}](#AAAAAAAAAD) and the
-[[RoomGroup]{.underline}](#AAAAAAAAAD) Perimeter along a 3D vector
-calculated between the supplied Vector3 points.*
+_Moves all Rooms in the_ _RoomGroup_ _and the_ _RoomGroup_ _Perimeter along a 3D vector calculated between the supplied Vector3 points._
 
--   void [[Rotate]{.underline}](#AAAAAAAACB) (Vector3 pivot, double
-    angle)
+- void Rotate (Vector3 pivot, double angle)
 
-*Rotates the [[RoomGroup]{.underline}](#AAAAAAAAAD) Perimeter and Rooms
-in the horizontal plane around the supplied pivot point.*
+_Rotates the_ _RoomGroup_ _Perimeter and Rooms in the horizontal plane around the supplied pivot point._
 
--   void [[SetColor]{.underline}](#AAAAAAAACC) (Color color)
+- void SetColor (Color color)
 
-*Uniformly sets the color of all Rooms in the
-[[RoomGroup]{.underline}](#AAAAAAAAAD).*
+_Uniformly sets the color of all Rooms in the_ _RoomGroup__._
 
--   void [[SetHeight]{.underline}](#AAAAAAAACD) (double height)
+- void SetHeight (double height)
 
-*Uniformly sets the height of all Rooms in the
-[[RoomGroup]{.underline}](#AAAAAAAAAD).*
+_Uniformly sets the height of all Rooms in the_ _RoomGroup__._
 
--   bool [[RoomsByDivision]{.underline}](#AAAAAAAACE) (int xRooms=1, int
-    yRooms=1, double height=3.0)
+- bool RoomsByDivision (int xRooms=1, int yRooms=1, double height=3.0)
 
-*Clears the current Rooms list and creates new Rooms defined by
-orthogonal x- and y-axis divisions of the
-[[RoomGroup]{.underline}](#AAAAAAAAAD) Perimeter.*
+_Clears the current Rooms list and creates new Rooms defined by orthogonal x- and y-axis divisions of the_ _RoomGroup_ _Perimeter._
 
 ### Properties
 
--   double [[AreaAvailable]{.underline}](#AAAAAAAACF) \[get\]
+- double AreaAvailable [get]
 
-*Unallocated area of the [[RoomGroup]{.underline}](#AAAAAAAAAD)
-perimeter.*
+_Unallocated area of the_ _RoomGroup_ _perimeter._
 
--   double [[AreaPlaced]{.underline}](#AAAAAAAACG) \[get\]
+- double AreaPlaced [get]
 
-*Area allocated within the [[RoomGroup]{.underline}](#AAAAAAAAAD).*
+_Area allocated within the_ _RoomGroup__._
 
--   double **Elevation** \[get, set\]
+- double **Elevation** [get, set]
+- string Name [get, set]
 
--   string [[Name]{.underline}](#AAAAAAAACI) \[get, set\]
+_Arbitrary string identifier for this_ _RoomGroup__._
 
-*Arbitrary string identifier for this
-[[RoomGroup]{.underline}](#AAAAAAAAAD).*
+- Polygon **Perimeter** [get, set]
+- List\&lt; Room \&gt; Rooms [get]
 
--   Polygon **Perimeter** \[get, set\]
+_List of Rooms placed within the Perimeter._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Rooms]{.underline}](#AAAAAAAACK) \[get\]
+- List\&lt; Polygon \&gt; RoomsAsPolygons [get]
 
-*List of Rooms placed within the Perimeter.*
+_List of all_ _Room_ _perimeters as Polygons._
 
--   List\< Polygon \> [[RoomsAsPolygons]{.underline}](#AAAAAAAACL)
-    \[get\]
+- List\&lt; Space \&gt; RoomsAsSpaces [get]
 
-*List of all [[Room]{.underline}](#AAAAAAAAAC) perimeters as Polygons.*
+_List of all Rooms as Spaces._
 
--   List\< Space \> [[RoomsAsSpaces]{.underline}](#AAAAAAAACM) \[get\]
+- double SizeX [get]
 
-*List of all Rooms as Spaces.*
+_X dimension of the Perimeter orthogonal bounding box._
 
--   double [[SizeX]{.underline}](#AAAAAAAACN) \[get\]
+- double SizeY [get]
 
-*X dimension of the Perimeter orthogonal bounding box.*
+_Y dimension of the Perimeter orthogonal bounding box._
 
--   double [[SizeY]{.underline}](#AAAAAAAACO) \[get\]
+- string UniqueID [get]
 
-*Y dimension of the Perimeter orthogonal bounding box.*
-
--   string [[UniqueID]{.underline}](#AAAAAAAACP) \[get\]
-
-*UUID for this [[RoomGroup]{.underline}](#AAAAAAAAAD) instance, set on
-initialization.*
+_UUID for this_ _RoomGroup_ _instance, set on initialization._
 
 ### Detailed Description
 
 Creates and manages Rooms within a perimeter.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
 #### RoomKit.RoomGroup.RoomGroup ()
-
-[]{#AAAAAAAABZ .anchor}
 
 Creates an empty group of Rooms.
 
 ##### Returns:
 
-A new [[RoomGroup]{.underline}](#AAAAAAAAAD).
+A new RoomGroup.
 
 ### Member Function Documentation
 
-#### void RoomKit.RoomGroup.MoveFromTo (Vector3 *from*, Vector3 *to*)
+#### void RoomKit.RoomGroup.MoveFromTo (Vector3  _from_, Vector3  _to_)
 
-[]{#AAAAAAAACA .anchor}
-
-Moves all Rooms in the [[RoomGroup]{.underline}](#AAAAAAAAAD) and the
-[[RoomGroup]{.underline}](#AAAAAAAAAD) Perimeter along a 3D vector
-calculated between the supplied Vector3 points.
+Moves all Rooms in the RoomGroup and the RoomGroup Perimeter along a 3D vector calculated between the supplied Vector3 points.
 
 ##### Parameters:
 
-  -------- -----------------------------------
-  *from*   Vector3 base point of the move.
-  *to*     Vector3 target point of the move.
-  -------- -----------------------------------
+| _from_ | Vector3 base point of the move. |
+| --- | --- |
+| _to_ | Vector3 target point of the move. |
 
 ##### Returns:
 
 None.
 
-#### bool RoomKit.RoomGroup.RoomsByDivision (int *xRooms* = 1, int *yRooms* = 1, double *height* = 3.0)
+#### bool RoomKit.RoomGroup.RoomsByDivision (int  _xRooms_ = 1, int  _yRooms_ = 1, double  _height_ = 3.0)
 
-[]{#AAAAAAAACE .anchor}
-
-Clears the current Rooms list and creates new Rooms defined by
-orthogonal x- and y-axis divisions of the
-[[RoomGroup]{.underline}](#AAAAAAAAAD) Perimeter.
+Clears the current Rooms list and creates new Rooms defined by orthogonal x- and y-axis divisions of the RoomGroup Perimeter.
 
 ##### Parameters:
 
-  ---------- ------------------------------------------------------------------
-  *xRooms*   The quantity of Rooms along orthogonal x-axis. Must be positive.
-  *yRooms*   The quantity of Rooms along orthogonal y-axis. Must be positive.
-  ---------- ------------------------------------------------------------------
+| _xRooms_ | The quantity of Rooms along orthogonal x-axis. Must be positive. |
+| --- | --- |
+| _yRooms_ | The quantity of Rooms along orthogonal y-axis. Must be positive. |
 
 ##### Returns:
 
 True if the Rooms are created.
 
-#### void RoomKit.RoomGroup.Rotate (Vector3 *pivot*, double *angle*)
+#### void RoomKit.RoomGroup.Rotate (Vector3  _pivot_, double  _angle_)
 
-[]{#AAAAAAAACB .anchor}
-
-Rotates the [[RoomGroup]{.underline}](#AAAAAAAAAD) Perimeter and Rooms
-in the horizontal plane around the supplied pivot point.
+Rotates the RoomGroup Perimeter and Rooms in the horizontal plane around the supplied pivot point.
 
 ##### Parameters:
 
-  --------- ---------------------------------------------------------------------------------------------
-  *pivot*   Vector3 point around which the [[Room]{.underline}](#AAAAAAAAAC) Perimeter will be rotated.
-  *angle*   Angle in degrees to rotate the Perimeter.
-  --------- ---------------------------------------------------------------------------------------------
+| _pivot_ | Vector3 point around which the Room Perimeter will be rotated. |
+| --- | --- |
+| _angle_ | Angle in degrees to rotate the Perimeter. |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.RoomGroup.SetColor (Color *color*)
+#### void RoomKit.RoomGroup.SetColor (Color  _color_)
 
-[]{#AAAAAAAACC .anchor}
-
-Uniformly sets the color of all Rooms in the
-[[RoomGroup]{.underline}](#AAAAAAAAAD).
+Uniformly sets the color of all Rooms in the RoomGroup.
 
 ##### Parameters:
 
-  --------- -----------------------------
-  *color*   The new color of the Rooms.
-  --------- -----------------------------
+| _color_ | The new color of the Rooms. |
+| --- | --- |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.RoomGroup.SetHeight (double *height*)
+#### void RoomKit.RoomGroup.SetHeight (double  _height_)
 
-[]{#AAAAAAAACD .anchor}
-
-Uniformly sets the height of all Rooms in the
-[[RoomGroup]{.underline}](#AAAAAAAAAD).
+Uniformly sets the height of all Rooms in the RoomGroup.
 
 ##### Parameters:
 
-  ------------- ------------------------------
-  *elevation*   The new height of the Rooms.
-  ------------- ------------------------------
+| _elevation_ | The new height of the Rooms. |
+| --- | --- |
 
 ##### Returns:
 
@@ -933,287 +696,212 @@ None.
 
 ### Property Documentation
 
-#### double RoomKit.RoomGroup.AreaAvailable\[get\]
+#### double RoomKit.RoomGroup.AreaAvailable[get]
 
-[]{#AAAAAAAACF .anchor}
+Unallocated area of the RoomGroup perimeter.
 
-Unallocated area of the [[RoomGroup]{.underline}](#AAAAAAAAAD)
-perimeter.
+#### double RoomKit.RoomGroup.AreaPlaced[get]
 
-#### double RoomKit.RoomGroup.AreaPlaced\[get\]
+Area allocated within the RoomGroup.
 
-[]{#AAAAAAAACG .anchor}
+#### string RoomKit.RoomGroup.Name[get], [set]
 
-Area allocated within the [[RoomGroup]{.underline}](#AAAAAAAAAD).
+Arbitrary string identifier for this RoomGroup.
 
-#### string RoomKit.RoomGroup.Name\[get\], \[set\]
-
-[]{#AAAAAAAACI .anchor}
-
-Arbitrary string identifier for this
-[[RoomGroup]{.underline}](#AAAAAAAAAD).
-
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.RoomGroup.Rooms\[get\]
-
-[]{#AAAAAAAACK .anchor}
+#### List\&lt;Room\&gt; RoomKit.RoomGroup.Rooms[get]
 
 List of Rooms placed within the Perimeter.
 
-#### List\<Polygon\> RoomKit.RoomGroup.RoomsAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.RoomGroup.RoomsAsPolygons[get]
 
-[]{#AAAAAAAACL .anchor}
+List of all Room perimeters as Polygons.
 
-List of all [[Room]{.underline}](#AAAAAAAAAC) perimeters as Polygons.
-
-#### List\<Space\> RoomKit.RoomGroup.RoomsAsSpaces\[get\]
-
-[]{#AAAAAAAACM .anchor}
+#### List\&lt;Space\&gt; RoomKit.RoomGroup.RoomsAsSpaces[get]
 
 List of all Rooms as Spaces.
 
-#### double RoomKit.RoomGroup.SizeX\[get\]
-
-[]{#AAAAAAAACN .anchor}
+#### double RoomKit.RoomGroup.SizeX[get]
 
 X dimension of the Perimeter orthogonal bounding box.
 
-#### double RoomKit.RoomGroup.SizeY\[get\]
-
-[]{#AAAAAAAACO .anchor}
+#### double RoomKit.RoomGroup.SizeY[get]
 
 Y dimension of the Perimeter orthogonal bounding box.
 
-#### string RoomKit.RoomGroup.UniqueID\[get\]
+#### string RoomKit.RoomGroup.UniqueID[get]
 
-[]{#AAAAAAAACP .anchor}
-
-UUID for this [[RoomGroup]{.underline}](#AAAAAAAAAD) instance, set on
-initialization.
+UUID for this RoomGroup instance, set on initialization.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/RoomGroup.cs
+- RoomKit/RoomGroup.cs
 
-#### 
-
-RoomKit.RoomRow Class Reference
--------------------------------
-
-[]{#AAAAAAAAAE .anchor}
+## RoomKit.RoomRow Class Reference
 
 Creates and manages Rooms placed along a line.
 
 ### Public Member Functions
 
--   [[RoomRow]{.underline}](#AAAAAAAACQ) (Line row)
+- RoomRow (Line row)
 
-*Constructor initializes the [[RoomRow]{.underline}](#AAAAAAAAAE) with a
-new Line.*
+_Constructor initializes the_ _RoomRow_ _with a new Line._
 
--   [[RoomRow]{.underline}](#AAAAAAAACR) (Vector3 start, Vector3 end)
+- RoomRow (Vector3 start, Vector3 end)
 
-*Constructor initializes the [[RoomRow]{.underline}](#AAAAAAAAAE) with
-line endpoints.*
+_Constructor initializes the_ _RoomRow_ _with line endpoints._
 
--   bool [[AddRoom]{.underline}](#AAAAAAAACS)
-    ([[Room]{.underline}](#AAAAAAAAAC) room, Polygon within=null,
-    IList\< Polygon \> among=null)
+- bool AddRoom (Room room, Polygon within=null, IList\&lt; Polygon \&gt; among=null)
 
-*Attempts to place a [[Room]{.underline}](#AAAAAAAAAC) perimeter on the
-next open segment of the Row, with optional restrictions of a perimeter
-within which the [[Room]{.underline}](#AAAAAAAAAC)\'s perimeter must fit
-and a list of Polygons with which it cannot intersect.*
+_Attempts to place a_ _Room_ _perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the_ _Room__&#39;s perimeter must fit and a list of Polygons with which it cannot intersect._
 
--   void [[MoveFromTo]{.underline}](#AAAAAAAACT) (Vector3 from, Vector3
-    to)
+- void MoveFromTo (Vector3 from, Vector3 to)
 
-*Moves all Rooms in the [[RoomRow]{.underline}](#AAAAAAAAAE) and the
-[[RoomRow]{.underline}](#AAAAAAAAAE) Row along a 3D vector calculated
-between the supplied Vector3 points.*
+_Moves all Rooms in the_ _RoomRow_ _and the_ _RoomRow_ _Row along a 3D vector calculated between the supplied Vector3 points._
 
--   void [[Rotate]{.underline}](#AAAAAAAACU) (Vector3 pivot, double
-    angle)
+- void Rotate (Vector3 pivot, double angle)
 
-*Rotates the [[RoomRow]{.underline}](#AAAAAAAAAE) Row and Rooms in the
-horizontal plane around the supplied pivot point.*
+_Rotates the_ _RoomRow_ _Row and Rooms in the horizontal plane around the supplied pivot point._
 
--   void [[SetColor]{.underline}](#AAAAAAAACV) (Color color)
+- void SetColor (Color color)
 
-*Uniformly sets the color of all Rooms in the
-[[RoomRow]{.underline}](#AAAAAAAAAE).*
+_Uniformly sets the color of all Rooms in the_ _RoomRow__._
 
--   void [[SetHeight]{.underline}](#AAAAAAAACW) (double height)
+- void SetHeight (double height)
 
-*Uniformly sets the height of all Rooms in the
-[[RoomRow]{.underline}](#AAAAAAAAAE).*
+_Uniformly sets the height of all Rooms in the_ _RoomRow__._
 
 ### Properties
 
--   double [[AreaPlaced]{.underline}](#AAAAAAAACX) \[get\]
+- double AreaPlaced [get]
 
-*Aggregate area of the Rooms placed on this Row.*
+_Aggregate area of the Rooms placed on this Row._
 
--   double [[AvailableLength]{.underline}](#AAAAAAAACY) \[get\]
+- double AvailableLength [get]
 
-*Unallocated length of the [[RoomRow]{.underline}](#AAAAAAAAAE).*
+_Unallocated length of the_ _RoomRow__._
 
--   Polygon [[Circulation]{.underline}](#AAAAAAAACZ) \[get\]
+- Polygon Circulation [get]
 
-*Circulation envelope around the row.*
+_Circulation envelope around the row._
 
--   double **CirculationWidth** \[get, set\]
+- double **CirculationWidth** [get, set]
+- double Depth = 0.0 [get]
 
--   double [[Depth]{.underline}](#AAAAAAAADB) = 0.0 \[get\]
+_Depth of the deepest room along the Row._
 
-*Depth of the deepest room along the Row.*
+- double **Elevation** [get, set]
+- string Name [get, set]
 
--   double **Elevation** \[get, set\]
+_Arbitrary string identifier for this_ _RoomRow__._
 
--   string [[Name]{.underline}](#AAAAAAAADD) \[get, set\]
+- IList\&lt; Room \&gt; Rooms [get]
 
-*Arbitrary string identifier for this
-[[RoomRow]{.underline}](#AAAAAAAAAE).*
+_List of Rooms placed along the Row._
 
--   IList\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Rooms]{.underline}](#AAAAAAAADE) \[get\]
+- List\&lt; Polygon \&gt; RoomsAsPolygons [get]
 
-*List of Rooms placed along the Row.*
+_List of all_ _Room_ _perimeters as Polygons._
 
--   List\< Polygon \> [[RoomsAsPolygons]{.underline}](#AAAAAAAADF)
-    \[get\]
+- List\&lt; Space \&gt; RoomsAsSpaces [get]
 
-*List of all [[Room]{.underline}](#AAAAAAAAAC) perimeters as Polygons.*
+_List of all Rooms as Spaces._
 
--   List\< Space \> [[RoomsAsSpaces]{.underline}](#AAAAAAAADG) \[get\]
+- Line Row [get]
 
-*List of all Rooms as Spaces.*
+_Line along which Rooms can be placed._
 
--   Line [[Row]{.underline}](#AAAAAAAADH) \[get\]
+- double SizeX [get]
 
-*Line along which Rooms can be placed.*
+_X dimension of the Circulation orthogonal bounding box._
 
--   double [[SizeX]{.underline}](#AAAAAAAADI) \[get\]
+- double SizeY [get]
 
-*X dimension of the Circulation orthogonal bounding box.*
+_Y dimension of the Circulation orthogonal bounding box._
 
--   double [[SizeY]{.underline}](#AAAAAAAADJ) \[get\]
+- string UniqueID [get]
 
-*Y dimension of the Circulation orthogonal bounding box.*
-
--   string [[UniqueID]{.underline}](#AAAAAAAADK) \[get\]
-
-*UUID for this [[RoomRow]{.underline}](#AAAAAAAAAE) instance, set on
-initialization.*
+_UUID for this_ _RoomRow_ _instance, set on initialization._
 
 ### Detailed Description
 
 Creates and manages Rooms placed along a line.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
-#### RoomKit.RoomRow.RoomRow (Line *row*)
+#### RoomKit.RoomRow.RoomRow (Line  _row_)
 
-[]{#AAAAAAAACQ .anchor}
+Constructor initializes the RoomRow with a new Line.
 
-Constructor initializes the [[RoomRow]{.underline}](#AAAAAAAAAE) with a
-new Line.
+#### RoomKit.RoomRow.RoomRow (Vector3  _start_, Vector3  _end_)
 
-#### RoomKit.RoomRow.RoomRow (Vector3 *start*, Vector3 *end*)
-
-[]{#AAAAAAAACR .anchor}
-
-Constructor initializes the [[RoomRow]{.underline}](#AAAAAAAAAE) with
-line endpoints.
+Constructor initializes the RoomRow with line endpoints.
 
 ### Member Function Documentation
 
-#### bool RoomKit.RoomRow.AddRoom ([[Room]{.underline}](#AAAAAAAAAC) *room*, Polygon *within* = null, IList\< Polygon \> *among* = null)
+#### bool RoomKit.RoomRow.AddRoom (Room  _room_, Polygon  _within_ = null, IList\&lt; Polygon \&gt;  _among_ = null)
 
-[]{#AAAAAAAACS .anchor}
-
-Attempts to place a [[Room]{.underline}](#AAAAAAAAAC) perimeter on the
-next open segment of the Row, with optional restrictions of a perimeter
-within which the [[Room]{.underline}](#AAAAAAAAAC)\'s perimeter must fit
-and a list of Polygons with which it cannot intersect.
+Attempts to place a Room perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the Room&#39;s perimeter must fit and a list of Polygons with which it cannot intersect.
 
 ##### Parameters:
 
-  ---------- ----------------------------------------------------------------------------------------
-  *room*     [[Room]{.underline}](#AAAAAAAAAC) from which to derive the Polygon to place.
-  *within*   Polygon perimeter within which a new [[Room]{.underline}](#AAAAAAAAAC) must fit.
-  *among*    List of Polygon perimeters the new [[Room]{.underline}](#AAAAAAAAAC) cannot intersect.
-  ---------- ----------------------------------------------------------------------------------------
+| _room_ | Room from which to derive the Polygon to place. |
+| --- | --- |
+| _within_ | Polygon perimeter within which a new Room must fit. |
+| _among_ | List of Polygon perimeters the new Room cannot intersect. |
 
 ##### Returns:
 
 True if the room was successfully placed.
 
-#### void RoomKit.RoomRow.MoveFromTo (Vector3 *from*, Vector3 *to*)
+#### void RoomKit.RoomRow.MoveFromTo (Vector3  _from_, Vector3  _to_)
 
-[]{#AAAAAAAACT .anchor}
-
-Moves all Rooms in the [[RoomRow]{.underline}](#AAAAAAAAAE) and the
-[[RoomRow]{.underline}](#AAAAAAAAAE) Row along a 3D vector calculated
-between the supplied Vector3 points.
+Moves all Rooms in the RoomRow and the RoomRow Row along a 3D vector calculated between the supplied Vector3 points.
 
 ##### Parameters:
 
-  -------- -----------------------------------
-  *from*   Vector3 base point of the move.
-  *to*     Vector3 target point of the move.
-  -------- -----------------------------------
+| _from_ | Vector3 base point of the move. |
+| --- | --- |
+| _to_ | Vector3 target point of the move. |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.RoomRow.Rotate (Vector3 *pivot*, double *angle*)
+#### void RoomKit.RoomRow.Rotate (Vector3  _pivot_, double  _angle_)
 
-[]{#AAAAAAAACU .anchor}
-
-Rotates the [[RoomRow]{.underline}](#AAAAAAAAAE) Row and Rooms in the
-horizontal plane around the supplied pivot point.
+Rotates the RoomRow Row and Rooms in the horizontal plane around the supplied pivot point.
 
 ##### Parameters:
 
-  --------- ---------------------------------------------------------------------------------------------
-  *pivot*   Vector3 point around which the [[Room]{.underline}](#AAAAAAAAAC) Perimeter will be rotated.
-  *angle*   Angle in degrees to rotate the Perimeter.
-  --------- ---------------------------------------------------------------------------------------------
+| _pivot_ | Vector3 point around which the Room Perimeter will be rotated. |
+| --- | --- |
+| _angle_ | Angle in degrees to rotate the Perimeter. |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.RoomRow.SetColor (Color *color*)
+#### void RoomKit.RoomRow.SetColor (Color  _color_)
 
-[]{#AAAAAAAACV .anchor}
-
-Uniformly sets the color of all Rooms in the
-[[RoomRow]{.underline}](#AAAAAAAAAE).
+Uniformly sets the color of all Rooms in the RoomRow.
 
 ##### Parameters:
 
-  --------- -------------------------
-  *color*   New color of the Rooms.
-  --------- -------------------------
+| _color_ | New color of the Rooms. |
+| --- | --- |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.RoomRow.SetHeight (double *height*)
+#### void RoomKit.RoomRow.SetHeight (double  _height_)
 
-[]{#AAAAAAAACW .anchor}
-
-Uniformly sets the height of all Rooms in the
-[[RoomRow]{.underline}](#AAAAAAAAAE).
+Uniformly sets the height of all Rooms in the RoomRow.
 
 ##### Parameters:
 
-  ------------- --------------------------
-  *elevation*   New height of the Rooms.
-  ------------- --------------------------
+| _elevation_ | New height of the Rooms. |
+| --- | --- |
 
 ##### Returns:
 
@@ -1221,395 +909,289 @@ None.
 
 ### Property Documentation
 
-#### double RoomKit.RoomRow.AreaPlaced\[get\]
-
-[]{#AAAAAAAACX .anchor}
+#### double RoomKit.RoomRow.AreaPlaced[get]
 
 Aggregate area of the Rooms placed on this Row.
 
-#### double RoomKit.RoomRow.AvailableLength\[get\]
+#### double RoomKit.RoomRow.AvailableLength[get]
 
-[]{#AAAAAAAACY .anchor}
+Unallocated length of the RoomRow.
 
-Unallocated length of the [[RoomRow]{.underline}](#AAAAAAAAAE).
-
-#### Polygon RoomKit.RoomRow.Circulation\[get\]
-
-[]{#AAAAAAAACZ .anchor}
+#### Polygon RoomKit.RoomRow.Circulation[get]
 
 Circulation envelope around the row.
 
-#### double RoomKit.RoomRow.Depth = 0.0\[get\]
-
-[]{#AAAAAAAADB .anchor}
+#### double RoomKit.RoomRow.Depth = 0.0[get]
 
 Depth of the deepest room along the Row.
 
-#### string RoomKit.RoomRow.Name\[get\], \[set\]
+#### string RoomKit.RoomRow.Name[get], [set]
 
-[]{#AAAAAAAADD .anchor}
+Arbitrary string identifier for this RoomRow.
 
-Arbitrary string identifier for this
-[[RoomRow]{.underline}](#AAAAAAAAAE).
-
-#### IList\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.RoomRow.Rooms\[get\]
-
-[]{#AAAAAAAADE .anchor}
+#### IList\&lt;Room\&gt; RoomKit.RoomRow.Rooms[get]
 
 List of Rooms placed along the Row.
 
-#### List\<Polygon\> RoomKit.RoomRow.RoomsAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.RoomRow.RoomsAsPolygons[get]
 
-[]{#AAAAAAAADF .anchor}
+List of all Room perimeters as Polygons.
 
-List of all [[Room]{.underline}](#AAAAAAAAAC) perimeters as Polygons.
-
-#### List\<Space\> RoomKit.RoomRow.RoomsAsSpaces\[get\]
-
-[]{#AAAAAAAADG .anchor}
+#### List\&lt;Space\&gt; RoomKit.RoomRow.RoomsAsSpaces[get]
 
 List of all Rooms as Spaces.
 
-#### Line RoomKit.RoomRow.Row\[get\]
-
-[]{#AAAAAAAADH .anchor}
+#### Line RoomKit.RoomRow.Row[get]
 
 Line along which Rooms can be placed.
 
-#### double RoomKit.RoomRow.SizeX\[get\]
-
-[]{#AAAAAAAADI .anchor}
+#### double RoomKit.RoomRow.SizeX[get]
 
 X dimension of the Circulation orthogonal bounding box.
 
-#### double RoomKit.RoomRow.SizeY\[get\]
-
-[]{#AAAAAAAADJ .anchor}
+#### double RoomKit.RoomRow.SizeY[get]
 
 Y dimension of the Circulation orthogonal bounding box.
 
-#### string RoomKit.RoomRow.UniqueID\[get\]
+#### string RoomKit.RoomRow.UniqueID[get]
 
-[]{#AAAAAAAADK .anchor}
-
-UUID for this [[RoomRow]{.underline}](#AAAAAAAAAE) instance, set on
-initialization.
+UUID for this RoomRow instance, set on initialization.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/RoomRow.cs
+- RoomKit/RoomRow.cs
 
-#### 
+## RoomKit.Scope Class Reference
 
-RoomKit.Scope Class Reference
------------------------------
-
-[]{#AAAAAAAAAF .anchor}
-
-Data structure recording space program characteristics and the status of
-a [[Room]{.underline}](#AAAAAAAAAC) placing process.
+Data structure recording space program characteristics and the status of a Room placing process.
 
 ### Public Member Functions
 
--   [[Scope]{.underline}](#AAAAAAAADL) ()
+- Scope ()
 
-*Contructor creates empty [[Room]{.underline}](#AAAAAAAAAC) lists for
-Circulation, Occupation, Service, and Tenant.*
+_Contructor creates empty_ _Room_ _lists for Circulation, Occupation, Service, and Tenant._
 
--   [[Room]{.underline}](#AAAAAAAAAC)
-    [[FindByDesignArea]{.underline}](#AAAAAAAADM) (double area, bool
-    unplaced=true)
+- RoomFindByDesignArea (double area, bool unplaced=true)
 
-*Finds the first Occupant [[Room]{.underline}](#AAAAAAAAAC) with the
-DesignArea value closest to the supplied area. C*
+_Finds the first Occupant_ _Room_ _with the DesignArea value closest to the supplied area. C_
 
--   [[Room]{.underline}](#AAAAAAAAAC)
-    [[FindByDesignXY]{.underline}](#AAAAAAAADN) (double designLength,
-    double designWidth, bool unplaced=true)
+- RoomFindByDesignXY (double designLength, double designWidth, bool unplaced=true)
 
-*Finds the first Occupant [[Room]{.underline}](#AAAAAAAAAC) with the
-designed x and y dimensions closest to the supplied values.*
+_Finds the first Occupant_ _Room_ _with the designed x and y dimensions closest to the supplied values._
 
--   [[Room]{.underline}](#AAAAAAAAAC)
-    [[FindByTypeID]{.underline}](#AAAAAAAADO) (int typeID, bool
-    unplaced=true)
+- RoomFindByTypeID (int typeID, bool unplaced=true)
 
-*Finds the first unplaced [[Room]{.underline}](#AAAAAAAAAC) with the
-specifed TypeID.*
+_Finds the first unplaced_ _Room_ _with the specifed TypeID._
 
 ### Properties
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Circulation]{.underline}](#AAAAAAAADP) \[get\]
+- List\&lt; Room \&gt; Circulation [get]
 
-*List of Rooms designated as circulation.*
+_List of Rooms designated as circulation._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Occupant]{.underline}](#AAAAAAAADQ) \[get\]
+- List\&lt; Room \&gt; Occupant [get]
 
-*List of Rooms designated for occupation, rather than circulation.*
+_List of Rooms designated for occupation, rather than circulation._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Service]{.underline}](#AAAAAAAADR) \[get\]
+- List\&lt; Room \&gt; Service [get]
 
-*List of Rooms designated for building services.*
+_List of Rooms designated for building services._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Tenant]{.underline}](#AAAAAAAADS) \[get\]
+- List\&lt; Room \&gt; Tenant [get]
 
-*List of Rooms intended as a series of tenant space containers of other
-Rooms.*
+_List of Rooms intended as a series of tenant space containers of other Rooms._
 
--   List\< Polygon \> [[AllocatedAsPolygons]{.underline}](#AAAAAAAADT)
-    \[get\]
+- List\&lt; Polygon \&gt; AllocatedAsPolygons [get]
 
-*List of allocated Circulation, Occupant, and Service
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters as Polygons.*
+_List of allocated Circulation, Occupant, and Service_ _Room_ _Perimeters as Polygons._
 
--   double [[AreaDesignAvailable]{.underline}](#AAAAAAAADU) \[get\]
+- double AreaDesignAvailable [get]
 
-*Area available for horizontal circulation.*
+_Area available for horizontal circulation._
 
--   double [[AreaDesignCirculation]{.underline}](#AAAAAAAADV) \[get\]
+- double AreaDesignCirculation [get]
 
-*Intended aggregate area of all Occupant Rooms.*
+_Intended aggregate area of all Occupant Rooms._
 
--   double [[AreaDesignOccupant]{.underline}](#AAAAAAAADW) \[get\]
+- double AreaDesignOccupant [get]
 
-*Intended aggregate area of all Occupant Rooms.*
+_Intended aggregate area of all Occupant Rooms._
 
--   double [[AreaCirculation]{.underline}](#AAAAAAAADX) \[get\]
+- double AreaCirculation [get]
 
-*Allocated aggregate area of all placed Circulation Rooms.*
+_Allocated aggregate area of all placed Circulation Rooms._
 
--   double [[AreaOccupant]{.underline}](#AAAAAAAADY) \[get\]
+- double AreaOccupant [get]
 
-*Allocated aggregate area of all placed Occupant Rooms.*
+_Allocated aggregate area of all placed Occupant Rooms._
 
--   double [[AreaService]{.underline}](#AAAAAAAADZ) \[get\]
+- double AreaService [get]
 
-*Aggregate area of all Services Rooms.*
+_Aggregate area of all Services Rooms._
 
--   double [[AreaTenant]{.underline}](#AAAAAAAAEA) \[get\]
+- double AreaTenant [get]
 
-*Aggregate area of all occupiable Tenant Rooms.*
+_Aggregate area of all occupiable Tenant Rooms._
 
--   List\< Polygon \> [[CirculationAsPolygons]{.underline}](#AAAAAAAAEB)
-    \[get\]
+- List\&lt; Polygon \&gt; CirculationAsPolygons [get]
 
-*List of all Circulation [[Room]{.underline}](#AAAAAAAAAC) Perimeters as
-Polygons.*
+_List of all Circulation_ _Room_ _Perimeters as Polygons._
 
--   List\< Polygon \> [[OccupantAsPolygons]{.underline}](#AAAAAAAAEC)
-    \[get\]
+- List\&lt; Polygon \&gt; OccupantAsPolygons [get]
 
-*List of all Occupant [[Room]{.underline}](#AAAAAAAAAC) Perimeters as
-Polygons.*
+_List of all Occupant_ _Room_ _Perimeters as Polygons._
 
--   List\< Polygon \> [[ServiceAsPolygons]{.underline}](#AAAAAAAAED)
-    \[get\]
+- List\&lt; Polygon \&gt; ServiceAsPolygons [get]
 
-*List of all Service [[Room]{.underline}](#AAAAAAAAAC) Perimeters as
-Polygons.*
+_List of all Service_ _Room_ _Perimeters as Polygons._
 
--   List\< Polygon \> [[TenantAsPolygons]{.underline}](#AAAAAAAAEE)
-    \[get\]
+- List\&lt; Polygon \&gt; TenantAsPolygons [get]
 
-*List of all Tenant [[Room]{.underline}](#AAAAAAAAAC) Perimeter
-Polygons.*
+_List of all Tenant_ _Room_ _Perimeter Polygons._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Placed]{.underline}](#AAAAAAAAEF) \[get\]
+- List\&lt; Room \&gt; Placed [get]
 
-*List of all Rooms marked as Placed.*
+_List of all Rooms marked as Placed._
 
--   bool [[PlacedAll]{.underline}](#AAAAAAAAEG) \[get\]
+- bool PlacedAll [get]
 
-*Returns whether all Occupant Rooms have been Placed.*
+_Returns whether all Occupant Rooms have been Placed._
 
--   double [[PlacedQuantity]{.underline}](#AAAAAAAAEH) \[get\]
+- double PlacedQuantity [get]
 
-*The quantity of placed Rooms.*
+_The quantity of placed Rooms._
 
--   double [[RatioCirculation]{.underline}](#AAAAAAAAEI) \[get\]
+- double RatioCirculation [get]
 
-*Returns the ratio of the aggregate area of all Occupant Rooms against
-the Circulation area.*
+_Returns the ratio of the aggregate area of all Occupant Rooms against the Circulation area._
 
--   double [[RatioDesignCirculation]{.underline}](#AAAAAAAAEJ) \[get\]
+- double RatioDesignCirculation [get]
 
-*Returns the ratio of the aggregate area of all designed Occupant Rooms
-against the designed Circulation area.*
+_Returns the ratio of the aggregate area of all designed Occupant Rooms against the designed Circulation area._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Unplaced]{.underline}](#AAAAAAAAEK) \[get\]
+- List\&lt; Room \&gt; Unplaced [get]
 
-*Returns all Rooms with Placed = false.*
+_Returns all Rooms with Placed = false._
 
--   double [[UnplacedQuantity]{.underline}](#AAAAAAAAEL) \[get\]
+- double UnplacedQuantity [get]
 
-*The quantity of unplaced Rooms.*
+_The quantity of unplaced Rooms._
 
 ### Detailed Description
 
-Data structure recording space program characteristics and the status of
-a [[Room]{.underline}](#AAAAAAAAAC) placing process.
+Data structure recording space program characteristics and the status of a Room placing process.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
 #### RoomKit.Scope.Scope ()
 
-[]{#AAAAAAAADL .anchor}
-
-Contructor creates empty [[Room]{.underline}](#AAAAAAAAAC) lists for
-Circulation, Occupation, Service, and Tenant.
+Contructor creates empty Room lists for Circulation, Occupation, Service, and Tenant.
 
 ##### Returns:
 
-A new [[Scope]{.underline}](#AAAAAAAAAF).
+A new Scope.
 
 ### Member Function Documentation
 
-#### [[Room]{.underline}](#AAAAAAAAAC) RoomKit.Scope.FindByDesignArea (double *area*, bool *unplaced* = true)
+#### Room RoomKit.Scope.FindByDesignArea (double  _area_, bool  _unplaced_ = true)
 
-[]{#AAAAAAAADM .anchor}
-
-Finds the first Occupant [[Room]{.underline}](#AAAAAAAAAC) with the
-DesignArea value closest to the supplied area. C
+Finds the first Occupant Room with the DesignArea value closest to the supplied area. C
 
 ##### Parameters:
 
-  -------- --------------------------------------------------------------------------------------------
-  *area*   Area to match from the list of all Occupant [[Room]{.underline}](#AAAAAAAAAC) definitions.
-  -------- --------------------------------------------------------------------------------------------
+| _area_ | Area to match from the list of all Occupant Room definitions. |
+| --- | --- |
 
 ##### Returns:
 
-A [[Room]{.underline}](#AAAAAAAAAC).
+A Room.
 
-#### [[Room]{.underline}](#AAAAAAAAAC) RoomKit.Scope.FindByDesignXY (double *designLength*, double *designWidth*, bool *unplaced* = true)
+#### Room RoomKit.Scope.FindByDesignXY (double  _designLength_, double  _designWidth_, bool  _unplaced_ = true)
 
-[]{#AAAAAAAADN .anchor}
-
-Finds the first Occupant [[Room]{.underline}](#AAAAAAAAAC) with the
-designed x and y dimensions closest to the supplied values.
+Finds the first Occupant Room with the designed x and y dimensions closest to the supplied values.
 
 ##### Parameters:
 
-  ----------- --------------------------------
-  *designX*   The x-axis dimension to match.
-  *designY*   The y-axis dimension to match.
-  ----------- --------------------------------
+| _designX_ | The x-axis dimension to match. |
+| --- | --- |
+| _designY_ | The y-axis dimension to match. |
 
 ##### Returns:
 
-A [[Room]{.underline}](#AAAAAAAAAC).
+A Room.
 
-#### [[Room]{.underline}](#AAAAAAAAAC) RoomKit.Scope.FindByTypeID (int *typeID*, bool *unplaced* = true)
+#### Room RoomKit.Scope.FindByTypeID (int  _typeID_, bool  _unplaced_ = true)
 
-[]{#AAAAAAAADO .anchor}
-
-Finds the first unplaced [[Room]{.underline}](#AAAAAAAAAC) with the
-specifed TypeID.
+Finds the first unplaced Room with the specifed TypeID.
 
 ##### Parameters:
 
-  ---------- -------------------------------------------------------------
-  *typeID*   The integer ID of a [[Room]{.underline}](#AAAAAAAAAC) type.
-  ---------- -------------------------------------------------------------
+| _typeID_ | The integer ID of a Room type. |
+| --- | --- |
 
 ##### Returns:
 
-A [[Room]{.underline}](#AAAAAAAAAC).
+A Room.
 
 ### Property Documentation
 
-#### List\<Polygon\> RoomKit.Scope.AllocatedAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Scope.AllocatedAsPolygons[get]
 
-[]{#AAAAAAAADT .anchor}
+List of allocated Circulation, Occupant, and Service Room Perimeters as Polygons.
 
-List of allocated Circulation, Occupant, and Service
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters as Polygons.
-
-#### double RoomKit.Scope.AreaCirculation\[get\]
-
-[]{#AAAAAAAADX .anchor}
+#### double RoomKit.Scope.AreaCirculation[get]
 
 Allocated aggregate area of all placed Circulation Rooms.
 
-#### double RoomKit.Scope.AreaDesignAvailable\[get\]
-
-[]{#AAAAAAAADU .anchor}
+#### double RoomKit.Scope.AreaDesignAvailable[get]
 
 Area available for horizontal circulation.
 
-#### double RoomKit.Scope.AreaDesignCirculation\[get\]
-
-[]{#AAAAAAAADV .anchor}
+#### double RoomKit.Scope.AreaDesignCirculation[get]
 
 Intended aggregate area of all Occupant Rooms.
 
-#### double RoomKit.Scope.AreaDesignOccupant\[get\]
-
-[]{#AAAAAAAADW .anchor}
+#### double RoomKit.Scope.AreaDesignOccupant[get]
 
 Intended aggregate area of all Occupant Rooms.
 
-#### double RoomKit.Scope.AreaOccupant\[get\]
-
-[]{#AAAAAAAADY .anchor}
+#### double RoomKit.Scope.AreaOccupant[get]
 
 Allocated aggregate area of all placed Occupant Rooms.
 
-#### double RoomKit.Scope.AreaService\[get\]
-
-[]{#AAAAAAAADZ .anchor}
+#### double RoomKit.Scope.AreaService[get]
 
 Aggregate area of all Services Rooms.
 
-#### double RoomKit.Scope.AreaTenant\[get\]
-
-[]{#AAAAAAAAEA .anchor}
+#### double RoomKit.Scope.AreaTenant[get]
 
 Aggregate area of all occupiable Tenant Rooms.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Scope.Circulation\[get\]
-
-[]{#AAAAAAAADP .anchor}
+#### List\&lt;Room\&gt; RoomKit.Scope.Circulation[get]
 
 List of Rooms designated as circulation.
 
-#### List\<Polygon\> RoomKit.Scope.CirculationAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Scope.CirculationAsPolygons[get]
 
-[]{#AAAAAAAAEB .anchor}
-
-List of all Circulation [[Room]{.underline}](#AAAAAAAAAC) Perimeters as
-Polygons.
+List of all Circulation Room Perimeters as Polygons.
 
 ##### Returns:
 
 A list of Polygons.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Scope.Occupant\[get\]
-
-[]{#AAAAAAAADQ .anchor}
+#### List\&lt;Room\&gt; RoomKit.Scope.Occupant[get]
 
 List of Rooms designated for occupation, rather than circulation.
 
-#### List\<Polygon\> RoomKit.Scope.OccupantAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Scope.OccupantAsPolygons[get]
 
-[]{#AAAAAAAAEC .anchor}
-
-List of all Occupant [[Room]{.underline}](#AAAAAAAAAC) Perimeters as
-Polygons.
+List of all Occupant Room Perimeters as Polygons.
 
 ##### Returns:
 
 A list of Polygons.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Scope.Placed\[get\]
-
-[]{#AAAAAAAAEF .anchor}
+#### List\&lt;Room\&gt; RoomKit.Scope.Placed[get]
 
 List of all Rooms marked as Placed.
 
@@ -1617,82 +1199,59 @@ List of all Rooms marked as Placed.
 
 A list of Rooms.
 
-#### bool RoomKit.Scope.PlacedAll\[get\]
-
-[]{#AAAAAAAAEG .anchor}
+#### bool RoomKit.Scope.PlacedAll[get]
 
 Returns whether all Occupant Rooms have been Placed.
 
 ##### Returns:
 
-Returns true if each [[Room]{.underline}](#AAAAAAAAAC) in Occupant has
-been marked with [[Room.Placed]{.underline}](#AAAAAAAABU) = true.
+Returns true if each Room in Occupant has been marked with Room.Placed = true.
 
-#### double RoomKit.Scope.PlacedQuantity\[get\]
-
-[]{#AAAAAAAAEH .anchor}
+#### double RoomKit.Scope.PlacedQuantity[get]
 
 The quantity of placed Rooms.
 
-#### double RoomKit.Scope.RatioCirculation\[get\]
+#### double RoomKit.Scope.RatioCirculation[get]
 
-[]{#AAAAAAAAEI .anchor}
-
-Returns the ratio of the aggregate area of all Occupant Rooms against
-the Circulation area.
+Returns the ratio of the aggregate area of all Occupant Rooms against the Circulation area.
 
 ##### Returns:
 
 A list of Rooms.
 
-#### double RoomKit.Scope.RatioDesignCirculation\[get\]
+#### double RoomKit.Scope.RatioDesignCirculation[get]
 
-[]{#AAAAAAAAEJ .anchor}
-
-Returns the ratio of the aggregate area of all designed Occupant Rooms
-against the designed Circulation area.
+Returns the ratio of the aggregate area of all designed Occupant Rooms against the designed Circulation area.
 
 ##### Returns:
 
 A list of Rooms.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Scope.Service\[get\]
-
-[]{#AAAAAAAADR .anchor}
+#### List\&lt;Room\&gt; RoomKit.Scope.Service[get]
 
 List of Rooms designated for building services.
 
-#### List\<Polygon\> RoomKit.Scope.ServiceAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Scope.ServiceAsPolygons[get]
 
-[]{#AAAAAAAAED .anchor}
-
-List of all Service [[Room]{.underline}](#AAAAAAAAAC) Perimeters as
-Polygons.
+List of all Service Room Perimeters as Polygons.
 
 ##### Returns:
 
 A list of Polygons.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Scope.Tenant\[get\]
+#### List\&lt;Room\&gt; RoomKit.Scope.Tenant[get]
 
-[]{#AAAAAAAADS .anchor}
+List of Rooms intended as a series of tenant space containers of other Rooms.
 
-List of Rooms intended as a series of tenant space containers of other
-Rooms.
+#### List\&lt;Polygon\&gt; RoomKit.Scope.TenantAsPolygons[get]
 
-#### List\<Polygon\> RoomKit.Scope.TenantAsPolygons\[get\]
-
-[]{#AAAAAAAAEE .anchor}
-
-List of all Tenant [[Room]{.underline}](#AAAAAAAAAC) Perimeter Polygons.
+List of all Tenant Room Perimeter Polygons.
 
 ##### Returns:
 
 A list of Polygons.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Scope.Unplaced\[get\]
-
-[]{#AAAAAAAAEK .anchor}
+#### List\&lt;Room\&gt; RoomKit.Scope.Unplaced[get]
 
 Returns all Rooms with Placed = false.
 
@@ -1700,367 +1259,273 @@ Returns all Rooms with Placed = false.
 
 A list of Rooms.
 
-#### double RoomKit.Scope.UnplacedQuantity\[get\]
-
-[]{#AAAAAAAAEL .anchor}
+#### double RoomKit.Scope.UnplacedQuantity[get]
 
 The quantity of unplaced Rooms.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/Scope.cs
+- RoomKit/Scope.cs
 
-#### 
+## RoomKit.Story Class Reference
 
-RoomKit.Story Class Reference
------------------------------
-
-[]{#AAAAAAAAAG .anchor}
-
-Creates and manages the geometry of a slab and Rooms representing
-corridors, occupied rooms, and services.
+Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.
 
 ### Public Member Functions
 
--   [[Story]{.underline}](#AAAAAAAAEM) ()
+- Story ()
 
-*Creates a [[Story]{.underline}](#AAAAAAAAAG) at a 1.0 Height on the
-zero plane with new lists for Corridors, Rooms, and Services. Perimeter
-is set to null, Name is blank, and SlabThickness is s0.1.*
+_Creates a_ _Story_ _at a 1.0 Height on the zero plane with new lists for Corridors, Rooms, and Services. Perimeter is set to null, Name is blank, and SlabThickness is s0.1._
 
--   bool [[AddCorridor]{.underline}](#AAAAAAAAEN)
-    ([[Room]{.underline}](#AAAAAAAAAC) room, bool fit=true)
+- bool AddCorridor (Room room, bool fit=true)
 
-*Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Corridors list.*
+_Adds a_ _Room_ _to the Corridors list._
 
--   bool [[AddExclusion]{.underline}](#AAAAAAAAEO)
-    ([[Room]{.underline}](#AAAAAAAAAC) room, bool fit=true)
+- bool AddExclusion (Room room, bool fit=true)
 
-*Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Exclusions list.*
+_Adds a_ _Room_ _to the Exclusions list._
 
--   bool [[AddRoom]{.underline}](#AAAAAAAAEP)
-    ([[Room]{.underline}](#AAAAAAAAAC) room, bool fit=true)
+- bool AddRoom (Room room, bool fit=true)
 
-*Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Rooms list.*
+_Adds a_ _Room_ _to the Rooms list._
 
--   bool [[AddService]{.underline}](#AAAAAAAAEQ)
-    ([[Room]{.underline}](#AAAAAAAAAC) room, bool fit=true)
+- bool AddService (Room room, bool fit=true)
 
-*Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Services list.*
+_Adds a_ _Room_ _to the Services list._
 
--   void [[MoveFromTo]{.underline}](#AAAAAAAAER) (Vector3 from, Vector3
-    to)
+- void MoveFromTo (Vector3 from, Vector3 to)
 
-*Moves all Rooms in the [[Story]{.underline}](#AAAAAAAAAG) and the
-[[Story]{.underline}](#AAAAAAAAAG) Envelope along a 3D vector calculated
-between the supplied Vector3 points.*
+_Moves all Rooms in the_ _Story_ _and the_ _Story_ _Envelope along a 3D vector calculated between the supplied Vector3 points._
 
--   bool [[RoomsByDivision]{.underline}](#AAAAAAAAES) (int xRooms=1, int
-    yRooms=1, double height=3.0, double setback=0.0, string name=\"\",
-    Color color=null, bool fit=true)
+- bool RoomsByDivision (int xRooms=1, int yRooms=1, double height=3.0, double setback=0.0, string name=&quot;&quot;, Color color=null, bool fit=true)
 
-*Creates Rooms by orthogonally dividing the interior of the
-[[Story]{.underline}](#AAAAAAAAAG) perimeter by a quantity of x-axis and
-y-axis intervals. Adds the new Rooms to the Rooms list. New Rooms
-conform to Corridor and Service perimeters.*
+_Creates Rooms by orthogonally dividing the interior of the_ _Story_ _perimeter by a quantity of x-axis and y-axis intervals. Adds the new Rooms to the Rooms list. New Rooms conform to Corridor and Service perimeters._
 
--   void [[Rotate]{.underline}](#AAAAAAAAET) (Vector3 pivot, double
-    angle)
+- void Rotate (Vector3 pivot, double angle)
 
-*Rotates the [[Story]{.underline}](#AAAAAAAAAG) Perimeter and Rooms in
-the horizontal plane around the supplied pivot point.*
+_Rotates the_ _Story_ _Perimeter and Rooms in the horizontal plane around the supplied pivot point._
 
 ### Properties
 
--   double [[Area]{.underline}](#AAAAAAAAEU) \[get\]
+- double Area [get]
 
-*Area of the perimeter.*
+_Area of the perimeter._
 
--   double [[AreaAvailable]{.underline}](#AAAAAAAAEV) \[get\]
+- double AreaAvailable [get]
 
-*Unallocated area within the [[Story]{.underline}](#AAAAAAAAAG).*
+_Unallocated area within the_ _Story__._
 
--   double [[AreaPlaced]{.underline}](#AAAAAAAAEW) \[get\]
+- double AreaPlaced [get]
 
-*Area allocated to Corridors, Rooms, and Services.*
+_Area allocated to Corridors, Rooms, and Services._
 
--   Color **Color** \[get, set\]
+- Color **Color** [get, set]
+- List\&lt; Room \&gt; Corridors [get]
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Corridors]{.underline}](#AAAAAAAAEY) \[get\]
+_List of Rooms designated as cooridors._
 
-*List of Rooms designated as cooridors.*
+- List\&lt; Polygon \&gt; CorridorsAsPolygons [get]
 
--   List\< Polygon \> [[CorridorsAsPolygons]{.underline}](#AAAAAAAAEZ)
-    \[get\]
+_Polygons representing Corridors. Rooms Perimeters in the_ _Story_ _conform to Corridor Perimeters._
 
-*Polygons representing Corridors. Rooms Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Corridor Perimeters.*
+- List\&lt; Space \&gt; CorridorsAsSpaces [get]
 
--   List\< Space \> [[CorridorsAsSpaces]{.underline}](#AAAAAAAAFA)
-    \[get\]
+_List of Spaces created from_ _Room_ _characteristics within the Corridors list._
 
-*List of Spaces created from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics within the Corridors list.*
+- Color CorridorsColor [set]
 
--   Color [[CorridorsColor]{.underline}](#AAAAAAAAFB) \[set\]
+_Sets the Corridors color._
 
-*Sets the Corridors color.*
+- double **Elevation** [get, set]
+- RoomEnvelope [get]
 
--   double **Elevation** \[get, set\]
+_Room_ _representing the_ _Story_ _envelope._
 
--   [[Room]{.underline}](#AAAAAAAAAC)
-    [[Envelope]{.underline}](#AAAAAAAAFD) \[get\]
+- Polygon EnvelopeAsPolygon [get]
 
-*[[Room]{.underline}](#AAAAAAAAAC) representing the
-[[Story]{.underline}](#AAAAAAAAAG) envelope.*
+_Polygon representation of the_ _Story_ _Perimeter._
 
--   Polygon [[EnvelopeAsPolygon]{.underline}](#AAAAAAAAFE) \[get\]
+- Space EnvelopeAsSpace [get]
 
-*Polygon representation of the [[Story]{.underline}](#AAAAAAAAAG)
-Perimeter.*
+_Space created from_ _Story_ _characteristics._
 
--   Space [[EnvelopeAsSpace]{.underline}](#AAAAAAAAFF) \[get\]
+- List\&lt; Room \&gt; Exclusions [get]
 
-*Space created from [[Story]{.underline}](#AAAAAAAAAG) characteristics.*
+_Rooms representing areas that must not be intersected, but which will not be available as Spaces. All other_ _Room_ _Perimeters in the_ _Story_ _conform to Exclusion_ _Room_ _Perimeters._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Exclusions]{.underline}](#AAAAAAAAFG) \[get\]
+- List\&lt; Polygon \&gt; ExclusionsAsPolygons [get]
 
-*Rooms representing areas that must not be intersected, but which will
-not be available as Spaces. All other [[Room]{.underline}](#AAAAAAAAAC)
-Perimeters in the [[Story]{.underline}](#AAAAAAAAAG) conform to
-Exclusion [[Room]{.underline}](#AAAAAAAAAC) Perimeters.*
+_Polygons representing areas that must not be intersected. All other_ _Room_ _Perimeters in the_ _Story_ _conform to Exclusion_ _Room_ _Perimeters._
 
--   List\< Polygon \> [[ExclusionsAsPolygons]{.underline}](#AAAAAAAAFH)
-    \[get\]
+- double **Height** [get, set]
+- double HeightInteriors [set]
 
-*Polygons representing areas that must not be intersected. All other
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Exclusion
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters.*
+_Sets the height of all Corridors, Rooms, and Services._
 
--   double **Height** \[get, set\]
+- IList\&lt; Polygon \&gt; InteriorsAsPolygons [get]
 
--   double [[HeightInteriors]{.underline}](#AAAAAAAAFJ) \[set\]
+_Returns all Corridors, Exclusions, Rooms, and Services as Polygons._
 
-*Sets the height of all Corridors, Rooms, and Services.*
+- IList\&lt; Space \&gt; InteriorsAsSpaces [get]
 
--   IList\< Polygon \> [[InteriorsAsPolygons]{.underline}](#AAAAAAAAFK)
-    \[get\]
+_Returns all Corridors, Rooms, and Services as Spaces._
 
-*Returns all Corridors, Exclusions, Rooms, and Services as Polygons.*
+- string Name [get, set]
 
--   IList\< Space \> [[InteriorsAsSpaces]{.underline}](#AAAAAAAAFL)
-    \[get\]
+_Arbitrary string identifier._
 
-*Returns all Corridors, Rooms, and Services as Spaces.*
+- Polygon **Perimeter** [get, set]
+- List\&lt; Room \&gt; Rooms [get]
 
--   string [[Name]{.underline}](#AAAAAAAAFM) \[get, set\]
+_List of Rooms designated as occupiable rooms._
 
-*Arbitrary string identifier.*
+- List\&lt; Polygon \&gt; RoomsAsPolygons [get]
 
--   Polygon **Perimeter** \[get, set\]
+_Polygons representing Services. Corridors and Rooms Perimeters in the_ _Story_ _conform to Service_ _Room_ _Perimeters._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Rooms]{.underline}](#AAAAAAAAFO) \[get\]
+- List\&lt; Space \&gt; RoomsAsSpaces [get]
 
-*List of Rooms designated as occupiable rooms.*
+_List of Spaces created from_ _Room_ _characteristics within the Rooms list._
 
--   List\< Polygon \> [[RoomsAsPolygons]{.underline}](#AAAAAAAAFP)
-    \[get\]
+- Color RoomsColor [set]
 
-*Polygons representing Services. Corridors and Rooms Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Service
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters.*
+_Sets the Rooms rendering color._
 
--   List\< Space \> [[RoomsAsSpaces]{.underline}](#AAAAAAAAFQ) \[get\]
+- List\&lt; Room \&gt; Services [get]
 
-*List of Spaces created from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics within the Rooms list.*
+_A list of Rooms designated as building services._
 
--   Color [[RoomsColor]{.underline}](#AAAAAAAAFR) \[set\]
+- List\&lt; Polygon \&gt; ServicesAsPolygons [get]
 
-*Sets the Rooms rendering color.*
+_Polygons representing Services. Corridors and Rooms Perimeters in the_ _Story_ _conform to Service_ _Room_ _Perimeters._
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Services]{.underline}](#AAAAAAAAFS) \[get\]
+- List\&lt; Space \&gt; ServicesAsSpaces [get]
 
-*A list of Rooms designated as building services.*
+_List of Spaces created from_ _Room_ _characteristics within the Services list._
 
--   List\< Polygon \> [[ServicesAsPolygons]{.underline}](#AAAAAAAAFT)
-    \[get\]
+- Color ServicesColor [set]
 
-*Polygons representing Services. Corridors and Rooms Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Service
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters.*
+_Sets the Services Space rendering color._
 
--   List\< Space \> [[ServicesAsSpaces]{.underline}](#AAAAAAAAFU)
-    \[get\]
+- Floor Slab [get]
 
-*List of Spaces created from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics within the Services list.*
+_Concrete Floor created from_ _Story_ _and Slab characteristics._
 
--   Color [[ServicesColor]{.underline}](#AAAAAAAAFV) \[set\]
-
-*Sets the Services Space rendering color.*
-
--   Floor [[Slab]{.underline}](#AAAAAAAAFW) \[get\]
-
-*Concrete Floor created from [[Story]{.underline}](#AAAAAAAAAG) and Slab
-characteristics.*
-
--   double **SlabThickness** \[get, set\]
+- double **SlabThickness** [get, set]
 
 ### Detailed Description
 
-Creates and manages the geometry of a slab and Rooms representing
-corridors, occupied rooms, and services.
+Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
 #### RoomKit.Story.Story ()
 
-[]{#AAAAAAAAEM .anchor}
-
-Creates a [[Story]{.underline}](#AAAAAAAAAG) at a 1.0 Height on the zero
-plane with new lists for Corridors, Rooms, and Services. Perimeter is
-set to null, Name is blank, and SlabThickness is s0.1.
+Creates a Story at a 1.0 Height on the zero plane with new lists for Corridors, Rooms, and Services. Perimeter is set to null, Name is blank, and SlabThickness is s0.1.
 
 ##### Returns:
 
-A new [[Story]{.underline}](#AAAAAAAAAG).
+A new Story.
 
 ### Member Function Documentation
 
-#### bool RoomKit.Story.AddCorridor ([[Room]{.underline}](#AAAAAAAAAC) *room*, bool *fit* = true)
+#### bool RoomKit.Story.AddCorridor (Room  _room_, bool  _fit_ = true)
 
-[]{#AAAAAAAAEN .anchor}
-
-Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Corridors list.
+Adds a Room to the Corridors list.
 
 ##### Parameters:
 
-  -------- ---------------------------------------------------------------------------------------------------------------------------
-  *room*   [[Room]{.underline}](#AAAAAAAAAC) to add.
-  *fit*    Indicates whether the new room should mutually fit to other [[Story]{.underline}](#AAAAAAAAAG) features. Default is true.
-  -------- ---------------------------------------------------------------------------------------------------------------------------
+| _room_ | Room to add. |
+| --- | --- |
+| _fit_ | Indicates whether the new room should mutually fit to other Story features. Default is true. |
 
 ##### Returns:
 
-True if one or more rooms were added to the
-[[Story]{.underline}](#AAAAAAAAAG).
+True if one or more rooms were added to the Story.
 
-#### bool RoomKit.Story.AddExclusion ([[Room]{.underline}](#AAAAAAAAAC) *room*, bool *fit* = true)
+#### bool RoomKit.Story.AddExclusion (Room  _room_, bool  _fit_ = true)
 
-[]{#AAAAAAAAEO .anchor}
-
-Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Exclusions list.
+Adds a Room to the Exclusions list.
 
 ##### Parameters:
 
-  -------- ---------------------------------------------------------------------------------------------------------------------------
-  *room*   [[Room]{.underline}](#AAAAAAAAAC) to add.
-  *fit*    Indicates whether the new room should mutually fit to other [[Story]{.underline}](#AAAAAAAAAG) features. Default is true.
-  -------- ---------------------------------------------------------------------------------------------------------------------------
+| _room_ | Room to add. |
+| --- | --- |
+| _fit_ | Indicates whether the new room should mutually fit to other Story features. Default is true. |
 
 ##### Returns:
 
-True if one or more rooms were added to the
-[[Story]{.underline}](#AAAAAAAAAG).
+True if one or more rooms were added to the Story.
 
-#### bool RoomKit.Story.AddRoom ([[Room]{.underline}](#AAAAAAAAAC) *room*, bool *fit* = true)
+#### bool RoomKit.Story.AddRoom (Room  _room_, bool  _fit_ = true)
 
-[]{#AAAAAAAAEP .anchor}
-
-Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Rooms list.
+Adds a Room to the Rooms list.
 
 ##### Parameters:
 
-  -------- ---------------------------------------------------------------------------------------------------------------------------
-  *room*   [[Room]{.underline}](#AAAAAAAAAC) to add.
-  *fit*    Indicates whether the new room should mutually fit to other [[Story]{.underline}](#AAAAAAAAAG) features. Default is true.
-  -------- ---------------------------------------------------------------------------------------------------------------------------
+| _room_ | Room to add. |
+| --- | --- |
+| _fit_ | Indicates whether the new room should mutually fit to other Story features. Default is true. |
 
 ##### Returns:
 
-True if one or more rooms were added to the
-[[Story]{.underline}](#AAAAAAAAAG).
+True if one or more rooms were added to the Story.
 
-#### bool RoomKit.Story.AddService ([[Room]{.underline}](#AAAAAAAAAC) *room*, bool *fit* = true)
+#### bool RoomKit.Story.AddService (Room  _room_, bool  _fit_ = true)
 
-[]{#AAAAAAAAEQ .anchor}
-
-Adds a [[Room]{.underline}](#AAAAAAAAAC) to the Services list.
+Adds a Room to the Services list.
 
 ##### Parameters:
 
-  -------- ---------------------------------------------------------------------------------------------------------------------------
-  *room*   [[Room]{.underline}](#AAAAAAAAAC) to add.
-  *fit*    Indicates whether the new room should mutually fit to other [[Story]{.underline}](#AAAAAAAAAG) features. Default is true.
-  -------- ---------------------------------------------------------------------------------------------------------------------------
+| _room_ | Room to add. |
+| --- | --- |
+| _fit_ | Indicates whether the new room should mutually fit to other Story features. Default is true. |
 
 ##### Returns:
 
-True if one or more rooms were added to the
-[[Story]{.underline}](#AAAAAAAAAG).
+True if one or more rooms were added to the Story.
 
-#### void RoomKit.Story.MoveFromTo (Vector3 *from*, Vector3 *to*)
+#### void RoomKit.Story.MoveFromTo (Vector3  _from_, Vector3  _to_)
 
-[]{#AAAAAAAAER .anchor}
-
-Moves all Rooms in the [[Story]{.underline}](#AAAAAAAAAG) and the
-[[Story]{.underline}](#AAAAAAAAAG) Envelope along a 3D vector calculated
-between the supplied Vector3 points.
+Moves all Rooms in the Story and the Story Envelope along a 3D vector calculated between the supplied Vector3 points.
 
 ##### Parameters:
 
-  -------- -----------------------------------
-  *from*   Vector3 base point of the move.
-  *to*     Vector3 target point of the move.
-  -------- -----------------------------------
+| _from_ | Vector3 base point of the move. |
+| --- | --- |
+| _to_ | Vector3 target point of the move. |
 
 ##### Returns:
 
 None.
 
-#### bool RoomKit.Story.RoomsByDivision (int *xRooms* = 1, int *yRooms* = 1, double *height* = 3.0, double *setback* = 0.0, string *name* = \"\", Color *color* = null, bool *fit* = true)
+#### bool RoomKit.Story.RoomsByDivision (int  _xRooms_ = 1, int  _yRooms_ = 1, double  _height_ = 3.0, double  _setback_ = 0.0, string  _name_ = &quot;&quot;, Color  _color_ = null, bool  _fit_ = true)
 
-[]{#AAAAAAAAES .anchor}
-
-Creates Rooms by orthogonally dividing the interior of the
-[[Story]{.underline}](#AAAAAAAAAG) perimeter by a quantity of x-axis and
-y-axis intervals. Adds the new Rooms to the Rooms list. New Rooms
-conform to Corridor and Service perimeters.
+Creates Rooms by orthogonally dividing the interior of the Story perimeter by a quantity of x-axis and y-axis intervals. Adds the new Rooms to the Rooms list. New Rooms conform to Corridor and Service perimeters.
 
 ##### Parameters:
 
-  ----------- ---------------------------------------------------------------------------
-  *xRooms*    Quantity Rooms along the orthogonal x-axis.
-  *yRooms*    Quantity Rooms along the orthogonal y-axis.
-  *height*    Height of the new Rooms.
-  *setback*   Offset from the [[Story]{.underline}](#AAAAAAAAAG) perimeter.
-  *name*      String identifier applied to every new [[Room]{.underline}](#AAAAAAAAAC).
-  *color*     Rendering color of the [[Room]{.underline}](#AAAAAAAAAC) as a Space.
-  ----------- ---------------------------------------------------------------------------
+| _xRooms_ | Quantity Rooms along the orthogonal x-axis. |
+| --- | --- |
+| _yRooms_ | Quantity Rooms along the orthogonal y-axis. |
+| _height_ | Height of the new Rooms. |
+| _setback_ | Offset from the Story perimeter. |
+| _name_ | String identifier applied to every new Room. |
+| _color_ | Rendering color of the Room as a Space. |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.Story.Rotate (Vector3 *pivot*, double *angle*)
+#### void RoomKit.Story.Rotate (Vector3  _pivot_, double  _angle_)
 
-[]{#AAAAAAAAET .anchor}
-
-Rotates the [[Story]{.underline}](#AAAAAAAAAG) Perimeter and Rooms in
-the horizontal plane around the supplied pivot point.
+Rotates the Story Perimeter and Rooms in the horizontal plane around the supplied pivot point.
 
 ##### Parameters:
 
-  --------- ---------------------------------------------------------------------------------------------
-  *pivot*   Vector3 point around which the [[Room]{.underline}](#AAAAAAAAAC) Perimeter will be rotated.
-  *angle*   Angle in degrees to rotate the Perimeter.
-  --------- ---------------------------------------------------------------------------------------------
+| _pivot_ | Vector3 point around which the Room Perimeter will be rotated. |
+| --- | --- |
+| _angle_ | Angle in degrees to rotate the Perimeter. |
 
 ##### Returns:
 
@@ -2068,345 +1533,241 @@ None.
 
 ### Property Documentation
 
-#### double RoomKit.Story.Area\[get\]
-
-[]{#AAAAAAAAEU .anchor}
+#### double RoomKit.Story.Area[get]
 
 Area of the perimeter.
 
-#### double RoomKit.Story.AreaAvailable\[get\]
+#### double RoomKit.Story.AreaAvailable[get]
 
-[]{#AAAAAAAAEV .anchor}
+Unallocated area within the Story.
 
-Unallocated area within the [[Story]{.underline}](#AAAAAAAAAG).
-
-#### double RoomKit.Story.AreaPlaced\[get\]
-
-[]{#AAAAAAAAEW .anchor}
+#### double RoomKit.Story.AreaPlaced[get]
 
 Area allocated to Corridors, Rooms, and Services.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Story.Corridors\[get\]
-
-[]{#AAAAAAAAEY .anchor}
+#### List\&lt;Room\&gt; RoomKit.Story.Corridors[get]
 
 List of Rooms designated as cooridors.
 
-#### List\<Polygon\> RoomKit.Story.CorridorsAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Story.CorridorsAsPolygons[get]
 
-[]{#AAAAAAAAEZ .anchor}
+Polygons representing Corridors. Rooms Perimeters in the Story conform to Corridor Perimeters.
 
-Polygons representing Corridors. Rooms Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Corridor Perimeters.
+#### List\&lt;Space\&gt; RoomKit.Story.CorridorsAsSpaces[get]
 
-#### List\<Space\> RoomKit.Story.CorridorsAsSpaces\[get\]
+List of Spaces created from Room characteristics within the Corridors list.
 
-[]{#AAAAAAAAFA .anchor}
-
-List of Spaces created from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics within the Corridors list.
-
-#### Color RoomKit.Story.CorridorsColor\[set\]
-
-[]{#AAAAAAAAFB .anchor}
+#### Color RoomKit.Story.CorridorsColor[set]
 
 Sets the Corridors color.
 
-#### [[Room]{.underline}](#AAAAAAAAAC) RoomKit.Story.Envelope\[get\]
+#### Room RoomKit.Story.Envelope[get]
 
-[]{#AAAAAAAAFD .anchor}
+Room representing the Story envelope.
 
-[[Room]{.underline}](#AAAAAAAAAC) representing the
-[[Story]{.underline}](#AAAAAAAAAG) envelope.
+#### Polygon RoomKit.Story.EnvelopeAsPolygon[get]
 
-#### Polygon RoomKit.Story.EnvelopeAsPolygon\[get\]
+Polygon representation of the Story Perimeter.
 
-[]{#AAAAAAAAFE .anchor}
+#### Space RoomKit.Story.EnvelopeAsSpace[get]
 
-Polygon representation of the [[Story]{.underline}](#AAAAAAAAAG)
-Perimeter.
+Space created from Story characteristics.
 
-#### Space RoomKit.Story.EnvelopeAsSpace\[get\]
+#### List\&lt;Room\&gt; RoomKit.Story.Exclusions[get]
 
-[]{#AAAAAAAAFF .anchor}
+Rooms representing areas that must not be intersected, but which will not be available as Spaces. All other Room Perimeters in the Story conform to Exclusion Room Perimeters.
 
-Space created from [[Story]{.underline}](#AAAAAAAAAG) characteristics.
+#### List\&lt;Polygon\&gt; RoomKit.Story.ExclusionsAsPolygons[get]
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Story.Exclusions\[get\]
+Polygons representing areas that must not be intersected. All other Room Perimeters in the Story conform to Exclusion Room Perimeters.
 
-[]{#AAAAAAAAFG .anchor}
-
-Rooms representing areas that must not be intersected, but which will
-not be available as Spaces. All other [[Room]{.underline}](#AAAAAAAAAC)
-Perimeters in the [[Story]{.underline}](#AAAAAAAAAG) conform to
-Exclusion [[Room]{.underline}](#AAAAAAAAAC) Perimeters.
-
-#### List\<Polygon\> RoomKit.Story.ExclusionsAsPolygons\[get\]
-
-[]{#AAAAAAAAFH .anchor}
-
-Polygons representing areas that must not be intersected. All other
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Exclusion
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters.
-
-#### double RoomKit.Story.HeightInteriors\[set\]
-
-[]{#AAAAAAAAFJ .anchor}
+#### double RoomKit.Story.HeightInteriors[set]
 
 Sets the height of all Corridors, Rooms, and Services.
 
-#### IList\<Polygon\> RoomKit.Story.InteriorsAsPolygons\[get\]
-
-[]{#AAAAAAAAFK .anchor}
+#### IList\&lt;Polygon\&gt; RoomKit.Story.InteriorsAsPolygons[get]
 
 Returns all Corridors, Exclusions, Rooms, and Services as Polygons.
 
-#### IList\<Space\> RoomKit.Story.InteriorsAsSpaces\[get\]
-
-[]{#AAAAAAAAFL .anchor}
+#### IList\&lt;Space\&gt; RoomKit.Story.InteriorsAsSpaces[get]
 
 Returns all Corridors, Rooms, and Services as Spaces.
 
-#### string RoomKit.Story.Name\[get\], \[set\]
-
-[]{#AAAAAAAAFM .anchor}
+#### string RoomKit.Story.Name[get], [set]
 
 Arbitrary string identifier.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Story.Rooms\[get\]
-
-[]{#AAAAAAAAFO .anchor}
+#### List\&lt;Room\&gt; RoomKit.Story.Rooms[get]
 
 List of Rooms designated as occupiable rooms.
 
-#### List\<Polygon\> RoomKit.Story.RoomsAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Story.RoomsAsPolygons[get]
 
-[]{#AAAAAAAAFP .anchor}
+Polygons representing Services. Corridors and Rooms Perimeters in the Story conform to Service Room Perimeters.
 
-Polygons representing Services. Corridors and Rooms Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Service
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters.
+#### List\&lt;Space\&gt; RoomKit.Story.RoomsAsSpaces[get]
 
-#### List\<Space\> RoomKit.Story.RoomsAsSpaces\[get\]
+List of Spaces created from Room characteristics within the Rooms list.
 
-[]{#AAAAAAAAFQ .anchor}
-
-List of Spaces created from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics within the Rooms list.
-
-#### Color RoomKit.Story.RoomsColor\[set\]
-
-[]{#AAAAAAAAFR .anchor}
+#### Color RoomKit.Story.RoomsColor[set]
 
 Sets the Rooms rendering color.
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Story.Services\[get\]
-
-[]{#AAAAAAAAFS .anchor}
+#### List\&lt;Room\&gt; RoomKit.Story.Services[get]
 
 A list of Rooms designated as building services.
 
-#### List\<Polygon\> RoomKit.Story.ServicesAsPolygons\[get\]
+#### List\&lt;Polygon\&gt; RoomKit.Story.ServicesAsPolygons[get]
 
-[]{#AAAAAAAAFT .anchor}
+Polygons representing Services. Corridors and Rooms Perimeters in the Story conform to Service Room Perimeters.
 
-Polygons representing Services. Corridors and Rooms Perimeters in the
-[[Story]{.underline}](#AAAAAAAAAG) conform to Service
-[[Room]{.underline}](#AAAAAAAAAC) Perimeters.
+#### List\&lt;Space\&gt; RoomKit.Story.ServicesAsSpaces[get]
 
-#### List\<Space\> RoomKit.Story.ServicesAsSpaces\[get\]
+List of Spaces created from Room characteristics within the Services list.
 
-[]{#AAAAAAAAFU .anchor}
-
-List of Spaces created from [[Room]{.underline}](#AAAAAAAAAC)
-characteristics within the Services list.
-
-#### Color RoomKit.Story.ServicesColor\[set\]
-
-[]{#AAAAAAAAFV .anchor}
+#### Color RoomKit.Story.ServicesColor[set]
 
 Sets the Services Space rendering color.
 
-#### Floor RoomKit.Story.Slab\[get\]
+#### Floor RoomKit.Story.Slab[get]
 
-[]{#AAAAAAAAFW .anchor}
-
-Concrete Floor created from [[Story]{.underline}](#AAAAAAAAAG) and Slab
-characteristics.
+Concrete Floor created from Story and Slab characteristics.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/Story.cs
+- RoomKit/Story.cs
 
-#### 
+## RoomKit.TopoBox Class Reference
 
-RoomKit.TopoBox Class Reference
--------------------------------
-
-[]{#AAAAAAAAAH .anchor}
-
-Maintains a set of points on the orthogonal bounding box of a supplied
-Polygon corresponding to four divisions of each side.
+Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
 
 ### Public Member Functions
 
--   [[TopoBox]{.underline}](#AAAAAAAAFY) (Polygon polygon)
+- TopoBox (Polygon polygon)
 
-*Constructor creates a new mathematical bounding box from the supplied
-Polygon and populates all orientation points.*
+_Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points._
 
--   Vector3 [[PointBy]{.underline}](#AAAAAAAAFZ)
-    ([[Orient]{.underline}](#AAAAAAAAAK) orient)
+- Vector3 PointBy (Orient orient)
 
-*Returns the requested bounding box location by orientation.*
+_Returns the requested bounding box location by orientation._
 
--   Vector3 [[PointOpposite]{.underline}](#AAAAAAAAGA)
-    ([[Orient]{.underline}](#AAAAAAAAAK) orient)
+- Vector3 PointOpposite (Orient orient)
 
-*Returns the reciprocal bounding box location by orientation.*
+_Returns the reciprocal bounding box location by orientation._
 
 ### Properties
 
--   Vector3 [[C]{.underline}](#AAAAAAAAGB) \[get\]
+- Vector3 C [get]
 
-*Vector3 location identifier corresponding to the center of the box
-perimeter.*
+_Vector3 location identifier corresponding to the center of the box perimeter._
 
--   Vector3 [[N]{.underline}](#AAAAAAAAGC) \[get\]
+- Vector3 N [get]
 
-*Vector3 location identifier corresponding to the midpoint of the
-maximum Y side of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint of the maximum Y side of the box perimeter._
 
--   Vector3 [[NNW]{.underline}](#AAAAAAAAGD) \[get\]
+- Vector3 NNW [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-NW and N points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the NW and N points of the box perimeter._
 
--   Vector3 [[NW]{.underline}](#AAAAAAAAGE) \[get\]
+- Vector3 NW [get]
 
-*Vector3 location identifier corresponding to the mimimum X and maximum
-Y corner of the box perimeter.*
+_Vector3 location identifier corresponding to the mimimum X and maximum Y corner of the box perimeter._
 
--   Vector3 [[WNW]{.underline}](#AAAAAAAAGF) \[get\]
+- Vector3 WNW [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-NW and W points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the NW and W points of the box perimeter._
 
--   Vector3 [[W]{.underline}](#AAAAAAAAGG) \[get\]
+- Vector3 W [get]
 
-*Vector3 location identifier corresponding to the midpoint of the
-minimum X side of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint of the minimum X side of the box perimeter._
 
--   Vector3 [[WSW]{.underline}](#AAAAAAAAGH) \[get\]
+- Vector3 WSW [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-SW and W points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the SW and W points of the box perimeter._
 
--   Vector3 [[SW]{.underline}](#AAAAAAAAGI) \[get\]
+- Vector3 SW [get]
 
-*Vector3 location identifier corresponding to the mimimum X and Y corner
-of the box perimeter.*
+_Vector3 location identifier corresponding to the mimimum X and Y corner of the box perimeter._
 
--   Vector3 [[SSW]{.underline}](#AAAAAAAAGJ) \[get\]
+- Vector3 SSW [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-SW and S points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the SW and S points of the box perimeter._
 
--   Vector3 [[S]{.underline}](#AAAAAAAAGK) \[get\]
+- Vector3 S [get]
 
-*Vector3 location identifier corresponding to the midpoint of the
-minimum Y side of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint of the minimum Y side of the box perimeter._
 
--   Vector3 [[SSE]{.underline}](#AAAAAAAAGL) \[get\]
+- Vector3 SSE [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-SE and S points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the SE and S points of the box perimeter._
 
--   Vector3 [[SE]{.underline}](#AAAAAAAAGM) \[get\]
+- Vector3 SE [get]
 
-*Vector3 location identifier corresponding to the maximum X and minimum
-Y corner of the box perimeter.*
+_Vector3 location identifier corresponding to the maximum X and minimum Y corner of the box perimeter._
 
--   Vector3 [[ESE]{.underline}](#AAAAAAAAGN) \[get\]
+- Vector3 ESE [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-SE and E points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the SE and E points of the box perimeter._
 
--   Vector3 [[E]{.underline}](#AAAAAAAAGO) \[get\]
+- Vector3 E [get]
 
-*Vector3 location identifier corresponding to the midpoint of the
-maximum X side of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint of the maximum X side of the box perimeter._
 
--   Vector3 [[ENE]{.underline}](#AAAAAAAAGP) \[get\]
+- Vector3 ENE [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-NE and E points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the NE and E points of the box perimeter._
 
--   Vector3 [[NE]{.underline}](#AAAAAAAAGQ) \[get\]
+- Vector3 NE [get]
 
-*Vector3 location identifier corresponding to the maximum X and Y corner
-of the box perimeter.*
+_Vector3 location identifier corresponding to the maximum X and Y corner of the box perimeter._
 
--   Vector3 [[NNE]{.underline}](#AAAAAAAAGR) \[get\]
+- Vector3 NNE [get]
 
-*Vector3 location identifier corresponding to the midpoint between the
-NE and N points of the box perimeter.*
+_Vector3 location identifier corresponding to the midpoint between the NE and N points of the box perimeter._
 
--   double [[SizeX]{.underline}](#AAAAAAAAGS) \[get\]
+- double SizeX [get]
 
-*X and Y dimensions of the [[TopoBox]{.underline}](#AAAAAAAAAH)
-perimeter.*
+_X and Y dimensions of the_ _TopoBox_ _perimeter._
 
--   double **SizeY** \[get\]
+- double **SizeY** [get]
 
 ### Detailed Description
 
-Maintains a set of points on the orthogonal bounding box of a supplied
-Polygon corresponding to four divisions of each side.
+Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
 
-### Constructor & Destructor Documentation
+### Constructor &amp; Destructor Documentation
 
-#### RoomKit.TopoBox.TopoBox (Polygon *polygon*)
+#### RoomKit.TopoBox.TopoBox (Polygon  _polygon_)
 
-[]{#AAAAAAAAFY .anchor}
-
-Constructor creates a new mathematical bounding box from the supplied
-Polygon and populates all orientation points.
+Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points.
 
 ##### Returns:
 
-A new [[TopoBox]{.underline}](#AAAAAAAAAH).
+A new TopoBox.
 
 ### Member Function Documentation
 
-#### Vector3 RoomKit.TopoBox.PointBy ([[Orient]{.underline}](#AAAAAAAAAK) *orient*)
-
-[]{#AAAAAAAAFZ .anchor}
+#### Vector3 RoomKit.TopoBox.PointBy (Orient  _orient_)
 
 Returns the requested bounding box location by orientation.
 
 ##### Parameters:
 
-  ---------- ----------------------------------
-  *orient*   The Orient value to index point.
-  ---------- ----------------------------------
+| _orient_ | The Orient value to index point. |
+| --- | --- |
 
 ##### Returns:
 
 A Vector3 point.
 
-#### Vector3 RoomKit.TopoBox.PointOpposite ([[Orient]{.underline}](#AAAAAAAAAK) *orient*)
-
-[]{#AAAAAAAAGA .anchor}
+#### Vector3 RoomKit.TopoBox.PointOpposite (Orient  _orient_)
 
 Returns the reciprocal bounding box location by orientation.
 
 ##### Parameters:
 
-  ---------- ------------------------------------------------
-  *orient*   The Orient value to find the reciprocal point.
-  ---------- ------------------------------------------------
+| _orient_ | The Orient value to find the reciprocal point. |
+| --- | --- |
 
 ##### Returns:
 
@@ -2414,361 +1775,239 @@ A Vector3 point.
 
 ### Property Documentation
 
-#### Vector3 RoomKit.TopoBox.C\[get\]
+#### Vector3 RoomKit.TopoBox.C[get]
 
-[]{#AAAAAAAAGB .anchor}
+Vector3 location identifier corresponding to the center of the box perimeter.
 
-Vector3 location identifier corresponding to the center of the box
-perimeter.
+#### Vector3 RoomKit.TopoBox.E[get]
 
-#### Vector3 RoomKit.TopoBox.E\[get\]
+Vector3 location identifier corresponding to the midpoint of the maximum X side of the box perimeter.
 
-[]{#AAAAAAAAGO .anchor}
+#### Vector3 RoomKit.TopoBox.ENE[get]
 
-Vector3 location identifier corresponding to the midpoint of the maximum
-X side of the box perimeter.
+Vector3 location identifier corresponding to the midpoint between the NE and E points of the box perimeter.
 
-#### Vector3 RoomKit.TopoBox.ENE\[get\]
+#### Vector3 RoomKit.TopoBox.ESE[get]
 
-[]{#AAAAAAAAGP .anchor}
+Vector3 location identifier corresponding to the midpoint between the SE and E points of the box perimeter.
 
-Vector3 location identifier corresponding to the midpoint between the NE
-and E points of the box perimeter.
+#### Vector3 RoomKit.TopoBox.N[get]
 
-#### Vector3 RoomKit.TopoBox.ESE\[get\]
+Vector3 location identifier corresponding to the midpoint of the maximum Y side of the box perimeter.
 
-[]{#AAAAAAAAGN .anchor}
+#### Vector3 RoomKit.TopoBox.NE[get]
 
-Vector3 location identifier corresponding to the midpoint between the SE
-and E points of the box perimeter.
+Vector3 location identifier corresponding to the maximum X and Y corner of the box perimeter.
 
-#### Vector3 RoomKit.TopoBox.N\[get\]
+#### Vector3 RoomKit.TopoBox.NNE[get]
 
-[]{#AAAAAAAAGC .anchor}
+Vector3 location identifier corresponding to the midpoint between the NE and N points of the box perimeter.
 
-Vector3 location identifier corresponding to the midpoint of the maximum
-Y side of the box perimeter.
+#### Vector3 RoomKit.TopoBox.NNW[get]
 
-#### Vector3 RoomKit.TopoBox.NE\[get\]
+Vector3 location identifier corresponding to the midpoint between the NW and N points of the box perimeter.
 
-[]{#AAAAAAAAGQ .anchor}
+#### Vector3 RoomKit.TopoBox.NW[get]
 
-Vector3 location identifier corresponding to the maximum X and Y corner
-of the box perimeter.
+Vector3 location identifier corresponding to the mimimum X and maximum Y corner of the box perimeter.
 
-#### Vector3 RoomKit.TopoBox.NNE\[get\]
+#### Vector3 RoomKit.TopoBox.S[get]
 
-[]{#AAAAAAAAGR .anchor}
+Vector3 location identifier corresponding to the midpoint of the minimum Y side of the box perimeter.
 
-Vector3 location identifier corresponding to the midpoint between the NE
-and N points of the box perimeter.
+#### Vector3 RoomKit.TopoBox.SE[get]
 
-#### Vector3 RoomKit.TopoBox.NNW\[get\]
+Vector3 location identifier corresponding to the maximum X and minimum Y corner of the box perimeter.
 
-[]{#AAAAAAAAGD .anchor}
+#### double RoomKit.TopoBox.SizeX[get]
 
-Vector3 location identifier corresponding to the midpoint between the NW
-and N points of the box perimeter.
+X and Y dimensions of the TopoBox perimeter.
 
-#### Vector3 RoomKit.TopoBox.NW\[get\]
+#### Vector3 RoomKit.TopoBox.SSE[get]
 
-[]{#AAAAAAAAGE .anchor}
+Vector3 location identifier corresponding to the midpoint between the SE and S points of the box perimeter.
 
-Vector3 location identifier corresponding to the mimimum X and maximum Y
-corner of the box perimeter.
+#### Vector3 RoomKit.TopoBox.SSW[get]
 
-#### Vector3 RoomKit.TopoBox.S\[get\]
+Vector3 location identifier corresponding to the midpoint between the SW and S points of the box perimeter.
 
-[]{#AAAAAAAAGK .anchor}
+#### Vector3 RoomKit.TopoBox.SW[get]
 
-Vector3 location identifier corresponding to the midpoint of the minimum
-Y side of the box perimeter.
+Vector3 location identifier corresponding to the mimimum X and Y corner of the box perimeter.
 
-#### Vector3 RoomKit.TopoBox.SE\[get\]
+#### Vector3 RoomKit.TopoBox.W[get]
 
-[]{#AAAAAAAAGM .anchor}
+Vector3 location identifier corresponding to the midpoint of the minimum X side of the box perimeter.
 
-Vector3 location identifier corresponding to the maximum X and minimum Y
-corner of the box perimeter.
+#### Vector3 RoomKit.TopoBox.WNW[get]
 
-#### double RoomKit.TopoBox.SizeX\[get\]
+Vector3 location identifier corresponding to the midpoint between the NW and W points of the box perimeter.
 
-[]{#AAAAAAAAGS .anchor}
+#### Vector3 RoomKit.TopoBox.WSW[get]
 
-X and Y dimensions of the [[TopoBox]{.underline}](#AAAAAAAAAH)
-perimeter.
-
-#### Vector3 RoomKit.TopoBox.SSE\[get\]
-
-[]{#AAAAAAAAGL .anchor}
-
-Vector3 location identifier corresponding to the midpoint between the SE
-and S points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.SSW\[get\]
-
-[]{#AAAAAAAAGJ .anchor}
-
-Vector3 location identifier corresponding to the midpoint between the SW
-and S points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.SW\[get\]
-
-[]{#AAAAAAAAGI .anchor}
-
-Vector3 location identifier corresponding to the mimimum X and Y corner
-of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.W\[get\]
-
-[]{#AAAAAAAAGG .anchor}
-
-Vector3 location identifier corresponding to the midpoint of the minimum
-X side of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.WNW\[get\]
-
-[]{#AAAAAAAAGF .anchor}
-
-Vector3 location identifier corresponding to the midpoint between the NW
-and W points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.WSW\[get\]
-
-[]{#AAAAAAAAGH .anchor}
-
-Vector3 location identifier corresponding to the midpoint between the SW
-and W points of the box perimeter.
+Vector3 location identifier corresponding to the midpoint between the SW and W points of the box perimeter.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/TopoBox.cs
+- RoomKit/TopoBox.cs
 
-#### 
-
-RoomKit.Tower Class Reference
------------------------------
+## RoomKit.Tower Class Reference
 
 ### Public Member Functions
 
--   bool [[AddServiceCore]{.underline}](#AAAAAAAAGU) (Polygon perimeter,
-    int baseStory=0, double addHeight=0.0, Color color=null)
+- bool AddServiceCore (Polygon perimeter, int baseStory=0, double addHeight=0.0, Color color=null)
 
-*Adds a new service Core to the
-[[Tower]{.underline}](#public-member-functions-7).*
+_Adds a new service Core to the_ _Tower__._
 
--   void [[MoveFromTo]{.underline}](#AAAAAAAAGV) (Vector3 from, Vector3
-    to)
+- void MoveFromTo (Vector3 from, Vector3 to)
 
-*Moves all Cores and Stories in the
-[[Tower]{.underline}](#public-member-functions-7) along a 3D vector
-calculated between the supplied Vector3 points.*
+_Moves all Cores and Stories in the_ _Tower_ _along a 3D vector calculated between the supplied Vector3 points._
 
--   void [[Rotate]{.underline}](#AAAAAAAAGW) (Vector3 pivot, double
-    angle)
+- void Rotate (Vector3 pivot, double angle)
 
-*Rotates the [[Tower]{.underline}](#public-member-functions-7) Perimeter
-and Stories in the horizontal plane around the supplied pivot point.*
+_Rotates the_ _Tower_ _Perimeter and Stories in the horizontal plane around the supplied pivot point._
 
--   bool [[Stack]{.underline}](#AAAAAAAAGX) (int floors=0, double
-    storyHeight=0.0)
+- bool Stack (int floors=0, double storyHeight=0.0)
 
-*Creates the [[Tower]{.underline}](#public-member-functions-7) by
-stacking a series of [[Story]{.underline}](#AAAAAAAAAG) instances from
-the [[Tower]{.underline}](#public-member-functions-7) Elevation.*
+_Creates the_ _Tower_ _by stacking a series of_ _Story_ _instances from the_ _Tower_ _Elevation._
 
--   bool [[SetStoryHeight]{.underline}](#AAAAAAAAGY) (int story, double
-    height, bool interiors=true)
+- bool SetStoryHeight (int story, double height, bool interiors=true)
 
-*Sets the height of an index-specified
-[[Story]{.underline}](#AAAAAAAAAG) and relocates Stories above to
-accommodate the [[Story]{.underline}](#AAAAAAAAAG)\'s new height.*
+_Sets the height of an index-specified_ _Story_ _and relocates Stories above to accommodate the_ _Story__&#39;s new height._
 
 ### Public Attributes
 
--   List\< [[Story]{.underline}](#AAAAAAAAAG) \>
-    [[Stories]{.underline}](#AAAAAAAAGZ) = null
+- List\&lt; Story \&gt; Stories = null
 
-*List of all Stories in the
-[[Tower]{.underline}](#public-member-functions-7).*
+_List of all Stories in the_ _Tower__._
 
 ### Properties
 
--   Color **Color** \[get, set\]
+- Color **Color** [get, set]
+- List\&lt; Room \&gt; Cores [get]
 
--   List\< [[Room]{.underline}](#AAAAAAAAAC) \>
-    [[Cores]{.underline}](#AAAAAAAAHB) \[get\]
+_List of all service Cores in the_ _Tower__._
 
-*List of all service Cores in the
-[[Tower]{.underline}](#public-member-functions-7).*
+- double **Elevation** [get, set]
+- int **Floors** [get, set]
+- double Height [get]
 
--   double **Elevation** \[get, set\]
+_Total height of all Stories in the_ _Tower__._
 
--   int **Floors** \[get, set\]
+- Polygon **Perimeter** [get, set]
+- List\&lt; Floor \&gt; Slabs [get]
 
--   double [[Height]{.underline}](#AAAAAAAAHE) \[get\]
+_List of all Slabs from every_ _Story_ _in the_ _Tower__._
 
-*Total height of all Stories in the
-[[Tower]{.underline}](#public-member-functions-7).*
+- List\&lt; Space \&gt; Spaces [get]
 
--   Polygon **Perimeter** \[get, set\]
+_List of all Spaces from every_ _Story_ _in the_ _Tower__._
 
--   List\< Floor \> [[Slabs]{.underline}](#AAAAAAAAHG) \[get\]
-
-*List of all Slabs from every [[Story]{.underline}](#AAAAAAAAAG) in the
-[[Tower]{.underline}](#public-member-functions-7).*
-
--   List\< Space \> [[Spaces]{.underline}](#AAAAAAAAHH) \[get\]
-
-*List of all Spaces from every [[Story]{.underline}](#AAAAAAAAAG) in the
-[[Tower]{.underline}](#public-member-functions-7).*
-
--   double **StoryHeight** \[get, set\]
+- double **StoryHeight** [get, set]
 
 ### Member Function Documentation
 
-#### bool RoomKit.Tower.AddServiceCore (Polygon *perimeter*, int *baseStory* = 0, double *addHeight* = 0.0, Color *color* = null)
+#### bool RoomKit.Tower.AddServiceCore (Polygon  _perimeter_, int  _baseStory_ = 0, double  _addHeight_ = 0.0, Color  _color_ = null)
 
-[]{#AAAAAAAAGU .anchor}
-
-Adds a new service Core to the
-[[Tower]{.underline}](#public-member-functions-7).
+Adds a new service Core to the Tower.
 
 ##### Parameters:
 
-  ------------- --------------------------------------------------------------------------------------------------------------------
-  *perimeter*   Polygon perimeter defining the footprint of the service Core.
-  *baseStory*   Index of the lowest [[Story]{.underline}](#AAAAAAAAAG) whose elevation will serve as the lowest level of the Core.
-  *addHeight*   Additional height of the Core above the highest [[Story]{.underline}](#AAAAAAAAAG).
-  *color*       Color of the Core when it it is accessed as a Space.
-  ------------- --------------------------------------------------------------------------------------------------------------------
+| _perimeter_ | Polygon perimeter defining the footprint of the service Core. |
+| --- | --- |
+| _baseStory_ | Index of the lowest Story whose elevation will serve as the lowest level of the Core. |
+| _addHeight_ | Additional height of the Core above the highest Story. |
+| _color_ | Color of the Core when it it is accessed as a Space. |
 
 ##### Returns:
 
 True if the Core is successfully added.
 
-#### void RoomKit.Tower.MoveFromTo (Vector3 *from*, Vector3 *to*)
+#### void RoomKit.Tower.MoveFromTo (Vector3  _from_, Vector3  _to_)
 
-[]{#AAAAAAAAGV .anchor}
-
-Moves all Cores and Stories in the
-[[Tower]{.underline}](#public-member-functions-7) along a 3D vector
-calculated between the supplied Vector3 points.
+Moves all Cores and Stories in the Tower along a 3D vector calculated between the supplied Vector3 points.
 
 ##### Parameters:
 
-  -------- -----------------------------------
-  *from*   Vector3 base point of the move.
-  *to*     Vector3 target point of the move.
-  -------- -----------------------------------
+| _from_ | Vector3 base point of the move. |
+| --- | --- |
+| _to_ | Vector3 target point of the move. |
 
 ##### Returns:
 
 None.
 
-#### void RoomKit.Tower.Rotate (Vector3 *pivot*, double *angle*)
+#### void RoomKit.Tower.Rotate (Vector3  _pivot_, double  _angle_)
 
-[]{#AAAAAAAAGW .anchor}
-
-Rotates the [[Tower]{.underline}](#public-member-functions-7) Perimeter
-and Stories in the horizontal plane around the supplied pivot point.
+Rotates the Tower Perimeter and Stories in the horizontal plane around the supplied pivot point.
 
 ##### Parameters:
 
-  --------- ---------------------------------------------------------------------------------------------
-  *pivot*   Vector3 point around which the [[Room]{.underline}](#AAAAAAAAAC) Perimeter will be rotated.
-  *angle*   Angle in degrees to rotate the Perimeter.
-  --------- ---------------------------------------------------------------------------------------------
+| _pivot_ | Vector3 point around which the Room Perimeter will be rotated. |
+| --- | --- |
+| _angle_ | Angle in degrees to rotate the Perimeter. |
 
 ##### Returns:
 
 None.
 
-#### bool RoomKit.Tower.SetStoryHeight (int *story*, double *height*, bool *interiors* = true)
+#### bool RoomKit.Tower.SetStoryHeight (int  _story_, double  _height_, bool  _interiors_ = true)
 
-[]{#AAAAAAAAGY .anchor}
-
-Sets the height of an index-specified [[Story]{.underline}](#AAAAAAAAAG)
-and relocates Stories above to accommodate the
-[[Story]{.underline}](#AAAAAAAAAG)\'s new height.
+Sets the height of an index-specified Story and relocates Stories above to accommodate the Story&#39;s new height.
 
 ##### Parameters:
 
-  ------------- --------------------------------------------------------------------------------------------------------
-  *story*       Index of the [[Story]{.underline}](#AAAAAAAAAG) to affect.
-  *height*      Desired new height of the specified [[Story]{.underline}](#AAAAAAAAAG).
-  *interiors*   If true also sets any Corridors and Rooms in the [[Story]{.underline}](#AAAAAAAAAG) to the new Height.
-  ------------- --------------------------------------------------------------------------------------------------------
+| _story_ | Index of the Story to affect. |
+| --- | --- |
+| _height_ | Desired new height of the specified Story. |
+| _interiors_ | If true also sets any Corridors and Rooms in the Story to the new Height. |
 
 ##### Returns:
 
-True if the [[Tower]{.underline}](#public-member-functions-7) is
-successfully stacked.
+True if the Tower is successfully stacked.
 
-#### bool RoomKit.Tower.Stack (int *floors* = 0, double *storyHeight* = 0.0)
+#### bool RoomKit.Tower.Stack (int  _floors_ = 0, double  _storyHeight_ = 0.0)
 
-[]{#AAAAAAAAGX .anchor}
-
-Creates the [[Tower]{.underline}](#public-member-functions-7) by
-stacking a series of [[Story]{.underline}](#AAAAAAAAAG) instances from
-the [[Tower]{.underline}](#public-member-functions-7) Elevation.
+Creates the Tower by stacking a series of Story instances from the Tower Elevation.
 
 ##### Parameters:
 
-  --------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-  *floors*        Desired quantity of stacked Stories to form the [[Tower]{.underline}](#public-member-functions-7). If greater than zero, overrides and resets the current Floors property.
-  *storyHeight*   Desired typical [[Story]{.underline}](#AAAAAAAAAG) height of the [[Tower]{.underline}](#public-member-functions-7). If greater than zero, overrides and resets the current StoryHeight property.
-  --------------- --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+| _floors_ | Desired quantity of stacked Stories to form the Tower. If greater than zero, overrides and resets the current Floors property. |
+| --- | --- |
+| _storyHeight_ | Desired typical Story height of the Tower. If greater than zero, overrides and resets the current StoryHeight property. |
 
 ##### Returns:
 
-True if the [[Tower]{.underline}](#public-member-functions-7) is
-successfully stacked.
+True if the Tower is successfully stacked.
 
 ### Member Data Documentation
 
-#### List\<[[Story]{.underline}](#AAAAAAAAAG)\> RoomKit.Tower.Stories = null
+#### List\&lt;Story\&gt; RoomKit.Tower.Stories = null
 
-[]{#AAAAAAAAGZ .anchor}
-
-List of all Stories in the
-[[Tower]{.underline}](#public-member-functions-7).
+List of all Stories in the Tower.
 
 ### Property Documentation
 
-#### List\<[[Room]{.underline}](#AAAAAAAAAC)\> RoomKit.Tower.Cores\[get\]
+#### List\&lt;Room\&gt; RoomKit.Tower.Cores[get]
 
-[]{#AAAAAAAAHB .anchor}
+List of all service Cores in the Tower.
 
-List of all service Cores in the
-[[Tower]{.underline}](#public-member-functions-7).
+#### double RoomKit.Tower.Height[get]
 
-#### double RoomKit.Tower.Height\[get\]
+Total height of all Stories in the Tower.
 
-[]{#AAAAAAAAHE .anchor}
+#### List\&lt;Floor\&gt; RoomKit.Tower.Slabs[get]
 
-Total height of all Stories in the
-[[Tower]{.underline}](#public-member-functions-7).
+List of all Slabs from every Story in the Tower.
 
-#### List\<Floor\> RoomKit.Tower.Slabs\[get\]
+#### List\&lt;Space\&gt; RoomKit.Tower.Spaces[get]
 
-[]{#AAAAAAAAHG .anchor}
-
-List of all Slabs from every [[Story]{.underline}](#AAAAAAAAAG) in the
-[[Tower]{.underline}](#public-member-functions-7).
-
-#### List\<Space\> RoomKit.Tower.Spaces\[get\]
-
-[]{#AAAAAAAAHH .anchor}
-
-List of all Spaces from every [[Story]{.underline}](#AAAAAAAAAG) in the
-[[Tower]{.underline}](#public-member-functions-7).
+List of all Spaces from every Story in the Tower.
 
 #### The documentation for this class was generated from the following file:
 
--   RoomKit/Tower.cs
+- RoomKit/Tower.cs
 
-Index
-=====
+# Index
 
-INDEX
+INDE
