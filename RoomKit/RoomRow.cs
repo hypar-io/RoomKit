@@ -92,7 +92,7 @@ namespace RoomKit
         {
             get
             {
-                if ((Depth + CirculationWidth) <= 0.0)
+                if ((Depth + CirculationWidth) <= 0.0 || mark.IsAlmostEqualTo(Row.Start))
                 {
                     return null;
                 }
