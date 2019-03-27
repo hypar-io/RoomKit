@@ -319,7 +319,6 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             story.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20));
-            Assert.Equal(20.0, story.Elevation);
             var vertices = story.Slab.Profile.Perimeter.Vertices;
             Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 20.0 && p.Z == 0.0);
             Assert.Contains(vertices, p => p.X == 80.0 && p.Y == 20.0 && p.Z == 0.0);

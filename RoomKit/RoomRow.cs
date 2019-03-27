@@ -92,6 +92,10 @@ namespace RoomKit
         {
             get
             {
+                if ((Depth + CirculationWidth) <= 0.0)
+                {
+                    return null;
+                }
                 var lineS = new Line(Vector3.Origin, new Vector3(Depth + CirculationWidth, 0.0));
                 lineS = lineS.Rotate(Vector3.Origin, angle + 90).MoveFromTo(Vector3.Origin, Row.Start);
                 var lineE = lineS.MoveFromTo(Row.Start, mark);
