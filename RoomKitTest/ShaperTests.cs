@@ -3,6 +3,7 @@ using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
+using Elements.Serialization.glTF;
 using RoomKit;
 
 namespace RoomKitTest
@@ -105,7 +106,7 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.SaveGlb("../../../../expandToArea.glb");
+            model.ToGlTF("../../../../expandToArea.glb");
         }
 
         [Fact]
@@ -163,7 +164,7 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.SaveGlb("../../../../FitTo.glb");
+            model.ToGlTF("../../../../FitTo.glb");
         }
 
         [Fact]

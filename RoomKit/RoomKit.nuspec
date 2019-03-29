@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RoomKit</id>
-    <version>0.3.3</version>
+    <version>0.3.5</version>
     <authors>Anthony A. Hauck</authors>
     <owners>Hypar</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

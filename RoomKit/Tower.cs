@@ -68,6 +68,53 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Room representing the Tower envelope.
+        /// </summary>
+        public Room Envelope
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                return
+                    new Room()
+                    {
+                        Color = Color,
+                        Height = Height,
+                        Perimeter = Perimeter
+                    };
+            }
+        }
+
+        /// <summary>
+        /// Polygon representation of the Story Perimeter.
+        /// </summary>
+        public Polygon EnvelopeAsPolygon
+        {
+            get { return Envelope.Perimeter; }
+        }
+
+        /// <summary>
+        /// Space created from Story characteristics.
+        /// </summary>
+        public Space EnvelopeAsSpace
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
+                space.AddProperty("Height", new NumericProperty(Height, UnitType.Text));
+                space.AddProperty("Volume", new NumericProperty(Perimeter.Area * Height, UnitType.Volume));
+                return space;
+            }
+        }
+
+        /// <summary>
         /// Desired quantity of Stories in the Tower. 
         /// </summary>
         private int floors;

@@ -220,7 +220,7 @@ namespace RoomKit
                     {
                         Color = Color,
                         Height = Height,
-                        Perimeter = Perimeter,
+                        Perimeter = Perimeter
                     };
             }
         }

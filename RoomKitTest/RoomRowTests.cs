@@ -5,6 +5,7 @@ using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
+using Elements.Serialization.glTF;
 using RoomKit;
 
 namespace RoomKitTest
@@ -94,7 +95,7 @@ namespace RoomKitTest
                 model.AddElement(room.AsSpace);
             }
             model.AddElement(new Floor(roomRow.Circulation, new FloorType("slab", 0.05)));
-            model.SaveGlb("../../../../RoomRow.glb");
+            model.ToGlTF("../../../../RoomRow.glb");
         }
 
         [Fact]
@@ -256,7 +257,7 @@ namespace RoomKitTest
             {
                 model.AddElement(room.AsSpace);
             }
-            model.SaveGlb("../../../../RoomRowRotate.glb");
+            model.ToGlTF("../../../../RoomRowRotate.glb");
         }
 
         [Fact]

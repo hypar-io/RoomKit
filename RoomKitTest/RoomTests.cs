@@ -5,6 +5,7 @@ using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
+using Elements.Serialization.glTF;
 using RoomKit;
 
 namespace RoomKitTest
@@ -82,7 +83,7 @@ namespace RoomKitTest
             };
             var model = new Model();
             model.AddElement(room.AsSpace);
-            model.SaveGlb("../../../../RoomAsSpace.glb");
+            model.ToGlTF("../../../../RoomAsSpace.glb");
         }
 
         [Fact]

@@ -4,6 +4,7 @@ using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
+using Elements.Serialization.glTF;
 using RoomKit;
 
 namespace RoomKitTest
@@ -72,7 +73,7 @@ namespace RoomKitTest
                                       (float)Shaper.RandomDouble(0, 1), 0.7f);
                 model.AddElement(new Space(polygon, height: 4.0, material: new Material(Guid.NewGuid().ToString(), color)));
             }
-            model.SaveGlb("../../../../adjacent.glb");
+            model.ToGlTF("../../../../adjacent.glb");
         }
 
         [Fact]

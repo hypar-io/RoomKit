@@ -3,6 +3,7 @@ using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
+using Elements.Serialization.glTF;
 using RoomKit;
 
 namespace RoomKitTest
@@ -89,7 +90,31 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.SaveGlb("../../../../TowerElevation.glb");
+            model.ToGlTF("../../../../TowerElevation.glb");
+        }
+
+        [Fact]
+        public void Envelope()
+        {
+            var tower = MakeTower();
+            var envelope = tower.Envelope;
+            Assert.Equal(1200.0, envelope.Area);
+        }
+
+        [Fact]
+        public void EnvelopeAsPolygon()
+        {
+            var tower = MakeTower();
+            var envelope = tower.EnvelopeAsPolygon;
+            Assert.Equal(1200.0, envelope.Area);
+        }
+
+        [Fact]
+        public void EnvelopeAsSpace()
+        {
+            var story = MakeTower();
+            var envelope = story.EnvelopeAsSpace;
+            Assert.Equal(1200.0, envelope.Profile.Area());
         }
 
         [Fact]
@@ -123,7 +148,7 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.SaveGlb("../../../../TowerMoveFromTo.glb");
+            model.ToGlTF("../../../../TowerMoveFromTo.glb");
         }
 
         [Fact]
@@ -150,7 +175,7 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.SaveGlb("../../../../TowerRotate.glb");
+            model.ToGlTF("../../../../TowerRotate.glb");
         }
 
         [Fact]

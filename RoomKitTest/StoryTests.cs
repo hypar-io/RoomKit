@@ -3,6 +3,7 @@ using System.Diagnostics;
 using Xunit;
 using Elements;
 using Elements.Geometry;
+using Elements.Serialization.glTF;
 using RoomKit;
 
 namespace RoomKitTest
@@ -342,7 +343,7 @@ namespace RoomKitTest
                 model.AddElement(space);
             }
             model.AddElement(story.EnvelopeAsSpace);
-            model.SaveGlb("../../../../StoryRotate.glb");
+            model.ToGlTF("../../../../StoryRotate.glb");
         }
     }
 }
