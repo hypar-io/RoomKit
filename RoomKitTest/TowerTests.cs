@@ -15,6 +15,7 @@ namespace RoomKitTest
             var tower = new Tower()
             {
                 Color = Palette.Aqua,
+                Elevation = -8.0,
                 Floors = 20,
                 Perimeter = Shaper.PolygonBox(60.0, 20.0), 
                 StoryHeight = 4.0
@@ -24,17 +25,18 @@ namespace RoomKitTest
             {
                 Height = 6.0
             };
+            tower.SetStoryHeight(0, 8.0);
             entry.SetPerimeter(new Vector3(30.0, -0.1), new Vector3(30.0, 6.0), 2.0);
-            tower.Stories[0].AddCorridor(entry);
+            tower.Stories[1].AddCorridor(entry);
             var coreShaft = new Room()
             {
                 Perimeter = Shaper.PolygonBox(5.0, 8.0, new Vector3(27.5, 6.0))
             };
-            for (int i = 0; i < 2; i++)
+            for (int i = 1; i < 3; i++)
             {
                 tower.Stories[i].Color = Palette.Green;
                 tower.SetStoryHeight(i, 6.0);
-                tower.Stories[i].RoomsByDivision(4, 1, 5.5, 0.5, "Retail");
+                tower.Stories[i].RoomsByDivision(4, 1, 5.5, 0.5, "Retail", Palette.Lime);
                 tower.Stories[i].AddExclusion(coreShaft);
             }
             var corridor = new Room()
@@ -42,9 +44,9 @@ namespace RoomKitTest
                 Height = 3.5
             };
             corridor.SetPerimeter(new Vector3(0.5, 10.0), new Vector3(59.5, 10), 2.0);
-            for (int i = 2; i < tower.Stories.Count; i++)
+            for (int i = 3; i < tower.Stories.Count; i++)
             {
-                tower.Stories[i].RoomsByDivision(4, 2, 3.5, 0.5, "Office");
+                tower.Stories[i].RoomsByDivision(4, 2, 3.5, 0.5, "Office", Palette.Teal);
                 tower.Stories[i].AddCorridor(corridor);
                 tower.Stories[i].AddExclusion(coreShaft);
             }

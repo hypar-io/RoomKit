@@ -377,11 +377,15 @@ namespace RoomKit
         /// <returns>
         /// True if the Tower is successfully stacked.
         /// </returns>
-        public bool Stack(int floors = 0, double storyHeight = 0.0)
+        public bool Stack(int floors = 0, double storyHeight = 0.0, bool basement = false)
         {
             if (floors <= 0)
             {
                 floors = Floors;
+            }
+            if (floors <= 0.0)
+            {
+                return false;
             }
             if (Perimeter == null || floors < 1)
             {
@@ -399,7 +403,20 @@ namespace RoomKit
             StoryHeight = storyHeight;
             Stories.Clear();
             var elevation = Elevation;
-            for (int index = 0; index < Floors; index++)
+            if (basement)
+            {
+                var story = new Story()
+                {
+                    Color = Palette.Granite,
+                    Elevation = elevation,
+                    Height = storyHeight,
+                    IsBasement = true,
+                    Perimeter = perimeter
+                };
+                Stories.Add(story);
+                elevation += storyHeight;
+            }
+            for (int index = 0; index < Floors - 1; index++)
             {
                 var story = new Story()
                 {
@@ -438,6 +455,11 @@ namespace RoomKit
             if (interiors)
             {
                 Stories[story].HeightInteriors = height;
+            }
+            if (Stories[story].IsBasement)
+            {
+                Stories[story].Elevation -= delta;
+                return true;
             }
             int index = story + 1;
             while (index < Stories.Count)

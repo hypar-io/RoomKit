@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RoomKit</id>
-    <version>0.4.2</version>
+    <version>0.4.4</version>
     <authors>Anthony A. Hauck</authors>
     <owners>Hypar</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -15,7 +15,7 @@
     <repository url="https://github.com/hypar-io/RoomKit" />
     <dependencies>
       <group targetFramework=".NETStandard2.0">
-        <dependency id="Hypar.Elements" version="0.2.0" exclude="Build,Analyzers" />
+        <dependency id="Hypar.Elements" version="0.2.2" exclude="Build,Analyzers" />
       </group>
     </dependencies>
   </metadata>

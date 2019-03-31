@@ -29,6 +29,7 @@ namespace RoomKit
             Color = Palette.White;
             Elevation = 0.0;
             Height = 1.0;
+            IsBasement = false;
             Name = "";
             Perimeter = null;
             SlabThickness = 0.1;
@@ -373,6 +374,11 @@ namespace RoomKit
                 return spaces;
             }
         }
+
+        /// <summary>
+        /// Identifies whether this story represents a base ment level.
+        /// </summary>
+        public bool IsBasement { get; set; }
 
         /// <summary>
         /// Arbitrary string identifier.
