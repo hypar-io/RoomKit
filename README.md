@@ -2,23 +2,23 @@
 
 ### Classes
 
-- class **ArcEx**
+class **ArcEx**
 
 Extends Elements.Geometry.Arc with utility methods.
 
-- class CoordGrid
+class **CoordGrid**
 
 Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
 
-- class **LineEx**
+class **LineEx**
 
 Extends Elements.Geometry.Line with utility methods.
 
-- class Messages
+class **Messages**
 
 Common exception messages.
 
-- class Palette
+class **Palette**
 
 Commonly used colors for Space rendering. These colors are translucent to allow viewing of representions several layers deep.
 
@@ -26,20 +26,23 @@ Commonly used colors for Space rendering. These colors are translucent to allow 
 
 Rooms 2D Polygons in various spatial relationships to each other.
 
-- class PolygonEx
-- class Room
+class **PolygonEx**
+
+Extends Elements.Polygon with utility methods.
+
+class **Room**
 
 A data structure recording room characteristics.
 
-- class RoomGroup
+class **RoomGroup**
 
 Creates and manages Rooms within a perimeter.
 
-- class RoomRow
+class **RoomRow**
 
 Creates and manages Rooms placed along a line.
 
-- class Scope
+class **Scope**
 
 Data structure recording space program characteristics and the status of a Room placing process.
 
@@ -47,16 +50,19 @@ Data structure recording space program characteristics and the status of a Room 
 
 Utilities for creating and editing Polygons.
 
-- class Story
+class **Story**
 
 Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.
 
-- class TopoBox
+class **TopoBox**
 
 Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
 
-- class Tower
-- class Vector3Ex
+class **Tower**
+
+Data structure recording tower characteristics as a list of stories.
+
+class **Vector3Ex**
 
 Extends Elements.Geometry.Vector3 with utility methods.
 
