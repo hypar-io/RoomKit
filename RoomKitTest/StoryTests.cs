@@ -8,8 +8,6 @@ using RoomKit;
 
 namespace RoomKitTest
 {
-
-
     public class StoryTests
     {
         private Story MakeStory()
@@ -252,6 +250,13 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             Assert.Equal(8.0, story.RoomsAsSpaces.Count);
+        }
+
+        [Fact]
+        public void RoomsByName()
+        {
+            var story = MakeStory();
+            Assert.Equal(8.0, story.RoomsByName("Retail").Count);
         }
 
         [Fact]

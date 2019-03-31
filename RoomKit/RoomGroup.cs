@@ -267,7 +267,7 @@ namespace RoomKit
         /// <returns>
         /// True if the Rooms are created.
         /// </returns>
-        public bool RoomsByDivision(int xRooms = 1, int yRooms = 1, double height = 3.0)
+        public bool RoomsByDivision(int xRooms = 1, int yRooms = 1, double height = 3.0, string name = "")
         {
             if (Perimeter == null || xRooms < 1 || yRooms < 1 || height <= 0.0)
             {
@@ -289,6 +289,7 @@ namespace RoomKit
                     var room = new Room()
                     {
                         Height = height,
+                        Name = name,
                         Perimeter = polygon
                     };
                     newRooms.Add(room);

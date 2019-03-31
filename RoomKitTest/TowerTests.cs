@@ -162,6 +162,13 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void RoomsByName()
+        {
+            var tower = MakeTower();
+            Assert.Equal(144.0, tower.RoomsByName("Office").Count);
+        }
+
+        [Fact]
         public void Rotate()
         {
             var tower = MakeTower();

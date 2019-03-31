@@ -818,7 +818,7 @@ namespace RoomKit
                     Name = name,
                     Perimeter = polygon
                 };
-            roomGroup.RoomsByDivision(xRooms, yRooms);
+            roomGroup.RoomsByDivision(xRooms, yRooms, height, name);
             roomGroup.Elevation = Elevation;
             roomGroup.SetHeight(height);
             roomGroup.SetColor(color);
@@ -837,6 +837,26 @@ namespace RoomKit
             Rooms.Clear();
             Rooms.AddRange(fitRooms);
             return true;
+        }
+
+        /// <summary>
+        /// Returns a list of Rooms with a specific name.
+        /// </summary>
+        /// <param name="name">Name of the rooms to retrieve.</param>
+        /// <returns>
+        /// None.
+        /// </returns>/// 
+        public List<Room> RoomsByName (string name)
+        {
+            var rooms = new List<Room>();
+            foreach (var room in Rooms)
+            {
+                if (room.Name == name)
+                {
+                    rooms.Add(room);
+                }
+            }
+            return rooms;
         }
 
         /// <summary>

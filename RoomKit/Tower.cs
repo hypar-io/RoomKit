@@ -284,6 +284,29 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns a list of Rooms with a specific name.
+        /// </summary>
+        /// <param name="name">Name of the rooms to retrieve.</param>
+        /// <returns>
+        /// None.
+        /// </returns>/// 
+        public List<Room> RoomsByName(string name)
+        {
+            var rooms = new List<Room>();
+            foreach (Story story in Stories)
+            {
+                foreach (var room in story.Rooms)
+                {
+                    if (room.Name == name)
+                    {
+                        rooms.Add(room);
+                    }
+                }
+            }
+            return rooms;
+        }
+
+        /// <summary>
         /// Rotates the Tower Perimeter and Stories in the horizontal plane around the supplied pivot point.
         /// </summary>
         /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
