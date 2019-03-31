@@ -22,7 +22,7 @@ class **Palette**
 
 Commonly used colors for Space rendering. These colors are translucent to allow viewing of representions several layers deep.
 
-- class **Place**
+class **Place**
 
 Rooms 2D Polygons in various spatial relationships to each other.
 
@@ -46,7 +46,7 @@ class **Scope**
 
 Data structure recording space program characteristics and the status of a Room placing process.
 
-- class **Shaper**
+class **Shaper**
 
 Utilities for creating and editing Polygons.
 
