@@ -53,6 +53,20 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Area()
+        {
+            var tower = MakeTower();
+            Assert.Equal(24000.0, tower.Area);
+        }
+
+        [Fact]
+        public void AreaByName()
+        {
+            var tower = MakeTower();
+            Assert.Equal(2151.0, tower.AreaByName("Retail"));
+        }
+
+        [Fact]
         public void Color()
         {
             var tower = new Tower()

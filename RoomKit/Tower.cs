@@ -25,6 +25,22 @@ namespace RoomKit
         #region Properties
 
         /// <summary>
+        /// Returns the aggregate area of all Stories in the Tower.
+        /// </summary>
+        public double Area
+        {
+            get
+            {
+                var area = 0.0;
+                foreach (Story story in Stories)
+                {
+                    area += story.Area;
+                }
+                return area;
+            }
+        }
+
+        /// <summary>
         /// Color imposed on the envelope of new Stories created by the Tower.. 
         /// Ignores null values.
         /// </summary>
@@ -256,6 +272,29 @@ namespace RoomKit
                 story.AddExclusion(core);
             }
             return true;
+        }
+
+        /// <summary>
+        /// Returns the aggregate area of all Rooms with a supplied name.
+        /// </summary>
+        /// <param name="name">Name of the Rooms to retrieve.</param>
+        /// <returns>
+        /// None.
+        /// </returns>/// 
+        public double AreaByName(string name)
+        {
+            var area = 0.0;
+            foreach (Story story in Stories)
+            {
+                foreach (var room in story.Rooms)
+                {
+                    if (room.Name == name)
+                    {
+                        area += room.Area;
+                    }
+                }
+            }
+            return area;
         }
 
         /// <summary>

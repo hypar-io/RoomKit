@@ -669,9 +669,9 @@ namespace RoomKit
         /// Adds a Room to the Rooms list.
         /// </summary>
         /// <param name="room">Room to add.</param>
-        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
+        /// <param name="fit">Indicates whether the new Room should mutually fit to other Story features. Default is true.</param>
         /// <returns>
-        /// True if one or more rooms were added to the Story.
+        /// True if one or more Rooms were added to the Story.
         /// </returns>
         public bool AddRoom(Room room, bool fit = true)
         {
@@ -712,9 +712,9 @@ namespace RoomKit
         /// Adds a Room to the Services list.
         /// </summary>
         /// <param name="room">Room to add.</param>
-        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
+        /// <param name="fit">Indicates whether the new Room should mutually fit to other Story features. Default is true.</param>
         /// <returns>
-        /// True if one or more rooms were added to the Story.
+        /// True if one or more Rooms were added to the Story.
         /// </returns>
         public bool AddService(Room room, bool fit = true)
         {
@@ -751,6 +751,26 @@ namespace RoomKit
             }
             Services.AddRange(fitRooms);
             return true;
+        }
+
+        /// <summary>
+        /// Returns the aggregate area of all Rooms with a supplied name.
+        /// </summary>
+        /// <param name="name">Name of the Rooms to retrieve.</param>
+        /// <returns>
+        /// None.
+        /// </returns>/// 
+        public double AreaByName(string name)
+        {
+            var area = 0.0;
+            foreach (var room in Rooms)
+            {
+                if (room.Name == name)
+                {
+                    area += room.Area;
+                }
+            }
+            return area;
         }
 
         /// <summary>

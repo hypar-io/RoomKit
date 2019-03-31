@@ -81,6 +81,13 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void AreaByName()
+        {
+            var story = MakeStory();
+            Assert.Equal(684.0, story.AreaByName("Retail"));
+        }
+
+        [Fact]
         public void AreaPlaced()
         {
             var story = MakeStory();
