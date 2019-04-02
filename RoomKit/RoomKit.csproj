@@ -21,7 +21,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="clipper.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Hypar.Elements" Version="0.2.2" />
+    <PackageReference Include="ParagonClipper" Version="6.4.2" />
   </ItemGroup>
 
 </Project>

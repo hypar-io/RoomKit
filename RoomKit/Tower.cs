@@ -379,7 +379,7 @@ namespace RoomKit
         /// </returns>
         public bool Stack(int floors = 0, double storyHeight = 0.0, bool basement = false)
         {
-            if (floors <= 0)
+            if (floors <= 0.0)
             {
                 floors = Floors;
             }
@@ -391,7 +391,7 @@ namespace RoomKit
             {
                 return false;
             }
-            if (storyHeight <= 0)
+            if (storyHeight <= 0.0)
             {
                 storyHeight = StoryHeight;
             }
@@ -416,7 +416,7 @@ namespace RoomKit
                 Stories.Add(story);
                 elevation += storyHeight;
             }
-            for (int index = 0; index < Floors - 1; index++)
+            for (int i = 0; i < Floors; i++)
             {
                 var story = new Story()
                 {

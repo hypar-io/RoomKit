@@ -87,7 +87,7 @@ namespace RoomKitTest
         {
             var tower = MakeTower();
             Assert.Equal(1.0, tower.Cores.Count);
-            Assert.Equal(87.0, tower.Cores.First().Height);
+            Assert.Equal(91.0, tower.Cores.First().Height);
             Assert.Contains(new Vector3(27.5, 6.0), tower.Cores.First().Perimeter.Vertices);
             Assert.Contains(new Vector3(32.5, 6.0), tower.Cores.First().Perimeter.Vertices);
             Assert.Contains(new Vector3(27.5, 14.0), tower.Cores.First().Perimeter.Vertices);
@@ -144,7 +144,7 @@ namespace RoomKitTest
         public void Height()
         {
             var tower = MakeTower();
-            Assert.Equal(84.0, tower.Height);
+            Assert.Equal(88.0, tower.Height);
         }
 
         [Fact]
@@ -181,7 +181,7 @@ namespace RoomKitTest
         public void RoomsByName()
         {
             var tower = MakeTower();
-            Assert.Equal(144.0, tower.RoomsByName("Office").Count);
+            Assert.Equal(136.0, tower.RoomsByName("Office").Count);
         }
 
         [Fact]
@@ -205,7 +205,7 @@ namespace RoomKitTest
         public void SetStoryHeight()
         {
             var tower = MakeTower();
-            Assert.Equal(6.0, tower.Stories.First().Height);
+            Assert.Equal(8.0, tower.Stories.First().Height);
         }
 
         [Fact]
@@ -224,7 +224,7 @@ namespace RoomKitTest
         public void Spaces()
         {
             var tower = MakeTower();
-            Assert.Equal(210.0, tower.Spaces.Count);
+            Assert.Equal(200.0, tower.Spaces.Count);
         }
 
         [Fact]
