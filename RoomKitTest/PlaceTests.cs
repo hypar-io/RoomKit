@@ -6,6 +6,7 @@ using Elements;
 using Elements.Geometry;
 using Elements.Serialization.glTF;
 using RoomKit;
+using GeometryEx;
 
 namespace RoomKitTest
 {

@@ -4,12 +4,14 @@ using Xunit;
 using Elements;
 using Elements.Geometry;
 using Elements.Serialization.glTF;
+using GeometryEx;
 using RoomKit;
 
 namespace RoomKitTest
 {
     public class TowerTests
     {
+        [Fact]
         public Tower MakeTower()
         {
             var tower = new Tower()
@@ -17,8 +19,10 @@ namespace RoomKitTest
                 Color = Palette.Aqua,
                 Elevation = -8.0,
                 Floors = 20,
-                Perimeter = Shaper.PolygonBox(60.0, 20.0), 
-                StoryHeight = 4.0
+                HeightLimit = 80.0,
+                Perimeter = Shaper.PolygonBox(60.0, 20.0),
+                StoryHeight = 4.0,
+                TargetArea = 0.0
             };
             tower.Stack();
             var entry = new Room()
@@ -26,6 +30,7 @@ namespace RoomKitTest
                 Height = 6.0
             };
             tower.SetStoryHeight(0, 8.0);
+            tower.Stories[0].Color = Palette.Granite;
             entry.SetPerimeter(new Vector3(30.0, -0.1), new Vector3(30.0, 6.0), 2.0);
             tower.Stories[1].AddCorridor(entry);
             var coreShaft = new Room()
@@ -50,7 +55,13 @@ namespace RoomKitTest
                 tower.Stories[i].AddCorridor(corridor);
                 tower.Stories[i].AddExclusion(coreShaft);
             }
-            tower.AddServiceCore(coreShaft.Perimeter, 0, 3.0, Palette.Granite);
+            tower.AddCore(coreShaft.Perimeter, 0, 3.0, Palette.Granite);
+            var model = new Model();
+            foreach (Space space in tower.Spaces)
+            {
+                model.AddElement(space);
+            }
+            model.ToGlTF("../../../../Tower.glb");
             return tower;
         }
 
@@ -205,7 +216,15 @@ namespace RoomKitTest
         public void SetStoryHeight()
         {
             var tower = MakeTower();
-            Assert.Equal(8.0, tower.Stories.First().Height);
+            Assert.Equal(8.0, tower.Stories[0].Height);
+            tower.SetStoryHeight(10, 20.0, true, false);
+            Assert.Equal(20.0, tower.Stories[10].Height);
+            var model = new Model();
+            foreach (Space space in tower.Spaces)
+            {
+                model.AddElement(space);
+            }
+            model.ToGlTF("../../../../TowerStoryHeight.glb");
         }
 
         [Fact]
@@ -241,12 +260,6 @@ namespace RoomKitTest
             Assert.Equal(20.0, tower.Stories.Count);
         }
 
-        [Fact]
-        public void StoryHeight()
-        {
-            var tower = MakeTower();
-            Assert.Equal(4.0, tower.StoryHeight);
-        }
 
     }
 }

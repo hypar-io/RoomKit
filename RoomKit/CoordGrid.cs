@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using ClipperLib;
 using Elements.Geometry;
+using GeometryEx;
 
 namespace RoomKit
 {

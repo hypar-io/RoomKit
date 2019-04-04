@@ -6,6 +6,7 @@ using Xunit;
 using Elements;
 using Elements.Geometry;
 using RoomKit;
+using GeometryEx;
 
 namespace RoomKitTest
 {

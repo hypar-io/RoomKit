@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Elements;
 using Elements.Geometry;
-using RoomKit;
+using GeometryEx;
 
 namespace RoomKit
 {

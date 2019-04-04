@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Elements.Geometry;
+using GeometryEx;
 
 namespace RoomKit
 {

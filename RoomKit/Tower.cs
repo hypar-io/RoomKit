@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Elements;
 using Elements.Geometry;
+using GeometryEx;
 
 namespace RoomKit
 {
@@ -15,10 +16,12 @@ namespace RoomKit
         {
             Color = Palette.White;
             Cores = new List<Room>();
-            Floors = 1;
+            Floors = 0;
+            HeightLimit = 0.0;
             Perimeter = null;
             Stories = new List<Story>();
-            StoryHeight = 1.0;
+            StoryHeight = 0.0;
+            TargetArea = 0.0;
         }
         #endregion
 
@@ -39,6 +42,7 @@ namespace RoomKit
                 return area;
             }
         }
+
 
         /// <summary>
         /// Color imposed on the envelope of new Stories created by the Tower.. 
@@ -163,6 +167,11 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Desired typical Story height in the Tower. 
+        /// </summary>
+        public double HeightLimit { get; set; }
+
+        /// <summary>
         /// Polygon perimeter of the Tower at ground level. 
         /// </summary>
         private Polygon perimeter;
@@ -236,6 +245,23 @@ namespace RoomKit
                 }
             }
         }
+
+        /// <summary>
+        /// Target aggregate area for all Stories in the Tower. 
+        /// </summary>
+        private double targetArea;
+        public double TargetArea
+        {
+            get { return targetArea; }
+            set
+            {
+                if (value > 0.0)
+                {
+                    targetArea = value;
+                }
+            }
+        }
+
         #endregion
 
         #region Methods
@@ -250,10 +276,10 @@ namespace RoomKit
         /// <returns>
         /// True if the Core is successfully added.
         /// </returns>
-        public bool AddServiceCore(Polygon perimeter,
-                                   int baseStory = 0,
-                                   double addHeight = 0.0,
-                                   Color color = null)
+        public bool AddCore(Polygon perimeter,
+                            int baseStory = 0,
+                            double addHeight = 0.0,
+                            Color color = null)
         {
             if (baseStory < 0 || baseStory > Stories.Count - 1)
             {
@@ -374,50 +400,28 @@ namespace RoomKit
         /// </summary>
         /// <param name="floors">Desired quantity of stacked Stories to form the Tower. If greater than zero, overrides and resets the current Floors property.</param>
         /// <param name="storyHeight">Desired typical Story height of the Tower. If greater than zero, overrides and resets the current StoryHeight property.</param>
+        /// <param name="basement">Whether to consider the lowest floor a basement.</param>
         /// <returns>
         /// True if the Tower is successfully stacked.
         /// </returns>
-        public bool Stack(int floors = 0, double storyHeight = 0.0, bool basement = false)
+        public bool Stack()
         {
-            if (floors <= 0.0)
-            {
-                floors = Floors;
-            }
-            if (floors <= 0.0)
+            if (Perimeter == null || storyHeight <= 0.0 || (Floors <= 0.0 && TargetArea <= 0.0))
             {
                 return false;
             }
-            if (Perimeter == null || floors < 1)
+            if (TargetArea > 0.0)
             {
-                return false;
+                Floors = (int)Math.Ceiling(TargetArea / Perimeter.Area);
             }
-            if (storyHeight <= 0.0)
-            {
-                storyHeight = StoryHeight;
-            }
-            if (storyHeight <= 0.0)
-            {
-                return false;
-            }
-            Floors = floors;
-            StoryHeight = storyHeight;
             Stories.Clear();
             var elevation = Elevation;
-            if (basement)
-            {
-                var story = new Story()
-                {
-                    Color = Palette.Granite,
-                    Elevation = elevation,
-                    Height = storyHeight,
-                    IsBasement = true,
-                    Perimeter = perimeter
-                };
-                Stories.Add(story);
-                elevation += storyHeight;
-            }
             for (int i = 0; i < Floors; i++)
             {
+                if (elevation + storyHeight > HeightLimit)
+                {
+                    break;
+                }
                 var story = new Story()
                 {
                     Color = color,
@@ -427,6 +431,10 @@ namespace RoomKit
                 };
                 Stories.Add(story);
                 elevation += storyHeight;
+            }
+            if (Stories.Count == 0)
+            {
+                return false;
             }
             return true;
         }
@@ -440,7 +448,7 @@ namespace RoomKit
         /// <returns>
         /// True if the Tower is successfully stacked.
         /// </returns>
-        public bool SetStoryHeight(int story, double height, bool interiors = true)
+        public bool SetStoryHeight(int story, double height, bool interiors = true, bool upward = true)
         {
             if (story < 0 || story > Stories.Count - 1 || height <= 0.0)
             {
@@ -452,20 +460,29 @@ namespace RoomKit
                 return true;
             }
             Stories[story].Height = height;
+            int index = 0;
             if (interiors)
             {
                 Stories[story].HeightInteriors = height;
             }
-            if (Stories[story].IsBasement)
+            if (upward)
+            {
+                index = story + 1;
+                while (index < Stories.Count)
+                {
+                    Stories[index].Elevation += delta;
+                    index++;
+                }
+            }
+            else 
             {
                 Stories[story].Elevation -= delta;
-                return true;
-            }
-            int index = story + 1;
-            while (index < Stories.Count)
-            {
-                Stories[index].Elevation += delta;
-                index++;
+                index = story - 1;
+                while (index > -1)
+                {
+                    Stories[index].Elevation -= delta;
+                    index--;
+                }
             }
             return true;
         } 

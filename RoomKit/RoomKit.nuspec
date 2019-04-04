@@ -2,9 +2,9 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>RoomKit</id>
-    <version>0.4.5</version>
+    <version>$version$</version>
     <authors>Anthony A. Hauck</authors>
-    <owners>Hypar</owners>
+    <owners>Hypar Inc.</owners>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/hypar-io/RoomKit</projectUrl>

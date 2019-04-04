@@ -4,6 +4,7 @@ using System.Linq;
 using Elements;
 using Elements.Interfaces;
 using Elements.Geometry;
+using GeometryEx;
 
 namespace RoomKit
 {

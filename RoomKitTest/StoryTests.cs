@@ -4,7 +4,9 @@ using Xunit;
 using Elements;
 using Elements.Geometry;
 using Elements.Serialization.glTF;
+using GeometryEx;
 using RoomKit;
+
 
 namespace RoomKitTest
 {

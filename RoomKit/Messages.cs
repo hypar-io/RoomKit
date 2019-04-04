@@ -33,11 +33,5 @@ namespace RoomKit
         /// 
         /// </summary>
         public const string PERIMETER_NULL_EXCEPTION = "Referenced perimeter value is null.";
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public const string POLYGON_SHAPE_EXCEPTION = "Values will result in an unexpected shape. Examine polygon relationships and requested dimensions.";
-
     }
 }
