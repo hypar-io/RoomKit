@@ -80,9 +80,13 @@ namespace RoomKit
             {
                 var oldElevation = elevation;
                 elevation = value;
+                foreach (Room core in Cores)
+                {
+                    core.Elevation += elevation - oldElevation;
+                }
                 foreach (Story story in Stories)
                 {
-                    story.Elevation += (elevation - oldElevation);
+                    story.Elevation += elevation - oldElevation;
                 }
             }
         }
