@@ -292,14 +292,17 @@ namespace RoomKit
             }
             var core = new Room()
             {
-                Color = Palette.Gray,
                 Elevation = Stories[baseStory].Elevation,
                 Height = Height + addHeight,
                 Perimeter = perimeter
             };
+            if (color != null)
+            {
+                core.Color = color;
+            }
             if (Stories[baseStory].Elevation < 0.0)
             {
-                core.Height += Stories[baseStory].Elevation * -1.0;
+                core.Height += Stories[baseStory].Elevation * -1;
             }
             Cores.Add(core);
             foreach (Story story in Stories)
