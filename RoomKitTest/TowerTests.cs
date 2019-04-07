@@ -22,7 +22,7 @@ namespace RoomKitTest
                 HeightLimit = 80.0,
                 Perimeter = Shaper.PolygonBox(60.0, 20.0),
                 StoryHeight = 4.0,
-                TargetArea = 20000.0
+                TargetArea = 24000.0
             };
             tower.Stack();
             var entry = new Room()
@@ -155,7 +155,7 @@ namespace RoomKitTest
         public void Height()
         {
             var tower = MakeTower();
-            Assert.Equal(88.0, tower.Height);
+            Assert.Equal(80.0, tower.Height);
         }
 
         [Fact]

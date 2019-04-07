@@ -156,16 +156,16 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Total height of all Stories in the Tower. 
+        /// Highest point of the highest tower story above the zero plane. 
         /// </summary>
         public double Height
         {
             get
             {
                 var height = 0.0;
-                foreach (Story story in Stories)
+                if (Stories.Count > 0)
                 {
-                    height += story.Height;
+                    height = Stories.Last().Elevation + Stories.Last().Height;
                 }
                 return height;
             }
@@ -297,6 +297,10 @@ namespace RoomKit
                 Height = Height + addHeight,
                 Perimeter = perimeter
             };
+            if (Stories[baseStory].Elevation < 0.0)
+            {
+                core.Height += Stories[baseStory].Elevation * -1.0;
+            }
             Cores.Add(core);
             foreach (Story story in Stories)
             {
