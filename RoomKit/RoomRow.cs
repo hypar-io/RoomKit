@@ -23,6 +23,7 @@ namespace RoomKit
             Name = "";
             Rooms = new List<Room>();
             Row = new Line(row.Start, row.End);
+            TypeID = -1;
             UniqueID = Guid.NewGuid().ToString();
             angle = Math.Atan2(Row.End.Y - Row.Start.Y, Row.End.X - Row.Start.X) * (180 / Math.PI);
             mark = new Vector3(Row.Start.X, Row.Start.Y);
@@ -227,6 +228,11 @@ namespace RoomKit
                 return new TopoBox(Circulation).SizeY;
             }
         }
+
+        /// <summary>
+        /// Arbitrary integer identifier of this instance..
+        /// </summary>
+        public int TypeID { get; set; }
 
         /// <summary>
         /// UUID for this RoomRow instance, set on initialization.

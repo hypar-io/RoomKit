@@ -242,7 +242,7 @@ namespace RoomKitTest
             Assert.Equal(4.0, room.Height);
             room.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
             Assert.Contains(new Vector3(30.0, 30.0, 0.0), room.Perimeter.Vertices);
-            Assert.Equal(20.0, room.Elevation);
+            Assert.Equal(0.0, room.Elevation);
         }
 
 

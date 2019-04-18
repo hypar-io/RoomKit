@@ -327,12 +327,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Arbitrary integer identifier of this Room type. Can be used to identify desired adjacencies.
+        /// Arbitrary integer identifier of this instance..
         /// </summary>
         public int TypeID { get; set; }
 
         /// <summary>
-        /// UUID for this Room instance, set on initialization.
+        /// UUID for this instance, set on initialization.
         /// </summary>
         public string UniqueID { get; }
         #endregion
@@ -353,7 +353,6 @@ namespace RoomKit
             {
                 Perimeter = Perimeter.MoveFromTo(from, to);
             }
-            Elevation = to.Z - from.Z;
             return Perimeter;
         }
 

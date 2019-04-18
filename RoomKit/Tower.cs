@@ -18,10 +18,13 @@ namespace RoomKit
             Cores = new List<Room>();
             Floors = 0;
             HeightLimit = 0.0;
+            Name = "";
             Perimeter = null;
             Stories = new List<Story>();
             StoryHeight = 0.0;
             TargetArea = 0.0;
+            TypeID = -1;
+            UniqueID = Guid.NewGuid().ToString();
         }
         #endregion
 
@@ -177,6 +180,11 @@ namespace RoomKit
         public double HeightLimit { get; set; }
 
         /// <summary>
+        /// Arbitrary string identifier for this Tower instance.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
         /// Polygon perimeter of the Tower at ground level. 
         /// </summary>
         private Polygon perimeter;
@@ -266,6 +274,16 @@ namespace RoomKit
                 }
             }
         }
+
+        /// <summary>
+        /// Arbitrary integer identifier of this instance..
+        /// </summary>
+        public int TypeID { get; set; }
+
+        /// <summary>
+        /// UUID for this instance, set on initialization.
+        /// </summary>
+        public string UniqueID { get; }
 
         #endregion
 
@@ -357,7 +375,6 @@ namespace RoomKit
             {
                 Perimeter = Perimeter.MoveFromTo(from, to);
             }
-            Elevation = to.Z - from.Z;
         }
 
         /// <summary>

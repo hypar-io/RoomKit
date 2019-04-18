@@ -25,6 +25,7 @@ namespace RoomKit
             Name = "";
             Perimeter = null;
             Rooms = new List<Room>();
+            TypeID = -1;
             UniqueID = Guid.NewGuid().ToString();
         } 
         #endregion
@@ -180,6 +181,11 @@ namespace RoomKit
                 return new TopoBox(Perimeter).SizeY;
             }
         }
+
+        /// <summary>
+        /// Arbitrary integer identifier of this instance..
+        /// </summary>
+        public int TypeID { get; set; }
 
         /// <summary>
         /// UUID for this RoomGroup instance, set on initialization.

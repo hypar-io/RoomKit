@@ -34,6 +34,9 @@ namespace RoomKit
             Name = "";
             Perimeter = null;
             SlabThickness = 0.1;
+            TypeID = -1;
+            UniqueID = Guid.NewGuid().ToString();
+
         } 
         #endregion
 
@@ -539,6 +542,17 @@ namespace RoomKit
                 slabThickness = value;
             }
         }
+
+        /// <summary>
+        /// Arbitrary integer identifier of this instance..
+        /// </summary>
+        public int TypeID { get; set; }
+
+        /// <summary>
+        /// UUID for this instance, set on initialization.
+        /// </summary>
+        public string UniqueID { get; }
+
         #endregion
 
         #region Private Methods

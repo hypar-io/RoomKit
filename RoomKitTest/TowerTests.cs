@@ -163,7 +163,7 @@ namespace RoomKitTest
         {
             var tower = MakeTower();
             tower.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
-            Assert.Equal(20.0, tower.Elevation);
+            Assert.Equal(-8.0, tower.Elevation);
             Assert.Contains(new Vector3(20.0, 20.0), tower.Perimeter.Vertices);
             Assert.Contains(new Vector3(80.0, 20.0), tower.Perimeter.Vertices);
             Assert.Contains(new Vector3(80.0, 40.0), tower.Perimeter.Vertices);
