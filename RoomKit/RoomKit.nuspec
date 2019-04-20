@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/hypar-io/RoomKit</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added consistent identifier slots for all geometric classes.</releaseNotes>
+    <releaseNotes>Upgraded to latest GeometryEx.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Hypar Elements Room Extensions</tags>
   </metadata>

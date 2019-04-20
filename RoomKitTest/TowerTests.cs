@@ -110,9 +110,9 @@ namespace RoomKitTest
         {
             var tower = MakeTower();
             tower.Elevation = 20.0;
-            var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.PolygonBox(1.0, 1.0)));
+            //var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.PolygonBox(1.0, 1.0)));
             var model = new Model();
-            model.AddElement(column);
+            //model.AddElement(column);
             foreach (Space space in tower.Spaces)
             {
                 model.AddElement(space);
@@ -168,9 +168,9 @@ namespace RoomKitTest
             Assert.Contains(new Vector3(80.0, 20.0), tower.Perimeter.Vertices);
             Assert.Contains(new Vector3(80.0, 40.0), tower.Perimeter.Vertices);
             Assert.Contains(new Vector3(20.0, 40.0), tower.Perimeter.Vertices);
-            var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.PolygonBox(1.0, 1.0)));
+            //var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.PolygonBox(1.0, 1.0)));
             var model = new Model();
-            model.AddElement(column);
+            //model.AddElement(column);
             foreach (Space space in tower.Spaces)
             {
                 model.AddElement(space);

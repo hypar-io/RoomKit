@@ -17,7 +17,7 @@ namespace RoomKit
             Color = Palette.White;
             Cores = new List<Room>();
             Floors = 0;
-            HeightLimit = 0.0;
+            HeightLimit = 1000.0;
             Name = "";
             Perimeter = null;
             Stories = new List<Story>();
