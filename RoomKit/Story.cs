@@ -288,11 +288,10 @@ namespace RoomKit
             get { return height; }
             set
             {
-                if (value <= 0.0)
+                if (value > 0.0)
                 {
-                    throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                    height = value;
                 }
-                height = value;
             }
         }
 
