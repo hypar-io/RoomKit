@@ -1,5 +1,7 @@
 <img src="https://github.com/hypar-io/sdk/blob/master/hypar_logo.svg" width="200px" style="display: block;margin-left: auto;margin-right: auto;width: 50%;">
 
+### This toolkit is also available as a nuget package: https://www.nuget.org/packages/RoomKit
+
 # RoomKit Documentation
 
 ## RoomKit Namespace Reference
