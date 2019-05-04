@@ -1,88 +1,58 @@
-## RoomKit Documentation
+<img src="https://github.com/hypar-io/sdk/blob/master/hypar_logo.svg" width="200px" style="display: block;margin-left: auto;margin-right: auto;width: 50%;">
+
+### This toolkit is also available as a nuget package: https://www.nuget.org/packages/RoomKit
+
+# RoomKit Documentation
+
+## RoomKit Namespace Reference
 
 ### Classes
 
-class **ArcEx**
-
-Extends Elements.Geometry.Arc with utility methods.
-
-class **CoordGrid**
+- class CoordGrid
 
 Maintains a list of available and allocated points in a grid of the specified interval within the orthogonal bounding box of a Polygon.
 
-class **LineEx**
-
-Extends Elements.Geometry.Line with utility methods.
-
-class **Messages**
+- class **Messages**
 
 Common exception messages.
 
-class **Palette**
-
-Commonly used colors for Space rendering. These colors are translucent to allow viewing of representions several layers deep.
-
-class **Place**
+- class **Place**
 
 Rooms 2D Polygons in various spatial relationships to each other.
 
-class **PolygonEx**
-
-Extends Elements.Polygon with utility methods.
-
-class **Room**
+- class Room
 
 A data structure recording room characteristics.
 
-class **RoomGroup**
+- class RoomGroup
 
 Creates and manages Rooms within a perimeter.
 
-class **RoomRow**
+- class RoomRow
 
 Creates and manages Rooms placed along a line.
 
-class **Scope**
+- class Scope
 
 Data structure recording space program characteristics and the status of a Room placing process.
 
-class **Shaper**
-
-Utilities for creating and editing Polygons.
-
-class **Story**
+- class Story
 
 Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services.
 
-class **TopoBox**
-
-Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
-
-class **Tower**
-
-Data structure recording tower characteristics as a list of stories.
-
-class **Vector3Ex**
-
-Extends Elements.Geometry.Vector3 with utility methods.
+- class Tower
 
 ### Enumerations
 
 - enum Corner { **NE** , **SE** , **SW** , **NW** }
-- A list of box corners as compass designations. NE = maximum X and Y corner. SE = maximum X and minimum Y corner. SW = minimum X and Y corner. NW = minimum X and maximum Y corner.
-- enum Orient { **C** , **N** , **NNE** , **NE** , **ENE** , **E** , **ESE** , **SE** , **SSE** , **S** , **SSW** , **SW** , **WSW** , **W** , **WNW** , **NW** , **NNW** }
 
-- A list of compass orientations used to designate locations on a 2D box. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. C corresponds to the center of the box. Other compass points define locations along the relevant side between the cardinal and corner points. See documentation of corresponding properties of the TopoBox class for full documentation.
+A list of box corners as compass designations. NE = maximum X and Y corner. SE = maximum X and minimum Y corner. SW = minimum X and Y corner. NW = minimum X and maximum Y corner.
 
 ### Enumeration Type Documentation
 
 #### enum RoomKit.Corner[strong]
 
 A list of box corners as compass designations. NE = maximum X and Y corner. SE = maximum X and minimum Y corner. SW = minimum X and Y corner. NW = minimum X and maximum Y corner.
-
-#### enum RoomKit.Orient[strong]
-
-A list of compass orientations used to designate locations on a 2D box. N, S, E, and W define middle points on each orthogonal side of the box. NE, NW, SE, and SW correspond to the corners of the box. C corresponds to the center of the box. Other compass points define locations along the relevant side between the cardinal and corner points. See documentation of corresponding properties of the TopoBox class for full documentation.
 
 # Class Documentation
 
@@ -360,11 +330,11 @@ X dimensions of the Room Perimeter orthogonal bounding box.
 
 - int TypeID [get, set]
 
-Arbitrary integer identifier of this Room type. Can be used to identify desired adjacencies.
+Arbitrary integer identifier of this instance..
 
 - string UniqueID [get]
 
-UUID for this Room instance, set on initialization.
+UUID for this instance, set on initialization.
 
 ### Detailed Description
 
@@ -528,11 +498,11 @@ X dimensions of the Room Perimeter orthogonal bounding box.
 
 #### int RoomKit.Room.TypeID[get], [set]
 
-Arbitrary integer identifier of this Room type. Can be used to identify desired adjacencies.
+Arbitrary integer identifier of this instance..
 
 #### string RoomKit.Room.UniqueID[get]
 
-UUID for this Room instance, set on initialization.
+UUID for this instance, set on initialization.
 
 #### The documentation for this class was generated from the following file:
 
@@ -603,6 +573,10 @@ X dimension of the Perimeter orthogonal bounding box.
 - double SizeY [get]
 
 Y dimension of the Perimeter orthogonal bounding box.
+
+- int TypeID [get, set]
+
+Arbitrary integer identifier of this instance..
 
 - string UniqueID [get]
 
@@ -726,6 +700,10 @@ X dimension of the Perimeter orthogonal bounding box.
 
 Y dimension of the Perimeter orthogonal bounding box.
 
+#### int RoomKit.RoomGroup.TypeID[get], [set]
+
+Arbitrary integer identifier of this instance..
+
 #### string RoomKit.RoomGroup.UniqueID[get]
 
 UUID for this RoomGroup instance, set on initialization.
@@ -815,6 +793,10 @@ X dimension of the Circulation orthogonal bounding box.
 - double SizeY [get]
 
 Y dimension of the Circulation orthogonal bounding box.
+
+- int TypeID [get, set]
+
+Arbitrary integer identifier of this instance..
 
 - string UniqueID [get]
 
@@ -950,6 +932,10 @@ X dimension of the Circulation orthogonal bounding box.
 #### double RoomKit.RoomRow.SizeY[get]
 
 Y dimension of the Circulation orthogonal bounding box.
+
+#### int RoomKit.RoomRow.TypeID[get], [set]
+
+Arbitrary integer identifier of this instance..
 
 #### string RoomKit.RoomRow.UniqueID[get]
 
@@ -1376,6 +1362,10 @@ Returns all Corridors, Exclusions, Rooms, and Services as Polygons.
 
 Returns all Corridors, Rooms, and Services as Spaces.
 
+- bool IsBasement [get, set]
+
+Identifies whether this story represents a base ment level.
+
 - string Name [get, set]
 
 Arbitrary string identifier.
@@ -1418,6 +1408,13 @@ Sets the Services Space rendering color.
 Concrete Floor created from Story and Slab characteristics.
 
 - double **SlabThickness** [get, set]
+- int TypeID [get, set]
+
+Arbitrary integer identifier of this instance..
+
+- string UniqueID [get]
+
+UUID for this instance, set on initialization.
 
 ### Detailed Description
 
@@ -1629,6 +1626,10 @@ Returns all Corridors, Exclusions, Rooms, and Services as Polygons.
 
 Returns all Corridors, Rooms, and Services as Spaces.
 
+#### bool RoomKit.Story.IsBasement[get], [set]
+
+Identifies whether this story represents a base ment level.
+
 #### string RoomKit.Story.Name[get], [set]
 
 Arbitrary string identifier.
@@ -1669,229 +1670,23 @@ Sets the Services Space rendering color.
 
 Concrete Floor created from Story and Slab characteristics.
 
+#### int RoomKit.Story.TypeID[get], [set]
+
+Arbitrary integer identifier of this instance..
+
+#### string RoomKit.Story.UniqueID[get]
+
+UUID for this instance, set on initialization.
+
 #### The documentation for this class was generated from the following file:
 
 - RoomKit/Story.cs
-
-## RoomKit.TopoBox Class Reference
-
-Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
-
-### Public Member Functions
-
-- TopoBox (Polygon polygon)
-
-Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points.
-
-- Vector3 PointBy (Orient orient)
-
-Returns the requested bounding box location by orientation.
-
-- Vector3 PointOpposite (Orient orient)
-
-Returns the reciprocal bounding box location by orientation.
-
-### Properties
-
-- Vector3 C [get]
-
-Vector3 location identifier corresponding to the center of the box perimeter.
-
-- Vector3 N [get]
-
-Vector3 location identifier corresponding to the midpoint of the maximum Y side of the box perimeter.
-
-- Vector3 NNW [get]
-
-Vector3 location identifier corresponding to the midpoint between the NW and N points of the box perimeter.
-
-- Vector3 NW [get]
-
-Vector3 location identifier corresponding to the mimimum X and maximum Y corner of the box perimeter.
-
-- Vector3 WNW [get]
-
-Vector3 location identifier corresponding to the midpoint between the NW and W points of the box perimeter.
-
-- Vector3 W [get]
-
-Vector3 location identifier corresponding to the midpoint of the minimum X side of the box perimeter.
-
-- Vector3 WSW [get]
-
-Vector3 location identifier corresponding to the midpoint between the SW and W points of the box perimeter.
-
-- Vector3 SW [get]
-
-Vector3 location identifier corresponding to the mimimum X and Y corner of the box perimeter.
-
-- Vector3 SSW [get]
-
-Vector3 location identifier corresponding to the midpoint between the SW and S points of the box perimeter.
-
-- Vector3 S [get]
-
-Vector3 location identifier corresponding to the midpoint of the minimum Y side of the box perimeter.
-
-- Vector3 SSE [get]
-
-Vector3 location identifier corresponding to the midpoint between the SE and S points of the box perimeter.
-
-- Vector3 SE [get]
-
-Vector3 location identifier corresponding to the maximum X and minimum Y corner of the box perimeter.
-
-- Vector3 ESE [get]
-
-Vector3 location identifier corresponding to the midpoint between the SE and E points of the box perimeter.
-
-- Vector3 E [get]
-
-Vector3 location identifier corresponding to the midpoint of the maximum X side of the box perimeter.
-
-- Vector3 ENE [get]
-
-Vector3 location identifier corresponding to the midpoint between the NE and E points of the box perimeter.
-
-- Vector3 NE [get]
-
-Vector3 location identifier corresponding to the maximum X and Y corner of the box perimeter.
-
-- Vector3 NNE [get]
-
-Vector3 location identifier corresponding to the midpoint between the NE and N points of the box perimeter.
-
-- double SizeX [get]
-
-X and Y dimensions of the TopoBox perimeter.
-
-- double **SizeY** [get]
-
-### Detailed Description
-
-Maintains a set of points on the orthogonal bounding box of a supplied Polygon corresponding to four divisions of each side.
-
-### Constructor &amp; Destructor Documentation
-
-#### RoomKit.TopoBox.TopoBox (Polygon  polygon)
-
-Constructor creates a new mathematical bounding box from the supplied Polygon and populates all orientation points.
-
-##### Returns:
-
-A new TopoBox.
-
-### Member Function Documentation
-
-#### Vector3 RoomKit.TopoBox.PointBy (Orient  orient)
-
-Returns the requested bounding box location by orientation.
-
-##### Parameters:
-
-| orient | The Orient value to index point. |
-| --- | --- |
-
-##### Returns:
-
-A Vector3 point.
-
-#### Vector3 RoomKit.TopoBox.PointOpposite (Orient  orient)
-
-Returns the reciprocal bounding box location by orientation.
-
-##### Parameters:
-
-| orient | The Orient value to find the reciprocal point. |
-| --- | --- |
-
-##### Returns:
-
-A Vector3 point.
-
-### Property Documentation
-
-#### Vector3 RoomKit.TopoBox.C[get]
-
-Vector3 location identifier corresponding to the center of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.E[get]
-
-Vector3 location identifier corresponding to the midpoint of the maximum X side of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.ENE[get]
-
-Vector3 location identifier corresponding to the midpoint between the NE and E points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.ESE[get]
-
-Vector3 location identifier corresponding to the midpoint between the SE and E points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.N[get]
-
-Vector3 location identifier corresponding to the midpoint of the maximum Y side of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.NE[get]
-
-Vector3 location identifier corresponding to the maximum X and Y corner of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.NNE[get]
-
-Vector3 location identifier corresponding to the midpoint between the NE and N points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.NNW[get]
-
-Vector3 location identifier corresponding to the midpoint between the NW and N points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.NW[get]
-
-Vector3 location identifier corresponding to the mimimum X and maximum Y corner of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.S[get]
-
-Vector3 location identifier corresponding to the midpoint of the minimum Y side of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.SE[get]
-
-Vector3 location identifier corresponding to the maximum X and minimum Y corner of the box perimeter.
-
-#### double RoomKit.TopoBox.SizeX[get]
-
-X and Y dimensions of the TopoBox perimeter.
-
-#### Vector3 RoomKit.TopoBox.SSE[get]
-
-Vector3 location identifier corresponding to the midpoint between the SE and S points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.SSW[get]
-
-Vector3 location identifier corresponding to the midpoint between the SW and S points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.SW[get]
-
-Vector3 location identifier corresponding to the mimimum X and Y corner of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.W[get]
-
-Vector3 location identifier corresponding to the midpoint of the minimum X side of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.WNW[get]
-
-Vector3 location identifier corresponding to the midpoint between the NW and W points of the box perimeter.
-
-#### Vector3 RoomKit.TopoBox.WSW[get]
-
-Vector3 location identifier corresponding to the midpoint between the SW and W points of the box perimeter.
-
-#### The documentation for this class was generated from the following file:
-
-- RoomKit/TopoBox.cs
 
 ## RoomKit.Tower Class Reference
 
 ### Public Member Functions
 
-- bool AddServiceCore (Polygon perimeter, int baseStory=0, double addHeight=0.0, Color color=null)
+- bool AddCore (Polygon perimeter, int baseStory=0, double addHeight=0.0, Color color=null)
 
 Adds a new service Core to the Tower.
 
@@ -1911,11 +1706,11 @@ Returns a list of Rooms with a specific name.
 
 Rotates the Tower Perimeter and Stories in the horizontal plane around the supplied pivot point.
 
-- bool Stack (int floors=0, double storyHeight=0.0)
+- bool Stack ()
 
 Creates the Tower by stacking a series of Story instances from the Tower Elevation.
 
-- bool SetStoryHeight (int story, double height, bool interiors=true)
+- bool SetStoryHeight (int story, double height, bool interiors=true, bool upward=true)
 
 Sets the height of an index-specified Story and relocates Stories above to accommodate the Story&#39;s new height.
 
@@ -1952,7 +1747,15 @@ Space created from Story characteristics.
 - int **Floors** [get, set]
 - double Height [get]
 
-Total height of all Stories in the Tower.
+Highest point of the highest tower story above the zero plane.
+
+- double HeightLimit [get, set]
+
+Desired typical Story height in the Tower.
+
+- string Name [get, set]
+
+Arbitrary string identifier for this Tower instance.
 
 - Polygon **Perimeter** [get, set]
 - List\&lt; Floor \&gt; Slabs [get]
@@ -1964,10 +1767,18 @@ List of all Slabs from every Story in the Tower.
 List of all Spaces from every Story in the Tower.
 
 - double **StoryHeight** [get, set]
+- double **TargetArea** [get, set]
+- int TypeID [get, set]
+
+Arbitrary integer identifier of this instance..
+
+- string UniqueID [get]
+
+UUID for this instance, set on initialization.
 
 ### Member Function Documentation
 
-#### bool RoomKit.Tower.AddServiceCore (Polygon  perimeter, int  baseStory = 0, double  addHeight = 0.0, Color  color = null)
+#### bool RoomKit.Tower.AddCore (Polygon  perimeter, int  baseStory = 0, double  addHeight = 0.0, Color  color = null)
 
 Adds a new service Core to the Tower.
 
@@ -2041,7 +1852,7 @@ Rotates the Tower Perimeter and Stories in the horizontal plane around the suppl
 
 None.
 
-#### bool RoomKit.Tower.SetStoryHeight (int  story, double  height, bool  interiors = true)
+#### bool RoomKit.Tower.SetStoryHeight (int  story, double  height, bool  interiors = true, bool  upward = true)
 
 Sets the height of an index-specified Story and relocates Stories above to accommodate the Story&#39;s new height.
 
@@ -2056,7 +1867,7 @@ Sets the height of an index-specified Story and relocates Stories above to accom
 
 True if the Tower is successfully stacked.
 
-#### bool RoomKit.Tower.Stack (int  floors = 0, double  storyHeight = 0.0)
+#### bool RoomKit.Tower.Stack ()
 
 Creates the Tower by stacking a series of Story instances from the Tower Elevation.
 
@@ -2065,6 +1876,7 @@ Creates the Tower by stacking a series of Story instances from the Tower Elevati
 | floors | Desired quantity of stacked Stories to form the Tower. If greater than zero, overrides and resets the current Floors property. |
 | --- | --- |
 | storyHeight | Desired typical Story height of the Tower. If greater than zero, overrides and resets the current StoryHeight property. |
+| basement | Whether to consider the lowest floor a basement. |
 
 ##### Returns:
 
@@ -2100,7 +1912,15 @@ Space created from Story characteristics.
 
 #### double RoomKit.Tower.Height[get]
 
-Total height of all Stories in the Tower.
+Highest point of the highest tower story above the zero plane.
+
+#### double RoomKit.Tower.HeightLimit[get], [set]
+
+Desired typical Story height in the Tower.
+
+#### string RoomKit.Tower.Name[get], [set]
+
+Arbitrary string identifier for this Tower instance.
 
 #### List\&lt;Floor\&gt; RoomKit.Tower.Slabs[get]
 
@@ -2110,10 +1930,14 @@ List of all Slabs from every Story in the Tower.
 
 List of all Spaces from every Story in the Tower.
 
+#### int RoomKit.Tower.TypeID[get], [set]
+
+Arbitrary integer identifier of this instance..
+
+#### string RoomKit.Tower.UniqueID[get]
+
+UUID for this instance, set on initialization.
+
 #### The documentation for this class was generated from the following file:
 
 - RoomKit/Tower.cs
-
-# Index
-
-INDE
