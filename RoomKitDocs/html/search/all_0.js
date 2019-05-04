@@ -1,10 +1,10 @@
 var searchData=
 [
+  ['addcore',['AddCore',['../class_room_kit_1_1_tower.html#a7aa47fce7a579522c8003d195c308693',1,'RoomKit::Tower']]],
   ['addcorridor',['AddCorridor',['../class_room_kit_1_1_story.html#a739880a1a50bd1853967db229a40c38b',1,'RoomKit::Story']]],
   ['addexclusion',['AddExclusion',['../class_room_kit_1_1_story.html#a9beb630d421fd18e3c95aef7716d1dfe',1,'RoomKit::Story']]],
   ['addroom',['AddRoom',['../class_room_kit_1_1_room_row.html#a83eedcb6a0e17a81a94e80a8b0a87c19',1,'RoomKit.RoomRow.AddRoom()'],['../class_room_kit_1_1_story.html#a41f4e3f7e513bbbfea4227be808633de',1,'RoomKit.Story.AddRoom()']]],
   ['addservice',['AddService',['../class_room_kit_1_1_story.html#a59dbcb8d1990bbf80350b27991f41da4',1,'RoomKit::Story']]],
-  ['addservicecore',['AddServiceCore',['../class_room_kit_1_1_tower.html#a894ce0768f3268dfe36a3ca1c8ccb0a0',1,'RoomKit::Tower']]],
   ['adjacentto',['AdjacentTo',['../class_room_kit_1_1_room.html#a9a0ed1a4011c3759f5e39a97d4e7e986',1,'RoomKit::Room']]],
   ['allocate',['Allocate',['../class_room_kit_1_1_coord_grid.html#aa391c61e633bdbf883b9ba3ba9e29cff',1,'RoomKit.CoordGrid.Allocate(Polygon polygon)'],['../class_room_kit_1_1_coord_grid.html#a7f96fb5788564e43b2af28ecafd36765',1,'RoomKit.CoordGrid.Allocate(IList&lt; Polygon &gt; polygons)']]],
   ['allocated',['Allocated',['../class_room_kit_1_1_coord_grid.html#a4b516a308b2c0c8cea57e9b1bc8484b0',1,'RoomKit::CoordGrid']]],

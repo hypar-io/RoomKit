@@ -494,13 +494,35 @@ namespace RoomKit
             int index = 0;
             if (interiors)
             {
-                Stories[story].HeightInteriors = height;
+                foreach (Room room in Stories[story].Corridors)
+                {
+                    room.Height += delta;
+                }
+                foreach (Room room in Stories[story].Rooms)
+                {
+                    room.Height += delta;
+                }
+                foreach (Room room in Stories[story].Services)
+                {
+                    room.Height += delta;
+                }
+            }
+            foreach (Room core in Cores)
+            {
+                core.Height += delta;
             }
             if (upward)
             {
                 index = story + 1;
                 while (index < Stories.Count)
                 {
+                    foreach (Room core in Cores)
+                    {
+                        if (Stories[index].Elevation == core.Elevation)
+                        {
+                            core.Elevation += delta;
+                        }
+                    }
                     Stories[index].Elevation += delta;
                     index++;
                 }
@@ -511,6 +533,13 @@ namespace RoomKit
                 index = story - 1;
                 while (index > -1)
                 {
+                    foreach (Room core in Cores)
+                    {
+                        if (Stories[index].Elevation == core.Elevation)
+                        {
+                            core.Elevation -= delta;
+                        }
+                    }
                     Stories[index].Elevation -= delta;
                     index--;
                 }

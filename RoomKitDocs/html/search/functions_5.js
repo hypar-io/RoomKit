@@ -1,9 +1,11 @@
 var searchData=
 [
-  ['room',['Room',['../class_room_kit_1_1_room.html#a15c13a2f850ec32872c0b95627ebbb04',1,'RoomKit::Room']]],
-  ['roomgroup',['RoomGroup',['../class_room_kit_1_1_room_group.html#af97dce7417dffdec2e0f2a8a53fbf955',1,'RoomKit::RoomGroup']]],
-  ['roomrow',['RoomRow',['../class_room_kit_1_1_room_row.html#ab5d02a41747ce4b1c6789c3407b3edca',1,'RoomKit.RoomRow.RoomRow(Line row)'],['../class_room_kit_1_1_room_row.html#a92759e590e6409a3b86330d57685dc7a',1,'RoomKit.RoomRow.RoomRow(Vector3 start, Vector3 end)']]],
-  ['roomsbydivision',['RoomsByDivision',['../class_room_kit_1_1_room_group.html#a7ec858d0d18fbe27f8b2921a0f701c38',1,'RoomKit.RoomGroup.RoomsByDivision()'],['../class_room_kit_1_1_story.html#ad64fa2507ac7971c321ab762d7a74e3f',1,'RoomKit.Story.RoomsByDivision()']]],
-  ['roomsbyname',['RoomsByName',['../class_room_kit_1_1_story.html#a4debcbef76a4ef5f7228f294b3f2e617',1,'RoomKit.Story.RoomsByName()'],['../class_room_kit_1_1_tower.html#af9c3ea9dd71ffd18c7be94c3b2390902',1,'RoomKit.Tower.RoomsByName()']]],
-  ['rotate',['Rotate',['../class_room_kit_1_1_room.html#aa41cb2155f3bc660da201f4c9efdb95b',1,'RoomKit.Room.Rotate()'],['../class_room_kit_1_1_room_group.html#acc36e630c759008233bca7c94c1e0be9',1,'RoomKit.RoomGroup.Rotate()'],['../class_room_kit_1_1_room_row.html#a28b736dbcbf410e646f71c5eec0131f7',1,'RoomKit.RoomRow.Rotate()'],['../class_room_kit_1_1_story.html#a6b2315835abafb3ef01b6291e7c43cdd',1,'RoomKit.Story.Rotate()'],['../class_room_kit_1_1_tower.html#ac3c7724ee6fa719cc6b41569f8fac07a',1,'RoomKit.Tower.Rotate()']]]
+  ['scope',['Scope',['../class_room_kit_1_1_scope.html#a8187fecba341c3f52dc2b40e7f132094',1,'RoomKit::Scope']]],
+  ['setcolor',['SetColor',['../class_room_kit_1_1_room_group.html#afe2536f70519eb699afb09b5d5abf723',1,'RoomKit.RoomGroup.SetColor()'],['../class_room_kit_1_1_room_row.html#a7e7851d831d35a9686cd726d659fff8d',1,'RoomKit.RoomRow.SetColor()']]],
+  ['setdimensions',['SetDimensions',['../class_room_kit_1_1_room.html#ab522255ccd4c9446b2116539cccaccfd',1,'RoomKit::Room']]],
+  ['setheight',['SetHeight',['../class_room_kit_1_1_room_group.html#a2c91d1d150b9f207ae6b67d5f3134b08',1,'RoomKit.RoomGroup.SetHeight()'],['../class_room_kit_1_1_room_row.html#a8865e8eee2218b4641b12b0256edb138',1,'RoomKit.RoomRow.SetHeight()']]],
+  ['setperimeter',['SetPerimeter',['../class_room_kit_1_1_room.html#ad9a7d5a2f5669f5c08c108588507f8a9',1,'RoomKit.Room.SetPerimeter(Vector3 moveTo=null)'],['../class_room_kit_1_1_room.html#a179936bdbfbfa7d6be3f49f8fe8f1a36',1,'RoomKit.Room.SetPerimeter(double area, double ratio=1.5, Vector3 moveTo=null)'],['../class_room_kit_1_1_room.html#abb42b8cee2fd2288bae8d933e9daf78f',1,'RoomKit.Room.SetPerimeter(Line axis, double width)'],['../class_room_kit_1_1_room.html#a0ebef350adc66874704cfedbaf9f0126',1,'RoomKit.Room.SetPerimeter(Vector3 start, Vector3 end, double width)']]],
+  ['setstoryheight',['SetStoryHeight',['../class_room_kit_1_1_tower.html#af12c0707f3af5678b8c69ca56d6c94ea',1,'RoomKit::Tower']]],
+  ['stack',['Stack',['../class_room_kit_1_1_tower.html#a5bd99a98cd34e1de5b7c8b7c5b080efc',1,'RoomKit::Tower']]],
+  ['story',['Story',['../class_room_kit_1_1_story.html#af0afabcb99aa48b828c8959ddc1b9227',1,'RoomKit::Story']]]
 ];

@@ -20,10 +20,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="OfficeAskew.PNG"/></td>
+  <td id="projectlogo"><img alt="Logo" src="blueTowers.PNG"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">RoomKit
-   &#160;<span id="projectnumber">0.4.2</span>
+   &#160;<span id="projectnumber">0.7.7</span>
    </div>
    <div id="projectbrief">A library for creating and managing architectural rooms.</div>
   </td>
@@ -169,6 +169,9 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>Height</b><code> [g
 <tr class="memitem:af4d53dcb3e78360e77166d179eb11399"><td class="memItemLeft" align="right" valign="top">IList&lt; Space &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_story.html#af4d53dcb3e78360e77166d179eb11399">InteriorsAsSpaces</a><code> [get]</code></td></tr>
 <tr class="memdesc:af4d53dcb3e78360e77166d179eb11399"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns all Corridors, Rooms, and Services as Spaces.  <a href="#af4d53dcb3e78360e77166d179eb11399">More...</a><br /></td></tr>
 <tr class="separator:af4d53dcb3e78360e77166d179eb11399"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7487955f82103ea091f9ab23cba8140a"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_story.html#a7487955f82103ea091f9ab23cba8140a">IsBasement</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a7487955f82103ea091f9ab23cba8140a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Identifies whether this story represents a base ment level.  <a href="#a7487955f82103ea091f9ab23cba8140a">More...</a><br /></td></tr>
+<tr class="separator:a7487955f82103ea091f9ab23cba8140a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a848e477d66b97487c74f91df3ae25910"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_story.html#a848e477d66b97487c74f91df3ae25910">Name</a><code> [get, set]</code></td></tr>
 <tr class="memdesc:a848e477d66b97487c74f91df3ae25910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary string identifier.  <a href="#a848e477d66b97487c74f91df3ae25910">More...</a><br /></td></tr>
 <tr class="separator:a848e477d66b97487c74f91df3ae25910"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -205,6 +208,12 @@ Polygon&#160;</td><td class="memItemRight" valign="bottom"><b>Perimeter</b><code
 <tr class="memitem:a58f2cf236d8919d85bb3e0397c8763df"><td class="memItemLeft" align="right" valign="top"><a id="a58f2cf236d8919d85bb3e0397c8763df"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>SlabThickness</b><code> [get, set]</code></td></tr>
 <tr class="separator:a58f2cf236d8919d85bb3e0397c8763df"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a69b437d33c323677f6f41625b81553ce"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_story.html#a69b437d33c323677f6f41625b81553ce">TypeID</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a69b437d33c323677f6f41625b81553ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary integer identifier of this instance..  <a href="#a69b437d33c323677f6f41625b81553ce">More...</a><br /></td></tr>
+<tr class="separator:a69b437d33c323677f6f41625b81553ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a855405bcbb4aab6d7c4e6be766624845"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_story.html#a855405bcbb4aab6d7c4e6be766624845">UniqueID</a><code> [get]</code></td></tr>
+<tr class="memdesc:a855405bcbb4aab6d7c4e6be766624845"><td class="mdescLeft">&#160;</td><td class="mdescRight">UUID for this instance, set on initialization.  <a href="#a855405bcbb4aab6d7c4e6be766624845">More...</a><br /></td></tr>
+<tr class="separator:a855405bcbb4aab6d7c4e6be766624845"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms, and services. </p>
@@ -947,6 +956,30 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>SlabThickness</b><c
 
 </div>
 </div>
+<a id="a7487955f82103ea091f9ab23cba8140a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7487955f82103ea091f9ab23cba8140a">&#9670;&nbsp;</a></span>IsBasement</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool RoomKit.Story.IsBasement</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Identifies whether this story represents a base ment level. </p>
+
+</div>
+</div>
 <a id="a848e477d66b97487c74f91df3ae25910"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a848e477d66b97487c74f91df3ae25910">&#9670;&nbsp;</a></span>Name</h2>
 
@@ -1184,6 +1217,54 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>SlabThickness</b><c
 </div><div class="memdoc">
 
 <p>Concrete Floor created from <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> and Slab characteristics. </p>
+
+</div>
+</div>
+<a id="a69b437d33c323677f6f41625b81553ce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69b437d33c323677f6f41625b81553ce">&#9670;&nbsp;</a></span>TypeID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RoomKit.Story.TypeID</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arbitrary integer identifier of this instance.. </p>
+
+</div>
+</div>
+<a id="a855405bcbb4aab6d7c4e6be766624845"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a855405bcbb4aab6d7c4e6be766624845">&#9670;&nbsp;</a></span>UniqueID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string RoomKit.Story.UniqueID</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>UUID for this instance, set on initialization. </p>
 
 </div>
 </div>

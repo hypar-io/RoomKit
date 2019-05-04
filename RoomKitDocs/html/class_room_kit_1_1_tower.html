@@ -20,10 +20,10 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="OfficeAskew.PNG"/></td>
+  <td id="projectlogo"><img alt="Logo" src="blueTowers.PNG"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">RoomKit
-   &#160;<span id="projectnumber">0.4.2</span>
+   &#160;<span id="projectnumber">0.7.7</span>
    </div>
    <div id="projectbrief">A library for creating and managing architectural rooms.</div>
   </td>
@@ -80,9 +80,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a894ce0768f3268dfe36a3ca1c8ccb0a0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a894ce0768f3268dfe36a3ca1c8ccb0a0">AddServiceCore</a> (Polygon perimeter, int baseStory=0, double addHeight=0.0, Color color=null)</td></tr>
-<tr class="memdesc:a894ce0768f3268dfe36a3ca1c8ccb0a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new service Core to the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>.  <a href="#a894ce0768f3268dfe36a3ca1c8ccb0a0">More...</a><br /></td></tr>
-<tr class="separator:a894ce0768f3268dfe36a3ca1c8ccb0a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7aa47fce7a579522c8003d195c308693"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a7aa47fce7a579522c8003d195c308693">AddCore</a> (Polygon perimeter, int baseStory=0, double addHeight=0.0, Color color=null)</td></tr>
+<tr class="memdesc:a7aa47fce7a579522c8003d195c308693"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds a new service Core to the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>.  <a href="#a7aa47fce7a579522c8003d195c308693">More...</a><br /></td></tr>
+<tr class="separator:a7aa47fce7a579522c8003d195c308693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7328e412527207dbd2d57cddc076057f"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a7328e412527207dbd2d57cddc076057f">AreaByName</a> (string name)</td></tr>
 <tr class="memdesc:a7328e412527207dbd2d57cddc076057f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the aggregate area of all Rooms with a supplied name.  <a href="#a7328e412527207dbd2d57cddc076057f">More...</a><br /></td></tr>
 <tr class="separator:a7328e412527207dbd2d57cddc076057f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -95,12 +95,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3c7724ee6fa719cc6b41569f8fac07a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#ac3c7724ee6fa719cc6b41569f8fac07a">Rotate</a> (Vector3 pivot, double angle)</td></tr>
 <tr class="memdesc:ac3c7724ee6fa719cc6b41569f8fac07a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Rotates the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> Perimeter and Stories in the horizontal plane around the supplied pivot point.  <a href="#ac3c7724ee6fa719cc6b41569f8fac07a">More...</a><br /></td></tr>
 <tr class="separator:ac3c7724ee6fa719cc6b41569f8fac07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1267e78524446c3380cc8a4f2a786e56"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a1267e78524446c3380cc8a4f2a786e56">Stack</a> (int floors=0, double storyHeight=0.0)</td></tr>
-<tr class="memdesc:a1267e78524446c3380cc8a4f2a786e56"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> by stacking a series of <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> instances from the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> Elevation.  <a href="#a1267e78524446c3380cc8a4f2a786e56">More...</a><br /></td></tr>
-<tr class="separator:a1267e78524446c3380cc8a4f2a786e56"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a017b087e66ef0298c4da108065f28342"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a017b087e66ef0298c4da108065f28342">SetStoryHeight</a> (int story, double height, bool interiors=true)</td></tr>
-<tr class="memdesc:a017b087e66ef0298c4da108065f28342"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the height of an index-specified <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> and relocates Stories above to accommodate the <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a>'s new height.  <a href="#a017b087e66ef0298c4da108065f28342">More...</a><br /></td></tr>
-<tr class="separator:a017b087e66ef0298c4da108065f28342"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5bd99a98cd34e1de5b7c8b7c5b080efc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a5bd99a98cd34e1de5b7c8b7c5b080efc">Stack</a> ()</td></tr>
+<tr class="memdesc:a5bd99a98cd34e1de5b7c8b7c5b080efc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> by stacking a series of <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> instances from the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> Elevation.  <a href="#a5bd99a98cd34e1de5b7c8b7c5b080efc">More...</a><br /></td></tr>
+<tr class="separator:a5bd99a98cd34e1de5b7c8b7c5b080efc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af12c0707f3af5678b8c69ca56d6c94ea"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#af12c0707f3af5678b8c69ca56d6c94ea">SetStoryHeight</a> (int story, double height, bool interiors=true, bool upward=true)</td></tr>
+<tr class="memdesc:af12c0707f3af5678b8c69ca56d6c94ea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the height of an index-specified <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> and relocates Stories above to accommodate the <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a>'s new height.  <a href="#af12c0707f3af5678b8c69ca56d6c94ea">More...</a><br /></td></tr>
+<tr class="separator:af12c0707f3af5678b8c69ca56d6c94ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -135,8 +135,14 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>Elevation</b><code>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>Floors</b><code> [get, set]</code></td></tr>
 <tr class="separator:a47ce706aa7cdc97c2bbd20d5a6cd9848"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a41ac8a05fbbf6ea5c68b8020f9db13e9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a41ac8a05fbbf6ea5c68b8020f9db13e9">Height</a><code> [get]</code></td></tr>
-<tr class="memdesc:a41ac8a05fbbf6ea5c68b8020f9db13e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Total height of all Stories in the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>.  <a href="#a41ac8a05fbbf6ea5c68b8020f9db13e9">More...</a><br /></td></tr>
+<tr class="memdesc:a41ac8a05fbbf6ea5c68b8020f9db13e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Highest point of the highest tower story above the zero plane.  <a href="#a41ac8a05fbbf6ea5c68b8020f9db13e9">More...</a><br /></td></tr>
 <tr class="separator:a41ac8a05fbbf6ea5c68b8020f9db13e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc056db0a8566356b7ff3e5c88d18bb4"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#afc056db0a8566356b7ff3e5c88d18bb4">HeightLimit</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:afc056db0a8566356b7ff3e5c88d18bb4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Desired typical <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> height in the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>.  <a href="#afc056db0a8566356b7ff3e5c88d18bb4">More...</a><br /></td></tr>
+<tr class="separator:afc056db0a8566356b7ff3e5c88d18bb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18b6d7866e1736a40c252d35d8e50162"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a18b6d7866e1736a40c252d35d8e50162">Name</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:a18b6d7866e1736a40c252d35d8e50162"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary string identifier for this <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> instance.  <a href="#a18b6d7866e1736a40c252d35d8e50162">More...</a><br /></td></tr>
+<tr class="separator:a18b6d7866e1736a40c252d35d8e50162"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab6b12a83b8822830e821c05ef25727e0"><td class="memItemLeft" align="right" valign="top"><a id="ab6b12a83b8822830e821c05ef25727e0"></a>
 Polygon&#160;</td><td class="memItemRight" valign="bottom"><b>Perimeter</b><code> [get, set]</code></td></tr>
 <tr class="separator:ab6b12a83b8822830e821c05ef25727e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,16 +155,25 @@ Polygon&#160;</td><td class="memItemRight" valign="bottom"><b>Perimeter</b><code
 <tr class="memitem:a6913f002016260e6b45466747ab43804"><td class="memItemLeft" align="right" valign="top"><a id="a6913f002016260e6b45466747ab43804"></a>
 double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><code> [get, set]</code></td></tr>
 <tr class="separator:a6913f002016260e6b45466747ab43804"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0472551960579f13b00bbeb000f5083b"><td class="memItemLeft" align="right" valign="top"><a id="a0472551960579f13b00bbeb000f5083b"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>TargetArea</b><code> [get, set]</code></td></tr>
+<tr class="separator:a0472551960579f13b00bbeb000f5083b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af3a48a749d6a4832de59b624dc8ba898"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#af3a48a749d6a4832de59b624dc8ba898">TypeID</a><code> [get, set]</code></td></tr>
+<tr class="memdesc:af3a48a749d6a4832de59b624dc8ba898"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arbitrary integer identifier of this instance..  <a href="#af3a48a749d6a4832de59b624dc8ba898">More...</a><br /></td></tr>
+<tr class="separator:af3a48a749d6a4832de59b624dc8ba898"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72df0a324e46491351c3bc0645009bfb"><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_room_kit_1_1_tower.html#a72df0a324e46491351c3bc0645009bfb">UniqueID</a><code> [get]</code></td></tr>
+<tr class="memdesc:a72df0a324e46491351c3bc0645009bfb"><td class="mdescLeft">&#160;</td><td class="mdescRight">UUID for this instance, set on initialization.  <a href="#a72df0a324e46491351c3bc0645009bfb">More...</a><br /></td></tr>
+<tr class="separator:a72df0a324e46491351c3bc0645009bfb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a894ce0768f3268dfe36a3ca1c8ccb0a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a894ce0768f3268dfe36a3ca1c8ccb0a0">&#9670;&nbsp;</a></span>AddServiceCore()</h2>
+<a id="a7aa47fce7a579522c8003d195c308693"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7aa47fce7a579522c8003d195c308693">&#9670;&nbsp;</a></span>AddCore()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool RoomKit.Tower.AddServiceCore </td>
+          <td class="memname">bool RoomKit.Tower.AddCore </td>
           <td>(</td>
           <td class="paramtype">Polygon&#160;</td>
           <td class="paramname"><em>perimeter</em>, </td>
@@ -335,8 +350,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
 
 </div>
 </div>
-<a id="a017b087e66ef0298c4da108065f28342"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a017b087e66ef0298c4da108065f28342">&#9670;&nbsp;</a></span>SetStoryHeight()</h2>
+<a id="af12c0707f3af5678b8c69ca56d6c94ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af12c0707f3af5678b8c69ca56d6c94ea">&#9670;&nbsp;</a></span>SetStoryHeight()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -357,7 +372,13 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">bool&#160;</td>
-          <td class="paramname"><em>interiors</em> = <code>true</code>&#160;</td>
+          <td class="paramname"><em>interiors</em> = <code>true</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool&#160;</td>
+          <td class="paramname"><em>upward</em> = <code>true</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -380,8 +401,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
 
 </div>
 </div>
-<a id="a1267e78524446c3380cc8a4f2a786e56"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1267e78524446c3380cc8a4f2a786e56">&#9670;&nbsp;</a></span>Stack()</h2>
+<a id="a5bd99a98cd34e1de5b7c8b7c5b080efc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bd99a98cd34e1de5b7c8b7c5b080efc">&#9670;&nbsp;</a></span>Stack()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -389,19 +410,8 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
         <tr>
           <td class="memname">bool RoomKit.Tower.Stack </td>
           <td>(</td>
-          <td class="paramtype">int&#160;</td>
-          <td class="paramname"><em>floors</em> = <code>0</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">double&#160;</td>
-          <td class="paramname"><em>storyHeight</em> = <code>0.0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -411,6 +421,7 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
   <table class="params">
     <tr><td class="paramname">floors</td><td>Desired quantity of stacked Stories to form the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>. If greater than zero, overrides and resets the current Floors property.</td></tr>
     <tr><td class="paramname">storyHeight</td><td>Desired typical <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> height of the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>. If greater than zero, overrides and resets the current StoryHeight property.</td></tr>
+    <tr><td class="paramname">basement</td><td>Whether to consider the lowest floor a basement.</td></tr>
   </table>
   </dd>
 </dl>
@@ -576,7 +587,55 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
 </table>
 </div><div class="memdoc">
 
-<p>Total height of all Stories in the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>. </p>
+<p>Highest point of the highest tower story above the zero plane. </p>
+
+</div>
+</div>
+<a id="afc056db0a8566356b7ff3e5c88d18bb4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc056db0a8566356b7ff3e5c88d18bb4">&#9670;&nbsp;</a></span>HeightLimit</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">double RoomKit.Tower.HeightLimit</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Desired typical <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> height in the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>. </p>
+
+</div>
+</div>
+<a id="a18b6d7866e1736a40c252d35d8e50162"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18b6d7866e1736a40c252d35d8e50162">&#9670;&nbsp;</a></span>Name</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string RoomKit.Tower.Name</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arbitrary string identifier for this <a class="el" href="class_room_kit_1_1_tower.html">Tower</a> instance. </p>
 
 </div>
 </div>
@@ -625,6 +684,54 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>StoryHeight</b><cod
 </div><div class="memdoc">
 
 <p>List of all Spaces from every <a class="el" href="class_room_kit_1_1_story.html" title="Creates and manages the geometry of a slab and Rooms representing corridors, occupied rooms...">Story</a> in the <a class="el" href="class_room_kit_1_1_tower.html">Tower</a>. </p>
+
+</div>
+</div>
+<a id="af3a48a749d6a4832de59b624dc8ba898"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af3a48a749d6a4832de59b624dc8ba898">&#9670;&nbsp;</a></span>TypeID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int RoomKit.Tower.TypeID</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span><span class="mlabel">set</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Arbitrary integer identifier of this instance.. </p>
+
+</div>
+</div>
+<a id="a72df0a324e46491351c3bc0645009bfb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72df0a324e46491351c3bc0645009bfb">&#9670;&nbsp;</a></span>UniqueID</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">string RoomKit.Tower.UniqueID</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">get</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>UUID for this instance, set on initialization. </p>
 
 </div>
 </div>
