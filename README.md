@@ -2,7 +2,7 @@
 
 ### This toolkit is also available as a nuget package: https://www.nuget.org/packages/RoomKit
 
-# RoomKit NReference
+# RoomKit Reference
 
 ### Classes
 
