@@ -137,7 +137,7 @@ namespace RoomKit
                 }
                 var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
                 space.AddProperty("Height", new NumericProperty(Height, UnitType.Text));
-                space.AddProperty("Volume", new NumericProperty(Perimeter.Area * Height, UnitType.Volume));
+                space.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
                 return space;
             }
         }
@@ -443,7 +443,7 @@ namespace RoomKit
             }
             if (TargetArea > 0.0)
             {
-                Floors = (int)Math.Ceiling(TargetArea / Perimeter.Area);
+                Floors = (int)Math.Ceiling(TargetArea / Perimeter.Area());
             }
             Stories.Clear();
             var elevation = Elevation;

@@ -162,7 +162,7 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             var envelope = story.EnvelopeAsPolygon;
-            Assert.Equal(2400.0, envelope.Area);
+            Assert.Equal(2400.0, envelope.Area());
         }
 
         [Fact]

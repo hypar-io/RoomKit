@@ -100,6 +100,86 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void AddRoomByWidth()
+        {
+            var rooms = new List<Room>();
+            for (int i = 0; i < 3; i++)
+            {
+                var room = new Room()
+                {
+                    Color = Palette.Green,
+                    DesignXYZ = new Vector3(5.0, 4.0, 3.0),
+                    Height = 3.0,
+                };
+                rooms.Add(room);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                var room = new Room()
+                {
+                    Color = Palette.Lime,
+                    DesignArea = 12.0,
+                    Height = 3.0,
+                };
+                rooms.Add(room);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                var room = new Room()
+                {
+                    Color = Palette.Mint,
+                    DesignXYZ = new Vector3(4.0, 3.0, 3.0)
+                };
+                rooms.Add(room);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                var room = new Room()
+                {
+                    Color = Palette.Purple,
+                    DesignArea = 16.0,
+                    Height = 5.0,
+                };
+                rooms.Add(room);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                var room = new Room()
+                {
+                    Color = Palette.Magenta,
+                    DesignXYZ = new Vector3(6.0, 4.0, 5.0)
+                };
+                rooms.Add(room);
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                var room = new Room()
+                {
+                    Color = Palette.Lavender,
+                    DesignXYZ = new Vector3(5.0, 4.5, 5.0)
+                };
+                rooms.Add(room);
+            }
+            var line = new Line(new Vector3(30.0, 30.0), new Vector3(200.0, 40.0));
+            var roomRow = new RoomRow(line)
+            {
+                CirculationWidth = 2.0
+            };
+            foreach (Room room in rooms)
+            {
+                roomRow.AddRoom(room, null, null, 3.0);
+            }
+            Assert.Equal(18, roomRow.Rooms.Count);
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(room.AsSpace);
+            }
+            model.AddElement(new Floor(roomRow.Circulation, new FloorType("slab", 0.05)));
+            model.ToGlTF("../../../../RoomRowByWidth.glb");
+        }
+
+        [Fact]
         public void AreaPlaced()
         {
             var roomRow = new RoomRow(Vector3.Origin, new Vector3(10.0, 0.0));
@@ -187,7 +267,7 @@ namespace RoomKitTest
                 Assert.True(roomRow.AddRoom(new Room() { DesignArea = 9.0 }));
             }
             Assert.Equal(3.0, roomRow.RoomsAsPolygons.Count);
-            Assert.Equal(9.0, roomRow.RoomsAsPolygons.First().Area, 10);
+            Assert.Equal(9.0, roomRow.RoomsAsPolygons.First().Area(), 10);
         }
 
         [Fact]

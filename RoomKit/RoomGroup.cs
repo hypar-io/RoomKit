@@ -28,6 +28,7 @@ namespace RoomKit
             TypeID = -1;
             UniqueID = Guid.NewGuid().ToString();
         } 
+
         #endregion
 
         #region Properties
@@ -42,12 +43,12 @@ namespace RoomKit
                 {
                     return 0.0;
                 }
-                var area = Perimeter.Area;
+                var area = Perimeter.Area();
                 foreach (Room room in Rooms)
                 {
                     if (room.Perimeter != null)
                     {
-                        area -= room.Perimeter.Area;
+                        area -= room.Perimeter.Area();
                     }
                 }
                 if (area < 0.0)
@@ -68,7 +69,7 @@ namespace RoomKit
                 var area = 0.0;
                 foreach (Room room in Rooms)
                 {
-                    area += room.Perimeter.Area;
+                    area += room.Perimeter.Area();
                 }
                 return area;
             }
@@ -191,9 +192,11 @@ namespace RoomKit
         /// UUID for this RoomGroup instance, set on initialization.
         /// </summary>
         public string UniqueID { get; }
+
         #endregion
 
         #region Methods
+
         /// <summary>
         /// Moves all Rooms in the RoomGroup and the RoomGroup Perimeter along a 3D vector calculated between the supplied Vector3 points.
         /// </summary>

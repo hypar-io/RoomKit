@@ -61,7 +61,7 @@ namespace RoomKitTest
             {
                 model.AddElement(space);
             }
-            model.ToGlTF("../../../../Tower.glb");
+            //model.ToGlTF("../../../../Tower.glb");
             return tower;
         }
 
@@ -133,7 +133,7 @@ namespace RoomKitTest
         {
             var tower = MakeTower();
             var envelope = tower.EnvelopeAsPolygon;
-            Assert.Equal(1200.0, envelope.Area);
+            Assert.Equal(1200.0, envelope.Area());
         }
 
         [Fact]

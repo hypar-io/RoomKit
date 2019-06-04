@@ -141,7 +141,7 @@ namespace RoomKit
                 {
                     if (room.Perimeter != null)
                     {
-                        area += room.Perimeter.Area;
+                        area += room.Perimeter.Area();
                     }
                 }
                 return area;
@@ -160,7 +160,7 @@ namespace RoomKit
                 {
                     if (room.Perimeter != null)
                     {
-                        area += room.Perimeter.Area;
+                        area += room.Perimeter.Area();
                     }
                 }
                 return area;
@@ -177,7 +177,7 @@ namespace RoomKit
                 double area = 0.0;
                 foreach (Polygon polygon in ServiceAsPolygons)
                 {
-                    area += polygon.Area;
+                    area += polygon.Area();
                 }
                 return area;
             }
@@ -193,7 +193,7 @@ namespace RoomKit
                 double area = 0.0;
                 foreach (Polygon polygon in TenantAsPolygons)
                 {
-                    area += polygon.Area;
+                    area += polygon.Area();
                 }
                 return area;
             }

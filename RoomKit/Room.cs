@@ -15,22 +15,46 @@ namespace RoomKit
     {
         #region Constructors
         /// <summary>
-        /// Constructor setting all internal variables to default values to create a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1.
+        /// Constructor by default sets all internal variables to values to creating a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1.
         /// </summary>
-        public Room()
+        //public Room()
+        //{
+        //    AdjacentTo = null;
+        //    Color = Palette.White;
+        //    DesignArea = 1.0;
+        //    DesignRatio = 1.0;
+        //    DesignXYZ = new Vector3(0.0, 0.0, 1.0);
+        //    Elevation = 0.0;
+        //    Name = "";
+        //    Perimeter = null;
+        //    Placed = false;
+        //    TypeID = 0;
+        //    UniqueID = Guid.NewGuid().ToString();
+        //}
+
+        public Room(int[] adjacentTo = null,
+                    double designArea = 1.0,
+                    double designRatio = 1.0,
+                    Vector3 designXYZ = null,
+                    double elevation = 0.0,
+                    string name = "",
+                    Polygon perimeter = null,
+                    int typeID = -1)
         {
-            AdjacentTo = null;
             Color = Palette.White;
-            DesignArea = 1.0;
-            DesignRatio = 1.0;
-            DesignXYZ = new Vector3(0.0, 0.0, 1.0);
-            Elevation = 0.0;
-            Name = "";
-            Perimeter = null;
             Placed = false;
-            TypeID = 0;
             UniqueID = Guid.NewGuid().ToString();
+
+            AdjacentTo = adjacentTo;
+            DesignArea = designArea;
+            DesignRatio = designRatio;
+            DesignXYZ = designXYZ ?? new Vector3(0.0, 0.0, 1.0);
+            Elevation = elevation;
+            Name = name;
+            Perimeter = perimeter;
+            TypeID = typeID;
         }
+
         #endregion
 
         #region Properties
@@ -47,11 +71,7 @@ namespace RoomKit
         {
             get
             {
-                if (Perimeter != null)
-                {
-                    return Perimeter.Area;
-                }
-                return -1.0;
+                return Perimeter == null ? -1.0 : Perimeter.Area();
             }
         }
 
@@ -63,14 +83,7 @@ namespace RoomKit
         {
             get
             {
-                if (Perimeter != null && DesignArea > 0.0)
-                {
-                    return Perimeter.Area / DesignArea;
-                }
-                else
-                {
-                    return -1.0;
-                }
+                return (Perimeter != null && DesignArea > 0.0) ? Perimeter.Area() / DesignArea : -1.0;
             }
         }
 
@@ -100,7 +113,7 @@ namespace RoomKit
                 space.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));
                 space.AddProperty("Design Length", new NumericProperty(DesignLength, UnitType.Distance));
                 space.AddProperty("Design Width", new NumericProperty(DesignWidth, UnitType.Distance));
-                space.AddProperty("Area", new NumericProperty(Perimeter.Area, UnitType.Area));
+                space.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
                 space.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
                 space.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
                 return space;
@@ -115,13 +128,7 @@ namespace RoomKit
         public Color Color
         {
             get { return color; }
-            set
-            {
-                if (value != null)
-                {
-                    color = value;
-                }
-            }
+            set { color = value ?? color; }
         }
 
         /// <summary>
@@ -134,13 +141,7 @@ namespace RoomKit
         public double DesignArea
         {
             get { return designArea; }
-            set
-            {
-                if (value > 0.0)
-                {
-                    designArea = value;
-                }
-            }
+            set { designArea = value > 0.0 ? value : designArea; }
         }
 
         /// <summary>
@@ -148,21 +149,8 @@ namespace RoomKit
         /// </summary>
         public double DesignLength
         {
-            get
-            {
-                if (DesignXYZ == null)
-                {
-                    return 0.0;
-                }
-                return DesignXYZ.X;
-            }
-            set
-            {
-                if (value > 0.0)
-                {
-                    DesignXYZ = new Vector3(value, DesignWidth, Height);
-                }
-            }
+            get { return DesignXYZ == null ? 0.0 : DesignXYZ.X; }
+            set { DesignXYZ = value > 0.0 ? DesignXYZ = new Vector3(value, DesignWidth, Height) : DesignXYZ; }
         }
            
         /// <summary>
@@ -170,21 +158,8 @@ namespace RoomKit
         /// </summary>
         public double DesignWidth
         {
-            get
-            {
-                if (DesignXYZ == null)
-                {
-                    return 0.0;
-                }
-                return DesignXYZ.Y;
-            }
-            set
-            {
-                if (value > 0.0)
-                {
-                    DesignXYZ = new Vector3(DesignLength, value, Height);
-                }
-            }
+            get { return DesignXYZ == null ? 0.0 : DesignXYZ.Y; }
+            set { DesignXYZ = value > 0.0 ? DesignXYZ = new Vector3(DesignLength, value, Height) : DesignXYZ; }
         }
 
         /// <summary>
@@ -197,13 +172,7 @@ namespace RoomKit
         public double DesignRatio
         {
             get { return designRatio; }
-            set
-            {
-                if (value > 0.0)
-                {
-                    designRatio = value;
-                }
-            }
+            set { designRatio = value > 0.0 ? value : designRatio; }
         }
 
 
@@ -212,14 +181,7 @@ namespace RoomKit
         /// </summary>
         public bool DesignSet
         {
-            get
-            {
-                if (DesignLength <= 0.0 || DesignWidth <= 0.0)
-                {
-                    return false;
-                }
-                return true;
-            }
+            get { return (DesignLength <= 0.0 || DesignWidth <= 0.0) ? false : true; }
         }
 
         /// <summary>
@@ -253,21 +215,8 @@ namespace RoomKit
         /// </summary>
         public double Height
         {
-            get
-            {
-                if (DesignXYZ == null)
-                {
-                    return 1.0;
-                }
-                return DesignXYZ.Z;
-            }
-            set
-            {
-                if (value > 0.0)
-                {
-                    DesignXYZ = new Vector3(DesignLength, DesignWidth, value);
-                }
-            }
+            get { return DesignXYZ == null ? 3.0 : DesignXYZ.Z; }
+            set { DesignXYZ = value > 0.0 ? new Vector3(DesignLength, DesignWidth, value) : DesignXYZ; }
         }
 
         /// <summary>
@@ -282,13 +231,7 @@ namespace RoomKit
         public Polygon Perimeter
         {
             get { return perimeter; }
-            set
-            {
-                if (value != null)
-                {
-                    perimeter = value;
-                }
-            }
+            set { perimeter = value ?? perimeter; }
         }
 
         /// <summary>
@@ -301,14 +244,7 @@ namespace RoomKit
         /// </summary>
         public double SizeX
         {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return 0.0;
-                }
-                return new TopoBox(perimeter).SizeX;
-            }
+            get { return Perimeter == null ? 0.0 : new TopoBox(perimeter).SizeX;  }
         }
 
         /// <summary>
@@ -316,14 +252,7 @@ namespace RoomKit
         /// </summary>
         public double SizeY
         {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return 0.0;
-                }
-                return new TopoBox(perimeter).SizeY;
-            }
+            get { return Perimeter == null ? 0.0 : new TopoBox(perimeter).SizeY; }
         }
 
         /// <summary>
@@ -403,9 +332,22 @@ namespace RoomKit
         /// <returns>
         /// True if the Perimeter is successfully set.
         /// </returns>
-        public bool SetPerimeter(Vector3 moveTo = null)
+        public bool SetPerimeter(Vector3 moveTo = null, double width = 0.0)
         {
-            if (DesignSet)
+            if (width > 0.0)
+            {
+                if (DesignSet)
+                {
+                    Perimeter = Shaper.PolygonBox(DesignLength * DesignWidth / width, width, moveTo);
+                    return true;
+                }
+                else if (DesignArea > 0.0)
+                {
+                    Perimeter = Shaper.PolygonBox(DesignArea / width, width, moveTo);
+                    return true;
+                }
+            }
+            else if (DesignSet)
             {
                 Perimeter = Shaper.PolygonBox(DesignLength, DesignWidth, moveTo);
                 return true;
@@ -427,7 +369,7 @@ namespace RoomKit
         /// <returns>
         /// True if the Perimeter is successfully set.
         /// </returns>
-        public bool SetPerimeter(double area, double ratio = 1.5, Vector3 moveTo = null)
+        public bool SetPerimeter(double area, double ratio = 1.0, Vector3 moveTo = null)
         {
             if (area <= 0.0 || ratio <= 0.0)
             {
@@ -474,7 +416,8 @@ namespace RoomKit
             }
             Perimeter = new Line(start, end).Thicken(width);
             return true;
-        } 
+        }
+
         #endregion
     }
 }

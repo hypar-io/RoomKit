@@ -14,30 +14,36 @@ namespace RoomKit
     {
         #region Constructors
         /// <summary>
-        /// Creates a Story at a 1.0 Height on the zero plane with new lists for Corridors, Rooms, and Services.
-        /// Perimeter is set to null, Name is blank, and SlabThickness is s0.1.
+        /// By default creates a Story at a 3.0 Height on the zero plane with new lists for Corridors, Rooms, and Services.
+        /// Perimeter is set to null, Name is "", and SlabThickness is 0.1.
         /// </summary>
         /// <returns>
         /// A new Story.
         /// </returns>
 
-        public Story()
+        public Story(double elevation = 0.0, 
+                     double height = 3.0,
+                     bool isBasement = false,
+                     string name = "",
+                     Polygon perimeter = null,
+                     double slabThickness = 0.1,
+                     int typeID = -1)
         {
             Corridors = new List<Room>();
             Exclusions = new List<Room>();
             Rooms = new List<Room>();
             Services = new List<Room>();
-            Color = Palette.White;
-            Elevation = 0.0;
-            Height = 1.0;
-            IsBasement = false;
-            Name = "";
-            Perimeter = null;
-            SlabThickness = 0.1;
-            TypeID = -1;
             UniqueID = Guid.NewGuid().ToString();
 
-        } 
+            Color = Palette.White;
+            Elevation = elevation;
+            Height = height;
+            IsBasement = isBasement;
+            Name = name;
+            Perimeter = perimeter;
+            SlabThickness = slabThickness;
+            TypeID = typeID;
+        }
         #endregion
 
         #region Properties
@@ -46,14 +52,7 @@ namespace RoomKit
         /// </summary>
         public double Area
         {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return 0.0;
-                }
-                return Perimeter.Area;
-            }
+            get {  return (Perimeter == null) ? 0.0 : Perimeter.Area(); }
         }
 
         /// <summary>
@@ -67,7 +66,7 @@ namespace RoomKit
                 {
                     return 0.0;
                 }
-                var area = Perimeter.Area;
+                var area = Perimeter.Area();
                 var rooms = new List<Room>(Corridors);
                 rooms.AddRange(Exclusions);
                 rooms.AddRange(Rooms);
@@ -76,7 +75,7 @@ namespace RoomKit
                 {
                     if (room.Perimeter != null)
                     {
-                        area -= room.Perimeter.Area;
+                        area -= room.Perimeter.Area();
                     }
                 }
                 if (area < 0.0)
@@ -100,7 +99,7 @@ namespace RoomKit
                 placed.AddRange(Services);
                 foreach (Room room in placed)
                 {
-                    area += room.Perimeter.Area;
+                    area += room.Perimeter.Area();
                 }
                 return area;
             }
@@ -113,17 +112,7 @@ namespace RoomKit
         public Color Color
         {
             get { return color; }
-            set
-            {
-                if (value == null)
-                {
-                    color = Palette.White;
-                }
-                else
-                {
-                    color = value;
-                }
-            }
+            set { color = value ?? color; }
         }
 
         /// <summary>
@@ -187,10 +176,7 @@ namespace RoomKit
         private double elevation;
         public double Elevation
         {
-            get
-            {
-                return elevation;
-            }
+            get { return elevation; }
             set
             {
                 elevation = value;
@@ -216,17 +202,8 @@ namespace RoomKit
         {
             get
             {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                return
-                    new Room()
-                    {
-                        Color = Color,
-                        Height = Height,
-                        Perimeter = Perimeter
-                    };
+                return (Perimeter == null) ? null : 
+                    new Room() { Color = Color, Height = Height, Perimeter = Perimeter };
             }
         }
 
@@ -251,7 +228,7 @@ namespace RoomKit
                 }
                 var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
                 space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                space.AddProperty("Area", new NumericProperty(Perimeter.Area, UnitType.Area));
+                space.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
                 return space;
             }
         }
@@ -286,13 +263,7 @@ namespace RoomKit
         public double Height
         {
             get { return height; }
-            set
-            {
-                if (value > 0.0)
-                {
-                    height = value;
-                }
-            }
+            set { height = value > 0.0 ? value : height; }
         }
 
         /// <summary>
@@ -395,13 +366,7 @@ namespace RoomKit
         public Polygon Perimeter
         {
             get { return perimeter; }
-            set
-            {
-                if (value != null)
-                {
-                    perimeter = value;
-                }
-            }
+            set { perimeter = value ?? perimeter; }
         }
 
         /// <summary>
@@ -521,7 +486,7 @@ namespace RoomKit
         {
             get
             {
-                return new Floor(Perimeter, new FloorType("slab", SlabThickness), Elevation, BuiltInMaterials.Concrete);
+                return new Floor(Perimeter, new FloorType("slab", SlabThickness), Elevation);
             }
         }
 

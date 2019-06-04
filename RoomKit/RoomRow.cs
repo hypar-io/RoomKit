@@ -66,7 +66,7 @@ namespace RoomKit
                 var area = 0.0;
                 foreach (Room room in Rooms)
                 {
-                    area += room.Perimeter.Area;
+                    area += room.Perimeter.Area();
                 }
                 return area;
             }
@@ -118,13 +118,7 @@ namespace RoomKit
             {
                 return circulationWidth;
             }
-            set
-            {
-                if (value >= 0.0)
-                {
-                    circulationWidth = value;
-                }
-            }
+            set { circulationWidth = value >= 0.0 ? value : circulationWidth; }
         }
 
         /// <summary>
@@ -204,14 +198,7 @@ namespace RoomKit
         /// </summary>
         public double SizeX
         {
-            get
-            {
-                if (Circulation == null)
-                {
-                    return 0.0;
-                }
-                return new TopoBox(Circulation).SizeX;
-            }
+            get { return Circulation == null ? 0.0 : new TopoBox(Circulation).SizeX; }
         }
 
         /// <summary>
@@ -219,14 +206,7 @@ namespace RoomKit
         /// </summary>
         public double SizeY
         {
-            get
-            {
-                if (Circulation == null)
-                {
-                    return 0.0;
-                }
-                return new TopoBox(Circulation).SizeY;
-            }
+            get { return Circulation == null ? 0.0 : new TopoBox(Circulation).SizeY; }
         }
 
         /// <summary>
@@ -242,6 +222,7 @@ namespace RoomKit
         #endregion
 
         #region Methods
+
         /// <summary>
         /// Attempts to place a Room perimeter on the next open segment of the Row, with optional restrictions of a perimeter within which the Room's perimeter must fit and a list of Polygons with which it cannot intersect.
         /// </summary>
@@ -251,7 +232,10 @@ namespace RoomKit
         /// <returns>
         /// True if the room was successfully placed.
         /// </returns>
-        public bool AddRoom(Room room, Polygon within = null, IList<Polygon> among = null)
+        public bool AddRoom(Room room, 
+                            Polygon within = null, 
+                            IList<Polygon> among = null, 
+                            double width = 0.0)
         {
             if (room == null)
             {
@@ -259,7 +243,7 @@ namespace RoomKit
             }
             if (room.Perimeter == null)
             {
-                room.SetPerimeter();
+                room.SetPerimeter(Vector3.Origin, width);
             }
             var polygon = room.Perimeter;
             var box = new TopoBox(polygon);
@@ -354,10 +338,7 @@ namespace RoomKit
             {
                 room.Rotate(pivot, angle);
             }
-            if (Row != null)
-            {
-                Row = Row.Rotate(pivot, angle);
-            }
+            Row = Row == null ? Row : Row.Rotate(pivot, angle);
         }
 
         /// <summary>
