@@ -3,16 +3,16 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon>roomrowcirc_buF_icon.ico</ApplicationIcon>
-    <Version>0.8.1</Version>
+    <Version>1.0.0</Version>
     <Authors>Anthony A. Hauck</Authors>
     <Company>Hypar Inc.</Company>
     <Product></Product>
     <Copyright>Hypar Inc.</Copyright>
     <Description>RoomKit provides functions for creating and placing architectural rooms, corridors, services, stories, and towers.</Description>
     <PackageLicenseUrl>https://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <AssemblyVersion>0.0.8.1</AssemblyVersion>
-    <FileVersion>0.0.8.1</FileVersion>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+    <PackageReleaseNotes>- Refactored Room Height API to be consistent with Story</PackageReleaseNotes>
     <PackageTags>AEC Hypar Generative Design Buildings Architecture</PackageTags>
     <PackageProjectUrl>https://github.com/hypar-io/RoomKit</PackageProjectUrl>
     <RepositoryUrl>https://github.com/hypar-io/RoomKit</RepositoryUrl>

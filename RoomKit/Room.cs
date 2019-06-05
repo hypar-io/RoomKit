@@ -20,8 +20,8 @@ namespace RoomKit
         public Room(int[] adjacentTo = null,
                     double designArea = 1.0,
                     double designRatio = 1.0,
-                    Vector3 designXYZ = null,
                     double elevation = 0.0,
+                    double height = 3.0,
                     string name = "",
                     Polygon perimeter = null,
                     int typeID = -1)
@@ -33,8 +33,8 @@ namespace RoomKit
             AdjacentTo = adjacentTo;
             DesignArea = designArea;
             DesignRatio = designRatio;
-            DesignXYZ = designXYZ ?? new Vector3(0.0, 0.0, 1.0);
             Elevation = elevation;
+            Height = height;
             Name = name;
             Perimeter = perimeter;
             TypeID = typeID;
@@ -132,19 +132,21 @@ namespace RoomKit
         /// <summary>
         /// Desired x-axis dimension of this Room. 
         /// </summary>
+        private double designLength;
         public double DesignLength
         {
-            get { return DesignXYZ == null ? 0.0 : DesignXYZ.X; }
-            set { DesignXYZ = value > 0.0 ? DesignXYZ = new Vector3(value, DesignWidth, Height) : DesignXYZ; }
+            get { return designLength; }
+            set { designLength = value > 0.0 ? value : designLength; }
         }
-           
+
         /// <summary>
         /// Desired y-axis dimension of this Room. 
         /// </summary>
+        private double designWidth;
         public double DesignWidth
         {
-            get { return DesignXYZ == null ? 0.0 : DesignXYZ.Y; }
-            set { DesignXYZ = value > 0.0 ? DesignXYZ = new Vector3(DesignLength, value, Height) : DesignXYZ; }
+            get { return designWidth; }
+            set { designWidth = value > 0.0 ? value : designLength; }
         }
 
         /// <summary>
@@ -175,33 +177,31 @@ namespace RoomKit
         /// Ignored z value if it is 0.0 or negative.
         /// Sets DesignArea.
         /// </summary>
-        private Vector3 designXYZ;
         public Vector3 DesignXYZ
         {
-            get { return designXYZ; }
+            get { return new Vector3(designLength, designWidth, height); }
             set
             {
-                if (value.X >= 0.0 && value.Y >= 0.0 && value.Z > 0.0)
-                {
-                    designXYZ = value;
-                    DesignArea = value.X * value.Y;
-                }
+                designLength = value.X > 0.0 ? value.X : designLength;
+                designWidth = value.Y > 0.0 ? value.Y : designWidth;
+                height = value.Z > 0.0 ? value.Z : height;
+                DesignArea = designLength * designWidth;
             }
         }
 
         /// <summary>
-        /// The vertical position of the Room's lowest plane, parallel to the ground plane.
+        /// Vertical position of the Room's lowest plane relative to the ground plane.
         /// </summary> 
         public double Elevation { get; set; }
 
         /// <summary>
-        /// Height of the Room prism.
-        /// Set ignores non-positive values.
-        /// </summary>
+        /// Vertical height of the room above its elevation.
+        /// </summary> 
+        private double height;
         public double Height
         {
-            get { return DesignXYZ == null ? 3.0 : DesignXYZ.Z; }
-            set { DesignXYZ = value > 0.0 ? new Vector3(DesignLength, DesignWidth, value) : DesignXYZ; }
+            get { return height; }
+            set { height = value > 0.0 ? value : height; }
         }
 
         /// <summary>
@@ -303,16 +303,13 @@ namespace RoomKit
             {
                 return false;
             }
-            Perimeter = Shaper.PolygonBox(xyz.X, xyz.Y, moveTo);
-            if (xyz.Z > 0.0)
-            {
-                Height = xyz.Z;
-            }
+            perimeter = Shaper.PolygonBox(xyz.X, xyz.Y, moveTo);
+            height = xyz.Z > 0.0 ? xyz.Z : height;
             return true;
         }
 
         /// <summary>
-        /// Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the origin or at the 2D location implied by the supplied Vector3.
+        /// Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the origin or at the 2D location specified by the supplied Vector3.
         /// </summary>
         /// <returns>
         /// True if the Perimeter is successfully set.
