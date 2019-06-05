@@ -17,21 +17,6 @@ namespace RoomKit
         /// <summary>
         /// Constructor by default sets all internal variables to values to creating a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1.
         /// </summary>
-        //public Room()
-        //{
-        //    AdjacentTo = null;
-        //    Color = Palette.White;
-        //    DesignArea = 1.0;
-        //    DesignRatio = 1.0;
-        //    DesignXYZ = new Vector3(0.0, 0.0, 1.0);
-        //    Elevation = 0.0;
-        //    Name = "";
-        //    Perimeter = null;
-        //    Placed = false;
-        //    TypeID = 0;
-        //    UniqueID = Guid.NewGuid().ToString();
-        //}
-
         public Room(int[] adjacentTo = null,
                     double designArea = 1.0,
                     double designRatio = 1.0,

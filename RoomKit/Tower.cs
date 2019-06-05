@@ -7,25 +7,39 @@ using GeometryEx;
 
 namespace RoomKit
 {
+    /// <summary>
+    /// Creates and manages a collection of stories as a tower.
+    /// </summary>
     public class Tower
     {
 
         #region Constructors
 
-        public Tower()
+        /// <summary>
+        /// Constructor by default sets a kilometer limit on tower height and a standard 3 meter story height.
+        /// </summary>
+        public Tower(int floors = 0,
+                     double heightLimit = 1000.0,
+                     string name = "",
+                     Polygon perimeter = null,
+                     double storyHeight = 3.0,
+                     double targetArea = 1.0,
+                     int typeID = -1)
         {
             Color = Palette.White;
             Cores = new List<Room>();
-            Floors = 0;
-            HeightLimit = 1000.0;
-            Name = "";
-            Perimeter = null;
             Stories = new List<Story>();
-            StoryHeight = 0.0;
-            TargetArea = 0.0;
-            TypeID = -1;
             UniqueID = Guid.NewGuid().ToString();
+
+            Floors = floors;
+            HeightLimit = heightLimit;
+            Name = name;
+            Perimeter = perimeter;
+            StoryHeight = storyHeight;
+            TargetArea = targetArea;
+            TypeID = typeID;
         }
+
         #endregion
 
         #region Properties
@@ -55,13 +69,7 @@ namespace RoomKit
         public Color Color
         {
             get { return color; }
-            set
-            {
-                if (value != null)
-                {
-                    color = value;
-                }
-            }
+            set { color = value ?? color; }
         }
 
         /// <summary>
@@ -98,21 +106,15 @@ namespace RoomKit
         /// <summary>
         /// Room representing the Tower envelope.
         /// </summary>
+        /// <summary>
+        /// Room representing the Story envelope.
+        /// </summary>
         public Room Envelope
         {
             get
             {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                return
-                    new Room()
-                    {
-                        Color = Color,
-                        Height = Height,
-                        Perimeter = Perimeter
-                    };
+                return (Perimeter == null) ? null :
+                    new Room() { Color = Color, Height = Height, Perimeter = Perimeter };
             }
         }
 
@@ -149,13 +151,7 @@ namespace RoomKit
         public int Floors
         {
             get { return floors; }
-            set
-            {
-                if (value > 0)
-                {
-                    floors = value;
-                }
-            }
+            set { floors = value > 0 ? value : floors; }
         }
 
         /// <summary>
@@ -163,15 +159,7 @@ namespace RoomKit
         /// </summary>
         public double Height
         {
-            get
-            {
-                var height = 0.0;
-                if (Stories.Count > 0)
-                {
-                    height = Stories.Last().Elevation + Stories.Last().Height;
-                }
-                return height;
-            }
+            get { return Stories.Count <= 0 ? 0.0 : Stories.Last().Elevation + Stories.Last().Height; }
         }
 
         /// <summary>
@@ -191,13 +179,7 @@ namespace RoomKit
         public Polygon Perimeter
         {
             get { return perimeter; }
-            set
-            {
-                if (value != null)
-                {
-                    perimeter = value;
-                }
-            }
+            set { perimeter = value ?? perimeter; }
         }
 
         /// <summary>
@@ -250,13 +232,7 @@ namespace RoomKit
         public double StoryHeight
         {
             get { return storyHeight; }
-            set
-            {
-                if (value > 0.0)
-                {
-                    storyHeight = value;
-                }
-            }
+            set { storyHeight = value > 0.0 ? value : storyHeight; }
         }
 
         /// <summary>
@@ -266,13 +242,7 @@ namespace RoomKit
         public double TargetArea
         {
             get { return targetArea; }
-            set
-            {
-                if (value > 0.0)
-                {
-                    targetArea = value;
-                }
-            }
+            set { targetArea = value > 0.0 ? value : targetArea; }
         }
 
         /// <summary>

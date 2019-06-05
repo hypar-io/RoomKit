@@ -20,14 +20,18 @@ namespace RoomKit
         /// <returns>
         /// A new RoomGroup.
         /// </returns>
-        public RoomGroup()
+        public RoomGroup(string name = "", 
+                         Polygon perimeter = null, 
+                         int typeID = -1)
         {
-            Name = "";
-            Perimeter = null;
             Rooms = new List<Room>();
-            TypeID = -1;
             UniqueID = Guid.NewGuid().ToString();
-        } 
+
+            Name = name;
+            Perimeter = perimeter;
+            TypeID = typeID;
+
+        }
 
         #endregion
 

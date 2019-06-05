@@ -573,11 +573,12 @@ namespace RoomKit
         /// Adds a Room to the Corridors list.
         /// </summary>
         /// <param name="room">Room to add.</param>
-        /// <param name="fit">Indicates whether the new room should mutually fit to other Story features. Default is true.</param>
+        /// <param name="fit">Indicates whether the new corridor should mutually fit to other Story features.</param>
+        /// <param name="merge">Indicates whether the new corridor should merge with other corridors.</param>
         /// <returns>
         /// True if one or more rooms were added to the Story.
         /// </returns>
-        public bool AddCorridor(Room room, bool fit = true)
+        public bool AddCorridor(Room room, bool fit = true, bool merge = true)
         {
             if (Perimeter == null || room.Perimeter == null)
             {
@@ -609,6 +610,23 @@ namespace RoomKit
                 return false;
             }
             Corridors.AddRange(fitRooms);
+            var merged = Shaper.Merge(CorridorsAsPolygons);
+            if (merge && merged.Count < Corridors.Count)
+            {
+                Corridors.Clear();
+                foreach (var cooridor in merged)
+                {
+                    Corridors.Add(
+                        new Room()
+                        {
+                            Color = room.Color,
+                            Elevation = Elevation,
+                            Height = room.Height,
+                            Name = room.Name,
+                            Perimeter = cooridor
+                        });
+                }
+            }
             return true;
         }
 
