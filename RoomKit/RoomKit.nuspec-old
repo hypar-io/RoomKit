@@ -4,13 +4,13 @@
     <id>$id$</id>
     <version>$version$</version>
     <title>$title$</title>
-    <authors>$authors$</authors>
-    <owners>$authors$</owners>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/hypar-io/RoomKit</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Upgraded to latest GeometryEx and Hypar Elements 2.16.</releaseNotes>
+    <releaseNotes>Upgraded to latest GeometryEx.</releaseNotes>
     <copyright>Copyright 2019</copyright>
     <tags>Hypar Elements Room Extensions</tags>
   </metadata>
