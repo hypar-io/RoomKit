@@ -92,7 +92,10 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
+                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color))
+                {
+                    Name = "Name"
+                };
                 space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
                 space.AddProperty("Type", new NumericProperty(TypeID, UnitType.None));
                 space.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));

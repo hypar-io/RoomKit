@@ -114,7 +114,13 @@ namespace RoomKit
             get
             {
                 return (Perimeter == null) ? null :
-                    new Room() { Color = Color, Height = Height, Perimeter = Perimeter };
+                    new Room()
+                    {
+                        Color = Color,
+                        Height = Height,
+                        Name = Name,
+                        Perimeter = Perimeter
+                    };
             }
         }
 

@@ -203,7 +203,13 @@ namespace RoomKit
             get
             {
                 return (Perimeter == null) ? null : 
-                    new Room() { Color = Color, Height = Height, Perimeter = Perimeter };
+                    new Room()
+                    {
+                        Color = Color,
+                        Height = Height,
+                        Name = Name,
+                        Perimeter = Perimeter
+                    };
             }
         }
 
@@ -614,7 +620,7 @@ namespace RoomKit
             if (merge && merged.Count < Corridors.Count)
             {
                 Corridors.Clear();
-                foreach (var cooridor in merged)
+                foreach (var corridor in merged)
                 {
                     Corridors.Add(
                         new Room()
@@ -623,7 +629,7 @@ namespace RoomKit
                             Elevation = Elevation,
                             Height = room.Height,
                             Name = room.Name,
-                            Perimeter = cooridor
+                            Perimeter = corridor
                         });
                 }
             }
