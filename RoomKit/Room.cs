@@ -109,6 +109,43 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// A Mass created from Room characteristics.
+        /// Adds properties to the Space recording
+        /// Name
+        /// TypeID as Type
+        /// DesignArea as Design Area
+        /// DesignX as Design Length
+        /// DesignY as Design Width
+        /// Perimeter.Area as Area
+        /// Elevation
+        /// Height
+        /// </summary>
+        public Mass AsMass
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                var t = new Transform(0.0, 0.0, Elevation);
+                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), t)
+                {
+                    Name = "Name"
+                };
+                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
+                mass.AddProperty("Type", new NumericProperty(TypeID, UnitType.None));
+                mass.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));
+                mass.AddProperty("Design Length", new NumericProperty(DesignLength, UnitType.Distance));
+                mass.AddProperty("Design Width", new NumericProperty(DesignWidth, UnitType.Distance));
+                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
+                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
+                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
+                return mass;
+            }
+        }
+
+        /// <summary>
         /// Color of the Space returned by AsSpace. 
         /// Ignores null values.
         /// </summary>

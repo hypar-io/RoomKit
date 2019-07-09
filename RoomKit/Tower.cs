@@ -144,9 +144,37 @@ namespace RoomKit
                     return null;
                 }
                 var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
-                space.AddProperty("Height", new NumericProperty(Height, UnitType.Text));
+                space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
+                space.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
+                space.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
+                space.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
                 space.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
                 return space;
+            }
+        }
+
+        /// <summary>
+        /// Mass created from Tower characteristics.
+        /// </summary>
+        public Mass AsMass
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                var t = new Transform(0.0, 0.0, Elevation);
+                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), t)
+                {
+                    Name = "Name"
+                };
+                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
+                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
+                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
+                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
+                mass.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
+                return mass;
             }
         }
 
