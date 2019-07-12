@@ -125,6 +125,30 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Mass created from Tower characteristics.
+        /// </summary>
+        public Mass EnvelopeAsMass
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                var mass = new Mass(Perimeter, 
+                                    Height, 
+                                    new Material(Guid.NewGuid().ToString(), Color), 
+                                    new Transform(0.0, 0.0, Elevation));
+                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
+                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
+                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
+                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
+                mass.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
+                return mass;
+            }
+        }
+
+        /// <summary>
         /// Polygon representation of the Story Perimeter.
         /// </summary>
         public Polygon EnvelopeAsPolygon
@@ -133,7 +157,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Space created from Story characteristics.
+        /// Space created from Tower characteristics.
         /// </summary>
         public Space EnvelopeAsSpace
         {
@@ -451,6 +475,7 @@ namespace RoomKit
             }
             Stories.Clear();
             var elevation = Elevation;
+            var slabType = new FloorType(new Guid().ToString(), 0.1);
             for (int i = 0; i < Floors; i++)
             {
                 if (elevation + storyHeight > HeightLimit)
@@ -462,7 +487,8 @@ namespace RoomKit
                     Color = color,
                     Elevation = elevation,
                     Height = storyHeight,
-                    Perimeter = perimeter
+                    Perimeter = perimeter,
+                    SlabType = slabType
                 };
                 Stories.Add(story);
                 elevation += storyHeight;
@@ -472,6 +498,18 @@ namespace RoomKit
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// Sets a common FloorType for all Story Slabs.
+        /// </summary>
+        /// <param name="slabType"></param>
+        public void SetSlabType(FloorType slabType)
+        {
+            foreach (Story story in Stories)
+            {
+                story.SlabType = slabType;
+            }
         }
 
         /// <summary>

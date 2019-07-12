@@ -111,9 +111,18 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void CorridorsAsMasses()
+        {
+            var story = MakeStory();
+            Assert.IsType<Mass>(story.CorridorsAsMasses[0]);
+            Assert.Equal(4.0, story.CorridorsAsMasses.Count);
+        }
+
+        [Fact]
         public void CorridorsAsPolygons()
         {
             var story = MakeStory();
+            Assert.IsType<Polygon>(story.CorridorsAsPolygons[0]);
             Assert.Equal(4.0, story.CorridorsAsPolygons.Count);
         }
 
@@ -121,6 +130,7 @@ namespace RoomKitTest
         public void CorridorsAsSpaces()
         {
             var story = MakeStory();
+            Assert.IsType<Space>(story.CorridorsAsSpaces[0]);
             Assert.Equal(4.0, story.CorridorsAsSpaces.Count);
         }
 
@@ -158,10 +168,20 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void EnvelopeAsMass()
+        {
+            var story = MakeStory();
+            var envelope = story.EnvelopeAsMass;
+            Assert.IsType<Mass>(envelope);
+            Assert.Equal(2400.0, envelope.Profile.Area());
+        }
+
+        [Fact]
         public void EnvelopeAsPolygon()
         {
             var story = MakeStory();
             var envelope = story.EnvelopeAsPolygon;
+            Assert.IsType<Polygon>(envelope);
             Assert.Equal(2400.0, envelope.Area());
         }
 
@@ -170,6 +190,7 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             var envelope = story.EnvelopeAsSpace;
+            Assert.IsType<Space>(envelope);
             Assert.Equal(2400.0, envelope.Profile.Area());
         }
 
@@ -181,10 +202,27 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void ExclusionsAsMasses()
+        {
+            var story = MakeStory();
+            Assert.IsType<Mass>(story.ExclusionsAsMasses[0]);
+            Assert.Equal(1.0, story.ExclusionsAsMasses.Count);
+        }
+
+        [Fact]
         public void ExclusionsAsPolygons()
         {
             var story = MakeStory();
+            Assert.IsType<Polygon>(story.ExclusionsAsPolygons[0]);
             Assert.Equal(1.0, story.ExclusionsAsPolygons.Count);
+        }
+
+        [Fact]
+        public void ExclusionsAsSpaces()
+        {
+            var story = MakeStory();
+            Assert.IsType<Space>(story.ExclusionsAsSpaces[0]);
+            Assert.Equal(1.0, story.ExclusionsAsSpaces.Count);
         }
 
         [Fact]
@@ -209,16 +247,26 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void InteriorsAsMasses()
+        {
+            var story = MakeStory();
+            Assert.IsType<Mass>(story.InteriorsAsMasses[0]);
+            Assert.Equal(13.0, story.InteriorsAsMasses.Count);
+        }
+
+        [Fact]
         public void InteriorsAsPolygons()
         {
             var story = MakeStory();
-            Assert.Equal(14.0, story.InteriorsAsPolygons.Count);
+            Assert.IsType<Polygon>(story.InteriorsAsPolygons[0]);
+            Assert.Equal(13.0, story.InteriorsAsPolygons.Count);
         }
 
         [Fact]
         public void InteriorsAsSpaces()
         {
             var story = MakeStory();
+            Assert.IsType<Space>(story.InteriorsAsSpaces[0]);
             Assert.Equal(13.0, story.InteriorsAsSpaces.Count);
         }
 
@@ -248,9 +296,18 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void RoomsAsMasses()
+        {
+            var story = MakeStory();
+            Assert.IsType<Mass>(story.RoomsAsMasses[0]);
+            Assert.Equal(8.0, story.RoomsAsMasses.Count);
+        }
+
+        [Fact]
         public void RoomsAsPolygons()
         {
             var story = MakeStory();
+            Assert.IsType<Polygon>(story.RoomsAsPolygons[0]);
             Assert.Equal(8.0, story.RoomsAsPolygons.Count);
         }
 
@@ -258,6 +315,7 @@ namespace RoomKitTest
         public void RoomsAsSpaces()
         {
             var story = MakeStory();
+            Assert.IsType<Space>(story.RoomsAsSpaces[0]);
             Assert.Equal(8.0, story.RoomsAsSpaces.Count);
         }
 
@@ -287,9 +345,18 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void ServicesAsMasses()
+        {
+            var story = MakeStory();
+            Assert.IsType<Mass>(story.ServicesAsMasses[0]);
+            Assert.Equal(1.0, story.ServicesAsMasses.Count);
+        }
+
+        [Fact]
         public void ServicesAsPolygons()
         {
             var story = MakeStory();
+            Assert.IsType<Polygon>(story.ServicesAsPolygons[0]);
             Assert.Equal(1.0, story.ServicesAsPolygons.Count);
         }
 
@@ -297,6 +364,7 @@ namespace RoomKitTest
         public void ServicesAsSpaces()
         {
             var story = MakeStory();
+            Assert.IsType<Space>(story.ServicesAsSpaces[0]);
             Assert.Equal(1.0, story.ServicesAsSpaces.Count);
         }
 
@@ -323,10 +391,24 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void SlabType()
+        {
+            var story = MakeStory();
+            Assert.Equal(0.1, story.SlabType.Thickness());
+            var newSlab = new FloorType("newSlab", 0.5);
+            story.SlabType = newSlab;
+            Assert.Equal(0.5, story.SlabThickness);
+            Assert.Equal(0.5, story.Slab.Thickness());
+        }
+
+        [Fact]
         public void SlabThickness()
         {
             var story = MakeStory();
             Assert.Equal(0.1, story.SlabThickness);
+            var newSlab = new FloorType("newSlab", 0.5);
+            story.SlabType = newSlab;
+            Assert.Equal(0.5, story.SlabThickness);
         }
 
         [Fact]

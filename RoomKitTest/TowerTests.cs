@@ -129,6 +129,15 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void EnvelopeAsMass()
+        {
+            var tower = MakeTower();
+            var envelope = tower.EnvelopeAsMass;
+            Assert.IsType<Mass>(envelope);
+            Assert.Equal(1200.0, envelope.Profile.Area());
+        }
+
+        [Fact]
         public void EnvelopeAsPolygon()
         {
             var tower = MakeTower();
@@ -225,6 +234,19 @@ namespace RoomKitTest
                 model.AddElement(space);
             }
             model.ToGlTF("../../../../TowerStoryHeight.glb");
+        }
+
+        [Fact]
+        public void SetSlabType()
+        {
+            var tower = MakeTower();
+            tower.SetSlabType(new FloorType(new Guid().ToString(), 0.5));
+            foreach (var story in tower.Stories)
+            {
+                Assert.Equal(0.5, story.SlabThickness);
+            }
+            var model = new Model();
+            model.ToGlTF("../../../../TowerSlabType.glb");
         }
 
         [Fact]
