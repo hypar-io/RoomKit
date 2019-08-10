@@ -641,7 +641,12 @@ namespace RoomKit
         {
             get
             {
-                return new Floor(Perimeter, SlabType, Elevation);
+                var openings = new List<Opening>();
+                foreach(var service in ServicesAsPolygons)
+                {
+                    openings.Add(new Opening(service, slabThickness, null));
+                }
+                return new Floor(Perimeter, SlabType, Elevation, null, openings);
             }
         }
 

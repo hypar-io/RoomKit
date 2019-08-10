@@ -388,6 +388,9 @@ namespace RoomKitTest
             Assert.Contains(vertices, p => p.X == 60.0 && p.Y == 0.0);
             Assert.Contains(vertices, p => p.X == 60.0 && p.Y == 40.0);
             Assert.Contains(vertices, p => p.X == 0.0 && p.Y == 40.0);
+            var model = new Model();
+            model.AddElement(story.Slab);
+            model.ToGlTF("../../../../StorySlab.glb");
         }
 
         [Fact]
