@@ -99,7 +99,7 @@ namespace RoomKitTest
         public void AreaAvailable()
         {
             var story = MakeStory();
-            Assert.Equal(1555.0, story.AreaAvailable, 10);
+            Assert.Equal(1475.0, story.AreaAvailable, 10);
         }
 
         [Fact]
@@ -113,7 +113,7 @@ namespace RoomKitTest
         public void AreaPlaced()
         {
             var story = MakeStory();
-            Assert.Equal(720.0, story.AreaPlaced);
+            Assert.Equal(800.0, story.AreaPlaced);
         }
 
         [Fact]
