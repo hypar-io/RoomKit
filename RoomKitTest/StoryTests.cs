@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using Xunit;
 using Elements;
 using Elements.Geometry;
@@ -48,9 +47,9 @@ namespace RoomKitTest
             story.AddExclusion(
                 new Room()
                 {
-                    Perimeter = 
+                    Perimeter =
                         new Polygon(
-                            new []
+                            new[]
                             {
                                 Vector3.Origin,
                                 new Vector3(5.0, 0.0),
@@ -63,7 +62,28 @@ namespace RoomKitTest
                 {
                     Color = BuiltInMaterials.Concrete.Color,
                     Height = 6.0,
-                    Perimeter = new Line(new Vector3(30.0, 15.0), new Vector3(30.0, 25.0)).Thicken(2.0)
+                    Perimeter =
+                        new Polygon(
+                            new[]
+                            {
+                                new Vector3(25.0, 15.0),
+                                new Vector3(35.0, 15.0),
+                                new Vector3(35.0, 25.0),
+                                new Vector3(25.0, 25.0),
+                            })
+                });
+            story.AddOpening(
+                new Room()
+                {
+                    Perimeter =
+                        new Polygon(
+                            new[]
+                            {
+                                new Vector3(25.0, 15.0),
+                                new Vector3(35.0, 15.0),
+                                new Vector3(35.0, 25.0),
+                                new Vector3(25.0, 25.0),
+                            })
                 });
             return story;
         }
@@ -79,21 +99,21 @@ namespace RoomKitTest
         public void AreaAvailable()
         {
             var story = MakeStory();
-            Assert.Equal(1575.0, story.AreaAvailable, 10);
+            Assert.Equal(1555.0, story.AreaAvailable, 10);
         }
 
         [Fact]
         public void AreaByName()
         {
             var story = MakeStory();
-            Assert.Equal(684.0, story.AreaByName("Retail"));
+            Assert.Equal(620.0, story.AreaByName("Retail"));
         }
 
         [Fact]
         public void AreaPlaced()
         {
             var story = MakeStory();
-            Assert.Equal(800.0, story.AreaPlaced);
+            Assert.Equal(720.0, story.AreaPlaced);
         }
 
         [Fact]
@@ -271,6 +291,18 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void MoveFromTo()
+        {
+            var story = MakeStory();
+            story.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20));
+            var vertices = story.Slab.Profile.Perimeter.Vertices;
+            Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 20.0 && p.Z == 0.0);
+            Assert.Contains(vertices, p => p.X == 80.0 && p.Y == 20.0 && p.Z == 0.0);
+            Assert.Contains(vertices, p => p.X == 80.0 && p.Y == 60.0 && p.Z == 0.0);
+            Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 60.0 && p.Z == 0.0);
+        }
+
+        [Fact]
         public void Name()
         {
             var story = MakeStory();
@@ -338,6 +370,23 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Rotate()
+        {
+            var story = MakeStory();
+            var model = new Model();
+            foreach (Space space in story.InteriorsAsSpaces)
+            {
+                model.AddElement(space);
+            }
+            story.Rotate(Vector3.Origin, 60);
+            foreach (Space space in story.InteriorsAsSpaces)
+            {
+                model.AddElement(space);
+            }
+            model.ToGlTF("../../../../StoryRotate.glb");
+        }
+
+        [Fact]
         public void Services()
         {
             var story = MakeStory();
@@ -398,8 +447,8 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             Assert.Equal(0.1, story.SlabType.Thickness());
-            var newSlab = new FloorType("newSlab", 0.5);
-            story.SlabType = newSlab;
+            var newFloor = new FloorType("newFloor", 0.5);
+            story.SlabType = newFloor;
             Assert.Equal(0.5, story.SlabThickness);
             Assert.Equal(0.5, story.Slab.Thickness());
         }
@@ -412,37 +461,6 @@ namespace RoomKitTest
             var newSlab = new FloorType("newSlab", 0.5);
             story.SlabType = newSlab;
             Assert.Equal(0.5, story.SlabThickness);
-        }
-
-        [Fact]
-        public void MoveFromTo()
-        {
-            var story = MakeStory();
-            story.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20));
-            var vertices = story.Slab.Profile.Perimeter.Vertices;
-            Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 20.0 && p.Z == 0.0);
-            Assert.Contains(vertices, p => p.X == 80.0 && p.Y == 20.0 && p.Z == 0.0);
-            Assert.Contains(vertices, p => p.X == 80.0 && p.Y == 60.0 && p.Z == 0.0);
-            Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 60.0 && p.Z == 0.0);
-        }
-
-        [Fact]
-        public void Rotate()
-        {
-            var story = MakeStory();
-            var model = new Model();
-            foreach (Space space in story.InteriorsAsSpaces)
-            {
-                model.AddElement(space);
-            }
-            model.AddElement(story.EnvelopeAsSpace);
-            story.Rotate(Vector3.Origin, 180);
-            foreach (Space space in story.InteriorsAsSpaces)
-            {
-                model.AddElement(space);
-            }
-            model.AddElement(story.EnvelopeAsSpace);
-            model.ToGlTF("../../../../StoryRotate.glb");
         }
     }
 }

@@ -240,12 +240,13 @@ namespace RoomKitTest
         public void SetSlabType()
         {
             var tower = MakeTower();
-            tower.SetSlabType(new FloorType(new Guid().ToString(), 0.5));
+            tower.SetSlabType(new FloorType("TowerSlab", 0.5));
+            var model = new Model();
             foreach (var story in tower.Stories)
             {
                 Assert.Equal(0.5, story.SlabThickness);
+                model.AddElement(story.Slab);
             }
-            var model = new Model();
             model.ToGlTF("../../../../TowerSlabType.glb");
         }
 

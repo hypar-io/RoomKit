@@ -337,9 +337,14 @@ namespace RoomKit
                 return false;
             }
             var coreHeight = 0.0;
+            var coreStories = new List<Story>();
             for (int i = baseStory; i < Stories.Count; i++)
             {
                 coreHeight += Stories[i].Height;
+                if (i > baseStory)
+                {
+                    coreStories.Add(Stories[i]);
+                }
             }
             coreHeight += addHeight;
             var core = new Room()
@@ -353,9 +358,9 @@ namespace RoomKit
                 core.Color = color;
             }
             Cores.Add(core);
-            foreach (Story story in Stories)
+            foreach (Story story in coreStories)
             {
-                story.AddExclusion(core);
+                story.AddOpening(core);
             }
             return true;
         }
