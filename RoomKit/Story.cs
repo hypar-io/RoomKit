@@ -54,7 +54,8 @@ namespace RoomKit
         {
             get {  return (Perimeter == null) ? 0.0 : Perimeter.Area(); }
         }
-
+        #endregion
+        #region Properties
         /// <summary>
         /// Unallocated area within the Story.
         /// </summary>
@@ -701,8 +702,8 @@ namespace RoomKit
         public string UniqueID { get; }
 
         #endregion
-
         #region Private Methods
+
         /// <summary>
         /// Private function conforming a list of Rooms to another list of Rooms.
         /// </summary>
@@ -749,7 +750,6 @@ namespace RoomKit
         }
 
         #endregion
-
         #region Public Methods
 
         /// <summary>
