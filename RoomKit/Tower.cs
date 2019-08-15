@@ -360,7 +360,7 @@ namespace RoomKit
             Cores.Add(core);
             foreach (Story story in coreStories)
             {
-                story.AddOpening(core);
+                story.AddOpening(perimeter);
             }
             return true;
         }
