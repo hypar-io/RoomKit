@@ -72,19 +72,14 @@ namespace RoomKitTest
                                 new Vector3(25.0, 25.0),
                             })
                 });
-            story.AddOpening(
-                new Room()
-                {
-                    Perimeter =
-                        new Polygon(
-                            new[]
-                            {
-                                new Vector3(25.0, 15.0),
-                                new Vector3(35.0, 15.0),
-                                new Vector3(35.0, 25.0),
-                                new Vector3(25.0, 25.0),
-                            })
-                });
+            story.AddOpening(new Polygon(
+                                new[]
+                                {
+                                    new Vector3(25.0, 15.0),
+                                    new Vector3(35.0, 15.0),
+                                    new Vector3(35.0, 25.0),
+                                    new Vector3(25.0, 25.0),
+                                }));
             return story;
         }
 
@@ -374,15 +369,18 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             var model = new Model();
-            foreach (Space space in story.InteriorsAsSpaces)
+            foreach (Space space in story.RoomsAsSpaces)
             {
                 model.AddElement(space);
             }
+            model.AddElement(story.Slab);
+
             story.Rotate(Vector3.Origin, 60);
-            foreach (Space space in story.InteriorsAsSpaces)
+            foreach (Space space in story.RoomsAsSpaces)
             {
                 model.AddElement(space);
             }
+            model.AddElement(story.Slab);
             model.ToGlTF("../../../../StoryRotate.glb");
         }
 

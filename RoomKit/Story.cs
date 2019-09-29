@@ -31,7 +31,7 @@ namespace RoomKit
         {
             Corridors = new List<Room>();
             Exclusions = new List<Room>();
-            Openings = new List<Opening>();
+            Openings = new List<Room>();
             Rooms = new List<Room>();
             Services = new List<Room>();
             UniqueID = Guid.NewGuid().ToString();
@@ -81,7 +81,7 @@ namespace RoomKit
                 }
                 foreach (var opening in Openings)
                 {
-                    area -= opening.Profile.Perimeter.Area();
+                    area -= opening.Perimeter.Area();
                 }
                 if (area < 0.0)
                 {
@@ -485,7 +485,7 @@ namespace RoomKit
         /// <summary>
         /// List of Polygons designated as floor openings.
         /// </summary>
-        public List<Opening> Openings { get; private set; }
+        public List<Room> Openings { get; private set; }
 
         /// <summary>
         /// The perimeter of the Story.
@@ -652,7 +652,12 @@ namespace RoomKit
         {
             get
             {
-                return new Floor(Perimeter, slabType, Elevation - SlabThickness, null, Openings);
+                var openings = new List<Opening>();
+                foreach (var room in Openings)
+                {
+                    openings.Add(new Opening(room.Perimeter, SlabThickness, null));
+                }
+                return new Floor(Perimeter, slabType, Elevation - SlabThickness, null, openings);
             }
         }
 
@@ -846,21 +851,25 @@ namespace RoomKit
         /// <summary>
         /// Adds an opening through the Story Floor. Exclusions, Services, Corridors, and Rooms all conform to the Opening Perimeter.
         /// </summary>
-        /// <param name="opening"></param>
+        /// <param name="perimeter">Polygon describing the opening perimeter.</param>
         /// <returns></returns>
-        public bool AddOpening(Opening opening)
+        public bool AddOpening(Polygon perimeter, string name = "")
         {
-            if (Perimeter == null || !Perimeter.Covers(opening.Profile.Perimeter))
+            return AddOpening(new Room(name: name, perimeter: perimeter));
+        }
+
+        /// <summary>
+        /// Creates and adds an Opening to the Story by deriving the Perimeter from the supplied Room.
+        /// </summary>
+        /// <param name="room">Room representing the Opening.</param>
+        /// <returns></returns>
+        public bool AddOpening(Room opening)
+        {
+            if (opening.Perimeter == null || !Perimeter.Covers(opening.Perimeter))
             {
                 return false;
             }
-            var toRooms = new List<Room>()
-            {
-                new Room()
-                {
-                    Perimeter = opening.Profile.Perimeter
-                }
-            };
+            var toRooms = new List<Room>() { opening };
             Exclusions = FitRooms(Exclusions, toRooms);
             toRooms.AddRange(Exclusions);
             Services = FitRooms(Services, toRooms);
@@ -870,34 +879,6 @@ namespace RoomKit
             Rooms = FitRooms(Rooms, toRooms);
             Openings.Add(opening);
             return true;
-        }
-
-        /// <summary>
-        /// Creates and adds an Opening to the Story using the supplied Polygon.
-        /// </summary>
-        /// <param name="room">Room whose Perimeter is used to create an Opening.</param>
-        /// <returns></returns>
-        public bool AddOpening(Polygon polygon)
-        {
-            if (polygon == null)
-            {
-                return false;
-            }
-            return AddOpening(new Opening(polygon, slabThickness, null));
-        }
-
-        /// <summary>
-        /// Creates and adds an Opening to the Story by deriving the Perimeter from the supplied Room.
-        /// </summary>
-        /// <param name="room">Room whose Perimeter is used to create an Opening.</param>
-        /// <returns></returns>
-        public bool AddOpening(Room room)
-        {
-            if (room.Perimeter == null)
-            {
-                return false;
-            }
-            return AddOpening(new Opening(room.Perimeter, slabThickness, null));
         }
 
         /// <summary>
@@ -1014,19 +995,23 @@ namespace RoomKit
             {
                 Perimeter = Perimeter.MoveFromTo(from, to);
             }
-            foreach (Room room in Corridors)
+            foreach (var room in Corridors)
             {
                 room.MoveFromTo(from, to);
             }
-            foreach (Room room in Exclusions)
+            foreach (var room in Exclusions)
             {
                 room.MoveFromTo(from, to);
             }
-            foreach (Room room in Rooms)
+            foreach (var room in Openings)
             {
                 room.MoveFromTo(from, to);
             }
-            foreach (Room room in Services)
+            foreach (var room in Rooms)
+            {
+                room.MoveFromTo(from, to);
+            }
+            foreach (var room in Services)
             {
                 room.MoveFromTo(from, to);
             }
@@ -1120,19 +1105,23 @@ namespace RoomKit
             {
                 Perimeter = Perimeter.Rotate(pivot, angle);
             }
-            foreach (Room room in Corridors)
+            foreach (var room in Corridors)
             {
                 room.Rotate(pivot, angle);
             }
-            foreach (Room room in Exclusions)
+            foreach (var room in Exclusions)
             {
                 room.Rotate(pivot, angle);
             }
-            foreach (Room room in Rooms)
+            foreach (var room in Openings)
             {
                 room.Rotate(pivot, angle);
             }
-            foreach (Room room in Services)
+            foreach (var room in Rooms)
+            {
+                room.Rotate(pivot, angle);
+            }
+            foreach (var room in Services)
             {
                 room.Rotate(pivot, angle);
             }
