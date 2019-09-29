@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using Elements;
-using Elements.Interfaces;
 using Elements.Geometry;
 using GeometryEx;
 
@@ -343,7 +340,7 @@ namespace RoomKit
             {
                 return false;
             }
-            perimeter = Shaper.PolygonBox(xyz.X, xyz.Y, moveTo);
+            perimeter = Shaper.Rectangle(xyz.X, xyz.Y, moveTo);
             height = xyz.Z > 0.0 ? xyz.Z : height;
             return true;
         }
@@ -360,23 +357,23 @@ namespace RoomKit
             {
                 if (DesignSet)
                 {
-                    Perimeter = Shaper.PolygonBox(DesignLength * DesignWidth / width, width, moveTo);
+                    Perimeter = Shaper.Rectangle(DesignLength * DesignWidth / width, width, moveTo);
                     return true;
                 }
                 else if (DesignArea > 0.0)
                 {
-                    Perimeter = Shaper.PolygonBox(DesignArea / width, width, moveTo);
+                    Perimeter = Shaper.Rectangle(DesignArea / width, width, moveTo);
                     return true;
                 }
             }
             else if (DesignSet)
             {
-                Perimeter = Shaper.PolygonBox(DesignLength, DesignWidth, moveTo);
+                Perimeter = Shaper.Rectangle(DesignLength, DesignWidth, moveTo);
                 return true;
             }
             else if (DesignArea > 0.0 && DesignRatio > 0.0)
             {
-                Perimeter = Shaper.PolygonByArea(DesignArea, DesignRatio, moveTo);
+                Perimeter = Shaper.RectangleByArea(DesignArea, DesignRatio, moveTo);
                 return true;
             }
             return false;
@@ -397,7 +394,7 @@ namespace RoomKit
             {
                 return false;
             }
-            Perimeter = Shaper.PolygonByArea(area, ratio, moveTo);
+            Perimeter = Shaper.RectangleByArea(area, ratio, moveTo);
             return true;
         }
 

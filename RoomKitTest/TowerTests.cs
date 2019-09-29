@@ -20,7 +20,7 @@ namespace RoomKitTest
                 Elevation = -8.0,
                 Floors = 20,
                 HeightLimit = 80.0,
-                Perimeter = Shaper.PolygonBox(60.0, 20.0),
+                Perimeter = Shaper.Rectangle(60.0, 20.0),
                 StoryHeight = 4.0,
                 TargetArea = 24000.0
             };
@@ -35,7 +35,7 @@ namespace RoomKitTest
             tower.Stories[1].AddCorridor(entry);
             var coreShaft = new Room()
             {
-                Perimeter = Shaper.PolygonBox(5.0, 8.0, new Vector3(27.5, 6.0))
+                Perimeter = Shaper.Rectangle(5.0, 8.0, new Vector3(27.5, 6.0))
             };
             for (int i = 1; i < 3; i++)
             {
@@ -110,7 +110,7 @@ namespace RoomKitTest
         {
             var tower = MakeTower();
             tower.Elevation = 20.0;
-            //var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.PolygonBox(1.0, 1.0)));
+            //var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.Rectangle(1.0, 1.0)));
             var model = new Model();
             //model.AddElement(column);
             foreach (Space space in tower.Spaces)
@@ -177,7 +177,7 @@ namespace RoomKitTest
             Assert.Contains(new Vector3(80.0, 20.0), tower.Perimeter.Vertices);
             Assert.Contains(new Vector3(80.0, 40.0), tower.Perimeter.Vertices);
             Assert.Contains(new Vector3(20.0, 40.0), tower.Perimeter.Vertices);
-            //var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.PolygonBox(1.0, 1.0)));
+            //var column = new Column(Vector3.Origin, 20.0, new Profile(Shaper.Rectangle(1.0, 1.0)));
             var model = new Model();
             //model.AddElement(column);
             foreach (Space space in tower.Spaces)

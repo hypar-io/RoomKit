@@ -297,7 +297,7 @@ namespace RoomKit
                 for (int yIdx = 0; yIdx < yRooms; yIdx++)
                 {
                     var yCoord = box.SW.Y + (yIdx * sizeY);
-                    var polygon = Shaper.PolygonBox(sizeX, sizeY);
+                    var polygon = Shaper.Rectangle(sizeX, sizeY);
                     polygon = polygon.MoveFromTo(Vector3.Origin, new Vector3(xCoord, yCoord)).Intersection(Perimeter).First();
                     var room = new Room()
                     {
