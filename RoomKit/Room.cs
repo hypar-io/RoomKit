@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Elements;
 using Elements.Geometry;
 using GeometryEx;
@@ -14,27 +15,36 @@ namespace RoomKit
         /// <summary>
         /// Constructor by default sets all internal variables to values to creating a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1.
         /// </summary>
-        public Room(int[] adjacentTo = null,
+        public Room(string name = "",
+                    string number = "",
                     double designArea = 1.0,
                     double designRatio = 1.0,
                     double elevation = 0.0,
                     double height = 3.0,
-                    string name = "",
                     Polygon perimeter = null,
-                    int typeID = -1)
+                    List<string> adjacentTo = null,
+                    Color color = null)
         {
-            Color = Palette.White;
+            
             Placed = false;
             UniqueID = Guid.NewGuid().ToString();
 
-            AdjacentTo = adjacentTo;
+            Name = name;
+            Number = number;
             DesignArea = designArea;
             DesignRatio = designRatio;
             Elevation = elevation;
             Height = height;
-            Name = name;
             Perimeter = perimeter;
-            TypeID = typeID;
+            AdjacentTo = adjacentTo;
+            if (color == null)
+            {
+                Color = Palette.White;
+            }
+            else
+            {
+                Color = color;
+            }
         }
 
         #endregion
@@ -43,7 +53,7 @@ namespace RoomKit
         /// <summary>
         /// A list of Resource ID integers indicating the desired adjacencies of this Room type to other Room types.
         /// </summary>
-        public int[] AdjacentTo { get; set; }
+        public List<string> AdjacentTo { get; set; }
 
         /// <summary>
         /// The area of the room's perimeter Polygon. 
@@ -72,14 +82,14 @@ namespace RoomKit
         /// <summary>
         /// A Space created from Room characteristics.
         /// Adds properties to the Space recording
-        /// Name
-        /// TypeID as Type
+        /// Name as Name
+        /// Nuber as Number
         /// DesignArea as Design Area
         /// DesignX as Design Length
         /// DesignY as Design Width
         /// Perimeter.Area as Area
-        /// Elevation
-        /// Height
+        /// Elevation as Elevation
+        /// Height as Height
         /// </summary>
         public Space AsSpace
         {
@@ -94,7 +104,7 @@ namespace RoomKit
                     Name = "Name"
                 };
                 space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                space.AddProperty("Type", new NumericProperty(TypeID, UnitType.None));
+                space.AddProperty("Number", new StringProperty(Number, UnitType.Text));
                 space.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));
                 space.AddProperty("Design Length", new NumericProperty(DesignLength, UnitType.Distance));
                 space.AddProperty("Design Width", new NumericProperty(DesignWidth, UnitType.Distance));
@@ -108,14 +118,14 @@ namespace RoomKit
         /// <summary>
         /// A Mass created from Room characteristics.
         /// Adds properties to the Space recording
-        /// Name
-        /// TypeID as Type
+        /// Name as Name
+        /// Nuber as Number
         /// DesignArea as Design Area
         /// DesignX as Design Length
         /// DesignY as Design Width
         /// Perimeter.Area as Area
-        /// Elevation
-        /// Height
+        /// Elevation as Elevation
+        /// Height as Height
         /// </summary>
         public Mass AsMass
         {
@@ -131,7 +141,7 @@ namespace RoomKit
                     Name = "Name"
                 };
                 mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                mass.AddProperty("Type", new NumericProperty(TypeID, UnitType.None));
+                mass.AddProperty("Number", new StringProperty(Number, UnitType.Text));
                 mass.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));
                 mass.AddProperty("Design Length", new NumericProperty(DesignLength, UnitType.Distance));
                 mass.AddProperty("Design Width", new NumericProperty(DesignWidth, UnitType.Distance));
@@ -247,6 +257,11 @@ namespace RoomKit
         public string Name { get; set; }
 
         /// <summary>
+        /// Arbitrary string identifier for this Room instance.
+        /// </summary>
+        public string Number { get; set; }
+
+        /// <summary>
         /// Polygon perimeter of the Room.
         /// </summary>
         private Polygon perimeter;
@@ -276,11 +291,6 @@ namespace RoomKit
         {
             get { return Perimeter == null ? 0.0 : new TopoBox(perimeter).SizeY; }
         }
-
-        /// <summary>
-        /// Arbitrary integer identifier of this instance..
-        /// </summary>
-        public int TypeID { get; set; }
 
         /// <summary>
         /// UUID for this instance, set on initialization.

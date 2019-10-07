@@ -154,7 +154,7 @@ namespace RoomKit
         /// <summary>
         /// List of Rooms placed along the Row.
         /// </summary>
-        public IList<Room> Rooms { get; }
+        public List<Room> Rooms { get; }
 
         /// <summary>
         /// List of all Room perimeters as Polygons.
@@ -234,7 +234,7 @@ namespace RoomKit
         /// </returns>
         public bool AddRoom(Room room, 
                             Polygon within = null, 
-                            IList<Polygon> among = null, 
+                            List<Polygon> among = null, 
                             double width = 0.0)
         {
             if (room == null)

@@ -45,7 +45,7 @@ namespace RoomKitTest
                     Color = Palette.Green,
                     DesignXYZ = new Vector3(5.0, 4.0, 3.0),
                     Name = "Office Large",
-                    TypeID = 0
+                    Number = "0"
                 };
                 room.SetPerimeter();
                 rooms.Add(room);
@@ -58,7 +58,7 @@ namespace RoomKitTest
                     DesignArea = 12.0,
                     Height = 3.0,
                     Name = "Office Medium",
-                    TypeID = 1
+                    Number = "1"
                 };
                 room.SetPerimeter();
                 rooms.Add(room);
@@ -70,7 +70,7 @@ namespace RoomKitTest
                     Color = Palette.Mint,
                     DesignXYZ = new Vector3(3.0, 3.0, 3.0),
                     Name = "Office Small",
-                    TypeID = 2
+                    Number = "2"
                 };
                 room.SetPerimeter();
                 rooms.Add(room);
@@ -83,7 +83,7 @@ namespace RoomKitTest
                     DesignArea = 16.0,
                     Height = 5.0,
                     Name = "Conference Large",
-                    TypeID = 3
+                    Number = "3"
                 };
                 room.SetPerimeter();
                 rooms.Add(room);
@@ -95,7 +95,7 @@ namespace RoomKitTest
                     Color = Palette.Magenta,
                     DesignXYZ = new Vector3(6.0, 4.0, 5.0),
                     Name = "Conference Medium",
-                    TypeID = 4
+                    Number = "4"
                 };
                 room.SetPerimeter();
                 rooms.Add(room);
@@ -107,7 +107,7 @@ namespace RoomKitTest
                     Color = Palette.Lavender,
                     DesignXYZ = new Vector3(4.0, 3.0, 5.0),
                     Name = "Conference Small",
-                    TypeID = 5
+                    Number = "5"
                 };
                 room.SetPerimeter();
                 rooms.Add(room);
@@ -225,6 +225,48 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void FindByDesignArea()
+        {
+            var scope = new Scope();
+            scope.Occupant.AddRange(MakeOccupant());
+            var findRoom = scope.FindByDesignArea(20.0);
+            Assert.Equal("Office Large", findRoom.Name);
+        }
+
+        [Fact]
+        public void FindByDesignXY()
+        {
+            var scope = new Scope();
+            scope.Occupant.AddRange(MakeOccupant());
+            var findRoom = scope.FindByDesignXY(5.0, 4.0);
+            Assert.Equal("Office Large", findRoom.Name);
+        }
+
+        [Fact]
+        public void FindByName()
+        {
+            var scope = new Scope();
+            scope.Occupant.AddRange(MakeOccupant());
+            var findRoom = scope.FindByName("Conference Medium");
+            Assert.Equal("Conference Medium", findRoom.Name);
+            findRoom = scope.FindByName("Conference Large");
+            Assert.Equal("Conference Large", findRoom.Name);
+        }
+
+        [Fact]
+        public void FindByNumber()
+        {
+            var scope = new Scope();
+            scope.Occupant.AddRange(MakeOccupant());
+            var findRoom = scope.FindByNumber("4");
+            Assert.Equal("Conference Medium", findRoom.Name);
+            Assert.Equal(Palette.Magenta, findRoom.Color);
+            Assert.Equal(6.0, findRoom.DesignLength);
+            Assert.Equal(4.0, findRoom.DesignWidth);
+            Assert.Equal(5.0, findRoom.Height);
+        }
+
+        [Fact]
         public void OccupantAsPolygons()
         {
             var scope = new Scope();
@@ -329,37 +371,6 @@ namespace RoomKitTest
                 rooms[i].Placed = true;
             }
             Assert.Equal(8.0, scope.UnplacedQuantity);
-        }
-
-        [Fact]
-        public void FindDesignArea()
-        {
-            var scope = new Scope();
-            scope.Occupant.AddRange(MakeOccupant());
-            var findRoom = scope.FindByDesignArea(20.0);
-            Assert.Equal("Office Large", findRoom.Name);
-        }
-
-        [Fact]
-        public void FindDesignXY()
-        {
-            var scope = new Scope();
-            scope.Occupant.AddRange(MakeOccupant());
-            var findRoom = scope.FindByDesignXY(5.0, 4.0);
-            Assert.Equal("Office Large", findRoom.Name);
-        }
-
-        [Fact]
-        public void FindByTypeID()
-        {
-            var scope = new Scope();
-            scope.Occupant.AddRange(MakeOccupant());
-            var findRoom = scope.FindByTypeID(4);
-            Assert.Equal("Conference Medium", findRoom.Name);
-            Assert.Equal(Palette.Magenta, findRoom.Color);
-            Assert.Equal(6.0, findRoom.DesignLength);
-            Assert.Equal(4.0, findRoom.DesignWidth);
-            Assert.Equal(5.0, findRoom.Height);
         }
     }
 }

@@ -385,7 +385,7 @@ namespace RoomKit
         /// <summary>
         /// Returns all Corridors, Rooms, and Services as Masses.
         /// </summary>
-        public IList<Mass> InteriorsAsMasses
+        public List<Mass> InteriorsAsMasses
         {
             get
             {
@@ -418,7 +418,7 @@ namespace RoomKit
         /// <summary>
         /// Returns all Corridors, Exclusions, Rooms, and Services as Polygons.
         /// </summary>
-        public IList<Polygon> InteriorsAsPolygons
+        public List<Polygon> InteriorsAsPolygons
         {
             get
             {
@@ -442,7 +442,7 @@ namespace RoomKit
         /// <summary>
         /// Returns all Corridors, Rooms, and Services as Spaces.
         /// </summary>
-        public IList<Space> InteriorsAsSpaces
+        public List<Space> InteriorsAsSpaces
         {
             get
             {

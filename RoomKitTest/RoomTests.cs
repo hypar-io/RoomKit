@@ -18,11 +18,11 @@ namespace RoomKitTest
         {
             var room = new Room
             {
-                AdjacentTo = new[] { 5, 10, 18 }
+                AdjacentTo = new List<string>{ "5", "10", "18" }
             };
-            Assert.Equal(5, room.AdjacentTo[0]);
-            Assert.Equal(10, room.AdjacentTo[1]);
-            Assert.Equal(18, room.AdjacentTo[2]);
+            Assert.Equal("5", room.AdjacentTo[0]);
+            Assert.Equal("10", room.AdjacentTo[1]);
+            Assert.Equal("18", room.AdjacentTo[2]);
         }
 
         [Fact]
@@ -245,13 +245,13 @@ namespace RoomKitTest
         }
 
         [Fact]
-        public void TypeID()
+        public void Number()
         {
             var room = new Room
             {
-                TypeID = 12
+                Number = "12"
             };
-            Assert.Equal(12, room.TypeID);
+            Assert.Equal("12", room.Number);
         }
 
         [Fact]

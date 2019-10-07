@@ -24,7 +24,7 @@ namespace RoomKit
         public static Polygon Adjacent(Polygon polygon,
                                        Polygon adjTo,
                                        Polygon within = null,
-                                       IList<Polygon> among = null)
+                                       List<Polygon> among = null)
         {
             var tryPolygon = N(polygon, adjTo, within, among);
             if (tryPolygon == null)
@@ -60,7 +60,7 @@ namespace RoomKit
                                        Polygon adjTo,   
                                        Orient oAdjTo,
                                        Polygon within = null,
-                                       IList<Polygon> among = null,
+                                       List<Polygon> among = null,
                                        bool rotateToFit = false)
         {
             var tryPolygon = polygon.MoveFromTo(polygon.Box().PointBy(oPolygon), adjTo.Box().PointBy(oAdjTo));
@@ -95,7 +95,7 @@ namespace RoomKit
         public static Polygon N(Polygon polygon, 
                                 Polygon adjTo,
                                 Polygon within = null,
-                                IList<Polygon> among = null)
+                                List<Polygon> among = null)
         {
             var tryPolygon = ByOrient(polygon, Orient.S, adjTo, Orient.N, within, among, true);
             if (tryPolygon != null)
@@ -123,7 +123,7 @@ namespace RoomKit
         public static Polygon S(Polygon polygon,
                                 Polygon adjTo,
                                 Polygon within = null,
-                                IList<Polygon> among = null)
+                                List<Polygon> among = null)
         {
             var tryPolygon = ByOrient(polygon, Orient.N, adjTo, Orient.S, within, among, true);
             if (tryPolygon != null)
@@ -151,7 +151,7 @@ namespace RoomKit
         public static Polygon W(Polygon polygon,
                                 Polygon adjTo,
                                 Polygon within = null,
-                                IList<Polygon> among = null)
+                                List<Polygon> among = null)
         {
             var tryPolygon = ByOrient(polygon, Orient.E, adjTo, Orient.W, within, among, true); ;
             if (tryPolygon != null)
@@ -179,7 +179,7 @@ namespace RoomKit
         public static Polygon E(Polygon polygon,
                                 Polygon adjTo,
                                 Polygon within = null,
-                                IList<Polygon> among = null)
+                                List<Polygon> among = null)
         {
             var tryPolygon = ByOrient(polygon, Orient.W, adjTo, Orient.E, within, among, true);
             if (tryPolygon != null)

@@ -424,9 +424,10 @@ namespace RoomKit
 
         #region Methods
         /// <summary>
-        /// Finds the first Occupant Room with the DesignArea value closest to the supplied area. C
+        /// Finds the first Occupant Room with the DesignArea value closest to the supplied area.
         /// </summary>
         /// <param name="area">Area to match from the list of all Occupant Room definitions.</param>
+        /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
         /// <returns>
         /// A Room.
         /// </returns>
@@ -489,6 +490,7 @@ namespace RoomKit
         /// </summary>
         /// <param name="designX">The x-axis dimension to match.</param>
         /// <param name="designY">The y-axis dimension to match.</param>
+        /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
         /// <returns>
         /// A Room.
         /// </returns>
@@ -539,13 +541,14 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Finds the first unplaced Room with the specifed TypeID.
+        /// Finds the first placed or unplaced Room with the specifed name.
         /// </summary>
-        /// <param name="typeID">The integer ID of a Room type.</param>
+        /// <param name="name">The name of a Room.</param>
+        /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
         /// <returns>
         /// A Room.
         /// </returns>
-        public Room FindByTypeID(int typeID, bool unplaced = true)
+        public Room FindByName(string name, bool unplaced = true)
         {
             List<Room> rooms = null;
             if (unplaced)
@@ -558,13 +561,43 @@ namespace RoomKit
             }
             foreach (Room room in rooms)
             {
-                if (room.TypeID == typeID)
+                if (room.Name == name)
                 {
                     return room;
                 }
             }
             return null;
-        } 
+        }
+
+        /// <summary>
+        /// Finds the first placed or unplaced Room with the specifed number.
+        /// </summary>
+        /// <param name="number">The number of a Room.</param>
+        /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
+        /// <returns>
+        /// A Room.
+        /// </returns>
+        public Room FindByNumber(string number, bool unplaced = true)
+        {
+            List<Room> rooms = null;
+            if (unplaced)
+            {
+                rooms = Unplaced;
+            }
+            else
+            {
+                rooms = Occupant;
+            }
+            foreach (Room room in rooms)
+            {
+                if (room.Number == number)
+                {
+                    return room;
+                }
+            }
+            return null;
+        }
+
         #endregion
     }
 }
