@@ -1,4 +1,5 @@
 [Bb]in/
 [Oo]bj/
 .vs/
+~nuget/
 *.glb
