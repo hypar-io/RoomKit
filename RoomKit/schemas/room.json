@@ -1,5 +1,5 @@
 {
-    "$id": "https://hypar.io/Schemas/Room.json",
+    "$id": "https://github.com/hypar-io/RoomKit/blob/master/RoomKit/schemas/room.json",
     "$schema": "http://json-schema.org/draft-07/schema#",
     "description": "A room.",
     "title": "Room",
