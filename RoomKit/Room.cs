@@ -99,18 +99,7 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color))
-                {
-                    Name = "Name"
-                };
-                space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                space.AddProperty("Number", new StringProperty(Number, UnitType.Text));
-                space.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));
-                space.AddProperty("Design Length", new NumericProperty(DesignLength, UnitType.Distance));
-                space.AddProperty("Design Width", new NumericProperty(DesignWidth, UnitType.Distance));
-                space.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                space.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                space.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
+                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color), name: "Name");
                 return space;
             }
         }
@@ -136,18 +125,7 @@ namespace RoomKit
                     return null;
                 }
                 var t = new Transform(0.0, 0.0, Elevation);
-                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), t)
-                {
-                    Name = "Name"
-                };
-                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                mass.AddProperty("Number", new StringProperty(Number, UnitType.Text));
-                mass.AddProperty("Design Area", new NumericProperty(DesignArea, UnitType.Area));
-                mass.AddProperty("Design Length", new NumericProperty(DesignLength, UnitType.Distance));
-                mass.AddProperty("Design Width", new NumericProperty(DesignWidth, UnitType.Distance));
-                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
+                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), name: "Name");
                 return mass;
             }
         }

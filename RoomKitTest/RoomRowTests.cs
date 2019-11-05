@@ -95,7 +95,7 @@ namespace RoomKitTest
             {
                 model.AddElement(room.AsSpace);
             }
-            model.AddElement(new Floor(roomRow.Circulation, new FloorType("slab", 0.05)));
+            model.AddElement(new Floor(roomRow.Circulation, 0.05));
             model.ToGlTF("../../../../RoomRow.glb");
         }
 
@@ -175,7 +175,7 @@ namespace RoomKitTest
             {
                 model.AddElement(room.AsSpace);
             }
-            model.AddElement(new Floor(roomRow.Circulation, new FloorType("slab", 0.05)));
+            model.AddElement(new Floor(roomRow.Circulation, 0.05));
             model.ToGlTF("../../../../RoomRowByWidth.glb");
         }
 

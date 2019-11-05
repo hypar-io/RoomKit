@@ -43,7 +43,6 @@ namespace RoomKit
             Name = name;
             Perimeter = perimeter;
             slabThickness = slabThick;
-            slabType = new FloorType(new Guid().ToString(), slabThickness);
             TypeID = typeID;
         }
 
@@ -257,15 +256,7 @@ namespace RoomKit
                     return null;
                 }
                 var t = new Transform(0.0, 0.0, Elevation);
-                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), t)
-                {
-                    Name = "Name"
-                };
-                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
-                return mass;
+                return new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), name: "envelope");
             }
         }
 
@@ -281,10 +272,6 @@ namespace RoomKit
                     return null;
                 }
                 var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
-                space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                space.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                space.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                space.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
                 return space;
             }
         }
@@ -653,11 +640,13 @@ namespace RoomKit
             get
             {
                 var openings = new List<Opening>();
+                var slab = new Floor(Perimeter, SlabThickness, Elevation - SlabThickness);
                 foreach (var room in Openings)
                 {
-                    openings.Add(new Opening(room.Perimeter, SlabThickness, null));
+                    slab.Openings.Add(new Opening(room.Perimeter, SlabThickness, null));
                 }
-                return new Floor(Perimeter, slabType, Elevation - SlabThickness, null, openings);
+                return slab;
+
             }
         }
 
@@ -675,26 +664,10 @@ namespace RoomKit
                     throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
                 }
                 slabThickness = value;
-                slabType = new FloorType(slabType.Name, slabThickness);
             }
         }
 
-        /// <summary>
-        /// FloorType of the Story's floor.
-        /// </summary>
-        private FloorType slabType;
-        public FloorType SlabType
-        {
-            get
-            {
-                return slabType;
-            }
-            set
-            {
-                slabType = value;
-                slabThickness = slabType.Thickness();
-            }
-        }
+
 
         /// <summary>
         /// Arbitrary integer identifier of this instance..
@@ -786,7 +759,7 @@ namespace RoomKit
             {
                 var toRooms = new List<Room>(Exclusions);
                 toRooms.AddRange(Services);
-                fitRooms = FitRooms(fitRooms, toRooms, false);
+                fitRooms = FitRooms(fitRooms, toRooms, true);
                 Rooms = FitRooms(Rooms, fitRooms);
             }
             if (fitRooms.Count == 0)

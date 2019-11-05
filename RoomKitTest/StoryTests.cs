@@ -441,23 +441,11 @@ namespace RoomKitTest
         }
 
         [Fact]
-        public void SlabType()
-        {
-            var story = MakeStory();
-            Assert.Equal(0.1, story.SlabType.Thickness());
-            var newFloor = new FloorType("newFloor", 0.5);
-            story.SlabType = newFloor;
-            Assert.Equal(0.5, story.SlabThickness);
-            Assert.Equal(0.5, story.Slab.Thickness());
-        }
-
-        [Fact]
         public void SlabThickness()
         {
             var story = MakeStory();
             Assert.Equal(0.1, story.SlabThickness);
-            var newSlab = new FloorType("newSlab", 0.5);
-            story.SlabType = newSlab;
+            story.SlabThickness = 0.5;
             Assert.Equal(0.5, story.SlabThickness);
         }
     }

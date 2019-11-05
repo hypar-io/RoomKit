@@ -139,11 +139,6 @@ namespace RoomKit
                                     Height, 
                                     new Material(Guid.NewGuid().ToString(), Color), 
                                     new Transform(0.0, 0.0, Elevation));
-                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
-                mass.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
                 return mass;
             }
         }
@@ -168,11 +163,6 @@ namespace RoomKit
                     return null;
                 }
                 var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
-                space.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                space.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                space.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                space.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
-                space.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
                 return space;
             }
         }
@@ -189,15 +179,7 @@ namespace RoomKit
                     return null;
                 }
                 var t = new Transform(0.0, 0.0, Elevation);
-                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), t)
-                {
-                    Name = "Name"
-                };
-                mass.AddProperty("Name", new StringProperty(Name, UnitType.Text));
-                mass.AddProperty("Area", new NumericProperty(Perimeter.Area(), UnitType.Area));
-                mass.AddProperty("Elevation", new NumericProperty(Elevation, UnitType.Distance));
-                mass.AddProperty("Height", new NumericProperty(Height, UnitType.Distance));
-                mass.AddProperty("Volume", new NumericProperty(Perimeter.Area() * Height, UnitType.Volume));
+                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), name: "Name");
                 return mass;
             }
         }
@@ -460,6 +442,21 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// SetSlabThickness sets the slab thickness for all Tower Stories.
+        /// </summary>
+        /// <param name="thickness">Thickness of the slabs.</param> 
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void SetSlabThickness(double thickness)
+        {
+            foreach (Story story in Stories)
+            {
+                story.SlabThickness = thickness;
+;            }
+        }
+
+        /// <summary>
         /// Creates the Tower by stacking a series of Story instances from the Tower Elevation.
         /// </summary>
         /// <param name="floors">Desired quantity of stacked Stories to form the Tower. If greater than zero, overrides and resets the current Floors property.</param>
@@ -480,7 +477,6 @@ namespace RoomKit
             }
             Stories.Clear();
             var elevation = Elevation;
-            var slabType = new FloorType(new Guid().ToString(), 0.1);
             for (int i = 0; i < Floors; i++)
             {
                 if (elevation + storyHeight > HeightLimit)
@@ -493,7 +489,6 @@ namespace RoomKit
                     Elevation = elevation,
                     Height = storyHeight,
                     Perimeter = perimeter,
-                    SlabType = slabType
                 };
                 Stories.Add(story);
                 elevation += storyHeight;
@@ -503,18 +498,6 @@ namespace RoomKit
                 return false;
             }
             return true;
-        }
-
-        /// <summary>
-        /// Sets a common FloorType for all Story Slabs.
-        /// </summary>
-        /// <param name="slabType"></param>
-        public void SetSlabType(FloorType slabType)
-        {
-            foreach (Story story in Stories)
-            {
-                story.SlabType = slabType;
-            }
         }
 
         /// <summary>

@@ -240,7 +240,7 @@ namespace RoomKitTest
         public void SetSlabType()
         {
             var tower = MakeTower();
-            tower.SetSlabType(new FloorType("TowerSlab", 0.5));
+            tower.SetSlabThickness(0.5);
             var model = new Model();
             foreach (var story in tower.Stories)
             {
