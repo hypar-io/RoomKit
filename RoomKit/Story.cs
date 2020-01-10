@@ -255,8 +255,13 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var t = new Transform(0.0, 0.0, Elevation);
-                return new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), name: "envelope");
+                return new Mass(new Profile(Perimeter),
+                                Height,
+                                new Material(Guid.NewGuid().ToString(), Color),
+                                new Transform(0.0, 0.0, Elevation),
+                                null,
+                                Guid.NewGuid(),
+                                Name);
             }
         }
 
@@ -271,8 +276,13 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
-                return space;
+                return new Space(new Profile(Perimeter),
+                                 Height,
+                                 new Material(Guid.NewGuid().ToString(), Color),
+                                 new Transform(0.0, 0.0, Elevation),
+                                 null,
+                                 Guid.NewGuid(),
+                                 Name);
             }
         }
 
@@ -460,7 +470,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Identifies whether this story represents a base ment level.
+        /// Identifies whether this story represents a basement level.
         /// </summary>
         public bool IsBasement { get; set; }
 
@@ -640,7 +650,8 @@ namespace RoomKit
             get
             {
                 var openings = new List<Opening>();
-                var slab = new Floor(Perimeter, SlabThickness, Elevation - SlabThickness);
+                var slab = new Floor(Perimeter, SlabThickness);
+                //var slab = new Floor(Perimeter, new FloorType("slab", 0.05), Elevation - SlabThickness);
                 foreach (var room in Openings)
                 {
                     slab.Openings.Add(new Opening(room.Perimeter, SlabThickness, null));

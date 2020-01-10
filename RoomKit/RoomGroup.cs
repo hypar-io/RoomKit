@@ -317,6 +317,5 @@ namespace RoomKit
             return true;
         } 
         #endregion
-
     }
 }

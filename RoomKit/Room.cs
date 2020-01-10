@@ -80,41 +80,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// A Space created from Room characteristics.
-        /// Adds properties to the Space recording
-        /// Name as Name
-        /// Nuber as Number
-        /// DesignArea as Design Area
-        /// DesignX as Design Length
-        /// DesignY as Design Width
-        /// Perimeter.Area as Area
-        /// Elevation as Elevation
-        /// Height as Height
-        /// </summary>
-        public Space AsSpace
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color), name: "Name");
-                return space;
-            }
-        }
-
-        /// <summary>
         /// A Mass created from Room characteristics.
-        /// Adds properties to the Space recording
-        /// Name as Name
-        /// Nuber as Number
-        /// DesignArea as Design Area
-        /// DesignX as Design Length
-        /// DesignY as Design Width
-        /// Perimeter.Area as Area
-        /// Elevation as Elevation
-        /// Height as Height
         /// </summary>
         public Mass AsMass
         {
@@ -124,9 +90,54 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var t = new Transform(0.0, 0.0, Elevation);
-                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), name: "Name");
-                return mass;
+                return new Mass(new Profile(Perimeter), 
+                                Height, 
+                                new Material(Guid.NewGuid().ToString(), Color),
+                                new Transform(0.0, 0.0, Elevation),
+                                null,
+                                Guid.NewGuid(), 
+                                Name);
+            }
+        }
+
+        /// <summary>
+        /// A Panel created from Room characteristics.
+        /// </summary>
+        public Panel AsPanel
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                return new Panel(Perimeter,
+                                 new Material(Guid.NewGuid().ToString(), Color),
+                                 new Transform(0.0, 0.0, Elevation + 0.005),
+                                 null,
+                                 Guid.NewGuid(),
+                                 Name);
+            }
+        }
+
+        /// <summary>
+        /// A Space created from Room characteristics.
+        /// </summary>
+        public Space AsSpace
+        {
+            get
+            {
+                if (Perimeter == null)
+                {
+                    return null;
+                }
+                return new Space(new Profile(Perimeter),
+                                 Height,
+                                 new Material(Guid.NewGuid().ToString(), Color),
+                                 new Transform(0.0, 0.0, Elevation),
+                                 null,
+                                 Guid.NewGuid(),
+                                 Name);
             }
         }
 

@@ -135,11 +135,13 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var mass = new Mass(Perimeter, 
-                                    Height, 
-                                    new Material(Guid.NewGuid().ToString(), Color), 
-                                    new Transform(0.0, 0.0, Elevation));
-                return mass;
+                return new Mass(new Profile(Perimeter),
+                                Height,
+                                new Material(Guid.NewGuid().ToString(), Color),
+                                new Transform(0.0, 0.0, Elevation),
+                                null,
+                                Guid.NewGuid(),
+                                Name);
             }
         }
 
@@ -162,8 +164,13 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var space = new Space(Perimeter, Height, Elevation, new Material(Guid.NewGuid().ToString(), Color));
-                return space;
+                return new Space(new Profile(Perimeter),
+                                 Height,
+                                 new Material(Guid.NewGuid().ToString(), Color),
+                                 new Transform(0.0, 0.0, Elevation),
+                                 null,
+                                 Guid.NewGuid(),
+                                 Name);
             }
         }
 
@@ -178,9 +185,13 @@ namespace RoomKit
                 {
                     return null;
                 }
-                var t = new Transform(0.0, 0.0, Elevation);
-                var mass = new Mass(new Profile(Perimeter), Height, new Material(Guid.NewGuid().ToString(), Color), name: "Name");
-                return mass;
+                return new Mass(new Profile(Perimeter),
+                                Height,
+                                new Material(Guid.NewGuid().ToString(), Color),
+                                new Transform(0.0, 0.0, Elevation),
+                                null,
+                                Guid.NewGuid(),
+                                Name);
             }
         }
 

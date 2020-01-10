@@ -66,7 +66,13 @@ namespace RoomKitTest
                 }
             }
             var model = new Model();
-            model.AddElement(new Space(perimeter, elevation: -0.02, height: 0.1, material: BuiltInMaterials.Concrete));
+            model.AddElement(new Space(perimeter, 
+                                       0.1, 
+                                       BuiltInMaterials.Concrete, 
+                                       new Transform(0.0, 0.0, -0.02), 
+                                       null, 
+                                       Guid.NewGuid(), 
+                                       ""));
             foreach (Polygon polygon in among)
             {
                 var color = new Color((float)Shaper.RandomDouble(0, 1),
