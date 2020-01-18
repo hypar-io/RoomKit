@@ -12,48 +12,115 @@ namespace RoomKit
     public class Room
     {
         #region Constructors
-        /// <summary>
-        /// Constructor by default sets all internal variables to values to creating a 1.0 x 1.0 x 1.0 white cube with no required adjacencies placed on the zero plane with an empty string, null perimeter, and an integer TypeID of -1.
-        /// </summary>
-        public Room(string name = "",
-                    string number = "",
-                    double designArea = 1.0,
-                    double designRatio = 1.0,
-                    double elevation = 0.0,
-                    double height = 3.0,
-                    Polygon perimeter = null,
-                    List<string> adjacentTo = null,
-                    Color color = null)
-        {
-            
-            Placed = false;
-            UniqueID = Guid.NewGuid().ToString();
 
-            Name = name;
-            Number = number;
-            DesignArea = designArea;
-            DesignRatio = designRatio;
-            Elevation = elevation;
-            Height = height;
-            Perimeter = perimeter;
-            AdjacentTo = adjacentTo;
-            if (color == null)
-            {
-                Color = Palette.White;
-            }
-            else
-            {
-                Color = color;
-            }
+        /// <summary>
+        /// Default constructor creates a 1.0 x 1.0 x 1.0 white cube on the zero plane with the SW corner at the origin.
+        /// </summary>
+        public Room()
+        {
+
+            Color = Palette.White;
+            Name = "";
+            Number = "";
+            Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(1.0, 1.0));
+            Position = Vector3.Origin;
+            Size = new Vector3(1.0, 1.0, 1.0);
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor creates a Room by a sizing vector with the SW corner at the origin.
+        /// </summary>
+        public Room(Vector3 size)
+        {
+
+            Color = Palette.White;
+            Name = "";
+            Number = "";
+            Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(size.X, size.Y));
+            Position = Vector3.Origin;
+            Size = size;
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor creates a Room by an area and a x : y dimension ratio and height with the SW corner at the origin.
+        /// </summary>
+        public Room(double area, double ratio, double height)
+        {
+
+            Color = Palette.White;
+            Name = "";
+            Number = "";
+            Perimeter = Shaper.RectangleByArea(area, ratio);
+            Position = Vector3.Origin;
+            Size = new Vector3(Perimeter.Compass().SizeX, Perimeter.Compass().SizeY, height);
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor creates a Room by two points, a width, and a height.
+        /// </summary>
+        public Room(Vector3 start, Vector3 end, double width, double height)
+        {
+
+            Color = Palette.White;
+            Name = "";
+            Number = "";
+            Perimeter = new Line(start, end).Thicken(width);
+            Position = Vector3.Origin;
+            Size = new Vector3(Perimeter.Compass().SizeX, Perimeter.Compass().SizeY, height);
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor creates a Room by a line, a width, and a height.
+        /// </summary>
+        public Room(Line line, double width, double height)
+        {
+
+            Color = Palette.White;
+            Name = "";
+            Number = "";
+            Perimeter = line.Thicken(width);
+            Position = Vector3.Origin;
+            Size = new Vector3(Perimeter.Compass().SizeX, Perimeter.Compass().SizeY, height);
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor creates a Room by a Polygon and a height.
+        /// </summary>
+        public Room(Polygon polygon, double height)
+        {
+
+            Color = Palette.White;
+            Name = "";
+            Number = "";
+            Perimeter = polygon;
+            Position = Vector3.Origin;
+            Size = new Vector3(Perimeter.Compass().SizeX, Perimeter.Compass().SizeY, height);
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor creates a Room from another Room.
+        /// </summary>
+        public Room(Room room)
+        {
+
+            Color = room.Color;
+            Name = room.Name;
+            Number = room.Number;
+            Perimeter = room.Perimeter;
+            Position = room.Position;
+            Size = room.Size;
+            UniqueID = Guid.NewGuid().ToString();
         }
 
         #endregion
 
         #region Properties
-        /// <summary>
-        /// A list of Resource ID integers indicating the desired adjacencies of this Room type to other Room types.
-        /// </summary>
-        public List<string> AdjacentTo { get; set; }
 
         /// <summary>
         /// The area of the room's perimeter Polygon. 
@@ -63,19 +130,7 @@ namespace RoomKit
         {
             get
             {
-                return Perimeter == null ? -1.0 : Perimeter.Area();
-            }
-        }
-
-        /// <summary>
-        /// The ratio between the intended area and the actual area of the Room. 
-        /// Returns a negative value if the Room has no Perimeter value.
-        /// </summary>
-        public double AreaVariance
-        {
-            get
-            {
-                return (Perimeter != null && DesignArea > 0.0) ? Perimeter.Area() / DesignArea : -1.0;
+                return Math.Abs(Perimeter.Area());
             }
         }
 
@@ -86,16 +141,12 @@ namespace RoomKit
         {
             get
             {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                return new Mass(new Profile(Perimeter), 
-                                Height, 
+                return new Mass(new Profile(Perimeter),
+                                Height,
                                 new Material(Guid.NewGuid().ToString(), Color),
-                                new Transform(0.0, 0.0, Elevation),
+                                new Transform(Position),
                                 null,
-                                Guid.NewGuid(), 
+                                Guid.NewGuid(),
                                 Name);
             }
         }
@@ -107,13 +158,9 @@ namespace RoomKit
         {
             get
             {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
                 return new Panel(Perimeter,
                                  new Material(Guid.NewGuid().ToString(), Color),
-                                 new Transform(0.0, 0.0, Elevation + 0.005),
+                                 new Transform(Position),
                                  null,
                                  Guid.NewGuid(),
                                  Name);
@@ -127,14 +174,10 @@ namespace RoomKit
         {
             get
             {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
                 return new Space(new Profile(Perimeter),
                                  Height,
                                  new Material(Guid.NewGuid().ToString(), Color),
-                                 new Transform(0.0, 0.0, Elevation),
+                                 new Transform(Position),
                                  null,
                                  Guid.NewGuid(),
                                  Name);
@@ -142,103 +185,19 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Color of the Space returned by AsSpace. 
-        /// Ignores null values.
+        /// Color of the Room. 
         /// </summary>
-        private Color color;
-        public Color Color
-        {
-            get { return color; }
-            set { color = value ?? color; }
-        }
-
-        /// <summary>
-        /// Desired area of this Room. 
-        /// Overridden by positive values of DesignX and DesignY. 
-        /// Ignores negative values.
-        /// Set to 1.0 by default.
-        /// </summary>
-        private double designArea;
-        public double DesignArea
-        {
-            get { return designArea; }
-            set { designArea = value > 0.0 ? value : designArea; }
-        }
-
-        /// <summary>
-        /// Desired x-axis dimension of this Room. 
-        /// </summary>
-        private double designLength;
-        public double DesignLength
-        {
-            get { return designLength; }
-            set { designLength = value > 0.0 ? value : designLength; }
-        }
-
-        /// <summary>
-        /// Desired y-axis dimension of this Room. 
-        /// </summary>
-        private double designWidth;
-        public double DesignWidth
-        {
-            get { return designWidth; }
-            set { designWidth = value > 0.0 ? value : designLength; }
-        }
-
-        /// <summary>
-        /// Desired ratio of x to y dimensions of the Room. 
-        /// Overridden by positive values of DesignX and DesignY. 
-        /// Ignores negative values.
-        /// Set to 1.0 by default.
-        /// </summary>
-        private double designRatio;
-        public double DesignRatio
-        {
-            get { return designRatio; }
-            set { designRatio = value > 0.0 ? value : designRatio; }
-        }
-
-
-        /// <summary>
-        /// Returns true if both DesignLength and DesignWidth are positive values.
-        /// </summary>
-        public bool DesignSet
-        {
-            get { return (DesignLength <= 0.0 || DesignWidth <= 0.0) ? false : true; }
-        }
-
-        /// <summary>
-        /// Desired x, y, and z axis dimensions of this Room.
-        /// Ignores x and y values if either is 0.0 or negative.
-        /// Ignored z value if it is 0.0 or negative.
-        /// Sets DesignArea.
-        /// </summary>
-        public Vector3 DesignXYZ
-        {
-            get { return new Vector3(designLength, designWidth, height); }
-            set
-            {
-                designLength = value.X > 0.0 ? value.X : designLength;
-                designWidth = value.Y > 0.0 ? value.Y : designWidth;
-                height = value.Z > 0.0 ? value.Z : height;
-                DesignArea = designLength * designWidth;
-            }
-        }
+        public Color Color { get; set; }
 
         /// <summary>
         /// Vertical position of the Room's lowest plane relative to the ground plane.
         /// </summary> 
-        public double Elevation { get; set; }
+        public double Elevation { get; }
 
         /// <summary>
         /// Vertical height of the room above its elevation.
         /// </summary> 
-        private double height;
-        public double Height
-        {
-            get { return height; }
-            set { height = value > 0.0 ? value : height; }
-        }
+        public double Height { get; }
 
         /// <summary>
         /// Arbitrary string identifier for this Room instance.
@@ -253,58 +212,26 @@ namespace RoomKit
         /// <summary>
         /// Polygon perimeter of the Room.
         /// </summary>
-        private Polygon perimeter;
-        public Polygon Perimeter
-        {
-            get { return perimeter; }
-            set { perimeter = value ?? perimeter; }
-        }
+        public Polygon Perimeter { get; private set; }
 
         /// <summary>
-        /// Manual flag to record if the Room has been placed in its final position.
+        /// Polygon perimeter of the Room.
         /// </summary>
-        public bool Placed { get; set; }
+        public Vector3 Position { get; set; }
 
         /// <summary>
-        /// X dimensions of the Room Perimeter orthogonal bounding box.
+        /// Dimensions of the Room Perimeter orthogonal bounding box.
         /// </summary>
-        public double SizeX
-        {
-            get { return Perimeter == null ? 0.0 : new TopoBox(perimeter).SizeX;  }
-        }
-
-        /// <summary>
-        /// X dimensions of the Room Perimeter orthogonal bounding box.
-        /// </summary>
-        public double SizeY
-        {
-            get { return Perimeter == null ? 0.0 : new TopoBox(perimeter).SizeY; }
-        }
+        public Vector3 Size { get; private set; }
 
         /// <summary>
         /// UUID for this instance, set on initialization.
         /// </summary>
         public string UniqueID { get; }
+
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// Moves the Room along a 3D vector calculated between the supplied Vector3 points.
-        /// </summary>
-        /// <param name="from">Vector3 base point of the move.</param>
-        /// <param name="to">Vector3 target point of the move.</param>
-        /// <returns>
-        /// A Polygon represeting the Room's new Perimeter.
-        /// </returns>
-        public Polygon MoveFromTo(Vector3 from, Vector3 to)
-        {
-            if (Perimeter != null)
-            {
-                Perimeter = Perimeter.MoveFromTo(from, to);
-            }
-            return Perimeter;
-        }
 
         /// <summary>
         /// Rotates the Room Perimeter in the horizontal plane around the supplied pivot point.
@@ -314,126 +241,10 @@ namespace RoomKit
         /// <returns>
         /// True if the Perimeter is successfully rotated.
         /// </returns>
-        public bool Rotate(Vector3 pivot, double angle)
+        public void Rotate(Vector3 pivot, double angle)
         {
-            if (Perimeter == null)
-            {
-                return false;
-            }
             Perimeter = Perimeter.Rotate(pivot, angle);
-            return true;
-        }
-
-        /// <summary>
-        /// Creates and sets a rectangular Room Perimeter, Height, and southwest corner location with a supplied vectors.
-        /// Sets the DesignX and DesignY properties.
-        /// </summary>
-        /// <param name="xyz">Vector3 dimensions of a new Polygon Perimeter. If xy.Z is > 0.0, sets the height of the Room.</param> 
-        /// <param name="moveTo">Vector3 location of the new Polygon's southwest corner.</param> 
-        /// <returns>
-        /// True if the Perimeter is successfully set.
-        /// </returns>
-        public bool SetDimensions(Vector3 xyz, Vector3 moveTo = null)
-        {
-            if (xyz.X <= 0.0 || xyz.Y <= 0.0)
-            {
-                return false;
-            }
-            perimeter = Shaper.Rectangle(xyz.X, xyz.Y, moveTo);
-            height = xyz.Z > 0.0 ? xyz.Z : height;
-            return true;
-        }
-
-        /// <summary>
-        /// Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the origin or at the 2D location specified by the supplied Vector3.
-        /// </summary>
-        /// <returns>
-        /// True if the Perimeter is successfully set.
-        /// </returns>
-        public bool SetPerimeter(Vector3 moveTo = null, double width = 0.0)
-        {
-            if (width > 0.0)
-            {
-                if (DesignSet)
-                {
-                    Perimeter = Shaper.Rectangle(DesignLength * DesignWidth / width, width, moveTo);
-                    return true;
-                }
-                else if (DesignArea > 0.0)
-                {
-                    Perimeter = Shaper.Rectangle(DesignArea / width, width, moveTo);
-                    return true;
-                }
-            }
-            else if (DesignSet)
-            {
-                Perimeter = Shaper.Rectangle(DesignLength, DesignWidth, moveTo);
-                return true;
-            }
-            else if (DesignArea > 0.0 && DesignRatio > 0.0)
-            {
-                Perimeter = Shaper.RectangleByArea(DesignArea, DesignRatio, moveTo);
-                return true;
-            }
-            return false;
-        }
-
-        /// <summary>
-        /// Creates and sets a rectangular Room Perimeter with dimensions derived from Room characteristics with its southwest corner at the supplied Vector3 point. If no point is supplied, the southwest corner is placed at the origin.
-        /// </summary>
-        /// <param name="area">Area override for the new Room Perimeter. If zero, defaults to the value of DesignArea.</param>
-        /// <param name="ratio">Desired ratio of X to Y Room dimensions.</param> 
-        /// <param name="moveTo">Vector3 location of the new Polygon's southwest corner.</param> 
-        /// <returns>
-        /// True if the Perimeter is successfully set.
-        /// </returns>
-        public bool SetPerimeter(double area, double ratio = 1.0, Vector3 moveTo = null)
-        {
-            if (area <= 0.0 || ratio <= 0.0)
-            {
-                return false;
-            }
-            Perimeter = Shaper.RectangleByArea(area, ratio, moveTo);
-            return true;
-        }
-
-        /// <summary>
-        /// Creates and sets a rectangular Room perimeter with dimensions derived from a supplied Line and a width. 
-        /// Intended for creating corridors.
-        /// </summary>
-        /// <param name="axis">The Line defining the centerline of the perimeter.</param> 
-        /// <param name="width">The width of the perimeter along the axis Line.</param> 
-        /// <returns>
-        /// True if the Perimeter is successfully set.
-        /// </returns>
-        public bool SetPerimeter(Line axis, double width)
-        {
-            if (width <= 0.0)
-            {
-                return false;
-            }
-            Perimeter = axis.Thicken(width);
-            return true;
-        }
-
-        /// <summary>
-        /// Creates and sets a rectangular Room perimeter with dimensions derived from two points and a width. 
-        /// Intended for creating corridors.
-        /// </summary>
-        /// <param name="start">The start point of an axis defining centerline of the perimeter.</param> 
-        /// <param name="end">The end point of an axis defining centerline of the perimeter.</param> 
-        /// <param name="width">The width of the perimeter along the axis Line.</param> 
-        /// <returns>
-        ///True if the Perimeter is successfully set.
-        /// </returns>
-        public bool SetPerimeter(Vector3 start, Vector3 end, double width)
-        {
-            if (width <= 0.0)
-            {
-                return false;
-            }
-            Perimeter = new Line(start, end).Thicken(width);
-            return true;
+            Size = new Vector3(Perimeter.Compass().SizeX, Perimeter.Compass().SizeY, Size.Z);
         }
 
         #endregion

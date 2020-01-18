@@ -46,8 +46,8 @@ namespace RoomKitTest
                                                new Vector3(5.0, 5.0),
                                                new Vector3(0.0, 5.0) }));
             }
-            var boxPlace = new TopoBox(Rooms.First());
-            var boxPerim = new TopoBox(perimeter);
+            var boxPlace = new CompassBox(Rooms.First());
+            var boxPerim = new CompassBox(perimeter);
             among.Add(Rooms.First().MoveFromTo(boxPlace.SW, boxPerim.SW));
             foreach (Polygon place in Rooms)
             {

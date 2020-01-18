@@ -168,7 +168,7 @@ namespace RoomKit
                 {
                     return 0.0;
                 }
-                return new TopoBox(Perimeter).SizeX;
+                return new CompassBox(Perimeter).SizeX;
             }
         }
 
@@ -183,7 +183,7 @@ namespace RoomKit
                 {
                     return 0.0;
                 }
-                return new TopoBox(Perimeter).SizeY;
+                return new CompassBox(Perimeter).SizeY;
             }
         }
 
@@ -289,7 +289,7 @@ namespace RoomKit
             var sizeX = SizeX / xRooms;
             var sizeY = SizeY / yRooms;
             var count = xRooms * yRooms;
-            var box = new TopoBox(Perimeter);
+            var box = new CompassBox(Perimeter);
             var newRooms = new List<Room>();
             for (int xIdx = 0; xIdx < xRooms; xIdx++)
             {

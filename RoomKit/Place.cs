@@ -46,9 +46,9 @@ namespace RoomKit
         /// Attempts to place a supplied Polygon in a position relative to another Polygon, using specified paired bounding box orientation points on each Polygon. Optionally restricts Polygon placement within a perimeter and/or avoiding intersection with a supplied list of Polygons.
         /// </summary>
         /// <param name="polygon">The Polygon to be placed adjacent to another Polygon.</param>
-        /// <param name="oPolygon">The Polygon TopoBox orientation to use as an insertion point.</param>
+        /// <param name="oPolygon">The Polygon CompassBox orientation to use as an insertion point.</param>
         /// <param name="adjTo">The Polygon adjacent to which the new Polygon will be located.</param>
-        /// <param name="oAdjTo">The Polygon TopoBox orientation to use as a placement point.</param>
+        /// <param name="oAdjTo">The Polygon CompassBox orientation to use as a placement point.</param>
         /// <param name="within">The Polygon that must cover the resulting Polygon.</param>
         /// <param name="among">The collection of Polygons that must not intersect the resulting Polygon.</param>
         /// <param name="rotateToFit">Boolean indicating whether the Polygon should be rotated to fit.</param>

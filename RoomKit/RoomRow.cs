@@ -198,7 +198,7 @@ namespace RoomKit
         /// </summary>
         public double SizeX
         {
-            get { return Circulation == null ? 0.0 : new TopoBox(Circulation).SizeX; }
+            get { return Circulation == null ? 0.0 : new CompassBox(Circulation).SizeX; }
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace RoomKit
         /// </summary>
         public double SizeY
         {
-            get { return Circulation == null ? 0.0 : new TopoBox(Circulation).SizeY; }
+            get { return Circulation == null ? 0.0 : new CompassBox(Circulation).SizeY; }
         }
 
         /// <summary>
@@ -246,7 +246,7 @@ namespace RoomKit
                 room.SetPerimeter(Vector3.Origin, width);
             }
             var polygon = room.Perimeter;
-            var box = new TopoBox(polygon);
+            var box = new CompassBox(polygon);
             var delta = 0.0;
             var newDepth = 0.0;
             var rotation = angle;
