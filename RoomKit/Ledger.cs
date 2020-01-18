@@ -8,7 +8,7 @@ namespace RoomKit
     /// <summary>
     /// Data structure recording space program characteristics and the status of a Room placing process.
     /// </summary>
-    public class Scope
+    public class Ledger
     {
         #region Constructors
         /// <summary>
@@ -18,7 +18,7 @@ namespace RoomKit
         /// A new Scope.
         /// </returns>
 
-        public Scope()
+        public Ledger()
         {
             Circulation = new List<Room>();
             Occupant = new List<Room>();
