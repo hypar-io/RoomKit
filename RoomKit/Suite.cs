@@ -176,6 +176,18 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns a Rooms with a specific UniqueID.
+        /// </summary>
+        /// <param name="name">Name of the rooms to retrieve.</param>
+        /// <returns>
+        /// None.
+        /// </returns>/// 
+        public Room RoomByID(string uniqueID)
+        {
+            return Rooms.Find(r => r.UniqueID == uniqueID);
+        }
+
+        /// <summary>
         /// Returns a list of Rooms with a specific name.
         /// </summary>
         /// <param name="name">Name of the rooms to retrieve.</param>
