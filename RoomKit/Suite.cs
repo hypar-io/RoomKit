@@ -88,23 +88,24 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Sets the height of all Rooms.
+        /// Arbitrary identifier.
         /// </summary>
-        public double Height
-        {
+        private string name;
+        public string Name 
+        { 
+            get
+            {
+                return name;
+            }
             set
             {
+                name = value;
                 foreach (Room room in Rooms)
                 {
-                    room.Height = value;
+                    room.Suite = value;
                 }
             }
         }
-
-        /// <summary>
-        /// Arbitrary identifier.
-        /// </summary>
-        public string Name { get; set; }
 
         /// <summary>
         /// Arbitrary identifier.
@@ -114,7 +115,45 @@ namespace RoomKit
         /// <summary>
         /// List of Rooms designated as occupiable rooms.
         /// </summary>
-        public List<Room> Rooms { get; private set; }
+        public List<Room> Rooms { get; }
+
+        /// <summary>
+        /// Placed Rooms.
+        /// </summary>
+        public List<Room> RoomsPlaced
+        {
+            get
+            {
+                var rooms = new List<Room>();
+                foreach (var room in Rooms)
+                {
+                    if (room.Placed)
+                    {
+                        rooms.Add(room);
+                    }
+                }
+                return rooms;
+            }
+        }
+
+        /// <summary>
+        /// Unplaced Rooms.
+        /// </summary>
+        public List<Room> RoomsUnplaced
+        {
+            get
+            {
+                var rooms = new List<Room>();
+                foreach (var room in Rooms)
+                {
+                    if (!room.Placed)
+                    {
+                        rooms.Add(room);
+                    }
+                }
+                return rooms;
+            }
+        }
 
         /// <summary>
         /// UUID for this instance, set on initialization.
@@ -135,6 +174,8 @@ namespace RoomKit
         /// </returns>
         public void AddRoom(Room room, int position = int.MaxValue)
         {
+            room.Suite = Name;
+            room.SuiteID = UniqueID;
             if (position == int.MaxValue)
             {
                 Rooms.Add(room);
@@ -188,13 +229,37 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns a list of Rooms with an area within a tolerance.
+        /// </summary>
+        /// <param name="area">Area of the rooms to retrieve.</param>
+        /// <returns>
+        /// None.
+        /// </returns>/// 
+        public List<Room> RoomsByArea (double area, double tolerance = 0.01)
+        {
+            if (area <= 0.0)
+            {
+                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+            }
+            var rooms = new List<Room>();
+            foreach (var room in Rooms)
+            {
+                if (Math.Abs(room.Area - area) <= tolerance)
+                {
+                    rooms.Add(room);
+                }
+            }
+            return rooms;
+        }
+
+        /// <summary>
         /// Returns a list of Rooms with a specific name.
         /// </summary>
         /// <param name="name">Name of the rooms to retrieve.</param>
         /// <returns>
         /// None.
         /// </returns>/// 
-        public List<Room> RoomsByName (string name)
+        public List<Room> RoomsByName(string name)
         {
             var rooms = new List<Room>();
             foreach (var room in Rooms)

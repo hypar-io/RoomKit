@@ -63,7 +63,7 @@ namespace RoomKit
                                        List<Polygon> among = null,
                                        bool rotateToFit = false)
         {
-            var tryPolygon = polygon.MoveFromTo(polygon.Box().PointBy(oPolygon), adjTo.Box().PointBy(oAdjTo));
+            var tryPolygon = polygon.MoveFromTo(polygon.Compass().PointBy(oPolygon), adjTo.Compass().PointBy(oAdjTo));
             if (tryPolygon.Fits(within, among))
             {
                 return tryPolygon;
@@ -73,7 +73,7 @@ namespace RoomKit
                 var t = new Transform();
                 t.Rotate(Vector3.ZAxis, 90);
                 polygon = t.OfPolygon(polygon);
-                tryPolygon = polygon.MoveFromTo(polygon.Box().PointBy(oPolygon), adjTo.Box().PointBy(oAdjTo));
+                tryPolygon = polygon.MoveFromTo(polygon.Compass().PointBy(oPolygon), adjTo.Compass().PointBy(oAdjTo));
                 if (tryPolygon.Fits(within, among))
                 {
                     return tryPolygon;
