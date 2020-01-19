@@ -20,15 +20,15 @@ namespace RoomKit
         /// <returns>
         /// A new RoomGroup.
         /// </returns>
-        public RoomGroup(string name = "", 
-                         Polygon perimeter = null, 
-                         int typeID = -1)
+        public RoomGroup(Polygon perimeter)
         {
+            Name = "";
             Rooms = new List<Room>();
+            Perimeter = perimeter;
             UniqueID = Guid.NewGuid().ToString();
 
             Name = name;
-            Perimeter = perimeter;
+            
             TypeID = typeID;
 
         }
@@ -119,78 +119,6 @@ namespace RoomKit
                 }
             }
         }
-
-        /// <summary>
-        /// List of Rooms placed within the Perimeter.
-        /// </summary>
-        public List<Room> Rooms { get; }
-
-        /// <summary>
-        /// List of all Room perimeters as Polygons.
-        /// </summary>
-        public List<Polygon> RoomsAsPolygons
-        {
-            get
-            {
-                var polygons = new List<Polygon>();
-                foreach (Room room in Rooms)
-                {
-                    polygons.Add(room.Perimeter);
-                }
-                return polygons;
-            }
-        }
-
-        /// <summary>
-        /// List of all Rooms as Spaces.
-        /// </summary>
-        public List<Space> RoomsAsSpaces
-        {
-            get
-            {
-                var spaces = new List<Space>();
-                foreach (Room room in Rooms)
-                {
-                    spaces.Add(room.AsSpace);
-                }
-                return spaces;
-            }
-        }
-
-        /// <summary>
-        /// X dimension of the Perimeter orthogonal bounding box.
-        /// </summary>
-        public double SizeX
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return 0.0;
-                }
-                return new CompassBox(Perimeter).SizeX;
-            }
-        }
-
-        /// <summary>
-        /// Y dimension of the Perimeter orthogonal bounding box.
-        /// </summary>
-        public double SizeY
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return 0.0;
-                }
-                return new CompassBox(Perimeter).SizeY;
-            }
-        }
-
-        /// <summary>
-        /// Arbitrary integer identifier of this instance..
-        /// </summary>
-        public int TypeID { get; set; }
 
         /// <summary>
         /// UUID for this RoomGroup instance, set on initialization.

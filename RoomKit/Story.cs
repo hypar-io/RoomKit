@@ -116,7 +116,7 @@ namespace RoomKit
         public Color Color
         {
             get { return color; }
-            set { color = value ?? color; }
+            set { color = value; }
         }
 
         /// <summary>
@@ -1020,7 +1020,7 @@ namespace RoomKit
                                     double height = 3.0,
                                     double setback = 0.0,
                                     string name = "",
-                                    Color color = null,
+                                    Color color = Palette.White,
                                     bool fit = true)
         {
             if (Perimeter == null || height < 0.0 || setback < 0.0 || xRooms < 1 || yRooms < 1)
