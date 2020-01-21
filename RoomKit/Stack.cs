@@ -10,7 +10,7 @@ namespace RoomKit
     /// <summary>
     /// Creates and manages a collection of stories as a tower.
     /// </summary>
-    public class Tower
+    public class Stack
     {
 
         #region Constructors
@@ -18,7 +18,7 @@ namespace RoomKit
         /// <summary>
         /// Constructor by default sets a kilometer limit on tower height and a standard 3 meter story height.
         /// </summary>
-        public Tower(int floors = 0,
+        public Stack(int floors = 0,
                      double heightLimit = 1000.0,
                      string name = "",
                      Polygon perimeter = null,
@@ -26,7 +26,7 @@ namespace RoomKit
                      double targetArea = 1.0,
                      int typeID = -1)
         {
-            Color = Palette.White;
+            //Color = Palette.White;
             Cores = new List<Room>();
             Stories = new List<Story>();
             UniqueID = Guid.NewGuid().ToString();
@@ -65,12 +65,12 @@ namespace RoomKit
         /// Color imposed on the envelope of new Stories created by the Tower.. 
         /// Ignores null values.
         /// </summary>
-        private Color color;
-        public Color Color
-        {
-            get { return color; }
-            set { color = value ?? color; }
-        }
+        //private Color color;
+        //public Color Color
+        //{
+        //    get { return color; }
+        //    set { color = value ?? color; }
+        //}
 
         /// <summary>
         /// List of all service Cores in the Tower. 
@@ -116,7 +116,7 @@ namespace RoomKit
                 return (Perimeter == null) ? null :
                     new Room()
                     {
-                        Color = Color,
+                        //Color = Color,
                         Height = Height,
                         Name = Name,
                         Perimeter = Perimeter
@@ -127,23 +127,23 @@ namespace RoomKit
         /// <summary>
         /// Mass created from Tower characteristics.
         /// </summary>
-        public Mass EnvelopeAsMass
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                return new Mass(new Profile(Perimeter),
-                                Height,
-                                new Material(Guid.NewGuid().ToString(), Color),
-                                new Transform(0.0, 0.0, Elevation),
-                                null,
-                                Guid.NewGuid(),
-                                Name);
-            }
-        }
+        //public Mass EnvelopeAsMass
+        //{
+        //    get
+        //    {
+        //        if (Perimeter == null)
+        //        {
+        //            return null;
+        //        }
+        //        return new Mass(new Profile(Perimeter),
+        //                        Height,
+        //                        new Material(Guid.NewGuid().ToString(), Color),
+        //                        new Transform(0.0, 0.0, Elevation),
+        //                        null,
+        //                        Guid.NewGuid(),
+        //                        Name);
+        //    }
+        //}
 
         /// <summary>
         /// Polygon representation of the Story Perimeter.
@@ -156,44 +156,44 @@ namespace RoomKit
         /// <summary>
         /// Space created from Tower characteristics.
         /// </summary>
-        public Space EnvelopeAsSpace
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                return new Space(new Profile(Perimeter),
-                                 Height,
-                                 new Material(Guid.NewGuid().ToString(), Color),
-                                 new Transform(0.0, 0.0, Elevation),
-                                 null,
-                                 Guid.NewGuid(),
-                                 Name);
-            }
-        }
+        //public Space EnvelopeAsSpace
+        //{
+        //    get
+        //    {
+        //        if (Perimeter == null)
+        //        {
+        //            return null;
+        //        }
+        //        return new Space(new Profile(Perimeter),
+        //                         Height,
+        //                         new Material(Guid.NewGuid().ToString(), Color),
+        //                         new Transform(0.0, 0.0, Elevation),
+        //                         null,
+        //                         Guid.NewGuid(),
+        //                         Name);
+        //    }
+        //}
 
         /// <summary>
         /// Mass created from Tower characteristics.
         /// </summary>
-        public Mass AsMass
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return null;
-                }
-                return new Mass(new Profile(Perimeter),
-                                Height,
-                                new Material(Guid.NewGuid().ToString(), Color),
-                                new Transform(0.0, 0.0, Elevation),
-                                null,
-                                Guid.NewGuid(),
-                                Name);
-            }
-        }
+        //public Mass AsMass
+        //{
+        //    get
+        //    {
+        //        if (Perimeter == null)
+        //        {
+        //            return null;
+        //        }
+        //        return new Mass(new Profile(Perimeter),
+        //                        Height,
+        //                        new Material(Guid.NewGuid().ToString(), Color),
+        //                        new Transform(0.0, 0.0, Elevation),
+        //                        null,
+        //                        Guid.NewGuid(),
+        //                        Name);
+        //    }
+        //}
 
         /// <summary>
         /// Desired quantity of Stories in the Tower. 
@@ -236,40 +236,40 @@ namespace RoomKit
         /// <summary>
         /// List of all Slabs from every Story in the Tower. 
         /// </summary>
-        public List<Floor> Slabs
-        {
-            get
-            {
-                var slabs = new List<Floor>();
-                foreach (Story story in Stories)
-                {
-                    slabs.Add(story.Slab);
-                }
-                return slabs;
-            }
-        }
+        //public List<Floor> Slabs
+        //{
+        //    get
+        //    {
+        //        var slabs = new List<Floor>();
+        //        foreach (Story story in Stories)
+        //        {
+        //            slabs.Add(story.Slab);
+        //        }
+        //        return slabs;
+        //    }
+        //}
 
         /// <summary>
         /// List of all Spaces from every Story in the Tower. 
         /// </summary>
-        public List<Space> Spaces
-        {
-            get
-            {
-                List<Space> spaces = new List<Space>();
-                foreach (Story story in Stories)
-                {
-                    spaces.Add(story.EnvelopeAsSpace);
-                    spaces.AddRange(story.CorridorsAsSpaces);
-                    spaces.AddRange(story.RoomsAsSpaces);
-                }
-                foreach (Room room in Cores)
-                {
-                    spaces.Add(room.AsSpace);
-                }
-                return spaces;
-            }
-        }
+        //public List<Space> Spaces
+        //{
+        //    get
+        //    {
+        //        List<Space> spaces = new List<Space>();
+        //        foreach (Story story in Stories)
+        //        {
+        //            spaces.Add(story.EnvelopeAsSpace);
+        //            spaces.AddRange(story.CorridorsAsSpaces);
+        //            spaces.AddRange(story.RoomsAsSpaces);
+        //        }
+        //        foreach (Room room in Cores)
+        //        {
+        //            spaces.Add(room.AsSpace);
+        //        }
+        //        return spaces;
+        //    }
+        //}
 
         /// <summary>
         /// List of all Stories in the Tower. 
@@ -320,43 +320,43 @@ namespace RoomKit
         /// <returns>
         /// True if the Core is successfully added.
         /// </returns>
-        public bool AddCore(Polygon perimeter,
-                            int baseStory = 0,
-                            double addHeight = 0.0,
-                            Color color = null)
-        {
-            if (baseStory < 0 || baseStory > Stories.Count - 1)
-            {
-                return false;
-            }
-            var coreHeight = 0.0;
-            var coreStories = new List<Story>();
-            for (int i = baseStory; i < Stories.Count; i++)
-            {
-                coreHeight += Stories[i].Height;
-                if (i > baseStory)
-                {
-                    coreStories.Add(Stories[i]);
-                }
-            }
-            coreHeight += addHeight;
-            var core = new Room()
-            {
-                Elevation = Stories[baseStory].Elevation,
-                Height = coreHeight,
-                Perimeter = perimeter
-            };
-            if (color != null)
-            {
-                core.Color = color;
-            }
-            Cores.Add(core);
-            foreach (Story story in coreStories)
-            {
-                story.AddOpening(perimeter);
-            }
-            return true;
-        }
+        //public bool AddCore(Polygon perimeter,
+        //                    int baseStory = 0,
+        //                    double addHeight = 0.0,
+        //                    Color color = null)
+        //{
+        //    if (baseStory < 0 || baseStory > Stories.Count - 1)
+        //    {
+        //        return false;
+        //    }
+        //    var coreHeight = 0.0;
+        //    var coreStories = new List<Story>();
+        //    for (int i = baseStory; i < Stories.Count; i++)
+        //    {
+        //        coreHeight += Stories[i].Height;
+        //        if (i > baseStory)
+        //        {
+        //            coreStories.Add(Stories[i]);
+        //        }
+        //    }
+        //    coreHeight += addHeight;
+        //    var core = new Room()
+        //    {
+        //        Elevation = Stories[baseStory].Elevation,
+        //        Height = coreHeight,
+        //        Perimeter = perimeter
+        //    };
+        //    if (color != null)
+        //    {
+        //        core.Color = color;
+        //    }
+        //    Cores.Add(core);
+        //    foreach (Story story in coreStories)
+        //    {
+        //        story.AddOpening(perimeter);
+        //    }
+        //    return true;
+        //}
 
         /// <summary>
         /// Returns the aggregate area of all Rooms with a supplied name.
@@ -459,13 +459,13 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public void SetSlabThickness(double thickness)
-        {
-            foreach (Story story in Stories)
-            {
-                story.SlabThickness = thickness;
-;            }
-        }
+//        public void SetSlabThickness(double thickness)
+//        {
+//            foreach (Story story in Stories)
+//            {
+//                story.SlabThickness = thickness;
+//;            }
+//        }
 
         /// <summary>
         /// Creates the Tower by stacking a series of Story instances from the Tower Elevation.
@@ -476,7 +476,7 @@ namespace RoomKit
         /// <returns>
         /// True if the Tower is successfully stacked.
         /// </returns>
-        public bool Stack()
+        public bool Stacker()
         {
             if (Perimeter == null || storyHeight <= 0.0 || (Floors <= 0.0 && TargetArea <= 0.0))
             {
@@ -496,7 +496,7 @@ namespace RoomKit
                 }
                 var story = new Story()
                 {
-                    Color = color,
+                    //Color = color,
                     Elevation = elevation,
                     Height = storyHeight,
                     Perimeter = perimeter,

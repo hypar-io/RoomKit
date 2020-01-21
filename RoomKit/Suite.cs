@@ -239,7 +239,7 @@ namespace RoomKit
         {
             if (area <= 0.0)
             {
-                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
             }
             var rooms = new List<Room>();
             foreach (var room in Rooms)

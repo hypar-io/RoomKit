@@ -23,14 +23,9 @@ namespace RoomKit
         public RoomGroup(Polygon perimeter)
         {
             Name = "";
-            Rooms = new List<Room>();
+            //Rooms = new List<Room>();
             Perimeter = perimeter;
             UniqueID = Guid.NewGuid().ToString();
-
-            Name = name;
-            
-            TypeID = typeID;
-
         }
 
         #endregion
@@ -39,65 +34,65 @@ namespace RoomKit
         /// <summary>
         /// Unallocated area of the RoomGroup perimeter.
         /// </summary>
-        public double AreaAvailable
-        {
-            get
-            {
-                if (Perimeter == null)
-                {
-                    return 0.0;
-                }
-                var area = Perimeter.Area();
-                foreach (Room room in Rooms)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        area -= room.Perimeter.Area();
-                    }
-                }
-                if (area < 0.0)
-                {
-                    area = 0.0;
-                }
-                return area;
-            }
-        }
+        //public double AreaAvailable
+        //{
+        //    get
+        //    {
+        //        if (Perimeter == null)
+        //        {
+        //            return 0.0;
+        //        }
+        //        var area = Perimeter.Area();
+        //        foreach (Room room in Rooms)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                area -= room.Perimeter.Area();
+        //            }
+        //        }
+        //        if (area < 0.0)
+        //        {
+        //            area = 0.0;
+        //        }
+        //        return area;
+        //    }
+        //}
 
         /// <summary>
         /// Area allocated within the RoomGroup.
         /// </summary>
-        public double AreaPlaced
-        {
-            get
-            {
-                var area = 0.0;
-                foreach (Room room in Rooms)
-                {
-                    area += room.Perimeter.Area();
-                }
-                return area;
-            }
-        }
+        //public double AreaPlaced
+        //{
+        //    get
+        //    {
+        //        var area = 0.0;
+        //        foreach (Room room in Rooms)
+        //        {
+        //            area += room.Perimeter.Area();
+        //        }
+        //        return area;
+        //    }
+        //}
 
         /// <summary>
         /// Elevation of all Rooms in the RoomGroup.
         /// </summary>
-        private double elevation;
-        public double Elevation
-        {
-            get
-            {
-                return elevation;
-            }
-            set
-            {
-                elevation = value;
-                foreach (Room room in Rooms)
-                {
-                    room.Elevation = elevation;
-                }
-            }
-        }
+        //private double elevation;
+        //public double Elevation
+        //{
+        //    get
+        //    {
+        //        return elevation;
+        //    }
+        //    set
+        //    {
+        //        elevation = value;
+        //        foreach (Room room in Rooms)
+        //        {
+        //            room.Elevation = elevation;
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Arbitrary string identifier for this RoomGroup.
@@ -137,18 +132,18 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public void MoveFromTo(Vector3 from, Vector3 to)
-        {
-            foreach(Room room in Rooms)
-            {
-                room.MoveFromTo(from, to);
-            }
-            if (Perimeter != null)
-            {
-                Perimeter = Perimeter.MoveFromTo(from, to);
-            }
-            Elevation = to.Z - from.Z;
-        }
+        //public void MoveFromTo(Vector3 from, Vector3 to)
+        //{
+        //    foreach(Room room in Rooms)
+        //    {
+        //        room.MoveFromTo(from, to);
+        //    }
+        //    if (Perimeter != null)
+        //    {
+        //        Perimeter = Perimeter.MoveFromTo(from, to);
+        //    }
+        //    Elevation = to.Z - from.Z;
+        //}
 
         /// <summary>
         /// Rotates the RoomGroup Perimeter and Rooms in the horizontal plane around the supplied pivot point.
@@ -158,17 +153,17 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public void Rotate(Vector3 pivot, double angle)
-        {
-            foreach (Room room in Rooms)
-            {
-                room.Rotate(pivot, angle);
-            }
-            if (Perimeter != null)
-            {
-                Perimeter = Perimeter.Rotate(pivot, angle);
-            }
-        }
+        //public void Rotate(Vector3 pivot, double angle)
+        //{
+        //    foreach (Room room in Rooms)
+        //    {
+        //        room.Rotate(pivot, angle);
+        //    }
+        //    if (Perimeter != null)
+        //    {
+        //        Perimeter = Perimeter.Rotate(pivot, angle);
+        //    }
+        //}
 
         /// <summary>
         /// Uniformly sets the color of all Rooms in the RoomGroup.
@@ -177,13 +172,13 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public void SetColor(Color color)
-        {
-            foreach (Room room in Rooms)
-            {
-                room.Color = color;
-            }
-        }
+        //public void SetColor(Color color)
+        //{
+        //    foreach (Room room in Rooms)
+        //    {
+        //        room.Color = color;
+        //    }
+        //}
 
         /// <summary>
         /// Uniformly sets the height of all Rooms in the RoomGroup.
@@ -192,13 +187,13 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public void SetHeight(double height)
-        {
-            foreach (Room room in Rooms)
-            {
-                room.Height = height;
-            }
-        }
+        //public void SetHeight(double height)
+        //{
+        //    foreach (Room room in Rooms)
+        //    {
+        //        room.Height = height;
+        //    }
+        //}
 
         /// <summary>
         /// Clears the current Rooms list and creates new Rooms defined by orthogonal x- and y-axis divisions of the RoomGroup Perimeter.
@@ -208,42 +203,42 @@ namespace RoomKit
         /// <returns>
         /// True if the Rooms are created.
         /// </returns>
-        public bool RoomsByDivision(int xRooms = 1, int yRooms = 1, double height = 3.0, string name = "")
-        {
-            if (Perimeter == null || xRooms < 1 || yRooms < 1 || height <= 0.0)
-            {
-                return false;
-            }
-            var sizeX = SizeX / xRooms;
-            var sizeY = SizeY / yRooms;
-            var count = xRooms * yRooms;
-            var box = new CompassBox(Perimeter);
-            var newRooms = new List<Room>();
-            for (int xIdx = 0; xIdx < xRooms; xIdx++)
-            {
-                var xCoord = box.SW.X + (xIdx * sizeX);
-                for (int yIdx = 0; yIdx < yRooms; yIdx++)
-                {
-                    var yCoord = box.SW.Y + (yIdx * sizeY);
-                    var polygon = Shaper.Rectangle(sizeX, sizeY);
-                    polygon = polygon.MoveFromTo(Vector3.Origin, new Vector3(xCoord, yCoord)).Intersection(Perimeter).First();
-                    var room = new Room()
-                    {
-                        Height = height,
-                        Name = name,
-                        Perimeter = polygon
-                    };
-                    newRooms.Add(room);
-                }
-            }
-            if (newRooms.Count == 0)
-            {
-                return false;
-            }
-            Rooms.Clear();
-            Rooms.AddRange(newRooms);
-            return true;
-        } 
+        //public bool RoomsByDivision(int xRooms = 1, int yRooms = 1, double height = 3.0, string name = "")
+        //{
+        //    if (Perimeter == null || xRooms < 1 || yRooms < 1 || height <= 0.0)
+        //    {
+        //        return false;
+        //    }
+        //    var sizeX = SizeX / xRooms;
+        //    var sizeY = SizeY / yRooms;
+        //    var count = xRooms * yRooms;
+        //    var box = new CompassBox(Perimeter);
+        //    var newRooms = new List<Room>();
+        //    for (int xIdx = 0; xIdx < xRooms; xIdx++)
+        //    {
+        //        var xCoord = box.SW.X + (xIdx * sizeX);
+        //        for (int yIdx = 0; yIdx < yRooms; yIdx++)
+        //        {
+        //            var yCoord = box.SW.Y + (yIdx * sizeY);
+        //            var polygon = Shaper.Rectangle(sizeX, sizeY);
+        //            polygon = polygon.MoveFromTo(Vector3.Origin, new Vector3(xCoord, yCoord)).Intersection(Perimeter).First();
+        //            var room = new Room()
+        //            {
+        //                Height = height,
+        //                Name = name,
+        //                Perimeter = polygon
+        //            };
+        //            newRooms.Add(room);
+        //        }
+        //    }
+        //    if (newRooms.Count == 0)
+        //    {
+        //        return false;
+        //    }
+        //    Rooms.Clear();
+        //    Rooms.AddRange(newRooms);
+        //    return true;
+        //} 
         #endregion
     }
 }

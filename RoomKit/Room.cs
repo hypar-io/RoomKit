@@ -40,7 +40,7 @@ namespace RoomKit
         {
             if (size.X <= 0.0 || size.Y <= 0.0 || size.Z <= 0.0)
             {
-                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
             }
             Color = Palette.White;
             Department = "";
@@ -64,7 +64,7 @@ namespace RoomKit
         {
             if (area <= 0.0 || ratio <= 0.0 || height <= 0.0)
             {
-                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
             }
             Color = Palette.White;
             Department = "";
@@ -88,7 +88,7 @@ namespace RoomKit
         {
             if (width <= 0.0 || height <= 0.0)
             {
-                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
             }
             Color = Palette.White;
             Department = "";
@@ -112,7 +112,7 @@ namespace RoomKit
         {
             if (width <= 0.0 || height <= 0.0)
             {
-                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
             }
             Color = Palette.White;
             Department = "";
@@ -136,7 +136,7 @@ namespace RoomKit
         {
             if (height <= 0.0)
             {
-                throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
             }
             if (polygon.IsClockWise())
             {
@@ -237,7 +237,7 @@ namespace RoomKit
                 }
                 else
                 {
-                    throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
+                    throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
                 }
             }
         }

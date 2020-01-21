@@ -42,7 +42,7 @@ namespace RoomKit
             IsBasement = isBasement;
             Name = name;
             Perimeter = perimeter;
-            slabThickness = slabThick;
+            //slabThickness = slabThick;
             TypeID = typeID;
         }
 
@@ -127,21 +127,21 @@ namespace RoomKit
         /// <summary>
         /// List of Masses created from Room characteristics within the Corridors list.
         /// </summary>
-        public List<Mass> CorridorsAsMasses
-        {
-            get
-            {
-                var masses = new List<Mass>();
-                foreach (Room room in Corridors)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                return masses;
-            }
-        }
+        //public List<Mass> CorridorsAsMasses
+        //{
+        //    get
+        //    {
+        //        var masses = new List<Mass>();
+        //        foreach (Room room in Corridors)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        return masses;
+        //    }
+        //}
 
         /// <summary>
         /// Polygons representing Corridors.
@@ -163,21 +163,21 @@ namespace RoomKit
         /// <summary>
         /// List of Spaces created from Room characteristics within the Corridors list.
         /// </summary>
-        public List<Space> CorridorsAsSpaces
-        {
-            get
-            {
-                var spaces = new List<Space>();
-                foreach (Room room in Corridors)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                return spaces;
-            }
-        }
+        //public List<Space> CorridorsAsSpaces
+        //{
+        //    get
+        //    {
+        //        var spaces = new List<Space>();
+        //        foreach (Room room in Corridors)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        return spaces;
+        //    }
+        //}
 
         /// <summary>
         /// Sets the Corridors color.
@@ -295,21 +295,21 @@ namespace RoomKit
         /// <summary>
         /// List of Masses created from Exclusion characteristics within the Exclusions list.
         /// </summary>
-        public List<Mass> ExclusionsAsMasses
-        {
-            get
-            {
-                var masses = new List<Mass>();
-                foreach (Room room in Exclusions)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                return masses;
-            }
-        }
+        //public List<Mass> ExclusionsAsMasses
+        //{
+        //    get
+        //    {
+        //        var masses = new List<Mass>();
+        //        foreach (Room room in Exclusions)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        return masses;
+        //    }
+        //}
 
         /// <summary>
         /// Polygons representing areas that must not be intersected.
@@ -331,21 +331,21 @@ namespace RoomKit
         /// <summary>
         /// List of Spaces created from Exclusion characteristics within the Exclusions list.
         /// </summary>
-        public List<Space> ExclusionsAsSpaces
-        {
-            get
-            {
-                var spaces = new List<Space>();
-                foreach (Room room in Exclusions)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                return spaces;
-            }
-        }
+        //public List<Space> ExclusionsAsSpaces
+        //{
+        //    get
+        //    {
+        //        var spaces = new List<Space>();
+        //        foreach (Room room in Exclusions)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        return spaces;
+        //    }
+        //}
 
         /// <summary>
         /// Height of the Story relative to its elevation.
@@ -382,35 +382,35 @@ namespace RoomKit
         /// <summary>
         /// Returns all Corridors, Rooms, and Services as Masses.
         /// </summary>
-        public List<Mass> InteriorsAsMasses
-        {
-            get
-            {
-                var masses = new List<Mass>();
-                foreach (Room room in Corridors)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                foreach (Room room in Rooms)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                foreach (Room room in Services)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                return masses;
-            }
-        }
+        //public List<Mass> InteriorsAsMasses
+        //{
+        //    get
+        //    {
+        //        var masses = new List<Mass>();
+        //        foreach (Room room in Corridors)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        foreach (Room room in Rooms)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        foreach (Room room in Services)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        return masses;
+        //    }
+        //}
 
         /// <summary>
         /// Returns all Corridors, Exclusions, Rooms, and Services as Polygons.
@@ -439,35 +439,35 @@ namespace RoomKit
         /// <summary>
         /// Returns all Corridors, Rooms, and Services as Spaces.
         /// </summary>
-        public List<Space> InteriorsAsSpaces
-        {
-            get
-            {
-                var spaces = new List<Space>();
-                foreach (Room room in Corridors)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                foreach (Room room in Rooms)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                foreach (Room room in Services)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                return spaces;
-            }
-        }
+        //public List<Space> InteriorsAsSpaces
+        //{
+        //    get
+        //    {
+        //        var spaces = new List<Space>();
+        //        foreach (Room room in Corridors)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        foreach (Room room in Rooms)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        foreach (Room room in Services)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        return spaces;
+        //    }
+        //}
 
         /// <summary>
         /// Identifies whether this story represents a basement level.
@@ -502,21 +502,21 @@ namespace RoomKit
         /// <summary>
         /// List of Masses created from Room characteristics within the Rooms list.
         /// </summary>
-        public List<Mass> RoomsAsMasses
-        {
-            get
-            {
-                var masses = new List<Mass>();
-                foreach (Room room in Rooms)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                return masses;
-            }
-        }
+        //public List<Mass> RoomsAsMasses
+        //{
+        //    get
+        //    {
+        //        var masses = new List<Mass>();
+        //        foreach (Room room in Rooms)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        return masses;
+        //    }
+        //}
 
         /// <summary>
         /// Polygons representing Services.
@@ -538,21 +538,21 @@ namespace RoomKit
         /// <summary>
         /// List of Spaces created from Room characteristics within the Rooms list.
         /// </summary>
-        public List<Space> RoomsAsSpaces
-        {
-            get
-            {
-                var spaces = new List<Space>();
-                foreach (Room room in Rooms)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                return spaces;
-            }
-        }
+        //public List<Space> RoomsAsSpaces
+        //{
+        //    get
+        //    {
+        //        var spaces = new List<Space>();
+        //        foreach (Room room in Rooms)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        return spaces;
+        //    }
+        //}
 
         /// <summary>
         /// Sets the Rooms rendering color.
@@ -576,21 +576,21 @@ namespace RoomKit
         /// <summary>
         /// List of Masses created from Room characteristics within the Services list.
         /// </summary>
-        public List<Mass> ServicesAsMasses
-        {
-            get
-            {
-                var masses = new List<Mass>();
-                foreach (Room room in Services)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        masses.Add(room.AsMass);
-                    }
-                }
-                return masses;
-            }
-        }
+        //public List<Mass> ServicesAsMasses
+        //{
+        //    get
+        //    {
+        //        var masses = new List<Mass>();
+        //        foreach (Room room in Services)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                masses.Add(room.AsMass);
+        //            }
+        //        }
+        //        return masses;
+        //    }
+        //}
 
         /// <summary>
         /// Polygons representing Services.
@@ -612,21 +612,21 @@ namespace RoomKit
         /// <summary>
         /// List of Spaces created from Room characteristics within the Services list.
         /// </summary>
-        public List<Space> ServicesAsSpaces
-        {
-            get
-            {
-                var spaces = new List<Space>();
-                foreach (Room room in Services)
-                {
-                    if (room.Perimeter != null)
-                    {
-                        spaces.Add(room.AsSpace);
-                    }
-                }
-                return spaces;
-            }
-        }
+        //public List<Space> ServicesAsSpaces
+        //{
+        //    get
+        //    {
+        //        var spaces = new List<Space>();
+        //        foreach (Room room in Services)
+        //        {
+        //            if (room.Perimeter != null)
+        //            {
+        //                spaces.Add(room.AsSpace);
+        //            }
+        //        }
+        //        return spaces;
+        //    }
+        //}
 
         /// <summary>
         /// Sets the Services Space rendering color.
@@ -641,44 +641,6 @@ namespace RoomKit
                 }
             }
         }
-
-        /// <summary>
-        /// Concrete Floor created from Story and Slab characteristics.
-        /// </summary>
-        public Floor Slab
-        {
-            get
-            {
-                var openings = new List<Opening>();
-                var slab = new Floor(Perimeter, SlabThickness);
-                //var slab = new Floor(Perimeter, new FloorType("slab", 0.05), Elevation - SlabThickness);
-                foreach (var room in Openings)
-                {
-                    slab.Openings.Add(new Opening(room.Perimeter, SlabThickness, null));
-                }
-                return slab;
-
-            }
-        }
-
-        /// <summary>
-        /// Thickness of the Story's floor.
-        /// </summary>
-        private double slabThickness;
-        public double SlabThickness
-        {
-            get { return slabThickness; }
-            set
-            {
-                if (value <= 0.0)
-                {
-                    throw new ArgumentOutOfRangeException(Messages.NONPOSITIVE_VALUE_EXCEPTION);
-                }
-                slabThickness = value;
-            }
-        }
-
-
 
         /// <summary>
         /// Arbitrary integer identifier of this instance..
@@ -837,10 +799,10 @@ namespace RoomKit
         /// </summary>
         /// <param name="perimeter">Polygon describing the opening perimeter.</param>
         /// <returns></returns>
-        public bool AddOpening(Polygon perimeter, string name = "")
-        {
-            return AddOpening(new Room(name: name, perimeter: perimeter));
-        }
+        //public bool AddOpening(Polygon perimeter, string name = "")
+        //{
+        //    return AddOpening(new Room(name: name, perimeter: perimeter));
+        //}
 
         /// <summary>
         /// Creates and adds an Opening to the Story by deriving the Perimeter from the supplied Room.
@@ -1015,45 +977,45 @@ namespace RoomKit
         /// <returns>
         /// None.
         /// </returns>
-        public bool RoomsByDivision(int xRooms = 1,
-                                    int yRooms = 1,
-                                    double height = 3.0,
-                                    double setback = 0.0,
-                                    string name = "",
-                                    Color color = Palette.White,
-                                    bool fit = true)
-        {
-            if (Perimeter == null || height < 0.0 || setback < 0.0 || xRooms < 1 || yRooms < 1)
-            {
-                return false;
-            }
-            var polygon = Perimeter.Offset(setback * -1.0).First();
-            var roomGroup =
-                new RoomGroup()
-                {
-                    Name = name,
-                    Perimeter = polygon
-                };
-            roomGroup.RoomsByDivision(xRooms, yRooms, height, name);
-            roomGroup.Elevation = Elevation;
-            roomGroup.SetHeight(height);
-            roomGroup.SetColor(color);
-            var fitRooms = new List<Room>(roomGroup.Rooms);
-            if (fit)
-            {
-                var toRooms = new List<Room>(Exclusions);
-                toRooms.AddRange(Services);
-                toRooms.AddRange(Corridors);
-                fitRooms = FitRooms(fitRooms, toRooms);
-            }
-            if (fitRooms.Count == 0)
-            {
-                return false;
-            }
-            Rooms.Clear();
-            Rooms.AddRange(fitRooms);
-            return true;
-        }
+        //public bool RoomsByDivision(int xRooms = 1,
+        //                            int yRooms = 1,
+        //                            double height = 3.0,
+        //                            double setback = 0.0,
+        //                            string name = "",
+        //                            Color color = Colors.White;
+        //                            bool fit = true)
+        //{
+        //    if (Perimeter == null || height < 0.0 || setback < 0.0 || xRooms < 1 || yRooms < 1)
+        //    {
+        //        return false;
+        //    }
+        //    var polygon = Perimeter.Offset(setback * -1.0).First();
+        //    var roomGroup =
+        //        new RoomGroup()
+        //        {
+        //            Name = name,
+        //            Perimeter = polygon
+        //        };
+        //    roomGroup.RoomsByDivision(xRooms, yRooms, height, name);
+        //    roomGroup.Elevation = Elevation;
+        //    roomGroup.SetHeight(height);
+        //    roomGroup.SetColor(color);
+        //    var fitRooms = new List<Room>(roomGroup.Rooms);
+        //    if (fit)
+        //    {
+        //        var toRooms = new List<Room>(Exclusions);
+        //        toRooms.AddRange(Services);
+        //        toRooms.AddRange(Corridors);
+        //        fitRooms = FitRooms(fitRooms, toRooms);
+        //    }
+        //    if (fitRooms.Count == 0)
+        //    {
+        //        return false;
+        //    }
+        //    Rooms.Clear();
+        //    Rooms.AddRange(fitRooms);
+        //    return true;
+        //}
 
         /// <summary>
         /// Returns a list of Rooms with a specific name.
