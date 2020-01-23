@@ -200,6 +200,17 @@ namespace RoomKit
         public Color Color { get; set; }
 
         /// <summary>
+        /// Material of the Room. 
+        /// </summary>
+        public Material ColorAsMaterial
+        {
+            get
+            {
+                return new Material(this.Color, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString());
+            }
+        }
+
+        /// <summary>
         /// Arbitrary string identifier to link this Room to a department.
         /// </summary>
         public string Department { get; set; }
@@ -278,6 +289,18 @@ namespace RoomKit
                 }
             }
         }
+
+        /// <summary>
+        /// Profile perimeter of the Room.
+        /// </summary>
+        public Profile PerimeterAsProfile
+        {
+            get
+            {
+                return new Profile(perimeter);
+            }
+        }
+
 
         /// <summary>
         /// Whether the Room has been placed in a location with a perimeter.

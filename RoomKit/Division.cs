@@ -10,20 +10,20 @@ namespace RoomKit
     /// <summary>
     /// Creates and manages Rooms within a perimeter.
     /// </summary>
-    public class RoomGroup
+    public class Division
     {
 
         #region Constructors
         /// <summary>
-        /// Creates an empty group of RoomRows.
+        /// Creates corridors and RoomRows from a perimeter.
         /// </summary>
         /// <returns>
-        /// A new RoomGroup.
+        /// A new Division.
         /// </returns>
-        public RoomGroup(Polygon perimeter)
+        public Division(Polygon perimeter, double roomDepth, double corridorWidth)
         {
             Name = "";
-            //RoomRows = new List<RoomRow>();
+            RoomRows = new List<RoomRow>();
             Perimeter = perimeter;
             UniqueID = Guid.NewGuid().ToString();
         }
@@ -114,6 +114,11 @@ namespace RoomKit
                 }
             }
         }
+
+        /// <summary>
+        /// RoomRows created by this Division.
+        /// </summary>
+        public List<RoomRow>RoomRows { get; private set; }
 
         /// <summary>
         /// UUID for this RoomGroup instance, set on initialization.

@@ -140,25 +140,25 @@ namespace RoomKitTest
             Assert.True(room.Placed);
         }
 
-        //[Fact]
-        //public void Rotate()
-        //{
-        //    var room = new Room
-        //    {
-        //        Perimeter =
-        //            new Polygon(
-        //                new[]
-        //                {
-        //                    new Vector3(0.0, 0.0),
-        //                    new Vector3(10.0, 0.0),
-        //                    new Vector3(10.0, 10.0),
-        //                    new Vector3(0.0, 10.0)
-        //                })
-        //    };
-        //    Assert.True(room.Rotate(Vector3.Origin, 90));
-        //    Assert.Contains(new Vector3(-10.0, 0.0), room.Perimeter.Vertices);
-        //    Assert.Contains(new Vector3(-10.0, 10.0), room.Perimeter.Vertices);
-        //}
+        [Fact]
+        public void Rotate()
+        {
+            var room = new Room
+            {
+                Perimeter =
+                    new Polygon(
+                        new[]
+                        {
+                            new Vector3(0.0, 0.0),
+                            new Vector3(10.0, 0.0),
+                            new Vector3(10.0, 10.0),
+                            new Vector3(0.0, 10.0)
+                        })
+            };
+            room.Rotate(Vector3.Origin, 90);
+            Assert.Contains(new Vector3(-10.0, 0.0), room.Perimeter.Vertices);
+            Assert.Contains(new Vector3(-10.0, 10.0), room.Perimeter.Vertices);
+        }
 
         //[Fact]
         //public void SizeXY()
