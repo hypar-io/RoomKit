@@ -31,7 +31,7 @@ namespace RoomKit
             var ang = lines[0];
             
             Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
-            boundary = polygon.MoveFromTo(ang.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
+            Boundary = polygon; //.MoveFromTo(ang.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
             Mark = Vector3.Origin;
             Name = "";
             Origin = ang.Start;
@@ -102,13 +102,13 @@ namespace RoomKit
         /// Boundary of the RoomRow.
         /// </summary>
         private Polygon boundary;
-        public Polygon Boundary
-        {
-            get
-            {
-                return boundary.Rotate(Vector3.Origin, Angle).MoveFromTo(Vector3.Origin, Origin);
-            }
-        }
+        public Polygon Boundary { get; private set; }
+        //{
+        //    get
+        //    {
+        //        return boundary.Rotate(Vector3.Origin, Angle).MoveFromTo(Vector3.Origin, Origin);
+        //    }
+        //}
 
         /// <summary>
         /// Returns a single Polygon representing the merged perimeters of all Rooms. 
@@ -192,13 +192,13 @@ namespace RoomKit
         /// Line along which Rooms will be placed.
         /// </summary>
         private Line row;
-        public Line Row
-        {
-            get
-            {
-                return row.Rotate(Vector3.Origin, Angle).MoveFromTo(Vector3.Origin, Origin);
-            }
-        }
+        public Line Row { get; private set; }
+        //{
+        //    get
+        //    {
+        //        return row.Rotate(Vector3.Origin, Angle).MoveFromTo(Vector3.Origin, Origin);
+        //    }
+        //}
 
         /// <summary>
         /// Tolerated room area variance.
@@ -255,7 +255,6 @@ namespace RoomKit
             {
                 room.MoveFromTo(from, to);
             }
-            Origin = Origin.MoveFromTo(from, to);
         }
 
         /// <summary>
@@ -272,7 +271,6 @@ namespace RoomKit
             {
                 room.Rotate(pivot, angle);
             }
-            Angle += angle;
         }
 
         /// <summary>
