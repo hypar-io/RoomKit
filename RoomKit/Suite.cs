@@ -44,7 +44,7 @@ namespace RoomKit
         /// <summary>
         /// Aggregate area of all Room Perimeters.
         /// </summary>
-        public double Area
+        public double AreaofRooms
         {
             get 
             {
@@ -63,28 +63,6 @@ namespace RoomKit
         public double Count
         {
             get { return Rooms.Count(); }
-        }
-
-        /// <summary>
-        /// Elevation of the Suite relative to the zero plane. A change in this value will also change the elevations of all Rooms in the Suite.
-        /// </summary>
-        public double Elevation
-        {
-            get
-            {
-                if (Rooms.Count() == 0)
-                {
-                    return 0.0;
-                }
-                return Rooms.First().Elevation;
-            }
-            set
-            {
-                foreach (Room room in Rooms)
-                {
-                    room.Elevation = value;
-                }
-            }
         }
 
         /// <summary>
@@ -216,7 +194,6 @@ namespace RoomKit
             return area;
         }
 
-        /// <summary>
         /// Returns a Rooms with a specific UniqueID.
         /// </summary>
         /// <param name="name">Name of the rooms to retrieve.</param>

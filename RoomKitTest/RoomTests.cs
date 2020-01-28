@@ -13,18 +13,6 @@ namespace RoomKitTest
 {
     public class RoomTests
     {
-        //[Fact]
-        //public void AdjacentTo()
-        //{
-        //    var room = new Room
-        //    {
-        //        AdjacentTo = new List<string>{ "5", "10", "18" }
-        //    };
-        //    Assert.Equal("5", room.AdjacentTo[0]);
-        //    Assert.Equal("10", room.AdjacentTo[1]);
-        //    Assert.Equal("18", room.AdjacentTo[2]);
-        //}
-
         [Fact]
         public void Area()
         {

@@ -92,6 +92,18 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void AddRooms()
+        {
+            var roomRow = new RoomRow(Polygon.Rectangle(Vector3.Origin, new Vector3(9.0, 3.0)));
+            var rooms = new List<Room>();
+            for (int i = 0; i < 5; i++)
+            {
+                rooms.Add(new Room(new Vector3(3.0, 3.0, 3.0)));
+            }
+            Assert.Equal(2, roomRow.AddRooms(rooms).Count);
+        }
+
+        [Fact]
         public void AreaPlaced()
         {
             var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));
@@ -100,17 +112,6 @@ namespace RoomKitTest
                 roomRow.AddRoom(new Room(new Vector3(3.0, 3.0, 3.0)));
             }
             Assert.Equal(27.0, roomRow.Area, 10);
-        }
-
-        [Fact]
-        public void AvailableLength()
-        {
-            var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));
-            for (int i = 0; i < 2; i++)
-            {
-                roomRow.AddRoom(new Room(new Vector3(3.0, 3.0, 3.0)));
-            }
-            Assert.Equal(3.0, roomRow.AvailableLength, 10);
         }
 
         [Fact]
@@ -130,6 +131,24 @@ namespace RoomKitTest
             }
             model.AddElement(new Space(new Profile(footprint), 0.5, BuiltInMaterials.Concrete));
             model.ToGlTF("../../../../RoomRowFootprint.glb");
+        }
+
+        [Fact]
+        public void LengthAvailable()
+        {
+            var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));
+            for (int i = 0; i < 2; i++)
+            {
+                roomRow.AddRoom(new Room(new Vector3(3.0, 3.0, 3.0)));
+            }
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Aqua, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.ToGlTF("../../../../RoomRowLengthAvailable.glb");
+            Assert.Equal(3.0, roomRow.LengthAvailable, 10);
         }
 
         [Fact]
@@ -172,7 +191,7 @@ namespace RoomKitTest
                 Assert.True(roomRow.AddRoom(new Room(new Vector3(3.0, 3.0, 3.0))));
             }
             roomRow.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
-            
+
             Assert.Equal(20.0, roomRow.Row.Start.X);
             Assert.Equal(20.0, roomRow.Row.Start.Y);
             Assert.Equal(0.0, roomRow.Row.Start.Z);

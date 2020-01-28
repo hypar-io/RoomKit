@@ -16,30 +16,30 @@ namespace RoomKit
         /// <summary>
         /// Constructor initializes the RoomRow with a new Line derived from the first segment of the provided quadrilateral polygon.
         /// </summary>
-        public RoomRow(Polygon polygon)
+        public RoomRow(Polygon polygon, string name = "")
         {
             if (polygon.IsClockWise())
             {
                 polygon = polygon.Reversed();
             }
-            var lines = polygon.Segments();
-            if (lines.Count() != 4)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NON_QUADRILATERAL_EXCEPTION);
-            }
-            
-            var ang = lines[0];
-            
-            Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
-            Boundary = polygon; //.MoveFromTo(ang.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
-            Mark = Vector3.Origin;
-            Name = "";
-            Origin = ang.Start;
+            Row = polygon.Segments().ToList().OrderByDescending(s => s.Length()).First();
+            Angle = Math.Atan2(Row.End.Y - Row.Start.Y, Row.End.X - Row.Start.X) * (180 / Math.PI);
+            perimeterJig = polygon.MoveFromTo(Row.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
+            insert = Vector3.Origin;
+            Name = name;
+            Origin = Row.Start;
+            Perimeter = polygon;
             Rooms = new List<Room>();
-            row = boundary.Segments()[0];
             Tolerance = 0.1;
             UniqueID = Guid.NewGuid().ToString();
         }
+
+        #endregion
+
+        #region Private
+
+        private readonly Polygon perimeterJig;
+        private Vector3 insert;
 
         #endregion
 
@@ -56,7 +56,7 @@ namespace RoomKit
         {
             get
             {
-                return boundary.Area();
+                return Perimeter.Area();
             }
         }
 
@@ -88,29 +88,6 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Unallocated length of the RoomRow.
-        /// </summary>
-        public double AvailableLength
-        {
-            get
-            {
-                return Mark.DistanceTo(Row.End);
-            }
-        }
-
-        /// <summary>
-        /// Boundary of the RoomRow.
-        /// </summary>
-        private Polygon boundary;
-        public Polygon Boundary { get; private set; }
-        //{
-        //    get
-        //    {
-        //        return boundary.Rotate(Vector3.Origin, Angle).MoveFromTo(Vector3.Origin, Origin);
-        //    }
-        //}
-
-        /// <summary>
         /// Returns a single Polygon representing the merged perimeters of all Rooms. 
         /// If more than one polygon emerges from the merging process a Polygon representing the convex hull is returned instead.
         /// </summary>
@@ -137,9 +114,15 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Position indicating the limit of placed Rooms along the row.
+        /// Unallocated length of the RoomRow.
         /// </summary>
-        public Vector3 Mark { get; private set; }
+        public double LengthAvailable
+        {
+            get
+            {
+                return insert.DistanceTo(perimeterJig.Compass().SE);
+            }
+        }
 
         /// <summary>
         /// Arbitrary string identifier for this RoomRow.
@@ -150,6 +133,11 @@ namespace RoomKit
         /// Position indicating the beginning of the row.
         /// </summary>
         public Vector3 Origin { get; private set; }
+
+        /// <summary>
+        /// Boundary of the RoomRow.
+        /// </summary>
+        public Polygon Perimeter { get; private set; }
 
         /// <summary>
         /// List of Rooms placed along the row.
@@ -191,14 +179,7 @@ namespace RoomKit
         /// <summary>
         /// Line along which Rooms will be placed.
         /// </summary>
-        private Line row;
         public Line Row { get; private set; }
-        //{
-        //    get
-        //    {
-        //        return row.Rotate(Vector3.Origin, Angle).MoveFromTo(Vector3.Origin, Origin);
-        //    }
-        //}
 
         /// <summary>
         /// Tolerated room area variance.
@@ -232,9 +213,9 @@ namespace RoomKit
             {
                 ratio = 1 / ratio;
             }
-            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, Mark)
-                .ExpandtoArea(room.Area, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
-            Mark = polygon.Compass().SE;
+            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
+                .ExpandtoArea(room.Area, Tolerance, Orient.SW, perimeterJig, RoomsAsPolygons);
+            insert = polygon.Compass().SE;
             room.Perimeter = polygon.MoveFromTo(Vector3.Origin, Origin).Rotate(Origin, Angle);
             room.Placed = true;
             Rooms.Add(room);
@@ -242,7 +223,25 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Moves all Rooms in the RoomRow and the RoomRow row along a 3D vector calculated between the supplied Vector3 points.
+        /// Attempts to place a list of Rooms on the Row in list order. Returns a list of Rooms that failed placement.
+        /// </summary>
+        /// <param name="rooms">List of Rooms to place along the Row.</param>
+        /// <returns>List of unplaced Rooms.</returns>
+        public List<Room> AddRooms(List<Room> rooms)
+        {
+            var unplaced = new List<Room>();
+            foreach (var room in rooms)
+            {
+                if(!AddRoom(room))
+                {
+                    unplaced.Add(room);
+                }
+            }
+            return unplaced;
+        }
+
+        /// <summary>
+        /// Moves all Rooms, the Boundary and the Row along a 3D vector calculated between the supplied Vector3 points.
         /// </summary>
         /// <param name="from">Vector3 base point of the move.</param>
         /// <param name="to">Vector3 target point of the move.</param>
@@ -255,10 +254,12 @@ namespace RoomKit
             {
                 room.MoveFromTo(from, to);
             }
+            Perimeter = Perimeter.MoveFromTo(from, to);
+            Row = Row.MoveFromTo(from, to);
         }
 
         /// <summary>
-        /// Rotates the RoomRow row and Rooms in the horizontal plane around the supplied pivot point.
+        /// Rotates all Rooms, the Boundary and the Row in the horizontal plane around the supplied pivot point.
         /// </summary>
         /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
         /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
@@ -271,6 +272,8 @@ namespace RoomKit
             {
                 room.Rotate(pivot, angle);
             }
+            Perimeter = Perimeter.Rotate(pivot, angle);
+            Row = Row.Rotate(pivot, angle);
         }
 
         /// <summary>
