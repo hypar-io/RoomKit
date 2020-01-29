@@ -202,7 +202,7 @@ namespace RoomKit
         /// <returns>
         /// True if the room was successfully placed.
         /// </returns>
-        public bool AddRoom(Room room)
+        public bool AddRoom(Room room, bool fit = true)
         {
             if (room == null || room.Area > AreaAvailable)
             {
@@ -213,8 +213,22 @@ namespace RoomKit
             {
                 ratio = 1 / ratio;
             }
-            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
-                .ExpandtoArea(room.Area, Tolerance, Orient.SW, perimeterJig, RoomsAsPolygons);
+            Polygon polygon = null;
+            if (fit)
+            {
+                var compass = perimeterJig.Compass();
+                var length = room.Area / compass.SizeY;
+                var polygons = Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY)).Intersection(perimeterJig);
+                if (polygons.Count > 0)
+                {
+                    polygon = polygons.First();
+                }
+            }
+            if (polygon == null)
+            {
+                polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
+                            .ExpandtoArea(room.Area, Tolerance, Orient.SW, perimeterJig, RoomsAsPolygons);
+            }
             insert = polygon.Compass().SE;
             room.Perimeter = polygon.MoveFromTo(Vector3.Origin, Origin).Rotate(Origin, Angle);
             room.Placed = true;
@@ -259,9 +273,9 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Rotates all Rooms, the Boundary and the Row in the horizontal plane around the supplied pivot point.
+        /// Rotates all Rooms, the Perimeter and the Row in the horizontal plane around the supplied pivot point.
         /// </summary>
-        /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
+        /// <param name="pivot">Vector3 point around which the RoomRowr will be rotated.</param> 
         /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
         /// <returns>
         /// None.
@@ -272,8 +286,10 @@ namespace RoomKit
             {
                 room.Rotate(pivot, angle);
             }
+            Angle = angle;
             Perimeter = Perimeter.Rotate(pivot, angle);
             Row = Row.Rotate(pivot, angle);
+            Origin = Row.Start;
         }
 
         /// <summary>

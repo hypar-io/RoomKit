@@ -327,29 +327,29 @@ namespace RoomKit
         #region Methods
 
         /// <summary>
-        /// Rotates the Room Perimeter in the horizontal plane around the supplied pivot point.
+        /// Moves the Room Perimeter between the specifed relative points.
         /// </summary>
-        /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
-        /// <param name="rotation">Angle in degrees to rotate the Perimeter.</param> 
+        /// <param name="from">Vector3 anchor point.</param> 
+        /// <param name="to">Vector3 destination point.</param> 
         /// <returns>
         /// None.
         /// </returns>
         public void MoveFromTo(Vector3 from, Vector3 to)
         {
-            Perimeter = perimeter.MoveFromTo(from, to);
+            perimeter = perimeter.MoveFromTo(from, to);
         }
 
         /// <summary>
         /// Rotates the Room Perimeter in the horizontal plane around the supplied pivot point.
         /// </summary>
         /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
-        /// <param name="rotation">Angle in degrees to rotate the Perimeter.</param> 
+        /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
         /// <returns>
         /// None.
         /// </returns>
-        public void Rotate(Vector3 pivot, double rotation)
+        public void Rotate(Vector3 pivot, double angle)
         {
-            Perimeter = perimeter.Rotate(pivot, rotation);
+            perimeter = perimeter.Rotate(pivot, angle);
         }
 
         #endregion

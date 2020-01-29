@@ -42,9 +42,14 @@ namespace RoomKit
 
             MakeCorridors(height, position);
             MakeRoomRows(position);
+
             foreach (var corridor in Corridors)
             {
                 corridor.Rotate(Vector3.Origin, Axis);
+            }
+            foreach (var roomRow in RoomRows)
+            {
+                roomRow.Rotate(Vector3.Origin, Axis);
             }
 
             // reorder lists by centers here
@@ -84,16 +89,12 @@ namespace RoomKit
         private void MakeRoomRows(GridPosition position)
         {
             var grid = new Grid(perimeterJig, RowLength, RoomDepth, 0.0, position);
-            var cells = new List<Polygon>();
             foreach (var cell in grid.Cells)
             {
-                cells.Add(cell.Rotate(Vector3.Origin, Axis));
-            }              
-            foreach (var cell in cells)
-            {
-                if (perimeterJig.Intersects(cell))
+                var fits = Shaper.FitTo(cell, perimeterJig, CorridorsAsPolygons);
+                if (fits.Count > 0)
                 {
-                    RoomRows.Add(new RoomRow(Shaper.FitTo(cell, Perimeter).First()));
+                    RoomRows.Add(new RoomRow(fits.First()));
                 }
             }
         }
