@@ -33,7 +33,6 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(new Profile(corridor.Perimeter), corridor.Height, BuiltInMaterials.Concrete));
             }
-
             foreach (var roomRow in sector.RoomRows)
             {
                 for (var i = 0; i < 10; i++)
@@ -44,10 +43,12 @@ namespace RoomKitTest
                     };
                     roomRow.AddRoom(room);
                 }
+                roomRow.Infill(4.0);
                 foreach (var rm in roomRow.Rooms)
                 {
                     model.AddElement(new Space(rm.PerimeterAsProfile, 3.0, rm.ColorAsMaterial));
                 }
+                //model.AddElement(new Space(new Profile(roomRow.Perimeter), 3.0, new Material("roomrow", Palette.Aqua)));
             }
             model.ToGlTF("../../../../sectorCreate.glb");
         }

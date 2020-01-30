@@ -22,7 +22,7 @@ namespace RoomKit
             {
                 polygon = polygon.Reversed();
             }
-            Row = polygon.Segments().ToList().OrderByDescending(s => s.Length()).First();
+            Row = polygon.Segments().First();
             Angle = Math.Atan2(Row.End.Y - Row.Start.Y, Row.End.X - Row.Start.X) * (180 / Math.PI);
             perimeterJig = polygon.MoveFromTo(Row.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
             insert = Vector3.Origin;
@@ -219,7 +219,7 @@ namespace RoomKit
                 var compass = perimeterJig.Compass();
                 var length = room.Area / compass.SizeY;
                 var polygons = Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY)).Intersection(perimeterJig);
-                if (polygons.Count > 0)
+                if (polygons != null)
                 {
                     polygon = polygons.First();
                 }
@@ -252,6 +252,16 @@ namespace RoomKit
                 }
             }
             return unplaced;
+        }
+
+        public void Infill (double height)
+        {
+            if (AreaAvailable == 0.0)
+            {
+                return;
+            }
+            var ratio = insert.DistanceTo(Row.End) / perimeterJig.Compass().SizeY;
+            AddRoom(new Room(AreaAvailable, ratio, height));
         }
 
         /// <summary>
