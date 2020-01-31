@@ -221,7 +221,7 @@ namespace RoomKit
         public double DesignArea { get; set; }
 
         /// <summary>
-        /// Intended x :y ratio for this Room after placement.
+        /// Intended x : y ratio for this Room after placement.
         /// </summary>
         public double DesignRatio { get; set; }
 
@@ -306,6 +306,18 @@ namespace RoomKit
         /// Whether the Room has been placed in a location with a perimeter.
         /// </summary>
         public bool Placed { get; set; }
+
+        /// <summary>
+        /// Intended x : y ratio for this Room's current Perimeter.
+        /// </summary>
+        public double Ratio
+        {
+            get
+            {
+                var compass = Perimeter.Compass();
+                return compass.SizeX / compass.SizeY;
+            }
+        }
 
         /// <summary>
         /// Arbitrary string identifier to link this Room to a Suite instance.

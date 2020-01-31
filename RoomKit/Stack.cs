@@ -26,18 +26,14 @@ namespace RoomKit
                      double targetArea = 1.0,
                      int typeID = -1)
         {
-            //Color = Palette.White;
             Cores = new List<Room>();
             Stories = new List<Story>();
             UniqueID = Guid.NewGuid().ToString();
 
-            Floors = floors;
             HeightLimit = heightLimit;
             Name = name;
             Perimeter = perimeter;
             StoryHeight = storyHeight;
-            TargetArea = targetArea;
-            TypeID = typeID;
         }
 
         #endregion
@@ -71,11 +67,6 @@ namespace RoomKit
         //    get { return color; }
         //    set { color = value ?? color; }
         //}
-
-        /// <summary>
-        /// List of all service Cores in the Tower. 
-        /// </summary>
-        public List<Room> Cores { get; }
 
         /// <summary>
         /// Elevation of the lowest point of the Tower. 
@@ -125,27 +116,6 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Mass created from Tower characteristics.
-        /// </summary>
-        //public Mass EnvelopeAsMass
-        //{
-        //    get
-        //    {
-        //        if (Perimeter == null)
-        //        {
-        //            return null;
-        //        }
-        //        return new Mass(new Profile(Perimeter),
-        //                        Height,
-        //                        new Material(Guid.NewGuid().ToString(), Color),
-        //                        new Transform(0.0, 0.0, Elevation),
-        //                        null,
-        //                        Guid.NewGuid(),
-        //                        Name);
-        //    }
-        //}
-
-        /// <summary>
         /// Polygon representation of the Story Perimeter.
         /// </summary>
         public Polygon EnvelopeAsPolygon
@@ -153,48 +123,7 @@ namespace RoomKit
             get { return Envelope.Perimeter; }
         }
 
-        /// <summary>
-        /// Space created from Tower characteristics.
-        /// </summary>
-        //public Space EnvelopeAsSpace
-        //{
-        //    get
-        //    {
-        //        if (Perimeter == null)
-        //        {
-        //            return null;
-        //        }
-        //        return new Space(new Profile(Perimeter),
-        //                         Height,
-        //                         new Material(Guid.NewGuid().ToString(), Color),
-        //                         new Transform(0.0, 0.0, Elevation),
-        //                         null,
-        //                         Guid.NewGuid(),
-        //                         Name);
-        //    }
-        //}
-
-        /// <summary>
-        /// Mass created from Tower characteristics.
-        /// </summary>
-        //public Mass AsMass
-        //{
-        //    get
-        //    {
-        //        if (Perimeter == null)
-        //        {
-        //            return null;
-        //        }
-        //        return new Mass(new Profile(Perimeter),
-        //                        Height,
-        //                        new Material(Guid.NewGuid().ToString(), Color),
-        //                        new Transform(0.0, 0.0, Elevation),
-        //                        null,
-        //                        Guid.NewGuid(),
-        //                        Name);
-        //    }
-        //}
-
+ 
         /// <summary>
         /// Desired quantity of Stories in the Tower. 
         /// </summary>
@@ -234,50 +163,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// List of all Slabs from every Story in the Tower. 
-        /// </summary>
-        //public List<Floor> Slabs
-        //{
-        //    get
-        //    {
-        //        var slabs = new List<Floor>();
-        //        foreach (Story story in Stories)
-        //        {
-        //            slabs.Add(story.Slab);
-        //        }
-        //        return slabs;
-        //    }
-        //}
-
-        /// <summary>
-        /// List of all Spaces from every Story in the Tower. 
-        /// </summary>
-        //public List<Space> Spaces
-        //{
-        //    get
-        //    {
-        //        List<Space> spaces = new List<Space>();
-        //        foreach (Story story in Stories)
-        //        {
-        //            spaces.Add(story.EnvelopeAsSpace);
-        //            spaces.AddRange(story.CorridorsAsSpaces);
-        //            spaces.AddRange(story.RoomsAsSpaces);
-        //        }
-        //        foreach (Room room in Cores)
-        //        {
-        //            spaces.Add(room.AsSpace);
-        //        }
-        //        return spaces;
-        //    }
-        //}
-
-        /// <summary>
-        /// List of all Stories in the Tower. 
+        /// List of all Stories in the Stack. 
         /// </summary>
         public List<Story> Stories = null;
 
         /// <summary>
-        /// Desired typical Story height in the Tower. 
+        /// Desired typical Story height in the Stack. 
         /// </summary>
         private double storyHeight;
         public double StoryHeight
@@ -287,7 +178,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Target aggregate area for all Stories in the Tower. 
+        /// Target aggregate area for all Stories in the Stack. 
         /// </summary>
         private double targetArea;
         public double TargetArea
@@ -311,54 +202,6 @@ namespace RoomKit
         #region Methods
 
         /// <summary>
-        /// Adds a new service Core to the Tower.
-        /// </summary>
-        /// <param name="perimeter">Polygon perimeter defining the footprint of the service Core.</param> 
-        /// <param name="baseStory">Index of the lowest Story whose elevation will serve as the lowest level of the Core.</param> 
-        /// <param name="addHeight">Additional height of the Core above the highest Story.</param>
-        /// <param name="color">Color of the Core when it it is accessed as a Space.</param>
-        /// <returns>
-        /// True if the Core is successfully added.
-        /// </returns>
-        //public bool AddCore(Polygon perimeter,
-        //                    int baseStory = 0,
-        //                    double addHeight = 0.0,
-        //                    Color color = null)
-        //{
-        //    if (baseStory < 0 || baseStory > Stories.Count - 1)
-        //    {
-        //        return false;
-        //    }
-        //    var coreHeight = 0.0;
-        //    var coreStories = new List<Story>();
-        //    for (int i = baseStory; i < Stories.Count; i++)
-        //    {
-        //        coreHeight += Stories[i].Height;
-        //        if (i > baseStory)
-        //        {
-        //            coreStories.Add(Stories[i]);
-        //        }
-        //    }
-        //    coreHeight += addHeight;
-        //    var core = new Room()
-        //    {
-        //        Elevation = Stories[baseStory].Elevation,
-        //        Height = coreHeight,
-        //        Perimeter = perimeter
-        //    };
-        //    if (color != null)
-        //    {
-        //        core.Color = color;
-        //    }
-        //    Cores.Add(core);
-        //    foreach (Story story in coreStories)
-        //    {
-        //        story.AddOpening(perimeter);
-        //    }
-        //    return true;
-        //}
-
-        /// <summary>
         /// Returns the aggregate area of all Rooms with a supplied name.
         /// </summary>
         /// <param name="name">Name of the Rooms to retrieve.</param>
@@ -379,30 +222,6 @@ namespace RoomKit
                 }
             }
             return area;
-        }
-
-        /// <summary>
-        /// Moves all Cores and Stories in the Tower along a 3D vector calculated between the supplied Vector3 points.
-        /// </summary>
-        /// <param name="from">Vector3 base point of the move.</param>
-        /// <param name="to">Vector3 target point of the move.</param>
-        /// <returns>
-        /// None.
-        /// </returns>
-        public void MoveFromTo(Vector3 from, Vector3 to)
-        {
-            foreach (Story story in Stories)
-            {
-                story.MoveFromTo(from, to);
-            }
-            foreach (Room core in Cores)
-            {
-                core.MoveFromTo(from, to);
-            }
-            if (Perimeter != null)
-            {
-                Perimeter = Perimeter.MoveFromTo(from, to);
-            }
         }
 
         /// <summary>

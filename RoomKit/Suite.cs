@@ -214,10 +214,6 @@ namespace RoomKit
         /// </returns>/// 
         public List<Room> RoomsByArea (double area, double tolerance = 0.01)
         {
-            if (area <= 0.0)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-            }
             var rooms = new List<Room>();
             foreach (var room in Rooms)
             {

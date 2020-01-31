@@ -75,59 +75,29 @@ namespace RoomKit
         /// <summary>
         /// Area available for horizontal circulation.
         /// </summary>
-        //public double AreaDesignAvailable
-        //{
-        //    get
-        //    {
-        //        return AreaTenant - (AreaDesignCirculation + AreaDesignOccupant + AreaService);
-        //    }
-        //}
+        public double AreaAvailable
+        {
+            get
+            {
+                return AreaTenant - (AreaCirculation + AreaOccupant + AreaService);
+            }
+        }
 
         /// <summary>
         /// Intended aggregate area of all Occupant Rooms.
         /// </summary>
-        //public double AreaDesignCirculation
-        //{
-        //    get
-        //    {
-        //        double area = 0.0;
-        //        foreach (Room room in Circulation)
-        //        {
-        //            if (room.DesignSet)
-        //            {
-        //                area += room.DesignLength * room.DesignWidth;
-        //            }
-        //            else
-        //            {
-        //                area += room.DesignArea;
-        //            }
-        //        }
-        //        return area;
-        //    }
-        //}
-
-        /// <summary>
-        /// Intended aggregate area of all Occupant Rooms.
-        /// </summary>
-        //public double AreaDesignOccupant
-        //{
-        //    get
-        //    {
-        //        double area = 0.0;
-        //        foreach (Room room in Occupant)
-        //        {
-        //            if (room.DesignSet)
-        //            {
-        //                area += room.DesignLength * room.DesignWidth;
-        //            }
-        //            else
-        //            {
-        //                area += room.DesignArea;
-        //            }
-        //        }
-        //        return area;
-        //    }
-        //}
+        public double AreaProgram
+        {
+            get
+            {
+                double area = 0.0;
+                foreach (var room in Occupant)
+                {
+                    area += room.Area;
+                }
+                return area;
+            }
+        }
 
         /// <summary>
         /// Allocated aggregate area of all placed Circulation Rooms.
@@ -136,12 +106,12 @@ namespace RoomKit
         {
             get
             {
-                double area = 0.0;
-                foreach (Room room in Circulation)
+                var area = 0.0;
+                foreach (var room in Circulation)
                 {
                     if (room.Perimeter != null)
                     {
-                        area += room.Perimeter.Area();
+                        area += room.Area;
                     }
                 }
                 return area;
@@ -155,12 +125,12 @@ namespace RoomKit
         {
             get
             {
-                double area = 0.0;
-                foreach (Room room in Occupant)
+                var area = 0.0;
+                foreach (var room in Occupant)
                 {
-                    if (room.Perimeter != null)
+                    if (room.Placed)
                     {
-                        area += room.Perimeter.Area();
+                        area += room.Area;
                     }
                 }
                 return area;
@@ -174,10 +144,10 @@ namespace RoomKit
         {
             get
             {
-                double area = 0.0;
-                foreach (Polygon polygon in ServiceAsPolygons)
+                var area = 0.0;
+                foreach (var room in Service)
                 {
-                    area += polygon.Area();
+                    area += room.Area;
                 }
                 return area;
             }
@@ -190,10 +160,10 @@ namespace RoomKit
         {
             get
             {
-                double area = 0.0;
-                foreach (Polygon polygon in TenantAsPolygons)
+                var area = 0.0;
+                foreach (var room in Tenant)
                 {
-                    area += polygon.Area();
+                    area += room.Area;
                 }
                 return area;
             }
@@ -210,10 +180,9 @@ namespace RoomKit
             get
             {
                 var polygons = new List<Polygon>();
-                foreach (Room room in Circulation)
+                foreach (var room in Circulation)
                 {
-                    var perimeter = room.Perimeter;
-                    if (perimeter != null)
+                    if (room.Placed)
                     {
                         polygons.Add(room.Perimeter);
                     }
@@ -235,7 +204,7 @@ namespace RoomKit
                 var polygons = new List<Polygon>();
                 foreach (Room room in Occupant)
                 {
-                    if (room.Perimeter != null)
+                    if (room.Placed)
                     {
                         polygons.Add(room.Perimeter);
                     }
@@ -255,12 +224,11 @@ namespace RoomKit
             get
             {
                 var polygons = new List<Polygon>();
-                foreach (Room Room in Service)
+                foreach (var room in Service)
                 {
-                    var perimeter = Room.Perimeter;
-                    if (perimeter != null)
+                    if (room.Placed)
                     {
-                        polygons.Add(Room.Perimeter);
+                        polygons.Add(room.Perimeter);
                     }
                 }
                 return polygons;
@@ -278,12 +246,11 @@ namespace RoomKit
             get
             {
                 var polygons = new List<Polygon>();
-                foreach (Room Room in Tenant)
+                foreach (var room in Tenant)
                 {
-                    var perimeter = Room.Perimeter;
-                    if (perimeter != null)
+                    if (room.Placed)
                     {
-                        polygons.Add(Room.Perimeter);
+                        polygons.Add(room.Perimeter);
                     }
                 }
                 return polygons;
@@ -424,121 +391,48 @@ namespace RoomKit
 
         #region Methods
         /// <summary>
-        /// Finds the first Occupant Room with the DesignArea value closest to the supplied area.
+        /// Finds the first Occupant Room with the intended value closest to the supplied area.
         /// </summary>
         /// <param name="area">Area to match from the list of all Occupant Room definitions.</param>
         /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
         /// <returns>
         /// A Room.
         /// </returns>
-        //public Room FindByDesignArea(double area, bool unplaced = true)
-        //{
-        //    List<Room> rooms = null;
-        //    if (unplaced)
-        //    {
-        //        rooms = Unplaced;
-        //    }
-        //    else
-        //    {
-        //        rooms = Occupant;
-        //    }
-        //    Room firstRoom = null;
-        //    foreach (Room room in rooms)
-        //    {
-        //        if (room.DesignSet || room.DesignArea > 0.0)
-        //        {
-        //            firstRoom = room;
-        //            break;
-        //        }
-        //    }
-        //    if (firstRoom == null)
-        //    {
-        //        return null;
-        //    }
-        //    var delta = 0.0;
-        //    if (firstRoom.DesignSet)
-        //    {
-        //        delta = Math.Abs(firstRoom.DesignLength * firstRoom.DesignWidth - area);
-        //    }
-        //    else if (firstRoom.DesignArea > 0.0)
-        //    {
-        //        delta = Math.Abs(firstRoom.DesignArea - area);
-        //    }
-        //    var closest = delta;
-        //    Room match = firstRoom;
-        //    foreach (Room room in rooms)
-        //    {
-        //        if (room.DesignSet)
-        //        {
-        //            delta = Math.Abs(room.DesignLength * room.DesignWidth - area);
-        //        }
-        //        else if (room.DesignArea > 0.0)
-        //        {
-        //            delta = Math.Abs(room.DesignArea - area);
-        //        }
-        //        if (delta < closest)
-        //        {
-        //            closest = delta;
-        //            match = room;
-        //        }
-        //    }
-        //    return match;
-        //}
+        public Room FindByArea(double area, bool unplaced = true)
+        {
+            var rooms = new List<Room>();
+            rooms = unplaced ? Unplaced : Placed;
+            if (rooms.Count == 0)
+            {
+                return null;
+            }
+            return rooms.OrderBy(r => Math.Abs(r.Area - area)).First();
+        }
 
         /// <summary>
-        /// Finds the first Occupant Room with the designed x and y dimensions closest to the supplied values.
+        /// Finds the first Occupant Room with the designed x and y dimension ratio closest to the supplied value.
         /// </summary>
-        /// <param name="designX">The x-axis dimension to match.</param>
-        /// <param name="designY">The y-axis dimension to match.</param>
+        /// <param name="ratio">X to Y dimension ratio.</param>
         /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
         /// <returns>
         /// A Room.
         /// </returns>
-        //public Room FindByDesignXY(double designLength, double designWidth, bool unplaced = true)
-        //{
-        //    List<Room> rooms = null;
-        //    if (unplaced)
-        //    {
-        //        rooms = Unplaced;
-        //    }
-        //    else
-        //    {
-        //        rooms = Occupant;
-        //    }
-        //    Room firstRoom = null;
-        //    foreach (Room room in Occupant)
-        //    {
-        //        if (room.DesignSet)
-        //        {
-        //            firstRoom = room;
-        //            break;
-        //        }
-        //    }
-        //    if (firstRoom == null)
-        //    {
-        //        return null;
-        //    }
-        //    var deltaL = Math.Abs(firstRoom.DesignLength - designLength);
-        //    var deltaW = Math.Abs(firstRoom.DesignWidth - designWidth);
-        //    var closestL = deltaL;
-        //    var closestW = deltaW;
-        //    Room match = firstRoom;
-        //    foreach (Room room in Occupant)
-        //    {
-        //        if (room.DesignSet)
-        //        {
-        //            deltaL = Math.Abs(firstRoom.DesignLength - designLength);
-        //            deltaW = Math.Abs(firstRoom.DesignWidth - designWidth);
-        //        }
-        //        if (deltaL < closestL && deltaW < closestW)
-        //        {
-        //            closestL = deltaL;
-        //            closestL = deltaW;
-        //            match = room;
-        //        }
-        //    }
-        //    return match;
-        //}
+        public Room FindByRatio(double ratio, bool unplaced = true)
+        {
+            var rooms = unplaced ? Unplaced : Placed;
+            if (rooms.Count == 0)
+            {
+                return null;
+            }
+            if (unplaced)
+            {
+                return rooms.OrderBy(r => Math.Abs(r.DesignRatio - ratio)).First();
+            }
+            else
+            {
+                return rooms.OrderBy(r => Math.Abs(r.Ratio - ratio)).First();
+            }
+        }
 
         /// <summary>
         /// Finds the first placed or unplaced Room with the specifed name.
@@ -550,52 +444,12 @@ namespace RoomKit
         /// </returns>
         public Room FindByName(string name, bool unplaced = true)
         {
-            List<Room> rooms = null;
-            if (unplaced)
+            var rooms = unplaced ? Unplaced : Placed;
+            if (rooms.Count == 0)
             {
-                rooms = Unplaced;
+                return null;
             }
-            else
-            {
-                rooms = Occupant;
-            }
-            foreach (Room room in rooms)
-            {
-                if (room.Name == name)
-                {
-                    return room;
-                }
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Finds the first placed or unplaced Room with the specifed number.
-        /// </summary>
-        /// <param name="number">The number of a Room.</param>
-        /// <param name="unplaced">Boolean indicating either placed or unplaced Room, unplaced by default.</param>
-        /// <returns>
-        /// A Room.
-        /// </returns>
-        public Room FindByNumber(string number, bool unplaced = true)
-        {
-            List<Room> rooms = null;
-            if (unplaced)
-            {
-                rooms = Unplaced;
-            }
-            else
-            {
-                rooms = Occupant;
-            }
-            foreach (Room room in rooms)
-            {
-                if (room.Number == number)
-                {
-                    return room;
-                }
-            }
-            return null;
+            return rooms.Find(r => r.Name == name);
         }
 
         #endregion
