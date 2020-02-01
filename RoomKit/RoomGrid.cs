@@ -10,7 +10,7 @@ namespace RoomKit
     /// <summary>
     /// Creates and manages Rooms within a perimeter.
     /// </summary>
-    public class Sector
+    public class RoomGrid
     {
 
         #region Constructors
@@ -24,7 +24,7 @@ namespace RoomKit
         /// <param name="rowLength"></param>
         /// <param name="axis"></param>
         /// /// <param name="rowCap"></param>
-        public Sector(Polygon perimeter, double height,
+        public RoomGrid(Polygon perimeter, double height,
                       double rowLength, double roomDepth,
                       double corridorWidth = 3.0, double axis = 0.0, 
                       GridPosition position = GridPosition.CenterXY)
@@ -71,7 +71,7 @@ namespace RoomKit
             }
             foreach (var polygon in polygons)
             {
-                var corridor = polygon.FitWithin(perimeterJig);
+                var corridor = polygon.FitMost(perimeterJig);
                 if (corridor != null)
                 {
                     Corridors.Add(new Room(corridor, height));

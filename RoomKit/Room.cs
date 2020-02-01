@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Linq;
 using Elements;
 using Elements.Geometry;
 using GeometryEx;
@@ -22,11 +22,11 @@ namespace RoomKit
             Department = "";
             DesignArea = 1.0;
             DesignRatio = 1.0;
-            Elevation = 0.0;
             Height = 1.0;
             Name = "";
             Number = "";
             Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(1.0, 1.0));
+            Elevation = 0.0;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -46,11 +46,11 @@ namespace RoomKit
             Department = "";
             DesignArea = size.X * size.Y;
             DesignRatio = size.X / size.Y;
-            Elevation = 0.0;
             Height = size.Z;
             Name = "";
             Number = "";
             Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(size.X, size.Y));
+            Elevation = 0.0;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -70,11 +70,11 @@ namespace RoomKit
             Department = "";
             DesignArea = area;
             DesignRatio = ratio;
-            Elevation = 0.0;
             Height = height;
             Name = "";
             Number = "";
             Perimeter = Shaper.RectangleByArea(area, ratio);
+            Elevation = 0.0;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -94,11 +94,11 @@ namespace RoomKit
             Department = "";
             DesignArea = start.DistanceTo(end) * width;
             DesignRatio = start.DistanceTo(end) / width;
-            Elevation = start.Z;
             Height = height;
             Name = "";
             Number = "";
             Perimeter = new Line(start, end).Thicken(width);
+            Elevation = start.Z;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -118,11 +118,11 @@ namespace RoomKit
             Department = "";
             DesignArea = line.Length() * width;
             DesignRatio = line.Length() / width;
-            Elevation = 0.0;
             Height = height;
             Name = "";
             Number = "";
             Perimeter = line.Thicken(width);
+            Elevation = line.Start.Z;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -147,11 +147,11 @@ namespace RoomKit
             DesignArea = polygon.Area();
             var compass = polygon.Compass();
             DesignRatio = compass.SizeX / compass.SizeY;
-            Elevation = 0.0;
             Height = height;
             Name = "";
             Number = "";
             Perimeter = polygon;
+            Elevation = polygon.Vertices.First().Z;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -168,11 +168,11 @@ namespace RoomKit
             Department = room.Suite;
             DesignArea = room.DesignArea;
             DesignRatio = room.DesignRatio;
-            Elevation = room.Elevation;
             Height = room.Height;
             Name = room.Name;
             Number = room.Number;
             Perimeter = room.Perimeter;
+            Elevation = room.Elevation;
             Placed = false;
             Suite = room.Suite;
             SuiteID = room.SuiteID;
@@ -218,17 +218,43 @@ namespace RoomKit
         /// <summary>
         /// Intended area for this Room after placement.
         /// </summary>
-        public double DesignArea { get; set; }
+        private double designArea;
+        public double DesignArea 
+        { 
+            get { return designArea; }
+            set 
+            {
+                designArea = value > 0.0 ? value : designArea;
+            }
+        }
 
         /// <summary>
         /// Intended x : y ratio for this Room after placement.
         /// </summary>
-        public double DesignRatio { get; set; }
+        private double designRatio;
+        public double DesignRatio 
+        { 
+            get { return designRatio; }
+            set
+            {
+                designRatio = value > 0.0 ? value : designRatio;
+            }
+        }
 
         /// <summary>
         /// Vertical position of the Room's lowest plane relative to the ground plane.
         /// </summary> 
-        public double Elevation { get; set; }
+        private double elevation;
+        public double Elevation 
+        {
+            get { return elevation; } 
+            set
+            {
+                elevation = value;
+                var from = perimeter.Vertices.First();
+                Perimeter = Perimeter.MoveFromTo(from, new Vector3(from.X, from.Y, elevation));
+            }
+        }
 
         /// <summary>
         /// Vertical height of the room above its elevation.
@@ -242,14 +268,7 @@ namespace RoomKit
             }
             set
             {
-                if (value > 0.0)
-                {
-                    height = value;
-                }
-                else
-                {
-                    throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-                }
+                height = value > 0.0 ? value : height;
             }
         }
 
@@ -277,16 +296,9 @@ namespace RoomKit
             {
                 if (value == null)
                 {
-                    throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+                    return;
                 }
-                if (value.IsClockWise())
-                {
-                    perimeter = value.Reversed();
-                }
-                else
-                {
-                    perimeter = value;
-                }
+                perimeter = value.IsClockWise() ? value.Reversed() : value;
             }
         }
 

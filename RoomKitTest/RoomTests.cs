@@ -31,27 +31,6 @@ namespace RoomKitTest
             Assert.Equal(100.0, room.Area);
         }
 
-        //[Fact]
-        //public void AreaVariance()
-        //{
-        //    var room = new Room
-        //    {
-        //        DesignArea = 50.0,
-        //        Perimeter =
-        //            new Polygon(
-        //                new[]
-        //                {
-        //                    new Vector3(0.0, 0.0),
-        //                    new Vector3(10.0, 0.0),
-        //                    new Vector3(10.0, 10.0),
-        //                    new Vector3(0.0, 10.0)
-        //                })
-        //    };
-        //    Assert.Equal(2.0, room.AreaVariance);
-        //}
-
-
-
         [Fact]
         public void Color()
         {
@@ -77,10 +56,38 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void DesignRatio()
+        {
+            var room = new Room
+            {
+                DesignRatio = 2.0
+            };
+            Assert.Equal(2.0, room.DesignRatio);
+            room.DesignRatio = -20;
+            Assert.Equal(2.0, room.DesignRatio);
+        }
+
+        [Fact]
+        public void Elevation()
+        {
+            var roomOne = new Room();
+            var roomTwo = new Room()
+            {
+                Elevation = 10.0
+            };
+            var model = new Model();
+            model.AddElement(new Space(roomOne.PerimeterAsProfile, roomOne.Height, roomOne.ColorAsMaterial));
+            model.AddElement(new Space(roomTwo.PerimeterAsProfile, roomOne.Height, roomOne.ColorAsMaterial));
+            model.ToGlTF("../../../../roomElevation.glb");
+        }
+
+        [Fact]
         public void Height()
         {
-            var room = new Room();
-            room.Height = 5.1;
+            var room = new Room()
+            {
+                Height = 5.1
+            };
             Assert.Equal(5.1, room.Height, 10);
             room.Height = -5;
             Assert.Equal(5.1, room.Height, 10);

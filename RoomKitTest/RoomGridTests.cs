@@ -11,7 +11,7 @@ using GeometryEx;
 
 namespace RoomKitTest
 {
-    public class SectorTests
+    public class RoomGridTests
     {
         [Fact]
         public void Create()
@@ -26,7 +26,7 @@ namespace RoomKitTest
                     new Vector3(0.0, 20.0, 0.0)
                 }
             );
-            var sector = new Sector(perimeter, 4.0, 20.0, 5.0, 2.0, 45.0, GridPosition.CenterXY);
+            var sector = new RoomGrid(perimeter, 4.0, 20.0, 5.0, 2.0, 45.0, GridPosition.CenterXY);
             var model = new Model();
             model.AddElement(new Panel(perimeter, BuiltInMaterials.Concrete));
             foreach (var corridor in sector.Corridors)
@@ -48,7 +48,6 @@ namespace RoomKitTest
                 {
                     model.AddElement(new Space(rm.PerimeterAsProfile, 3.0, rm.ColorAsMaterial));
                 }
-                //model.AddElement(new Space(new Profile(roomRow.Perimeter), 3.0, new Material("roomrow", Palette.Aqua)));
             }
             model.ToGlTF("../../../../sectorCreate.glb");
         }

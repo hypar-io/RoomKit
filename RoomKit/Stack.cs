@@ -18,22 +18,10 @@ namespace RoomKit
         /// <summary>
         /// Constructor by default sets a kilometer limit on tower height and a standard 3 meter story height.
         /// </summary>
-        public Stack(int floors = 0,
-                     double heightLimit = 1000.0,
-                     string name = "",
-                     Polygon perimeter = null,
-                     double storyHeight = 3.0,
-                     double targetArea = 1.0,
-                     int typeID = -1)
+        public Stack()
         {
-            Cores = new List<Room>();
             Stories = new List<Story>();
             UniqueID = Guid.NewGuid().ToString();
-
-            HeightLimit = heightLimit;
-            Name = name;
-            Perimeter = perimeter;
-            StoryHeight = storyHeight;
         }
 
         #endregion
@@ -41,7 +29,7 @@ namespace RoomKit
         #region Properties
 
         /// <summary>
-        /// Returns the aggregate area of all Stories in the Tower.
+        /// Returns the aggregate area of all Stories.
         /// </summary>
         public double Area
         {
@@ -56,17 +44,19 @@ namespace RoomKit
             }
         }
 
-
         /// <summary>
-        /// Color imposed on the envelope of new Stories created by the Tower.. 
-        /// Ignores null values.
+        /// Sets the color for all Stories. 
         /// </summary>
-        //private Color color;
-        //public Color Color
-        //{
-        //    get { return color; }
-        //    set { color = value ?? color; }
-        //}
+        public Color ColorStories
+        {
+            set
+            {
+                foreach (var story in Stories)
+                {
+                    story.Color = value;
+                }
+            }
+        }
 
         /// <summary>
         /// Elevation of the lowest point of the Tower. 
@@ -76,62 +66,26 @@ namespace RoomKit
         {
             get
             {
+                if (Stories.Count > 0)
+                {
+                    return Stories.First().Elevation;
+                }
                 return elevation;
             }
             set
             {
-                var oldTowerElevation = elevation;
                 elevation = value;
-                foreach (Room core in Cores)
+                if (Stories.Count > 0)
                 {
-                    var oldCoreElevation = core.Elevation;
-                    core.Elevation += elevation - oldCoreElevation;
-                }
-                foreach (Story story in Stories)
-                {
-                    story.Elevation += elevation - oldTowerElevation;
-                }
-            }
-        }
-
-        /// <summary>
-        /// Room representing the Tower envelope.
-        /// </summary>
-        /// <summary>
-        /// Room representing the Story envelope.
-        /// </summary>
-        public Room Envelope
-        {
-            get
-            {
-                return (Perimeter == null) ? null :
-                    new Room()
+                    Stories.First().Elevation = elevation;
+                    for (var i = 1; i < Stories.Count; i++)
                     {
-                        //Color = Color,
-                        Height = Height,
-                        Name = Name,
-                        Perimeter = Perimeter
-                    };
+                        var lwrStory = Stories[i - 1];
+                        Stories[i].Elevation = lwrStory.Elevation + lwrStory.Height;
+                    }
+                }
+
             }
-        }
-
-        /// <summary>
-        /// Polygon representation of the Story Perimeter.
-        /// </summary>
-        public Polygon EnvelopeAsPolygon
-        {
-            get { return Envelope.Perimeter; }
-        }
-
- 
-        /// <summary>
-        /// Desired quantity of Stories in the Tower. 
-        /// </summary>
-        private int floors;
-        public int Floors
-        {
-            get { return floors; }
-            set { floors = value > 0 ? value : floors; }
         }
 
         /// <summary>
@@ -143,58 +97,15 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Desired typical Story height in the Tower. 
-        /// </summary>
-        public double HeightLimit { get; set; }
-
-        /// <summary>
         /// Arbitrary string identifier for this Tower instance.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// Polygon perimeter of the Tower at ground level. 
+        /// List of Stories. 
         /// </summary>
-        private Polygon perimeter;
-        public Polygon Perimeter
-        {
-            get { return perimeter; }
-            set { perimeter = value ?? perimeter; }
-        }
+        public List<Story> Stories { get; }
 
-        /// <summary>
-        /// List of all Stories in the Stack. 
-        /// </summary>
-        public List<Story> Stories = null;
-
-        /// <summary>
-        /// Desired typical Story height in the Stack. 
-        /// </summary>
-        private double storyHeight;
-        public double StoryHeight
-        {
-            get { return storyHeight; }
-            set { storyHeight = value > 0.0 ? value : storyHeight; }
-        }
-
-        /// <summary>
-        /// Target aggregate area for all Stories in the Stack. 
-        /// </summary>
-        private double targetArea;
-        public double TargetArea
-        {
-            get { return targetArea; }
-            set { targetArea = value > 0.0 ? value : targetArea; }
-        }
-
-        /// <summary>
-        /// Arbitrary integer identifier of this instance..
-        /// </summary>
-        public int TypeID { get; set; }
-
-        /// <summary>
-        /// UUID for this instance, set on initialization.
-        /// </summary>
         public string UniqueID { get; }
 
         #endregion
@@ -227,7 +138,7 @@ namespace RoomKit
         /// <summary>
         /// Returns a list of Rooms with a specific name.
         /// </summary>
-        /// <param name="name">Name of the rooms to retrieve.</param>
+        /// <param name="name">Name of the Rooms to retrieve.</param>
         /// <returns>
         /// None.
         /// </returns>/// 
@@ -248,7 +159,41 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Rotates the Tower Perimeter and Stories in the horizontal plane around the supplied pivot point.
+        /// Adds a new highest Story.
+        /// </summary>
+        /// <returns>
+        /// True if the Story is added.
+        /// </returns>
+        public bool AddStory(Story story)
+        {
+            var elevation = Elevation;
+            if (Stories.Count > 0)
+            {
+                elevation = Height;
+            }
+            story.Elevation = elevation;
+            Stories.Add(story);
+            return true;
+        }
+
+        /// <summary>
+        /// Moves all Stories in the Stack along a 3D vector calculated between the supplied Vector3 points.
+        /// </summary>
+        /// <param name="from">Vector3 base point of the move.</param>
+        /// <param name="to">Vector3 target point of the move.</param>
+        /// <returns>
+        /// None.
+        /// </returns>
+        public void MoveFromTo(Vector3 from, Vector3 to)
+        {
+            foreach (var story in Stories)
+            {
+                story.MoveFromTo(from, to);
+            }
+        }
+
+        /// <summary>
+        /// Rotates the Stories in the horizontal plane around the supplied pivot point.
         /// </summary>
         /// <param name="pivot">Vector3 point around which the Room Perimeter will be rotated.</param> 
         /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
@@ -261,73 +206,6 @@ namespace RoomKit
             {
                 story.Rotate(pivot, angle);
             }
-            foreach (Room core in Cores)
-            {
-                core.Rotate(pivot, angle);
-            }
-            if (Perimeter != null)
-            {
-                Perimeter = Perimeter.Rotate(pivot, angle);
-            }
-        }
-
-        /// <summary>
-        /// SetSlabThickness sets the slab thickness for all Tower Stories.
-        /// </summary>
-        /// <param name="thickness">Thickness of the slabs.</param> 
-        /// <returns>
-        /// None.
-        /// </returns>
-//        public void SetSlabThickness(double thickness)
-//        {
-//            foreach (Story story in Stories)
-//            {
-//                story.SlabThickness = thickness;
-//;            }
-//        }
-
-        /// <summary>
-        /// Creates the Tower by stacking a series of Story instances from the Tower Elevation.
-        /// </summary>
-        /// <param name="floors">Desired quantity of stacked Stories to form the Tower. If greater than zero, overrides and resets the current Floors property.</param>
-        /// <param name="storyHeight">Desired typical Story height of the Tower. If greater than zero, overrides and resets the current StoryHeight property.</param>
-        /// <param name="basement">Whether to consider the lowest floor a basement.</param>
-        /// <returns>
-        /// True if the Tower is successfully stacked.
-        /// </returns>
-        public bool Stacker()
-        {
-            if (Perimeter == null || storyHeight <= 0.0 || (Floors <= 0.0 && TargetArea <= 0.0))
-            {
-                return false;
-            }
-            if (TargetArea > 0.0)
-            {
-                Floors = (int)Math.Ceiling(TargetArea / Perimeter.Area());
-            }
-            Stories.Clear();
-            var elevation = Elevation;
-            for (int i = 0; i < Floors; i++)
-            {
-                if (elevation + storyHeight > HeightLimit)
-                {
-                    break;
-                }
-                var story = new Story()
-                {
-                    //Color = color,
-                    Elevation = elevation,
-                    Height = storyHeight,
-                    Perimeter = perimeter,
-                };
-                Stories.Add(story);
-                elevation += storyHeight;
-            }
-            if (Stories.Count == 0)
-            {
-                return false;
-            }
-            return true;
         }
 
         /// <summary>
@@ -335,11 +213,10 @@ namespace RoomKit
         /// </summary>
         /// <param name="story">Index of the Story to affect.</param>
         /// <param name="height">Desired new height of the specified Story.</param>
-        /// <param name="interiors">If true also sets any Corridors and Rooms in the Story to the new Height.</param>
         /// <returns>
-        /// True if the Tower is successfully stacked.
+        /// True if the Stack is successfully restacked.
         /// </returns>
-        public bool SetStoryHeight(int story, double height, bool interiors = true, bool upward = true)
+        public bool SetStoryHeight(int story, double height)
         {
             if (story < 0 || story > Stories.Count - 1 || height <= 0.0)
             {
@@ -351,61 +228,15 @@ namespace RoomKit
                 return true;
             }
             Stories[story].Height = height;
-            int index = 0;
-            if (interiors)
+            var index = story + 1;
+            while (index < Stories.Count)
             {
-                foreach (Room room in Stories[story].Corridors)
-                {
-                    room.Height += delta;
-                }
-                foreach (Room room in Stories[story].Rooms)
-                {
-                    room.Height += delta;
-                }
-                foreach (Room room in Stories[story].Services)
-                {
-                    room.Height += delta;
-                }
-            }
-            foreach (Room core in Cores)
-            {
-                core.Height += delta;
-            }
-            if (upward)
-            {
-                index = story + 1;
-                while (index < Stories.Count)
-                {
-                    foreach (Room core in Cores)
-                    {
-                        if (Stories[index].Elevation == core.Elevation)
-                        {
-                            core.Elevation += delta;
-                        }
-                    }
-                    Stories[index].Elevation += delta;
-                    index++;
-                }
-            }
-            else 
-            {
-                Stories[story].Elevation -= delta;
-                index = story - 1;
-                while (index > -1)
-                {
-                    foreach (Room core in Cores)
-                    {
-                        if (Stories[index].Elevation == core.Elevation)
-                        {
-                            core.Elevation -= delta;
-                        }
-                    }
-                    Stories[index].Elevation -= delta;
-                    index--;
-                }
+                Stories[index].Elevation += delta;
+                index++;
             }
             return true;
-        } 
+        }
+
         #endregion
     }
 }
