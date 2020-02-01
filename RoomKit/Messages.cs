@@ -22,12 +22,17 @@ namespace RoomKit
         /// <summary>
         /// 
         /// </summary>
-        public const string NONPOSITIVE_VALUE_EXCEPTION = "Value must be greater than zero.";
+        public const string NEGATIVE_VALUE_EXCEPTION = "Value must be greater than zero.";
 
         /// <summary>
         /// 
         /// </summary>
         public const string PERIMETER_PLACEMENT_EXCEPTION = "Polygon placement inconsistent with current relationships.";
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public const string NON_QUADRILATERAL_EXCEPTION = "Polygon must have exactly 4 segments.";
 
         /// <summary>
         /// 

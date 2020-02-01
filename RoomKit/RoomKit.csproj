@@ -37,8 +37,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GeometryEx" Version="2.0.0" />
-    <PackageReference Include="Hypar.Elements" Version="0.4.0" />
+    <PackageReference Include="GeometryEx" Version="2.29.1" />
+    <PackageReference Include="Hypar.Elements" Version="0.4.4.2" />
     <PackageReference Include="ParagonClipper" Version="6.4.2" />
   </ItemGroup>
 
