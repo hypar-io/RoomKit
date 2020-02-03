@@ -29,11 +29,11 @@ namespace RoomKit
             UniqueID = Guid.NewGuid().ToString();
         }
 
-        public Suite(List<Room> rooms, string name = "", string number = "")
+        public Suite(string name = "", string number = "", List<Room> rooms = null)
         {
-            Name = name;
-            Number = number;
-            Rooms = new List<Room>(rooms);
+            Name = name == null ? "": name;
+            Number = number == null ? "" : number; ;
+            Rooms = rooms == null ? new List<Room>() : new List<Room>(rooms);
             UniqueID = Guid.NewGuid().ToString();
         }
 

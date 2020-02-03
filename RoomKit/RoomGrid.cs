@@ -25,9 +25,9 @@ namespace RoomKit
         /// <param name="axis"></param>
         /// /// <param name="rowCap"></param>
         public RoomGrid(Polygon perimeter, double height,
-                      double rowLength, double roomDepth,
-                      double corridorWidth = 3.0, double axis = 0.0, 
-                      GridPosition position = GridPosition.CenterXY)
+                        double rowLength, double roomDepth,
+                        double corridorWidth = 3.0, double axis = 0.0, 
+                        GridPosition position = GridPosition.CenterXY)
         {
             Axis = axis;
             Corridors = new List<Room>();
@@ -47,7 +47,26 @@ namespace RoomKit
         private readonly Polygon perimeterJig;
 
         /// <summary>
-        /// 
+        /// Adds a Room to the first RoomRow with sufficient available area.
+        /// </summary>
+        /// <param name="room"></param>
+        /// <returns></returns>
+        public bool AddRoom(Room room)
+        {
+            foreach (var roomRow in RoomRows)
+            {
+                if (roomRow.AddRoom(room))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+
+        /// <summary>
+        /// Creates Corridors along grid lines.
         /// </summary>
         /// <param name="height"></param>
         /// <param name="position"></param>
