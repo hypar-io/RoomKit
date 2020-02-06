@@ -34,8 +34,8 @@ namespace RoomKit
             CorridorWidth = corridorWidth;
             Name = "";
             Perimeter = perimeter;
-            perimeterJig = perimeter; // Perimeter.Rotate(Vector3.Origin, Axis * -1);
-            RoomDepth = roomDepth;
+            perimeterJig = perimeter;
+            RoomDepth = roomDepth + (corridorWidth * 0.5);
             RoomRows = new List<RoomRow>();
             RowLength = rowLength;
             UniqueID = Guid.NewGuid().ToString();
@@ -45,6 +45,7 @@ namespace RoomKit
         }
 
         private readonly Polygon perimeterJig;
+        private Grid grid;
 
         /// <summary>
         /// Adds a Room to the first RoomRow with sufficient available area.
@@ -63,8 +64,6 @@ namespace RoomKit
             return false;
         }
 
-
-
         /// <summary>
         /// Creates Corridors along grid lines.
         /// </summary>
@@ -72,7 +71,7 @@ namespace RoomKit
         /// <param name="position"></param>
         private void MakeCorridors(double height, GridPosition position)
         {
-            var grid = new Grid(perimeterJig, RowLength, RoomDepth * 2, Axis, position);
+            grid = new Grid(perimeterJig, RowLength, RoomDepth * 2, Axis, CorridorWidth * 0.5, true, true, position);
             var pathsX = new List<Polygon>();
             foreach (var line in grid.LinesX)
             {
@@ -88,7 +87,8 @@ namespace RoomKit
             {
                 polygons.AddRange(path.Difference(pathsX));
             }
-            foreach (var polygon in polygons)
+            var corridors = Shaper.Merge(polygons);
+            foreach (var polygon in corridors)
             {
                 var corridor = polygon.FitMost(perimeterJig);
                 if (corridor != null)
@@ -98,33 +98,22 @@ namespace RoomKit
             }
         }
 
-        private bool PointOnLine(Vector3 point, Line line)
-        {
-            var deltaXp = point.X - line.Start.X;
-            var deltaYp = point.Y - line.Start.Y;
-            var deltaXl = line.End.X - line.Start.X;
-            var deltaYl = line.End.Y - line.Start.Y;
-            var cross = deltaXp * deltaYl - deltaYp * deltaXl;
-            if (Math.Abs(cross) < Vector3.Epsilon)
-            {
-                return true;
-            }
-            return false;
-        }
-
-
         /// <summary>
         /// 
         /// </summary>
         /// <param name="position"></param>
         private void MakeRoomRows(GridPosition position)
         {
-            var grid = new Grid(perimeterJig, RowLength, RoomDepth, Axis, position);
+            //var grid = new Grid(perimeterJig, RowLength, RoomDepth, Axis, position);
             foreach (var cell in grid.Cells)
             {
                 var row = cell.Segments().First();
-                var points = cell.Vertices;
-                var fit = cell.FitTo(perimeterJig, CorridorsAsPolygons);
+                var fit = cell.FitMost(perimeterJig);
+                if (fit == null)
+                {
+                    continue;
+                }
+                fit = fit.FitAmong(CorridorsAsPolygons);
                 if (fit == null)
                 {
                     continue;
