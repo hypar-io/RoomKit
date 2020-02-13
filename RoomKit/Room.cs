@@ -190,7 +190,7 @@ namespace RoomKit
         {
             get
             {
-                return Perimeter.Area();
+                return Math.Round(Perimeter.Area(), 5);
             }
         }
 

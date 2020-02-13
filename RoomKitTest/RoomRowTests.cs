@@ -152,6 +152,33 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void Populate()
+        {
+            var polygon =
+             new Polygon
+             (
+                 new[]
+                 {
+                    new Vector3(0.0, 0.0),
+                    new Vector3(20.0, 0.0),
+                    new Vector3(25.0, 5.0),
+                    new Vector3(0.0, 5.0)
+                 }
+             );
+            var roomRow = new RoomRow(polygon);
+            roomRow.Populate(20.0, 4.0);
+            roomRow.SetColor(Palette.Aqua);
+            Assert.Equal(7, roomRow.Rooms.Count);
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Granite, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.ToGlTF("../../../../RoomRowPopulate.glb");
+        }
+
+        [Fact]
         public void Rooms()
         {
             var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));

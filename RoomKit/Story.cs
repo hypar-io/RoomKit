@@ -679,6 +679,7 @@ namespace RoomKit
             fitAmong.AddRange(ExclusionsAsPolygons);
             fitAmong.AddRange(ServicesAsPolygons);
             fitAmong.AddRange(CorridorsAsPolygons);
+            fitAmong.AddRange(RoomsAsPolygons);
             perimeter = perimeter.FitAmong(fitAmong);
             if (perimeter == null)
             {
@@ -771,6 +772,66 @@ namespace RoomKit
             {
                 room.MoveFromTo(from, to);
             }
+        }
+
+        /// <summary>
+        /// Creates a Room plan from a Polygon centerline as the double-loaded corridor. Assumes sides of the Story Perimeter are parallel to the centerline.
+        /// </summary>
+        /// <param name="ctrLine">Polyline centerline of the Corridor.</param>
+        /// <param name="roomArea">Desired area of each Room.</param>
+        /// <param name="corridorWidth">Width of the Corridor.</param>
+        /// <param name="corridorOffset">Offset of the Corridor end from the Perimeter.</param>
+        public void PlanByCenterline (Polyline ctrLine, 
+                                      double roomArea, 
+                                      double corridorWidth, 
+                                      double corridorOffset)
+        {
+            var perLines = Perimeter.Segments();
+            var ctrLines = ctrLine.Segments();
+            var rows = new List<Polygon>();
+            foreach (var line in ctrLines)
+            {
+                var sides = new List<Line>();
+                foreach (var perLine in perLines)
+                {
+                    if (perLine.IsParallelTo(line))
+                    {
+                        sides.Add(perLine);
+                    }
+                }
+                if (sides.Count() != 2)
+                {
+                    continue;
+                }
+                
+                var ends = new List<Vector3>() { line.Start, line.End };
+                foreach (var side in sides)
+                {
+                    var vertices = new List<Vector3>() { side.Start, side.End };
+                    vertices.Add(side.End.NearestTo(ends));
+                    vertices.Add(side.Start.NearestTo(ends));
+                    rows.Add(new Polygon(vertices));
+                }
+            }
+            foreach (var row in rows)
+            {
+                var roomRow = new RoomRow(row);
+                roomRow.Populate(roomArea, Height);
+                foreach (var room in roomRow.Rooms)
+                {
+                    AddRoom(room);
+                }
+            }
+            var ctrPnts = new List<Vector3>() { ctrLines.First().PositionAt(corridorOffset) };
+            foreach (var line in ctrLines)
+            {
+                ctrPnts.Add(line.End);
+            }
+            ctrPnts = ctrPnts.SkipLast(1).ToList();
+            ctrPnts.Add(ctrLines.Last().PositionAt(ctrLines.Last().Length() - corridorOffset));
+            var ctrCorridor = new Polyline(ctrPnts);
+            var corridor = new Room(ctrCorridor.Offset(corridorWidth * 0.5, EndType.Square).First(), Height);
+            AddCorridor(corridor);
         }
 
         /// <summary>

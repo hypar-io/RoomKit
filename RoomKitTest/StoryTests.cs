@@ -18,10 +18,10 @@ namespace RoomKitTest
                 new Polygon(
                     new[]
                     {
-                            new Vector3(0.0, 0.0),
-                            new Vector3(20.0, 0.0),
-                            new Vector3(20.0, 20.0),
-                            new Vector3(0.0, 20.0)
+                        new Vector3(0.0, 0.0),
+                        new Vector3(20.0, 0.0),
+                        new Vector3(20.0, 20.0),
+                        new Vector3(0.0, 20.0)
                     });
             var story = new Story(perimeter)
             { 
@@ -277,6 +277,50 @@ namespace RoomKitTest
             Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 0.0);
             Assert.Contains(vertices, p => p.X == 20.0 && p.Y == 20.0);
             Assert.Contains(vertices, p => p.X == 0.0 && p.Y == 20.0);
+        }
+
+        [Fact]
+        public void PlanByCenterLine()
+        {
+            var perimeter =
+                new Polygon(
+                    new[]
+                    {
+                        new Vector3(30.0, 0.0),
+                        new Vector3(70.0, 40.0),
+                        new Vector3(130.0, 40.0),
+                        new Vector3(130.0, 70.0),
+                        new Vector3(60.0, 70.0),
+                        new Vector3(10.0, 20.0)
+                    });
+            var story = new Story(perimeter)
+            {
+                Color = Palette.Aqua,
+                Elevation = 0.0,
+                Height = 6.0,
+                Name = "First Floor"
+            };
+            var ctrLine =
+                new Polyline(
+                    new[]
+                    {
+                        new Vector3(20.0, 10.0),
+                        new Vector3(65.0, 55.0),
+                        new Vector3(130.0, 55.0)
+                    });
+            story.PlanByCenterline(ctrLine, 200.0, 3.0, 12.0);
+            var model = new Model();
+            model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
+            foreach (Room room in story.Rooms)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            foreach (Room room in story.Corridors)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            model.ToGlTF("../../../../storyPlanByCenterline.glb");
+
         }
 
         [Fact]

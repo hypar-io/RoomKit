@@ -22,7 +22,7 @@ namespace RoomKit
             {
                 polygon = polygon.Reversed();
             }
-            Row = polygon.Segments().First();
+            Row = polygon.Segments().OrderByDescending(s => s.Length()).ToList().First();
             Angle = Math.Atan2(Row.End.Y - Row.Start.Y, Row.End.X - Row.Start.X) * (180 / Math.PI);
             perimeterJig = polygon.MoveFromTo(Row.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
             insert = Vector3.Origin;
@@ -40,6 +40,7 @@ namespace RoomKit
 
         private readonly Polygon perimeterJig;
         private Vector3 insert;
+        private const double EPSILON = 1e-05;
 
         #endregion
 
@@ -67,7 +68,11 @@ namespace RoomKit
         {
             get
             {
-                return Area - AreaOfRooms;
+                if (Area - AreaOfRooms > 0.0)
+                {
+                    return Math.Round(Area - AreaOfRooms, 5);
+                }
+                return 0.0;
             }
         }
 
@@ -280,6 +285,26 @@ namespace RoomKit
             }
             Perimeter = Perimeter.MoveFromTo(from, to);
             Row = Row.MoveFromTo(from, to);
+        }
+
+        /// <summary>
+        /// Create Rooms of the specified area along the Row.
+        /// </summary>
+        /// <param name="area">Desired area of each Room.</param>
+        /// <param name="height"></param>
+        public void Populate (double area, double height)
+        {
+            if (area > AreaAvailable)
+            {
+                Infill(height);
+                return;
+            }
+            var room = new Room(area, 1.0, height);
+            while (AddRoom(room))
+            {
+                room = new Room(area, 1.0, height);
+            }
+            Infill(height);
         }
 
         /// <summary>
