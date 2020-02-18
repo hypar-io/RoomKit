@@ -22,12 +22,11 @@ namespace RoomKit
             {
                 polygon = polygon.Reversed();
             }
-            Row = polygon.Segments().OrderByDescending(s => s.Length()).ToList().First();
-            Angle = Math.Atan2(Row.End.Y - Row.Start.Y, Row.End.X - Row.Start.X) * (180 / Math.PI);
-            perimeterJig = polygon.MoveFromTo(Row.Start, Vector3.Origin).Rotate(Vector3.Origin, Angle * -1);
-            insert = Vector3.Origin;
+            var ang = polygon.Segments().OrderByDescending(s => s.Length()).ToList().First();
+            Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
+            perimeterJig = polygon.Rotate(Vector3.Origin, Angle * -1);
+            insert = origin = perimeterJig.Compass().SW;
             Name = name;
-            Origin = Row.Start;
             Perimeter = polygon;
             Rooms = new List<Room>();
             Tolerance = 0.1;
@@ -40,7 +39,7 @@ namespace RoomKit
 
         private readonly Polygon perimeterJig;
         private Vector3 insert;
-        private const double EPSILON = 1e-05;
+        private Vector3 origin;
 
         #endregion
 
@@ -57,7 +56,7 @@ namespace RoomKit
         {
             get
             {
-                return Perimeter.Area();
+                return Math.Abs(Perimeter.Area());
             }
         }
 
@@ -135,11 +134,6 @@ namespace RoomKit
         public string Name { get; set; }
 
         /// <summary>
-        /// Position indicating the beginning of the row.
-        /// </summary>
-        public Vector3 Origin { get; private set; }
-
-        /// <summary>
         /// Boundary of the RoomRow.
         /// </summary>
         public Polygon Perimeter { get; private set; }
@@ -147,7 +141,7 @@ namespace RoomKit
         /// <summary>
         /// List of Rooms placed along the row.
         /// </summary>
-        public List<Room> Rooms { get; }
+        public List<Room> Rooms { get; private set;  }
 
         /// <summary>
         /// List of all Room perimeters as Polygons.
@@ -235,7 +229,7 @@ namespace RoomKit
                             .ExpandtoArea(room.Area, Tolerance, Orient.SW, perimeterJig, RoomsAsPolygons);
             }
             insert = polygon.Compass().SE;
-            room.Perimeter = polygon.MoveFromTo(Vector3.Origin, Origin).Rotate(Origin, Angle);
+            room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
             room.Placed = true;
             Rooms.Add(room);
             return true;
@@ -259,14 +253,37 @@ namespace RoomKit
             return unplaced;
         }
 
-        public void Infill (double height)
+        /// <summary>
+        /// Creates or expands a final Room in the remaining RoomRow area.
+        /// </summary>
+        /// <param name="height">Desired height of the Room if a new Room must be created.</param>
+        public void Infill(double height)
         {
-            if (AreaAvailable == 0.0)
+            if (AreaAvailable > 0.0)
             {
-                return;
+                var compass = perimeterJig.Compass();
+                var polygons = Polygon.Rectangle(insert, compass.NE).Intersection(perimeterJig);
+                if (polygons != null)
+                {
+                    if (Rooms.Count > 0)
+                    {
+                        Rooms.Last().Perimeter = polygons.First()
+                            .Rotate(Vector3.Origin, Angle)
+                            .Union(Rooms.Last().Perimeter);
+                    }
+                    else
+                    {
+                        Rooms.Add(new Room(perimeterJig.Rotate(Vector3.Origin, Angle), height));
+                    }
+                    insert = compass.SE;
+                }
             }
-            var ratio = insert.DistanceTo(Row.End) / perimeterJig.Compass().SizeY;
-            AddRoom(new Room(AreaAvailable, ratio, height));
+            if (Rooms.Count > 1 && Rooms[0].Area < Rooms[1].Area)
+            {
+                var smallRoom = Rooms.First().Perimeter;
+                Rooms = Rooms.Skip(1).ToList();
+                Rooms.First().Perimeter = Rooms.First().Perimeter.Union(smallRoom);
+            }
         }
 
         /// <summary>
@@ -284,21 +301,15 @@ namespace RoomKit
                 room.MoveFromTo(from, to);
             }
             Perimeter = Perimeter.MoveFromTo(from, to);
-            Row = Row.MoveFromTo(from, to);
         }
 
         /// <summary>
         /// Create Rooms of the specified area along the Row.
         /// </summary>
         /// <param name="area">Desired area of each Room.</param>
-        /// <param name="height"></param>
+        /// <param name="height">Desired height of the Rooms.</param>
         public void Populate (double area, double height)
         {
-            if (area > AreaAvailable)
-            {
-                Infill(height);
-                return;
-            }
             var room = new Room(area, 1.0, height);
             while (AddRoom(room))
             {
@@ -310,7 +321,7 @@ namespace RoomKit
         /// <summary>
         /// Rotates all Rooms, the Perimeter and the Row in the horizontal plane around the supplied pivot point.
         /// </summary>
-        /// <param name="pivot">Vector3 point around which the RoomRowr will be rotated.</param> 
+        /// <param name="pivot">Vector3 point around which the RoomRow will be rotated.</param> 
         /// <param name="angle">Angle in degrees to rotate the Perimeter.</param> 
         /// <returns>
         /// None.
@@ -323,8 +334,6 @@ namespace RoomKit
             }
             Angle = angle;
             Perimeter = Perimeter.Rotate(pivot, angle);
-            Row = Row.Rotate(pivot, angle);
-            Origin = Row.Start;
         }
 
         /// <summary>

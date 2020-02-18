@@ -205,8 +205,7 @@ namespace RoomKit
             set
             {
                 elevation = value;
-                var from = perimeter.Vertices.First();
-                Perimeter = Perimeter.MoveFromTo(from, new Vector3(from.X, from.Y, elevation));
+                Perimeter = Perimeter.MoveFromTo(Vector3.Origin, new Vector3(0.0, 0.0, elevation));
 
                 var rooms = new List<Room>(Corridors);
                 rooms.AddRange(Exclusions);
@@ -579,7 +578,13 @@ namespace RoomKit
             var merged = Shaper.Merge(corridors);
             foreach (var corridor in merged)
             {
-                Corridors.Add(new Room(room) { Perimeter = corridor });
+                Corridors.Add(
+                    new Room(room) 
+                    {
+                        Elevation = Elevation,
+                        Height = room.Height,
+                        Perimeter = corridor 
+                    });
             }
             FitRooms();
             return true;
@@ -624,7 +629,12 @@ namespace RoomKit
             var merged = Shaper.Merge(exclusions);
             foreach (var exclusion in merged)
             {
-                Exclusions.Add(new Room(room) { Perimeter = exclusion });
+                Exclusions.Add(
+                    new Room(room) 
+                    { 
+                        Elevation = Elevation,
+                        Perimeter = exclusion 
+                    });
             }
             FitServices();
             FitCorridors();
@@ -652,7 +662,11 @@ namespace RoomKit
             var merged = Shaper.Merge(openings);
             foreach (var opening in merged)
             {
-                Openings.Add(new Room(room) { Perimeter = opening });
+                Openings.Add(
+                    new Room(room) 
+                    {   Elevation = Elevation,
+                        Perimeter = opening 
+                    });
             }
             FitExclusions();
             FitServices();
@@ -685,7 +699,12 @@ namespace RoomKit
             {
                 return false;
             }
-            Rooms.Add(new Room(room) { Perimeter = perimeter });
+            Rooms.Add(
+                new Room(room) 
+                { 
+                    Elevation = Elevation,
+                    Perimeter = perimeter 
+                });
             return true;
         }
 
@@ -713,6 +732,7 @@ namespace RoomKit
             }
             Services.Add(new Room(room) 
             { 
+                Elevation = Elevation,
                 Height = height,
                 Perimeter = perimeter 
             });
@@ -799,18 +819,29 @@ namespace RoomKit
                         sides.Add(perLine);
                     }
                 }
-                if (sides.Count() != 2)
+                if (sides.Count() < 2)
                 {
                     continue;
                 }
-                
-                var ends = new List<Vector3>() { line.Start, line.End };
+                sides = sides.OrderBy(s => s.Midpoint().DistanceTo(line.Midpoint())).ToList();
+                sides = new List<Line>() { sides[0], sides[1] };
                 foreach (var side in sides)
                 {
-                    var vertices = new List<Vector3>() { side.Start, side.End };
-                    vertices.Add(side.End.NearestTo(ends));
-                    vertices.Add(side.Start.NearestTo(ends));
-                    rows.Add(new Polygon(vertices));
+                    var points = new List<Vector3>();
+                    foreach (var vertex in new List<Vector3>() { line.Start, line.End, side.Start, side.End })
+                    {
+                        points.Add(new Vector3(vertex.X, vertex.Y, 0.0));
+                    }
+                    Polygon polygon;
+                    try
+                    {
+                        polygon = new Polygon(points);
+                    }
+                    catch (Exception)
+                    {
+                        polygon = new Polygon(new[] { points[0], points[1], points[3], points[2] });
+                    }
+                    rows.Add(polygon);
                 }
             }
             foreach (var row in rows)

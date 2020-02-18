@@ -299,6 +299,7 @@ namespace RoomKit
                     return;
                 }
                 perimeter = value.IsClockWise() ? value.Reversed() : value;
+                perimeter = perimeter.MoveFromTo(Vector3.Origin, new Vector3(0.0, 0.0, elevation));
             }
         }
 

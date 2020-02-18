@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 using Elements;
 using Elements.Geometry;
@@ -289,38 +290,52 @@ namespace RoomKitTest
                         new Vector3(30.0, 0.0),
                         new Vector3(70.0, 40.0),
                         new Vector3(130.0, 40.0),
-                        new Vector3(130.0, 70.0),
+                        new Vector3(170.0, 0.0),
+                        new Vector3(190.0, 20.0),
+                        new Vector3(140.0, 70.0),
                         new Vector3(60.0, 70.0),
                         new Vector3(10.0, 20.0)
                     });
-            var story = new Story(perimeter)
+            var stories = new List<Story>();
+            var elevation = -8.0;
+            for (var i = 0; i < 1; i++)
             {
-                Color = Palette.Aqua,
-                Elevation = 0.0,
-                Height = 6.0,
-                Name = "First Floor"
-            };
+                stories.Add(
+                    new Story(perimeter)
+                    {
+                        Color = Palette.Aqua,
+                        Elevation = elevation,
+                        Height = 6.0,
+                    });
+                elevation += 8.0;
+            }
             var ctrLine =
                 new Polyline(
                     new[]
                     {
                         new Vector3(20.0, 10.0),
                         new Vector3(65.0, 55.0),
-                        new Vector3(130.0, 55.0)
+                        new Vector3(135.0, 55.0),
+                        new Vector3(180.0, 10.0)
                     });
-            story.PlanByCenterline(ctrLine, 200.0, 3.0, 12.0);
             var model = new Model();
-            model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
-            foreach (Room room in story.Rooms)
+            foreach (var story in stories)
             {
-                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
-            }
-            foreach (Room room in story.Corridors)
-            {
-                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+                story.PlanByCenterline(ctrLine, 100.0, 2.0, 4.0);
+                foreach (Room room in story.Rooms)
+                {
+                    model.AddElement(new Space(room.PerimeterAsProfile,
+                                               room.Height,
+                                               room.ColorAsMaterial));
+                }
+                foreach (Room room in story.Corridors)
+                {
+                    model.AddElement(new Space(room.PerimeterAsProfile,
+                                               room.Height,
+                                               room.ColorAsMaterial));
+                }
             }
             model.ToGlTF("../../../../storyPlanByCenterline.glb");
-
         }
 
         [Fact]
