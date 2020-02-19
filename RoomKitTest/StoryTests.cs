@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
+using System;
 using Xunit;
 using Elements;
 using Elements.Geometry;
 using Elements.Serialization.glTF;
+using Elements.Spatial;
 using GeometryEx;
 using RoomKit;
 
@@ -336,6 +337,41 @@ namespace RoomKitTest
                 }
             }
             model.ToGlTF("../../../../storyPlanByCenterline.glb");
+        }
+
+        [Fact]
+        public void PlanGrid()
+        {
+            var perimeter =
+                new Polygon(
+                    new[]
+                    {
+                        new Vector3(0.0, 0.0),
+                        new Vector3(100.0, 0.0),
+                        new Vector3(100.0, 100.0),
+                        new Vector3(0.0, 100.0)
+                    });
+            var story =
+                new Story(perimeter)
+                {
+                    Color = Palette.Aqua,
+                    Height = 5.0
+                };
+            var model = new Model();
+            var roomRows = story.PlanGrid(10.0, 10.0, 2.0);
+            foreach (var room in story.Corridors)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile,
+                                           room.Height,
+                                           room.ColorAsMaterial));
+            }
+            foreach (var row in roomRows)
+            {
+                model.AddElement(new Space(row.Perimeter,
+                                           story.Height,
+                                           new Material(Palette.Aqua, 0.0, 0.0, Guid.NewGuid(), "")));
+            }
+            model.ToGlTF("../../../../storyPlanGrid.glb");
         }
 
         [Fact]

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Elements;
 using Elements.Geometry;
+using Elements.Spatial;
 using GeometryEx;
 
 namespace RoomKit
@@ -15,20 +16,17 @@ namespace RoomKit
         #region Constructors
 
         /// <summary>
-        /// By default creates a Story at a 4.0 Height on the zero plane with new lists for Corridors, Rooms, and Services.
-        /// Perimeter is set to null, Name is "", and Floor Thickness is 0.1.
+        /// By default creates a Story at a 4.0 Height on the zero plane with the supplied Polygon perimeter.
         /// </summary>
         /// <returns>
         /// A new Story.
         /// </returns>
-
         public Story(Polygon perimeter)
         {
             if (perimeter == null)
             {
                 throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
             }
-
             Perimeter = perimeter.IsClockWise() ? perimeter.Reversed() : perimeter;
       
             Openings = new List<Room>();
@@ -36,7 +34,7 @@ namespace RoomKit
             Services = new List<Room>();
             Corridors = new List<Room>();
             Rooms = new List<Room>();
-            
+
             Color = Palette.White;
             Elevation = 0.0;
             Height = 4.0;
@@ -437,6 +435,11 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// List of RoomRows. Can be a zero-length list if no RoomRows have been created.
+        /// </summary>
+        public List<RoomRow> RoomRows { get; }
+
+        /// <summary>
         /// A list of Rooms designated as building services.
         /// </summary>
         public List<Room> Services { get; }
@@ -575,11 +578,10 @@ namespace RoomKit
             }
             corridors.AddRange(CorridorsAsPolygons);
             Corridors.Clear();
-            var merged = Shaper.Merge(corridors);
-            foreach (var corridor in merged)
+            foreach (var corridor in corridors)
             {
                 Corridors.Add(
-                    new Room(room) 
+                    new Room(room)
                     {
                         Elevation = Elevation,
                         Height = room.Height,
@@ -626,8 +628,7 @@ namespace RoomKit
             }
             exclusions.AddRange(ExclusionsAsPolygons);
             Exclusions.Clear();
-            var merged = Shaper.Merge(exclusions);
-            foreach (var exclusion in merged)
+            foreach (var exclusion in exclusions)
             {
                 Exclusions.Add(
                     new Room(room) 
@@ -657,10 +658,7 @@ namespace RoomKit
                 return false;
             }
             var openings = new List<Polygon>(perimeters);
-            openings.AddRange(OpeningsAsPolygons);
-            Openings.Clear();
-            var merged = Shaper.Merge(openings);
-            foreach (var opening in merged)
+            foreach (var opening in openings)
             {
                 Openings.Add(
                     new Room(room) 
@@ -693,7 +691,6 @@ namespace RoomKit
             fitAmong.AddRange(ExclusionsAsPolygons);
             fitAmong.AddRange(ServicesAsPolygons);
             fitAmong.AddRange(CorridorsAsPolygons);
-            fitAmong.AddRange(RoomsAsPolygons);
             perimeter = perimeter.FitAmong(fitAmong);
             if (perimeter == null)
             {
@@ -866,6 +863,56 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Creates a grid network of corridors within the Story and returns a list of spatially sorted RoomRows ready for population.
+        /// </summary>
+        /// <param name="rowLength">Distance between cross corridors.</param>
+        /// <param name="roomDepth">Desired depth of Rooms.</param>
+        /// <param name="corridorWidth">Width of all corridors.</param>
+        /// <returns></returns>
+        public List<RoomRow> PlanGrid(double rowLength, double roomDepth, double corridorWidth = 3.0)
+        {
+            Corridors.Clear();
+            Rooms.Clear();
+            var row = Perimeter.Segments().OrderByDescending(s => s.Length()).First();
+            var ang = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X) * (180 / Math.PI);
+            var perimeterJig = Perimeter.Rotate(Vector3.Origin, ang * -1);
+            var grid = new Grid2d(perimeterJig);
+            grid.U.DivideByFixedLength(rowLength, FixedDivisionMode.RemainderAtBothEnds);
+            grid.V.DivideByFixedLength(roomDepth, FixedDivisionMode.RemainderAtBothEnds);
+            var uLines = grid.GetCellSeparators(GridDirection.U).Skip(1).SkipLast(1);
+            var vLines = grid.GetCellSeparators(GridDirection.V).Skip(1).SkipLast(1);
+            var ctrLines = new List<Line>();
+            foreach(var curve in uLines)
+            {
+                ctrLines.Add((Line)curve);
+            }
+            foreach (var curve in vLines)
+            {
+                ctrLines.Add((Line)curve);
+            }
+            foreach (var line in ctrLines)
+            {
+                AddCorridor(new Room(line.Thicken(corridorWidth), Height));
+            }
+            foreach (var cell in grid.CellsFlat)
+            {
+                var polygon = (Polygon)cell.GetCellGeometry();
+                var compass = polygon.Compass();
+                var north = Polygon.Rectangle(compass.W, compass.NE);
+                var south = Polygon.Rectangle(compass.SW, compass.E);
+                AddRoom(new Room(north, Height));
+                AddRoom(new Room(south, Height));
+            }
+            var roomRows = new List<RoomRow>();
+            foreach (var room in Rooms)
+            {
+                roomRows.Add(new RoomRow(room.Perimeter));
+            }
+            Rooms.Clear();
+            return roomRows;
+        }
+
+        /// <summary>
         /// Returns a list of Rooms with a specific name.
         /// </summary>
         /// <param name="name">Name of the rooms to retrieve.</param>
@@ -921,5 +968,6 @@ namespace RoomKit
             }
         }
         #endregion
+
     }
 }
