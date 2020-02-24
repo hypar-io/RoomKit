@@ -11,6 +11,8 @@ namespace RoomKit
     /// </summary>
     public class Room
     {
+        public const double TOLERANCE = 0.0001;
+
         #region Constructors
 
         /// <summary>
@@ -341,6 +343,8 @@ namespace RoomKit
         /// Arbitrary string identifier to link this Room to a Suite instance.
         /// </summary>
         public string SuiteID { get; set; }
+
+        //public Transform Transform { get; set; }
 
         /// <summary>
         /// UUID for this instance set on initialization.

@@ -358,7 +358,7 @@ namespace RoomKitTest
                     Height = 5.0
                 };
             var model = new Model();
-            var roomRows = story.PlanGrid(10.0, 10.0, 2.0);
+            var roomRows = story.PlanGrid(10.0, 10.0, 2.0, false);
             foreach (var room in story.Corridors)
             {
                 model.AddElement(new Space(room.PerimeterAsProfile,

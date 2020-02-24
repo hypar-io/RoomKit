@@ -126,7 +126,7 @@ namespace RoomKit
             get
             {
                 var polygons = new List<Polygon>();
-                foreach (Room room in Corridors)
+                foreach (var room in Corridors)
                 {
                     polygons.Add(room.Perimeter);
                 }
@@ -157,7 +157,7 @@ namespace RoomKit
         {
             set
             {
-                foreach (Room room in Corridors)
+                foreach (var room in Corridors)
                 {
                     room.Color = value;
                 }
@@ -248,7 +248,7 @@ namespace RoomKit
             get
             {
                 var polygons = new List<Polygon>();
-                foreach (Room room in Exclusions)
+                foreach (var room in Exclusions)
                 {
                     polygons.Add(room.Perimeter);
                 }
@@ -264,7 +264,7 @@ namespace RoomKit
             get
             {
                 var profiles = new List<Profile>();
-                foreach (Room room in Exclusions)
+                foreach (var room in Exclusions)
                 {
                     profiles.Add(new Profile(room.Perimeter));
                 }
@@ -500,19 +500,6 @@ namespace RoomKit
         /// <summary>
         /// Private function conforming the Rooms all other Story Room lists.
         /// </summary>
-        private void FitExclusions()
-        {
-            var exclusions = Exclusions.ToList();
-            Exclusions.Clear();
-            foreach (var exclusion in exclusions)
-            {
-                AddExclusion(exclusion);
-            }
-        }
-
-        /// <summary>
-        /// Private function conforming the Rooms all other Story Room lists.
-        /// </summary>
         private void FitRooms()
         {
             var rooms = Rooms.ToList();
@@ -557,21 +544,7 @@ namespace RoomKit
             var fitAmong = new List<Polygon>(OpeningsAsPolygons);
             fitAmong.AddRange(ExclusionsAsPolygons);
             fitAmong.AddRange(ServicesAsPolygons);
-            var corridors = new List<Polygon>();
-            foreach (var perimeter in perimeters)
-            {
-                if (!perimeter.Intersects(fitAmong))
-                {
-                    corridors.Add(perimeter);
-                    continue;
-                }
-                var differences = Shaper.Differences(perimeter, fitAmong);
-                if (differences.Count == 0)
-                {
-                    continue;
-                }
-                corridors.AddRange(differences);
-            }
+            var corridors = Shaper.CombinePolygons(perimeters, fitAmong, Shaper.BooleanMode.Difference).ToList();
             if (corridors.Count == 0)
             {
                 return false;
@@ -601,42 +574,7 @@ namespace RoomKit
         /// </returns>
         public bool AddExclusion(Room room)
         {
-            var perimeters = Shaper.FitWithin(room.Perimeter, Perimeter);
-            if (perimeters.Count == 0)
-            {
-                return false;
-            }
-            var fitAmong = new List<Polygon>(OpeningsAsPolygons);
-            var exclusions = new List<Polygon>();
-            foreach (var perimeter in perimeters)
-            {
-                if (!perimeter.Intersects(fitAmong))
-                {
-                    exclusions.Add(perimeter);
-                    continue;
-                }
-                var differences = Shaper.Differences(perimeter, fitAmong);
-                if (differences.Count == 0)
-                {
-                    continue;
-                }
-                exclusions.AddRange(differences);
-            }
-            if (exclusions.Count == 0)
-            {
-                return false;
-            }
-            exclusions.AddRange(ExclusionsAsPolygons);
-            Exclusions.Clear();
-            foreach (var exclusion in exclusions)
-            {
-                Exclusions.Add(
-                    new Room(room) 
-                    { 
-                        Elevation = Elevation,
-                        Perimeter = exclusion 
-                    });
-            }
+            Exclusions.Add(new Room(room) { Elevation = Elevation });
             FitServices();
             FitCorridors();
             FitRooms();
@@ -652,21 +590,7 @@ namespace RoomKit
         /// </returns>
         public bool AddOpening(Room room)
         {
-            var perimeters = Shaper.FitWithin(room.Perimeter, Perimeter);
-            if (perimeters.Count == 0)
-            {
-                return false;
-            }
-            var openings = new List<Polygon>(perimeters);
-            foreach (var opening in openings)
-            {
-                Openings.Add(
-                    new Room(room) 
-                    {   Elevation = Elevation,
-                        Perimeter = opening 
-                    });
-            }
-            FitExclusions();
+            Openings.Add(new Room(room) { Elevation = Elevation });
             FitServices();
             FitCorridors();
             FitRooms();
@@ -869,7 +793,7 @@ namespace RoomKit
         /// <param name="roomDepth">Desired depth of Rooms.</param>
         /// <param name="corridorWidth">Width of all corridors.</param>
         /// <returns></returns>
-        public List<RoomRow> PlanGrid(double rowLength, double roomDepth, double corridorWidth = 3.0)
+        public List<RoomRow> PlanGrid(double rowLength, double rowDepth, double corridorWidth = 3.0, bool split = true)
         {
             Corridors.Clear();
             Rooms.Clear();
@@ -878,7 +802,7 @@ namespace RoomKit
             var perimeterJig = Perimeter.Rotate(Vector3.Origin, ang * -1);
             var grid = new Grid2d(perimeterJig);
             grid.U.DivideByFixedLength(rowLength, FixedDivisionMode.RemainderAtBothEnds);
-            grid.V.DivideByFixedLength(roomDepth, FixedDivisionMode.RemainderAtBothEnds);
+            grid.V.DivideByFixedLength(rowDepth, FixedDivisionMode.RemainderAtBothEnds);
             var uLines = grid.GetCellSeparators(GridDirection.U).Skip(1).SkipLast(1);
             var vLines = grid.GetCellSeparators(GridDirection.V).Skip(1).SkipLast(1);
             var ctrLines = new List<Line>();
@@ -892,16 +816,28 @@ namespace RoomKit
             }
             foreach (var line in ctrLines)
             {
-                AddCorridor(new Room(line.Thicken(corridorWidth), Height));
+                var corridor = line.Thicken(corridorWidth);
+                if (perimeterJig.Compass().Box.Covers(corridor))
+                {
+                    AddCorridor(new Room(corridor.Rotate(Vector3.Origin, ang), Height));
+                }
             }
             foreach (var cell in grid.CellsFlat)
             {
                 var polygon = (Polygon)cell.GetCellGeometry();
                 var compass = polygon.Compass();
-                var north = Polygon.Rectangle(compass.W, compass.NE);
-                var south = Polygon.Rectangle(compass.SW, compass.E);
-                AddRoom(new Room(north, Height));
-                AddRoom(new Room(south, Height));
+                if (split)
+                {
+                    var north = Polygon.Rectangle(compass.W, compass.NE).Rotate(Vector3.Origin, ang);
+                    var south = Polygon.Rectangle(compass.SW, compass.E).Rotate(Vector3.Origin, ang);
+                    AddRoom(new Room(north, Height));
+                    AddRoom(new Room(south, Height));
+                    continue;
+                }
+                else if (Math.Abs(compass.SizeY - rowDepth) <= 0.0001)
+                {
+                    AddRoom(new Room(polygon.Rotate(Vector3.Origin, ang), Height));
+                }
             }
             var roomRows = new List<RoomRow>();
             foreach (var room in Rooms)

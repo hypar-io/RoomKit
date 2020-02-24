@@ -175,7 +175,24 @@ namespace RoomKitTest
             }
             model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Granite, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomRowPopulate.glb");
-            Assert.Equal(5, roomRow.Rooms.Count);
+            Assert.Equal(6, roomRow.Rooms.Count);
+        }
+
+        [Fact]
+        public void PopulateLine()
+        {
+            var line = new Line(new Vector3(0.0, 0.0), new Vector3(25.0, 5.0));
+            var roomRow = new RoomRow(line, 5.0);
+            roomRow.Populate(20.0, 4.0);
+            roomRow.SetColor(Palette.Aqua);
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Granite, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.ToGlTF("../../../../RoomRowPopulateLine.glb");
+            Assert.Equal(6, roomRow.Rooms.Count);
         }
 
         [Fact]

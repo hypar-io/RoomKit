@@ -25,6 +25,31 @@ namespace RoomKit
             var ang = polygon.Segments().OrderByDescending(s => s.Length()).ToList().First();
             Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
             perimeterJig = polygon.Rotate(Vector3.Origin, Angle * -1);
+            compass = perimeterJig.Compass();
+            insert = origin = compass.SW;
+            Name = name;
+            Perimeter = polygon;
+            Rooms = new List<Room>();
+            Tolerance = 0.1;
+            UniqueID = Guid.NewGuid().ToString();
+        }
+
+        /// <summary>
+        /// Constructor initializes the RoomRow with a supplied Line and a width.
+        /// </summary>
+        public RoomRow(Line row, double width, string name = "")
+        {
+            var angRads = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X);
+            Angle = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X) * (180 / Math.PI);
+            var direction = angRads + Math.PI * 0.5;
+            var start = new Vector3(row.End.X + (width * Math.Cos(direction)),
+                                    row.End.Y + (width * Math.Sin(direction)));
+            var end = new Vector3(row.Start.X + (width * Math.Cos(direction)),
+                                  row.Start.Y + (width * Math.Sin(direction)));
+            var vertices = new[] { row.Start, row.End, start, end };
+            var polygon = new Polygon(vertices);
+            perimeterJig = polygon.Rotate(Vector3.Origin, Angle * -1);
+            compass = perimeterJig.Compass();
             insert = origin = perimeterJig.Compass().SW;
             Name = name;
             Perimeter = polygon;
@@ -38,6 +63,7 @@ namespace RoomKit
         #region Private
 
         private readonly Polygon perimeterJig;
+        private readonly CompassBox compass;
         private Vector3 insert;
         private Vector3 origin;
 
@@ -72,6 +98,17 @@ namespace RoomKit
                     return Math.Round(Area - AreaOfRooms, 5);
                 }
                 return 0.0;
+            }
+        }
+
+        /// <summary>
+        /// Unallocated areas within the Perimeter.
+        /// </summary>
+        public List<Polygon> AreasAvailable
+        {
+            get
+            {
+                return Perimeter.Difference(Footprint).ToList();
             }
         }
 
@@ -201,34 +238,70 @@ namespace RoomKit
         /// <returns>
         /// True if the room was successfully placed.
         /// </returns>
-        public bool AddRoom(Room room, bool fit = true)
+        public bool AddRoomFitted(Room room, bool within = true)
         {
-            if (room == null || room.Area > AreaAvailable)
+            if (room == null ||
+                insert.DistanceTo(compass.SE) < 1.0 ||
+                compass.SW.DistanceTo(insert) >= compass.SW.DistanceTo(compass.SE))
             {
                 return false;
             }
             var ratio = room.DesignRatio;
-            if (ratio < 1.0)
+            if (ratio > 1.0)
             {
                 ratio = 1 / ratio;
             }
-            Polygon polygon = null;
-            if (fit)
+            Polygon boundary = null;
+            if (within)
             {
-                var compass = perimeterJig.Compass();
-                var length = room.Area / compass.SizeY;
-                var polygons = Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY)).Intersection(perimeterJig);
-                if (polygons != null)
-                {
-                    polygon = polygons.First();
-                }
+                boundary = new Polygon(perimeterJig.Vertices);
             }
-            if (polygon == null)
-            {
-                polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
-                            .ExpandtoArea(room.Area, Tolerance, Orient.SW, perimeterJig, RoomsAsPolygons);
-            }
+            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
+                            .ExpandtoArea(room.DesignArea, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
             insert = polygon.Compass().SE;
+            room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
+            room.Placed = true;
+            Rooms.Add(room);
+            return true;
+        }
+
+        /// <summary>
+        /// Attempts to place a Room perimeter on the next open segment of the row.
+        /// </summary>
+        /// <param name="room">Room from which to derive the Polygon to place.</param>
+        /// <returns>
+        /// True if the room was successfully placed.
+        /// </returns>
+        public bool AddRoom(Room room, bool within = true)
+        {
+            if (room == null ||
+                insert.DistanceTo(compass.SE) < 1.0 ||
+                compass.SW.DistanceTo(insert) >= compass.SW.DistanceTo(compass.SE))
+            {
+                return false;
+            }
+            var ratio = room.DesignRatio;
+            if (ratio > 1.0)
+            {
+                ratio = 1 / ratio;
+            }
+            var length = Math.Sqrt(room.Area * ratio);
+            Polygon polygon = null;
+            if (within)
+            {
+                var polygons =
+                    Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY)).Intersection(perimeterJig);
+                if (polygons == null)
+                {
+                    return false;
+                }
+                polygon = polygons.First();
+            }
+            else
+            {
+                polygon = Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY));
+            }
+            insert = polygon.Compass().SE;        
             room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
             room.Placed = true;
             Rooms.Add(room);
@@ -240,15 +313,26 @@ namespace RoomKit
         /// </summary>
         /// <param name="rooms">List of Rooms to place along the Row.</param>
         /// <returns>List of unplaced Rooms.</returns>
-        public List<Room> AddRooms(List<Room> rooms)
+        public List<Room> AddRooms(List<Room> rooms, bool fitted = true)
         {
             var unplaced = new List<Room>();
             foreach (var room in rooms)
             {
-                if(!AddRoom(room))
+                if (fitted)
                 {
-                    unplaced.Add(room);
+                    if (!AddRoomFitted(room))
+                    {
+                        unplaced.Add(room);
+                    }
                 }
+                else
+                {
+                    if (!AddRoom(room))
+                    {
+                        unplaced.Add(room);
+                    }
+                }
+
             }
             return unplaced;
         }
@@ -267,9 +351,8 @@ namespace RoomKit
                 {
                     if (Rooms.Count > 0)
                     {
-                        Rooms.Last().Perimeter = polygons.First()
-                            .Rotate(Vector3.Origin, Angle)
-                            .Union(Rooms.Last().Perimeter);
+                        Rooms.Last().Perimeter = 
+                            polygons.First().Rotate(Vector3.Origin, Angle).Union(Rooms.Last().Perimeter);
                     }
                     else
                     {
@@ -278,7 +361,7 @@ namespace RoomKit
                     insert = compass.SE;
                 }
             }
-            if (Rooms.Count > 1 && Rooms[0].Area < Rooms[1].Area)
+            if (Rooms.Count > 1 && Math.Abs(Rooms[0].Area - Rooms[1].Area) > Room.TOLERANCE)
             {
                 var smallRoom = Rooms.First().Perimeter;
                 Rooms = Rooms.Skip(1).ToList();
@@ -287,7 +370,7 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Moves all Rooms, the Boundary and the Row along a 3D vector calculated between the supplied Vector3 points.
+        /// Moves all Rooms along a 3D vector calculated between the supplied Vector3 points.
         /// </summary>
         /// <param name="from">Vector3 base point of the move.</param>
         /// <param name="to">Vector3 target point of the move.</param>
