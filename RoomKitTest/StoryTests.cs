@@ -213,7 +213,7 @@ namespace RoomKitTest
         public void Exclusions()
         {
             var story = MakeStory();
-            Assert.Equal(2, story.Exclusions.Count);
+            Assert.Single(story.Exclusions);
         }
 
         [Fact]
@@ -221,7 +221,7 @@ namespace RoomKitTest
         {
             var story = MakeStory();
             Assert.IsType<Polygon>(story.ExclusionsAsPolygons[0]);
-            Assert.Equal(2, story.ExclusionsAsPolygons.Count);
+            Assert.Single(story.ExclusionsAsPolygons);
         }
 
         [Fact]

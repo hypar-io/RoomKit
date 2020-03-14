@@ -434,7 +434,7 @@ namespace RoomKit
         /// </returns>
         public void MoveFromTo(Vector3 from, Vector3 to)
         {
-            foreach (Room room in Rooms)
+            foreach (var room in Rooms)
             {
                 room.MoveFromTo(from, to);
             }
