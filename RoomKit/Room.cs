@@ -208,7 +208,7 @@ namespace RoomKit
         {
             get
             {
-                return new Material(this.Color, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString());
+                return new Material(this.Color, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString());
             }
         }
 

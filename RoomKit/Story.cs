@@ -109,7 +109,7 @@ namespace RoomKit
         {
             get
             {
-                return new Material(Color, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString());
+                return new Material(Color, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString());
             }
         }
 
@@ -544,8 +544,8 @@ namespace RoomKit
             var fitAmong = new List<Polygon>(OpeningsAsPolygons);
             fitAmong.AddRange(ExclusionsAsPolygons);
             fitAmong.AddRange(ServicesAsPolygons);
-            var corridors = Shaper.CombinePolygons(perimeters, fitAmong, Shaper.BooleanMode.Difference).ToList();
-            if (corridors.Count == 0)
+            var corridors = Polygon.Difference(perimeters, fitAmong).ToList();
+            if (corridors.Count() == 0)
             {
                 return false;
             }

@@ -369,7 +369,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(row.Perimeter,
                                            story.Height,
-                                           new Material(Palette.Aqua, 0.0, 0.0, Guid.NewGuid(), "")));
+                                           new Material(Palette.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), "")));
             }
             model.ToGlTF("../../../../storyPlanGrid.glb");
         }

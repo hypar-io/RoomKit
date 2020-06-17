@@ -145,12 +145,12 @@ namespace RoomKit
                 {
                     return;
                 }
-                var perimeter = Shaper.Difference(roomRow.Perimeter, roomRow.Footprint);
-                if (perimeter == null)
+                var perimeter = roomRow.Perimeter.Difference(roomRow.Footprint);
+                if (perimeter.Count == 0)
                 {
                     break;
                 }
-                var matchRow = new RoomRow(perimeter);
+                var matchRow = new RoomRow(perimeter.First());
                 roomRows.Add(matchRow);
                 while (i < Rooms.Count)
                 {

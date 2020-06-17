@@ -87,7 +87,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Aqua, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomRow.glb");
         }
 
@@ -146,7 +146,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Aqua, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomRowLengthAvailable.glb");
             Assert.Equal(3.0, roomRow.LengthAvailable, 10);
         }
@@ -173,7 +173,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Granite, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Granite, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomRowPopulate.glb");
             Assert.Equal(6, roomRow.Rooms.Count);
         }
@@ -190,7 +190,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Granite, 0.0, 0.0, Guid.NewGuid(), Guid.NewGuid().ToString())));
+            model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Granite, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomRowPopulateLine.glb");
             Assert.Equal(6, roomRow.Rooms.Count);
         }
