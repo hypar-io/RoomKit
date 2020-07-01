@@ -223,6 +223,10 @@ namespace RoomKit
                     return null;
                 }
                 var polygons = Shaper.Merge(RoomsAsPolygons);
+                if (polygons.Count == 0)
+                {
+                    return null;
+                }
                 if (polygons.Count() == 1)
                 {
                     return polygons.First();
