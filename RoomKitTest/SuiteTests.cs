@@ -57,7 +57,9 @@ namespace RoomKitTest
                 };
                 rooms.Add(room);
             }
-            var suite = new Suite("", "", rooms, 0.5, RoomKit.Suite.SuiteLayout.Axis);
+            var suite = new Suite("", "", rooms, 0.5, 2.0, RoomKit.Suite.SuitePlan.Axis);
+            var footprint = suite.CompassCorridor;
+
             var model = new Model();
             foreach (Room room in suite.Rooms)
             {

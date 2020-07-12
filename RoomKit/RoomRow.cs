@@ -257,7 +257,7 @@ namespace RoomKit
                 boundary = new Polygon(perimeterJig.Vertices);
             }
             var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
-                            .ExpandtoArea(room.DesignArea, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
+                            .ExpandToArea(room.DesignArea, ratio, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
             insert = polygon.Compass().SE;
             room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
             room.Placed = true;

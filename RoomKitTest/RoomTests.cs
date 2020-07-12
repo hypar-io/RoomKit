@@ -78,6 +78,8 @@ namespace RoomKitTest
             var model = new Model();
             model.AddElement(new Space(roomOne.PerimeterAsProfile, roomOne.Height, roomOne.ColorAsMaterial));
             model.AddElement(new Space(roomTwo.PerimeterAsProfile, roomOne.Height, roomOne.ColorAsMaterial));
+            Assert.Equal(0.0, roomOne.Elevation);
+            Assert.Equal(10.0, roomTwo.Elevation);
             model.ToGlTF("../../../../roomElevation.glb");
         }
 

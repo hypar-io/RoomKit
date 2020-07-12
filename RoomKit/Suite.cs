@@ -14,7 +14,7 @@ namespace RoomKit
     {
         #region Constructors
 
-        public enum SuiteLayout { Axis, Reciprocal }
+        public enum SuitePlan { Axis, Reciprocal }
 
         /// <summary>
         /// Default constructor creates an empty Suite.
@@ -25,16 +25,18 @@ namespace RoomKit
         public Suite(string name = "", 
                      string number = "", 
                      List<Room> rooms = null, 
-                     double ratio = 0.5, 
-                     SuiteLayout suiteLayout = SuiteLayout.Reciprocal)
+                     double ratio = 0.5,
+                     double corridorWidth = 1.0,
+                     SuitePlan suitePlan = SuitePlan.Reciprocal)
         {
             Rooms = rooms == null ? new List<Room>() : new List<Room>(rooms);
             Name = name ?? "";
             Number = number ?? "";
             Ratio = ratio;
-            SuitePlanType = suiteLayout;
+            CorridorWidth = corridorWidth;
+            SuitePlanType = suitePlan;
             UniqueID = Guid.NewGuid().ToString();
-            if (suiteLayout == SuiteLayout.Reciprocal)
+            if (suitePlan == SuitePlan.Reciprocal)
             {
                 PlaceReciprocal();
             }
@@ -162,23 +164,6 @@ namespace RoomKit
                 }
                 Ratio += 0.1;
             }
-            var rooms = roomRows.Last().RoomsAsPolygons;
-            var diffs = roomRows.Last().Perimeter.Difference(rooms);
-            if (diffs != null)
-            {
-                foreach (var diff in diffs)
-                {
-                    foreach (var room in roomRows.Last().Rooms)
-                    {
-                        var merge = Shaper.Merge(new[] { room.Perimeter, diff }.ToList());
-                        if (merge.Count == 1)
-                        {
-                            room.Perimeter = merge.First();
-                            break;
-                        }
-                    }
-                }
-            }
             Rooms.Clear();
             foreach (var roomRow in roomRows)
             {
@@ -187,6 +172,26 @@ namespace RoomKit
                     Rooms.Add(room);
                 }
             }
+            //2020.07.09 Anthony Hauck
+            //Commented code makes suite geometric room diffs into one or more extra rooms.
+            //Overall the results were more confusing that just ignoring them, but leaving
+            //this here in case future developers have a better idea. 
+            //var lastRow = roomRows.Last();
+            //var rooms = lastRow.RoomsAsPolygons;
+            //var diffs = lastRow.Perimeter.Difference(rooms).ToList();
+            //if (diffs.Count > 0)
+            //{
+            //    var height = lastRow.Rooms.Last().Height;
+            //    diffs = Shaper.Merge(diffs);
+            //    foreach (var diff in diffs)
+            //    {
+            //        Rooms.Add(
+            //            new Room(diff, height)
+            //            {
+            //                Color = Palette.White
+            //            });
+            //    }
+            //}
             Perimeter = Footprint;
         }
 
@@ -211,6 +216,54 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Returns a CompassBox representing the bounding box of the footprint of all Rooms with a positive offset equal to half the cooridor width. 
+        /// </summary>
+        public CompassBox CompassCorridor
+        {
+            get
+            {
+                var footPrint = Footprint;
+                if (footPrint == null)
+                {
+                    return null;
+                }
+                return footPrint.Offset(corridorWidth * 0.5).First().Compass();
+            }
+        }
+
+        /// <summary>
+        /// Returns a CompassBox derived from the footprint of all Rooms. 
+        /// </summary>
+        public CompassBox CompassRooms
+        {
+            get
+            {
+                var footPrint = Footprint;
+                if (footPrint == null)
+                {
+                    return null;
+                }
+                return footPrint.Compass();
+            }
+        }
+
+        /// <summary>
+        /// The total abstract width of the intended corridor around the Suite.
+        /// </summary>
+        double corridorWidth;
+        public double CorridorWidth
+        {
+            get { return corridorWidth; }
+            set
+            {
+                if (value > 0.0)
+                {
+                    corridorWidth = value;
+                }
+            }
+        }
+
+        /// <summary>
         /// Returns a single Polygon representing the merged perimeters of all Rooms. 
         /// If more than one polygon emerges from the merging process a Polygon representing the convex hull is returned instead.
         /// </summary>
@@ -223,16 +276,12 @@ namespace RoomKit
                     return null;
                 }
                 var polygons = Shaper.Merge(RoomsAsPolygons);
-                if (polygons.Count == 0)
-                {
-                    return null;
-                }
                 if (polygons.Count() == 1)
                 {
                     return polygons.First();
                 }
                 var points = new List<Vector3>();
-                foreach (var polygon in polygons)
+                foreach (var polygon in RoomsAsPolygons)
                 {
                     points.AddRange(polygon.Vertices);
                 }
@@ -353,7 +402,7 @@ namespace RoomKit
         /// <summary>
         /// Returns the layour style of the Suite;
         /// </summary>
-        public SuiteLayout SuitePlanType { get; private set;  }
+        public SuitePlan SuitePlanType { get; private set;  }
 
         /// <summary>
         /// UUID for this instance, set on initialization.
@@ -398,7 +447,7 @@ namespace RoomKit
             {
                 entry.Placed = false;
             }
-            if (SuitePlanType == SuiteLayout.Reciprocal)
+            if (SuitePlanType == SuitePlan.Reciprocal)
             {
                 PlaceReciprocal();
             }
@@ -445,7 +494,7 @@ namespace RoomKit
             Perimeter = Perimeter.MoveFromTo(from, to);
         }
 
-        /// Returns a Rooms with a specific UniqueID.
+        /// Returns a Room with a specific UniqueID.
         /// </summary>
         /// <param name="name">Name of the rooms to retrieve.</param>
         /// <returns>
@@ -531,7 +580,7 @@ namespace RoomKit
         /// <summary>
         /// Uniformly sets the height of all Rooms.
         /// </summary>
-        /// <param name="elevation">New height of the Rooms.</param> 
+        /// <param name="height">New height of the Rooms.</param> 
         /// <returns>
         /// None.
         /// </returns>

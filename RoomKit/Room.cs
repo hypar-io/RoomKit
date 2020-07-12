@@ -254,7 +254,7 @@ namespace RoomKit
             {
                 elevation = value;
                 var from = perimeter.Vertices.First();
-                Perimeter = Perimeter.MoveFromTo(from, new Vector3(from.X, from.Y, elevation));
+                Perimeter = Perimeter.MoveFromTo(from, new Vector3(from.X, from.Y, elevation - from.Z));
             }
         }
 
@@ -366,6 +366,7 @@ namespace RoomKit
         public void MoveFromTo(Vector3 from, Vector3 to)
         {
             perimeter = perimeter.MoveFromTo(from, to);
+            Elevation = to.Z;
         }
 
         /// <summary>
