@@ -94,7 +94,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../story.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/story.glb");
             return story;
         }
 
@@ -206,7 +206,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../storyElevation.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/storyElevation.glb");
         }
 
         [Fact]
@@ -336,7 +336,7 @@ namespace RoomKitTest
                                                room.ColorAsMaterial));
                 }
             }
-            model.ToGlTF("../../../../storyPlanByCenterline.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/storyPlanByCenterline.glb");
         }
 
         [Fact]
@@ -371,7 +371,7 @@ namespace RoomKitTest
                                            story.Height,
                                            new Material(Palette.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), "")));
             }
-            model.ToGlTF("../../../../storyPlanGrid.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/storyPlanGrid.glb");
         }
 
         [Fact]
@@ -406,7 +406,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../StoryRotate.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/StoryRotate.glb");
         }
 
         [Fact]

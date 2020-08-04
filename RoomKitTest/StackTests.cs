@@ -37,7 +37,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../makeStack.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/makeStack.glb");
             return stack;
         }
 
@@ -65,7 +65,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../stackColor.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/stackColor.glb");
         }
 
         [Fact]
@@ -88,7 +88,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../stackMoveFromTo.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/stackMoveFromTo.glb");
         }
 
         [Fact]
@@ -109,7 +109,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../stackRotate.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/stackRotate.glb");
         }
 
         [Fact]
@@ -122,7 +122,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../stackStoryHeight.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/stackStoryHeight.glb");
         }
 
     }

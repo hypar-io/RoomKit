@@ -65,7 +65,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../Suite.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/Suite.glb");
         }
     }
 }

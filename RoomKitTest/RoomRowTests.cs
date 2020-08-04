@@ -88,7 +88,7 @@ namespace RoomKitTest
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
             model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
-            model.ToGlTF("../../../../RoomRow.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRow.glb");
         }
 
         [Fact]
@@ -130,7 +130,7 @@ namespace RoomKitTest
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
             model.AddElement(new Space(new Profile(footprint), 0.5, BuiltInMaterials.Concrete));
-            model.ToGlTF("../../../../RoomRowFootprint.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowFootprint.glb");
         }
 
         [Fact]
@@ -147,7 +147,7 @@ namespace RoomKitTest
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
             model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
-            model.ToGlTF("../../../../RoomRowLengthAvailable.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowLengthAvailable.glb");
             Assert.Equal(3.0, roomRow.LengthAvailable, 10);
         }
 
@@ -174,7 +174,7 @@ namespace RoomKitTest
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
             model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Granite, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
-            model.ToGlTF("../../../../RoomRowPopulate.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowPopulate.glb");
             Assert.Equal(7, roomRow.Rooms.Count);
         }
 
@@ -191,7 +191,7 @@ namespace RoomKitTest
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
             model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Granite, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
-            model.ToGlTF("../../../../RoomRowPopulateLine.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowPopulateLine.glb");
             Assert.Equal(6, roomRow.Rooms.Count);
         }
 
@@ -263,7 +263,7 @@ namespace RoomKitTest
             {
                 model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
             }
-            model.ToGlTF("../../../../RoomRowRotate.glb");
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowRotate.glb");
         }
 
         [Fact]
