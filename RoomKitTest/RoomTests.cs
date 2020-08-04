@@ -71,7 +71,7 @@ namespace RoomKitTest
         public void Elevation()
         {
             var roomOne = new Room();
-            var roomTwo = new Room()
+            var roomTwo = new Room
             {
                 Elevation = 10.0
             };

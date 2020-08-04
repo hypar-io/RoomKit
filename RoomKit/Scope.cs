@@ -79,7 +79,7 @@ namespace RoomKit
         {
             get
             {
-                return AreaTenant - (AreaCirculation + AreaOccupant + AreaService);
+                return Math.Round(AreaTenant - (AreaCirculation + AreaOccupant + AreaService), Room.PRECISION);
             }
         }
 
@@ -95,7 +95,7 @@ namespace RoomKit
                 {
                     area += room.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -114,7 +114,7 @@ namespace RoomKit
                         area += room.Area;
                     }
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -133,7 +133,7 @@ namespace RoomKit
                         area += room.Area;
                     }
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -149,7 +149,7 @@ namespace RoomKit
                 {
                     area += room.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -165,7 +165,7 @@ namespace RoomKit
                 {
                     area += room.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -329,23 +329,9 @@ namespace RoomKit
         {
             get
             {
-                return AreaCirculation / AreaOccupant;
+                return Math.Round(AreaCirculation / AreaOccupant);
             }
         }
-
-        /// <summary>
-        /// Returns the ratio of the aggregate area of all designed Occupant Rooms against the designed Circulation area.
-        /// </summary>
-        /// <returns>
-        /// A list of Rooms.
-        /// </returns>
-        //public double RatioDesignCirculation
-        //{
-        //    get
-        //    {
-        //        return AreaDesignCirculation / AreaDesignOccupant;
-        //    }
-        //}
 
         /// <summary>
         /// Returns all Rooms with Placed = false.
@@ -401,11 +387,9 @@ namespace RoomKit
         public Room FindByArea(double area, bool unplaced = true)
         {
             var rooms = new List<Room>();
+            area = Math.Abs(area);
             rooms = unplaced ? Unplaced : Placed;
-            if (rooms.Count == 0)
-            {
-                return null;
-            }
+            if (rooms.Count == 0) return null;
             return rooms.OrderBy(r => Math.Abs(r.Area - area)).First();
         }
 
@@ -420,10 +404,7 @@ namespace RoomKit
         public Room FindByRatio(double ratio, bool unplaced = true)
         {
             var rooms = unplaced ? Unplaced : Placed;
-            if (rooms.Count == 0)
-            {
-                return null;
-            }
+            if (rooms.Count == 0) return null;
             if (unplaced)
             {
                 return rooms.OrderBy(r => Math.Abs(r.DesignRatio - ratio)).First();
@@ -445,10 +426,7 @@ namespace RoomKit
         public Room FindByName(string name, bool unplaced = true)
         {
             var rooms = unplaced ? Unplaced : Placed;
-            if (rooms.Count == 0)
-            {
-                return null;
-            }
+            if (rooms.Count == 0) return null;
             return rooms.Find(r => r.Name == name);
         }
 

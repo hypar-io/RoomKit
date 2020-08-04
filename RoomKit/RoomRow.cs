@@ -18,15 +18,13 @@ namespace RoomKit
         /// </summary>
         public RoomRow(Polygon polygon, string name = "")
         {
-            if (polygon.IsClockWise())
-            {
-                polygon = polygon.Reversed();
-            }
+            if (polygon == null) return;
+            polygon = polygon.IsClockWise() ? polygon.Reversed() : polygon;
             var ang = polygon.Segments().OrderByDescending(s => s.Length()).ToList().First();
             Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
             perimeterJig = polygon.Rotate(Vector3.Origin, Angle * -1);
             compass = perimeterJig.Compass();
-            insert = origin = compass.SW;
+            insert = compass.SW;
             Name = name;
             Perimeter = polygon;
             Rooms = new List<Room>();
@@ -35,10 +33,12 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Constructor initializes the RoomRow with a supplied Line and a width.
+        /// Constructor initializes the RoomRow with a supplied Line and a depth.
         /// </summary>
         public RoomRow(Line row, double width, string name = "")
         {
+            if (row == null) return;
+            width = width <= 0.0 ? 1.0 : width;
             var angRads = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X);
             Angle = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X) * (180 / Math.PI);
             var direction = angRads + Math.PI * 0.5;
@@ -50,7 +50,7 @@ namespace RoomKit
             var polygon = new Polygon(vertices);
             perimeterJig = polygon.Rotate(Vector3.Origin, Angle * -1);
             compass = perimeterJig.Compass();
-            insert = origin = perimeterJig.Compass().SW;
+            insert = perimeterJig.Compass().SW;
             Name = name;
             Perimeter = polygon;
             Rooms = new List<Room>();
@@ -65,7 +65,6 @@ namespace RoomKit
         private readonly Polygon perimeterJig;
         private readonly CompassBox compass;
         private Vector3 insert;
-        private Vector3 origin;
 
         #endregion
 
@@ -82,7 +81,7 @@ namespace RoomKit
         {
             get
             {
-                return Math.Abs(Perimeter.Area());
+                return Math.Round(Perimeter.Area(), Room.PRECISION);
             }
         }
 
@@ -93,11 +92,11 @@ namespace RoomKit
         {
             get
             {
-                if (Area - AreaOfRooms > 0.0)
+                if (Area - AreaOfRooms <= 0.0)
                 {
-                    return Math.Round(Area - AreaOfRooms, 5);
+                    return 0.0;
                 }
-                return 0.0;
+                return Math.Round(Area - AreaOfRooms, Room.PRECISION);
             }
         }
 
@@ -108,7 +107,7 @@ namespace RoomKit
         {
             get
             {
-                return Perimeter.Difference(Footprint).ToList();
+                return Shaper.Differences(Perimeter.ToList(), Footprint.ToList()).ToList();
             }
         }
 
@@ -124,7 +123,7 @@ namespace RoomKit
                 {
                     area += room.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -238,40 +237,6 @@ namespace RoomKit
         /// <returns>
         /// True if the room was successfully placed.
         /// </returns>
-        public bool AddRoomFitted(Room room, bool within = true)
-        {
-            if (room == null ||
-                insert.DistanceTo(compass.SE) < 1.0 ||
-                compass.SW.DistanceTo(insert) >= compass.SW.DistanceTo(compass.SE))
-            {
-                return false;
-            }
-            var ratio = room.DesignRatio;
-            if (ratio > 1.0)
-            {
-                ratio = 1 / ratio;
-            }
-            Polygon boundary = null;
-            if (within)
-            {
-                boundary = new Polygon(perimeterJig.Vertices);
-            }
-            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
-                            .ExpandToArea(room.DesignArea, ratio, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
-            insert = polygon.Compass().SE;
-            room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
-            room.Placed = true;
-            Rooms.Add(room);
-            return true;
-        }
-
-        /// <summary>
-        /// Attempts to place a Room perimeter on the next open segment of the row.
-        /// </summary>
-        /// <param name="room">Room from which to derive the Polygon to place.</param>
-        /// <returns>
-        /// True if the room was successfully placed.
-        /// </returns>
         public bool AddRoom(Room room, bool within = true)
         {
             if (room == null ||
@@ -280,18 +245,15 @@ namespace RoomKit
             {
                 return false;
             }
-            var ratio = room.DesignRatio;
-            if (ratio > 1.0)
-            {
-                ratio = 1 / ratio;
-            }
+            var ratio = room.DesignRatio > 1.0 ? 1 / room.DesignRatio : room.DesignRatio;
             var length = Math.Sqrt(room.Area * ratio);
-            Polygon polygon = null;
+            Polygon polygon;
             if (within)
             {
-                var polygons =
-                    Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY)).Intersection(perimeterJig);
-                if (polygons == null)
+                var polygons = Shaper.Intersections(
+                    Polygon.Rectangle(insert, new Vector3(insert.X + length, insert.Y + compass.SizeY)).ToList(),
+                    perimeterJig.ToList());
+                if (polygons.Count == 0)
                 {
                     return false;
                 }
@@ -338,35 +300,84 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Creates and attempts to add a Room to the RoomRow from the supplied characteristics.
+        /// </summary>
+        /// <param name="area">Room area.</param>
+        /// <param name="height">Room height.</param>
+        /// <param name="elevation">Room elevation.</param>
+        /// <returns>
+        /// True if the Room was successfully placed.
+        /// </returns>
+        public bool AddRoomByArea(double area, double height, double elevation)
+        {
+            if (area <= 0.0 || AreaAvailable < area || height <= 0.0) return false;
+            var ratio = area / (compass.SizeY * compass.SizeY);
+            var room = new Room(area, ratio, height)
+            {
+                Elevation = elevation,
+                DesignArea = area,
+                DesignRatio = ratio,
+            };
+            return AddRoom(room, true);
+        }
+
+        /// <summary>
+        /// Attempts to place a Room perimeter on the next open segment of the row.
+        /// </summary>
+        /// <param name="room">Room from which to derive the Polygon to place.</param>
+        /// <returns>
+        /// True if the Room was successfully placed.
+        /// </returns>
+        public bool AddRoomFitted(Room room, bool within = true)
+        {
+            if (room == null ||
+                insert.DistanceTo(compass.SE) < 1.0 ||
+                compass.SW.DistanceTo(insert) >= compass.SW.DistanceTo(compass.SE))
+            {
+                return false;
+            }
+            var ratio = room.DesignRatio;
+            if (ratio > 1.0)
+            {
+                ratio = 1 / ratio;
+            }
+            Polygon boundary = null;
+            if (within)
+            {
+                boundary = new Polygon(perimeterJig.Vertices);
+            }
+            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
+                            .ExpandToArea(room.DesignArea, ratio, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
+            insert = polygon.Compass().SE;
+            room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
+            room.Placed = true;
+            Rooms.Add(room);
+            return true;
+        }
+
+        /// <summary>
         /// Creates or expands a final Room in the remaining RoomRow area.
         /// </summary>
         /// <param name="height">Desired height of the Room if a new Room must be created.</param>
-        public void Infill(double height)
+        /// <param name="tolerance">Minimum area of a infill Room. Smaller rooms will be joined to the last Room.</param>
+        public void Infill(double height, bool join = false, double tolerance = 1.0)
         {
-            if (AreaAvailable > 0.0)
+            if (AreaAvailable <= tolerance) return;
+            height = height <= 0.0 ? 1.0 : height;
+            var polygons = Shaper.Intersections(Polygon.Rectangle(insert, compass.NE).ToList(), perimeterJig.ToList());
+            if (polygons.Count == 0) return;
+            if (Rooms.Count > 0 && (join || polygons.First().Area() < tolerance))
             {
-                var compass = perimeterJig.Compass();
-                var polygons = Polygon.Rectangle(insert, compass.NE).Intersection(perimeterJig);
-                if (polygons != null)
-                {
-                    if (Rooms.Count > 0)
-                    {
-                        Rooms.Last().Perimeter = 
-                            polygons.First().Rotate(Vector3.Origin, Angle).Union(Rooms.Last().Perimeter);
-                    }
-                    else
-                    {
-                        Rooms.Add(new Room(perimeterJig.Rotate(Vector3.Origin, Angle), height));
-                    }
-                    insert = compass.SE;
-                }
+                Rooms.Last().Perimeter = polygons.First().Rotate(Vector3.Origin, Angle).Union(Rooms.Last().Perimeter);
+                return;
             }
-            if (Rooms.Count > 1 && Math.Abs(Rooms[0].Area - Rooms[1].Area) > Room.TOLERANCE)
+            if (Rooms.Count > 0)
             {
-                var smallRoom = Rooms.First().Perimeter;
-                Rooms = Rooms.Skip(1).ToList();
-                Rooms.First().Perimeter = Rooms.First().Perimeter.Union(smallRoom);
+                Rooms.Add(new Room(polygons.First().Rotate(Vector3.Origin, Angle), height));
+                return;
             }
+            Rooms.Add(new Room(perimeterJig.Rotate(Vector3.Origin, Angle), height));
+            insert = compass.SE;
         }
 
         /// <summary>
@@ -393,12 +404,15 @@ namespace RoomKit
         /// <param name="height">Desired height of the Rooms.</param>
         public void Populate (double area, double height)
         {
+            area = Math.Abs(area);
+            height = Math.Abs(height);
+            if (area.NearEqual(0.0) || height.NearEqual(0.0)) return;
             var room = new Room(area, 1.0, height);
             while (AddRoom(room))
             {
                 room = new Room(area, 1.0, height);
             }
-            Infill(height);
+            Infill(height, true);
         }
 
         /// <summary>
@@ -443,6 +457,7 @@ namespace RoomKit
         /// </returns>
         public void SetHeight(double height)
         {
+            height = height <= 0.0 ? 1.0 : height;
             foreach (Room room in Rooms)
             {
                 room.Height = height;

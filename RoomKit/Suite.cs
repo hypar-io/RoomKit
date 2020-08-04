@@ -57,10 +57,7 @@ namespace RoomKit
         /// <returns></returns>
         private void PlaceByAxis()
         {
-            if (Rooms.Count == 0)
-            {
-                return;
-            }
+            if (Rooms.Count == 0) return;
             var area = 0.0;
             foreach (var room in Rooms)
             {
@@ -76,26 +73,17 @@ namespace RoomKit
                 var i = 0;
                 while (i < Rooms.Count)
                 {
-                    if (!roomRow.AddRoomFitted(Rooms[i], false))
-                    {
-                        break;
-                    }
+                    if (!roomRow.AddRoomFitted(Rooms[i], false)) break;
                     i++;
                 }
-                if (i == Rooms.Count)
-                {
-                    return;
-                }
+                if (i == Rooms.Count) return;
                 var compass = Perimeter.Compass();
                 var row = new Line(compass.SE, compass.SW);
                 var matchRow = new RoomRow(row, area / row.Length());
                 roomRows.Add(matchRow);
                 while (i < Rooms.Count)
                 {
-                    if (!matchRow.AddRoomFitted(Rooms[i], false))
-                    {
-                        break;
-                    }
+                    if (!matchRow.AddRoomFitted(Rooms[i], false)) break;
                     i++;
                 }
                 Ratio += 0.1;
@@ -118,10 +106,7 @@ namespace RoomKit
         /// <returns></returns>
         private void PlaceReciprocal()
         {
-            if (Rooms.Count == 0)
-            {
-                return;
-            }
+            if (Rooms.Count == 0) return;
             var area = 0.0;
             foreach (var room in Rooms)
             {
@@ -137,29 +122,17 @@ namespace RoomKit
                 var i = 0;
                 while (i < Rooms.Count)
                 {
-                    if (!roomRow.AddRoomFitted(Rooms[i], false))
-                    {
-                        break;
-                    }
+                    if (!roomRow.AddRoomFitted(Rooms[i], false)) break;
                     i++;
                 }
-                if (i == Rooms.Count)
-                {
-                    return;
-                }
+                if (i == Rooms.Count) return;
                 var perimeter = roomRow.Perimeter.Difference(roomRow.Footprint);
-                if (perimeter.Count == 0)
-                {
-                    break;
-                }
+                if (perimeter.Count == 0) break;
                 var matchRow = new RoomRow(perimeter.First());
                 roomRows.Add(matchRow);
                 while (i < Rooms.Count)
                 {
-                    if (!matchRow.AddRoomFitted(Rooms[i], true))
-                    {
-                        break;
-                    }
+                    if (!matchRow.AddRoomFitted(Rooms[i], true)) break;
                     i++;
                 }
                 Ratio += 0.1;
@@ -211,7 +184,7 @@ namespace RoomKit
                 {
                     area += room.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -239,10 +212,7 @@ namespace RoomKit
             get
             {
                 var footPrint = Footprint;
-                if (footPrint == null)
-                {
-                    return null;
-                }
+                if (footPrint == null) return null;
                 return footPrint.Compass();
             }
         }
@@ -253,12 +223,31 @@ namespace RoomKit
         double corridorWidth;
         public double CorridorWidth
         {
-            get { return corridorWidth; }
+            get { return Math.Round(corridorWidth, Room.PRECISION); }
             set
             {
-                if (value > 0.0)
+                corridorWidth = !Math.Abs(value).NearEqual(0.0) ? Math.Abs(value) : corridorWidth;
+            }
+        }
+
+        /// <summary>
+        /// Elevation of Rooms in the Suite.
+        /// </summary>
+        public double Elevation
+        {
+            get
+            {
+                if (Rooms.Count == 0)
                 {
-                    corridorWidth = value;
+                    return 0.0;
+                }
+                return Rooms.First().Elevation;
+            }
+            set
+            {
+                foreach (var room in Rooms)
+                {
+                    room.Elevation = value;
                 }
             }
         }
@@ -271,15 +260,9 @@ namespace RoomKit
         {
             get
             {
-                if (Rooms.Count() == 0)
-                {
-                    return null;
-                }
+                if (Rooms.Count() == 0) return null;
                 var polygons = Shaper.Merge(RoomsAsPolygons);
-                if (polygons.Count() == 1)
-                {
-                    return polygons.First();
-                }
+                if (polygons.Count() == 1) return polygons.First();
                 var points = new List<Vector3>();
                 foreach (var polygon in RoomsAsPolygons)
                 {
@@ -474,7 +457,7 @@ namespace RoomKit
                     area += room.Area;
                 }
             }
-            return area;
+            return Math.Round(area, Room.PRECISION);
         }
 
         /// <summary>
@@ -586,6 +569,7 @@ namespace RoomKit
         /// </returns>
         public void SetHeight(double height)
         {
+            height = height <= 0.0 ? 1.0 : height;
             foreach (Room room in Rooms)
             {
                 room.Height = height;

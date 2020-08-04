@@ -40,7 +40,7 @@ namespace RoomKit
                 {
                     area += story.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -70,7 +70,7 @@ namespace RoomKit
                 {
                     return Stories.First().Elevation;
                 }
-                return elevation;
+                return Math.Round(elevation, Room.PRECISION);
             }
             set
             {
@@ -132,7 +132,7 @@ namespace RoomKit
                     }
                 }
             }
-            return area;
+            return Math.Round(area, Room.PRECISION);
         }
 
         /// <summary>
@@ -218,15 +218,9 @@ namespace RoomKit
         /// </returns>
         public bool SetStoryHeight(int story, double height)
         {
-            if (story < 0 || story > Stories.Count - 1 || height <= 0.0)
-            {
-                return false;
-            }
+            if (story < 0 || story > Stories.Count - 1 || height <= 0.0) return false;
             var delta = height - Stories[story].Height;
-            if (delta == 0.0)
-            {
-                return true;
-            }
+            if (delta.NearEqual(0.0)) return true;
             Stories[story].Height = height;
             var index = story + 1;
             while (index < Stories.Count)

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
 using Elements;
 using Elements.Geometry;
 using GeometryEx;
@@ -11,7 +12,10 @@ namespace RoomKit
     /// </summary>
     public class Room
     {
-        public const double TOLERANCE = 0.0001;
+        /// <summary>
+        /// Sets the dimension precision of all RoomKit operations, 3 = 1 millimeter.
+        /// </summary>
+        public const int PRECISION = 3;
 
         #region Constructors
 
@@ -28,7 +32,7 @@ namespace RoomKit
             Name = "";
             Number = "";
             Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(1.0, 1.0));
-            Elevation = 0.0;
+            elevation = 0.0;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -40,19 +44,18 @@ namespace RoomKit
         /// </summary>
         public Room(Vector3 size)
         {
-            if (size.X <= 0.0 || size.Y <= 0.0 || size.Z <= 0.0)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-            }
+            var sizeX = Math.Abs(size.X).NearEqual(0.0) ? 1.0 : Math.Abs(size.X);
+            var sizeY = Math.Abs(size.Y).NearEqual(0.0) ? 1.0 : Math.Abs(size.Y);
+            var sizeZ = Math.Abs(size.Z).NearEqual(0.0) ? 1.0 : Math.Abs(size.Z);
             Color = Palette.White;
             Department = "";
-            DesignArea = size.X * size.Y;
-            DesignRatio = size.X / size.Y;
-            Height = size.Z;
+            DesignArea = sizeX * sizeY;
+            DesignRatio = sizeX / sizeY;
+            Height = sizeZ;
             Name = "";
             Number = "";
-            Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(size.X, size.Y));
-            Elevation = 0.0;
+            Perimeter = Polygon.Rectangle(Vector3.Origin, new Vector3(sizeX, sizeY));
+            elevation = 0.0;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -64,10 +67,9 @@ namespace RoomKit
         /// </summary>
         public Room(double area, double ratio, double height)
         {
-            if (area <= 0.0 || ratio <= 0.0 || height <= 0.0)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-            }
+            area = area.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(area), PRECISION);
+            ratio = ratio.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(ratio), PRECISION);
+            height = height.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(area), PRECISION);
             Color = Palette.White;
             Department = "";
             DesignArea = area;
@@ -76,7 +78,7 @@ namespace RoomKit
             Name = "";
             Number = "";
             Perimeter = Shaper.RectangleByArea(area, ratio);
-            Elevation = 0.0;
+            elevation = 0.0;
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -88,10 +90,8 @@ namespace RoomKit
         /// </summary>
         public Room(Vector3 start, Vector3 end, double width, double height)
         {
-            if (width <= 0.0 || height <= 0.0)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-            }
+            width = width.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(width), PRECISION);
+            height = height.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(height), PRECISION);
             Color = Palette.White;
             Department = "";
             DesignArea = start.DistanceTo(end) * width;
@@ -100,7 +100,7 @@ namespace RoomKit
             Name = "";
             Number = "";
             Perimeter = new Line(start, end).Thicken(width);
-            Elevation = start.Z;
+            elevation = Math.Round(start.Z, PRECISION);
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -112,10 +112,8 @@ namespace RoomKit
         /// </summary>
         public Room(Line line, double width, double height)
         {
-            if (width <= 0.0 || height <= 0.0)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-            }
+            width = width.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(width), PRECISION);
+            height = height.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(height), PRECISION);
             Color = Palette.White;
             Department = "";
             DesignArea = line.Length() * width;
@@ -124,7 +122,7 @@ namespace RoomKit
             Name = "";
             Number = "";
             Perimeter = line.Thicken(width);
-            Elevation = line.Start.Z;
+            elevation = Math.Round(line.Start.Z, PRECISION);
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -136,14 +134,8 @@ namespace RoomKit
         /// </summary>
         public Room(Polygon polygon, double height)
         {
-            if (height <= 0.0)
-            {
-                throw new ArgumentOutOfRangeException(Messages.NEGATIVE_VALUE_EXCEPTION);
-            }
-            if (polygon.IsClockWise())
-            {
-                polygon = polygon.Reversed();
-            }
+            polygon = polygon.IsClockWise() ? polygon.Reversed() : polygon;
+            height = height.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(height), PRECISION);
             Color = Palette.White;
             Department = "";
             DesignArea = polygon.Area();
@@ -153,7 +145,7 @@ namespace RoomKit
             Name = "";
             Number = "";
             Perimeter = polygon;
-            Elevation = polygon.Vertices.First().Z;
+            Elevation = Math.Round(polygon.Vertices.First().Z, PRECISION);
             Placed = false;
             Suite = "";
             SuiteID = "";
@@ -165,7 +157,6 @@ namespace RoomKit
         /// </summary>
         public Room(Room room)
         {
-
             Color = room.Color;
             Department = room.Suite;
             DesignArea = room.DesignArea;
@@ -192,7 +183,7 @@ namespace RoomKit
         {
             get
             {
-                return Math.Round(Perimeter.Area(), 5);
+                return Math.Round(Perimeter.Area(), PRECISION);
             }
         }
 
@@ -208,7 +199,7 @@ namespace RoomKit
         {
             get
             {
-                return new Material(this.Color, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString());
+                return new Material(Color, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString());
             }
         }
 
@@ -223,10 +214,10 @@ namespace RoomKit
         private double designArea;
         public double DesignArea 
         { 
-            get { return designArea; }
+            get { return Math.Round(designArea, PRECISION); }
             set 
             {
-                designArea = value > 0.0 ? value : designArea;
+                designArea = Math.Round(value, PRECISION) > 0.0 ? value : designArea;
             }
         }
 
@@ -236,25 +227,26 @@ namespace RoomKit
         private double designRatio;
         public double DesignRatio 
         { 
-            get { return designRatio; }
+            get { return Math.Round(designRatio, Room.PRECISION); }
             set
             {
-                designRatio = value > 0.0 ? value : designRatio;
+                designRatio = Math.Round(value, PRECISION) > 0.0 ? value : designRatio;
             }
         }
 
+        private double elevation;
         /// <summary>
         /// Vertical position of the Room's lowest plane relative to the ground plane.
         /// </summary> 
-        private double elevation;
-        public double Elevation 
+        public double Elevation
         {
-            get { return elevation; } 
+            get
+            {
+                return Math.Round(elevation, PRECISION);
+            }
             set
             {
-                elevation = value;
-                var from = perimeter.Vertices.First();
-                Perimeter = Perimeter.MoveFromTo(from, new Vector3(from.X, from.Y, elevation - from.Z));
+                elevation = Math.Round(value, PRECISION);
             }
         }
 
@@ -266,11 +258,11 @@ namespace RoomKit
         {
             get
             {
-                return height;
+                return Math.Round(height, PRECISION);
             }
             set
             {
-                height = value > 0.0 ? value : height;
+                height = Math.Round(value, PRECISION) > 0.0 ? value : height;
             }
         }
 
@@ -292,16 +284,12 @@ namespace RoomKit
         {
             get
             {
-                return perimeter;
+                return perimeter.MoveFromTo(Vector3.Origin, new Vector3(0.0, 0.0, Elevation));
             }
             set
             {
-                if (value == null)
-                {
-                    return;
-                }
-                perimeter = value.IsClockWise() ? value.Reversed() : value;
-                perimeter = perimeter.MoveFromTo(Vector3.Origin, new Vector3(0.0, 0.0, elevation));
+                if (value == null) return;
+                perimeter = value.IsClockWise() ? new Polygon(value.Reversed().Vertices) : new Polygon(value.Vertices);
             }
         }
 
@@ -330,7 +318,7 @@ namespace RoomKit
             get
             {
                 var compass = Perimeter.Compass();
-                return compass.SizeX / compass.SizeY;
+                return Math.Round(compass.SizeX / compass.SizeY, PRECISION);
             }
         }
 

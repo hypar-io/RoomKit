@@ -25,7 +25,7 @@ namespace RoomKit
         {
             if (perimeter == null)
             {
-                throw new ArgumentNullException(Messages.PERIMETER_NULL_EXCEPTION);
+                return;
             }
             Perimeter = perimeter.IsClockWise() ? perimeter.Reversed() : perimeter;
       
@@ -70,11 +70,8 @@ namespace RoomKit
                 {
                     area -= exclusion.Area;
                 }
-                if (area < 0.0)
-                {
-                    area = 0.0;
-                }
-                return area;
+                area = area < 0.0 ? 0.0 : area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -93,7 +90,7 @@ namespace RoomKit
                 {
                     area += room.Area;
                 }
-                return area;
+                return Math.Round(area, Room.PRECISION);
             }
         }
 
@@ -199,7 +196,7 @@ namespace RoomKit
         private double elevation;
         public double Elevation
         {
-            get { return elevation; }
+            get { return Math.Round(elevation, Room.PRECISION); }
             set
             {
                 elevation = value;
@@ -278,7 +275,7 @@ namespace RoomKit
         private double height;
         public double Height
         {
-            get { return height; }
+            get { return Math.Round(height, Room.PRECISION); }
             set
             {
                 if (value <= 0.0)
@@ -310,10 +307,7 @@ namespace RoomKit
         {
             set
             {
-                if (height < value)
-                {
-                    height = value;
-                }
+                height = height < value ? value : height;
                 foreach (Room room in Corridors)
                 {
                     room.Height = value;
@@ -667,7 +661,7 @@ namespace RoomKit
         /// </summary>
         /// <param name="name">Name of the Rooms to retrieve.</param>
         /// <returns>
-        /// None.
+        /// A double.
         /// </returns>/// 
         public double AreaByName(string name)
         {
@@ -679,7 +673,7 @@ namespace RoomKit
                     area += room.Area;
                 }
             }
-            return area;
+            return Math.Round(area, Room.PRECISION);
         }
 
         /// <summary>
@@ -792,11 +786,15 @@ namespace RoomKit
         /// <param name="rowLength">Distance between cross corridors.</param>
         /// <param name="roomDepth">Desired depth of Rooms.</param>
         /// <param name="corridorWidth">Width of all corridors.</param>
-        /// <returns></returns>
+        /// <returns>A List of RoomRow</returns>
         public List<RoomRow> PlanGrid(double rowLength, double rowDepth, double corridorWidth = 3.0, bool split = true)
         {
             Corridors.Clear();
             Rooms.Clear();
+            rowLength = rowLength.NearEqual(0.0) ? 1.0 : Math.Abs(rowLength);
+            rowDepth = rowLength.NearEqual(0.0) ? 1.0 : Math.Abs(rowDepth);
+            corridorWidth = rowLength.NearEqual(0.0) ? 1.0 : Math.Abs(corridorWidth);
+
             var row = Perimeter.Segments().OrderByDescending(s => s.Length()).First();
             var ang = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X) * (180 / Math.PI);
             var perimeterJig = Perimeter.Rotate(Vector3.Origin, ang * -1);

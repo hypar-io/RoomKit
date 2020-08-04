@@ -175,7 +175,7 @@ namespace RoomKitTest
             }
             model.AddElement(new Space(new Profile(polygon), 0.2, new Material(Colors.Granite, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomRowPopulate.glb");
-            Assert.Equal(6, roomRow.Rooms.Count);
+            Assert.Equal(7, roomRow.Rooms.Count);
         }
 
         [Fact]
