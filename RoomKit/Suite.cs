@@ -57,7 +57,10 @@ namespace RoomKit
         /// <returns></returns>
         private void PlaceByAxis()
         {
-            if (Rooms.Count == 0) return;
+            if (Rooms.Count == 0)
+            {
+                return;
+            }
             var area = 0.0;
             foreach (var room in Rooms)
             {
@@ -76,7 +79,10 @@ namespace RoomKit
                     if (!roomRow.AddRoomFitted(Rooms[i], false)) break;
                     i++;
                 }
-                if (i == Rooms.Count) return;
+                if (i == Rooms.Count)
+                {
+                    return;
+                }
                 var compass = Perimeter.Compass();
                 var row = new Line(compass.SE, compass.SW);
                 var matchRow = new RoomRow(row, area / row.Length());
@@ -106,7 +112,10 @@ namespace RoomKit
         /// <returns></returns>
         private void PlaceReciprocal()
         {
-            if (Rooms.Count == 0) return;
+            if (Rooms.Count == 0)
+            {
+                return;
+            }
             var area = 0.0;
             foreach (var room in Rooms)
             {
@@ -125,8 +134,11 @@ namespace RoomKit
                     if (!roomRow.AddRoomFitted(Rooms[i], false)) break;
                     i++;
                 }
-                if (i == Rooms.Count) return;
-                var perimeter = roomRow.Perimeter.Difference(roomRow.Footprint);
+                if (i == Rooms.Count)
+                {
+                    return;
+                }
+                var perimeter = Shaper.Differences(roomRow.Perimeter.ToList(), roomRow.Footprint.ToList());
                 if (perimeter.Count == 0) break;
                 var matchRow = new RoomRow(perimeter.First());
                 roomRows.Add(matchRow);
@@ -212,7 +224,10 @@ namespace RoomKit
             get
             {
                 var footPrint = Footprint;
-                if (footPrint == null) return null;
+                if (footPrint == null)
+                {
+                    return null;
+                }
                 return footPrint.Compass();
             }
         }
@@ -260,9 +275,15 @@ namespace RoomKit
         {
             get
             {
-                if (Rooms.Count() == 0) return null;
+                if (Rooms.Count() == 0)
+                {
+                    return null;
+                }
                 var polygons = Shaper.Merge(RoomsAsPolygons);
-                if (polygons.Count() == 1) return polygons.First();
+                if (polygons.Count() == 1)
+                {
+                    return polygons.First();
+                }
                 var points = new List<Vector3>();
                 foreach (var polygon in RoomsAsPolygons)
                 {
@@ -569,7 +590,10 @@ namespace RoomKit
         /// </returns>
         public void SetHeight(double height)
         {
-            height = height <= 0.0 ? 1.0 : height;
+            if (height.NearEqual(0.0))
+            {
+                return;
+            }
             foreach (Room room in Rooms)
             {
                 room.Height = height;

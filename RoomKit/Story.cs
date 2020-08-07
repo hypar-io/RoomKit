@@ -479,7 +479,7 @@ namespace RoomKit
         #region Private Methods
 
         /// <summary>
-        /// Private function conforming the Rooms all other Story Room lists.
+        /// Private function conforming the Corridors to other Story Room lists.
         /// </summary>
         private void FitCorridors()
         {
@@ -528,7 +528,7 @@ namespace RoomKit
         /// <returns>
         /// True if one or more Rooms were added.
         /// </returns>
-        public bool AddCorridor(Room room)
+        public bool AddCorridor(Room room, bool merge = true, double tolerance = 0.0)
         {
             var perimeters = Shaper.FitWithin(room.Perimeter, Perimeter);
             if (perimeters.Count == 0)
@@ -538,12 +538,16 @@ namespace RoomKit
             var fitAmong = new List<Polygon>(OpeningsAsPolygons);
             fitAmong.AddRange(ExclusionsAsPolygons);
             fitAmong.AddRange(ServicesAsPolygons);
-            var corridors = Polygon.Difference(perimeters, fitAmong).ToList();
+            var corridors = Shaper.Differences(perimeters, fitAmong).ToList();
             if (corridors.Count() == 0)
             {
                 return false;
             }
             corridors.AddRange(CorridorsAsPolygons);
+            if (merge)
+            {
+                corridors = Shaper.Merge(corridors, Shaper.FillType.NonZero, tolerance);
+            }
             Corridors.Clear();
             foreach (var corridor in corridors)
             {

@@ -387,9 +387,12 @@ namespace RoomKit
         public Room FindByArea(double area, bool unplaced = true)
         {
             var rooms = new List<Room>();
-            area = Math.Abs(area);
+            area = Math.Round(Math.Abs(area), Room.PRECISION);
             rooms = unplaced ? Unplaced : Placed;
-            if (rooms.Count == 0) return null;
+            if (rooms.Count == 0)
+            {
+                return null;
+            }
             return rooms.OrderBy(r => Math.Abs(r.Area - area)).First();
         }
 
@@ -404,7 +407,10 @@ namespace RoomKit
         public Room FindByRatio(double ratio, bool unplaced = true)
         {
             var rooms = unplaced ? Unplaced : Placed;
-            if (rooms.Count == 0) return null;
+            if (rooms.Count == 0)
+            {
+                return null;
+            }
             if (unplaced)
             {
                 return rooms.OrderBy(r => Math.Abs(r.DesignRatio - ratio)).First();
@@ -426,7 +432,10 @@ namespace RoomKit
         public Room FindByName(string name, bool unplaced = true)
         {
             var rooms = unplaced ? Unplaced : Placed;
-            if (rooms.Count == 0) return null;
+            if (rooms.Count == 0)
+            {
+                return null;
+            }
             return rooms.Find(r => r.Name == name);
         }
 

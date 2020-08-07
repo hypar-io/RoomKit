@@ -218,9 +218,16 @@ namespace RoomKit
         /// </returns>
         public bool SetStoryHeight(int story, double height)
         {
-            if (story < 0 || story > Stories.Count - 1 || height <= 0.0) return false;
+            height = Math.Round(Math.Abs(height), Room.PRECISION);
+            if (story < 0 || story > Stories.Count - 1 || height.NearEqual(0.0))
+            {
+                return false;
+            }
             var delta = height - Stories[story].Height;
-            if (delta.NearEqual(0.0)) return true;
+            if (delta.NearEqual(0.0))
+            {
+                return true;
+            }
             Stories[story].Height = height;
             var index = story + 1;
             while (index < Stories.Count)

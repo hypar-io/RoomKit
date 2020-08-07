@@ -13,7 +13,7 @@ namespace RoomKit
     public class Room
     {
         /// <summary>
-        /// Sets the dimension precision of all RoomKit operations, 3 = 1 millimeter.
+        /// Sets the dimension precision of all RoomKit operations, (3 = 1 millimeter).
         /// </summary>
         public const int PRECISION = 3;
 
@@ -69,7 +69,7 @@ namespace RoomKit
         {
             area = area.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(area), PRECISION);
             ratio = ratio.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(ratio), PRECISION);
-            height = height.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(area), PRECISION);
+            height = height.NearEqual(0.0) ? 1.0 : Math.Round(Math.Abs(height), PRECISION);
             Color = Palette.White;
             Department = "";
             DesignArea = area;
@@ -214,10 +214,11 @@ namespace RoomKit
         private double designArea;
         public double DesignArea 
         { 
-            get { return Math.Round(designArea, PRECISION); }
+            get { return designArea; }
             set 
             {
-                designArea = Math.Round(value, PRECISION) > 0.0 ? value : designArea;
+                value = Math.Round(Math.Abs(value));
+                designArea = value.NearEqual(0.0) ? designArea : value;
             }
         }
 
@@ -227,10 +228,11 @@ namespace RoomKit
         private double designRatio;
         public double DesignRatio 
         { 
-            get { return Math.Round(designRatio, Room.PRECISION); }
+            get { return designRatio; }
             set
             {
-                designRatio = Math.Round(value, PRECISION) > 0.0 ? value : designRatio;
+                value = Math.Round(Math.Abs(value), PRECISION);
+                designRatio = value.NearEqual(0.0) ? designRatio : value;
             }
         }
 
@@ -242,7 +244,7 @@ namespace RoomKit
         {
             get
             {
-                return Math.Round(elevation, PRECISION);
+                return elevation;
             }
             set
             {
@@ -258,11 +260,12 @@ namespace RoomKit
         {
             get
             {
-                return Math.Round(height, PRECISION);
+                return height;
             }
             set
             {
-                height = Math.Round(value, PRECISION) > 0.0 ? value : height;
+                value = Math.Round(Math.Abs(value), PRECISION);
+                height = value.NearEqual(0.0) ? height : value;
             }
         }
 
@@ -288,7 +291,10 @@ namespace RoomKit
             }
             set
             {
-                if (value == null) return;
+                if (value == null)
+                {
+                    return;
+                }
                 perimeter = value.IsClockWise() ? new Polygon(value.Reversed().Vertices) : new Polygon(value.Vertices);
             }
         }

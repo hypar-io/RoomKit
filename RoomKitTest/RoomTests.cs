@@ -64,7 +64,7 @@ namespace RoomKitTest
             };
             Assert.Equal(2.0, room.DesignRatio);
             room.DesignRatio = -20;
-            Assert.Equal(2.0, room.DesignRatio);
+            Assert.Equal(20.0, room.DesignRatio);
         }
 
         [Fact]
@@ -73,13 +73,13 @@ namespace RoomKitTest
             var roomOne = new Room();
             var roomTwo = new Room
             {
-                Elevation = 10.0
+                Elevation = 10.625467
             };
             var model = new Model();
             model.AddElement(new Space(roomOne.PerimeterAsProfile, roomOne.Height, roomOne.ColorAsMaterial));
             model.AddElement(new Space(roomTwo.PerimeterAsProfile, roomOne.Height, roomOne.ColorAsMaterial));
             Assert.Equal(0.0, roomOne.Elevation);
-            Assert.Equal(10.0, roomTwo.Elevation);
+            Assert.Equal(10.625, roomTwo.Elevation);
             model.ToGlTF("../../../../RoomKitTest/output/roomElevation.glb");
         }
 
@@ -92,7 +92,7 @@ namespace RoomKitTest
             };
             Assert.Equal(5.1, room.Height, 10);
             room.Height = -5;
-            Assert.Equal(5.1, room.Height, 10);
+            Assert.Equal(5.0, room.Height, 10);
         }
 
         [Fact]

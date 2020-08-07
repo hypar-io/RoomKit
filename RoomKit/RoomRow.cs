@@ -18,7 +18,10 @@ namespace RoomKit
         /// </summary>
         public RoomRow(Polygon polygon, string name = "")
         {
-            if (polygon == null) return;
+            if (polygon == null)
+            {
+                return;
+            }
             polygon = polygon.IsClockWise() ? polygon.Reversed() : polygon;
             var ang = polygon.Segments().OrderByDescending(s => s.Length()).ToList().First();
             Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
@@ -37,7 +40,10 @@ namespace RoomKit
         /// </summary>
         public RoomRow(Line row, double width, string name = "")
         {
-            if (row == null) return;
+            if (row == null)
+            {
+                return;
+            }
             width = width <= 0.0 ? 1.0 : width;
             var angRads = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X);
             Angle = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X) * (180 / Math.PI);
@@ -294,7 +300,6 @@ namespace RoomKit
                         unplaced.Add(room);
                     }
                 }
-
             }
             return unplaced;
         }
@@ -310,7 +315,12 @@ namespace RoomKit
         /// </returns>
         public bool AddRoomByArea(double area, double height, double elevation)
         {
-            if (area <= 0.0 || AreaAvailable < area || height <= 0.0) return false;
+            area = Math.Round(Math.Abs(area), Room.PRECISION);
+            height = Math.Round(Math.Abs(height), Room.PRECISION);
+            if (AreaAvailable < area || height.NearEqual(0.0))
+            {
+                return false;
+            }
             var ratio = area / (compass.SizeY * compass.SizeY);
             var room = new Room(area, ratio, height)
             {
@@ -331,23 +341,16 @@ namespace RoomKit
         public bool AddRoomFitted(Room room, bool within = true)
         {
             if (room == null ||
-                insert.DistanceTo(compass.SE) < 1.0 ||
-                compass.SW.DistanceTo(insert) >= compass.SW.DistanceTo(compass.SE))
+                insert.DistanceTo(compass.SE) < Tolerance ||
+                compass.SW.DistanceTo(insert).NearEqual(compass.SW.DistanceTo(compass.SE)))
             {
                 return false;
             }
-            var ratio = room.DesignRatio;
-            if (ratio > 1.0)
-            {
-                ratio = 1 / ratio;
-            }
-            Polygon boundary = null;
-            if (within)
-            {
-                boundary = new Polygon(perimeterJig.Vertices);
-            }
-            var polygon = Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
-                            .ExpandToArea(room.DesignArea, ratio, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
+            var ratio = room.DesignRatio > 1.0 ? 1 / room.DesignRatio : room.DesignRatio;
+            var boundary = within ? new Polygon(perimeterJig.Vertices) : null;
+            var polygon = 
+                Shaper.RectangleByRatio(ratio).MoveFromTo(Vector3.Origin, insert)
+                        .ExpandToArea(room.DesignArea, ratio, Tolerance, Orient.SW, boundary, RoomsAsPolygons);
             insert = polygon.Compass().SE;
             room.Perimeter = polygon.Rotate(Vector3.Origin, Angle);
             room.Placed = true;
@@ -360,15 +363,28 @@ namespace RoomKit
         /// </summary>
         /// <param name="height">Desired height of the Room if a new Room must be created.</param>
         /// <param name="tolerance">Minimum area of a infill Room. Smaller rooms will be joined to the last Room.</param>
-        public void Infill(double height, bool join = false, double tolerance = 1.0)
+        public void Infill(double height, bool join = false)
         {
-            if (AreaAvailable <= tolerance) return;
-            height = height <= 0.0 ? 1.0 : height;
-            var polygons = Shaper.Intersections(Polygon.Rectangle(insert, compass.NE).ToList(), perimeterJig.ToList());
-            if (polygons.Count == 0) return;
-            if (Rooms.Count > 0 && (join || polygons.First().Area() < tolerance))
+            height = Math.Round(Math.Abs(height));
+            if (height.NearEqual(0.0) || AreaAvailable <= Tolerance)
             {
-                Rooms.Last().Perimeter = polygons.First().Rotate(Vector3.Origin, Angle).Union(Rooms.Last().Perimeter);
+                return;
+            }
+            var polygons = 
+                Shaper.Intersections(Polygon.Rectangle(insert, compass.NE).ToList(), perimeterJig.ToList());
+            if (polygons.Count == 0)
+            {
+                return;
+            }
+            if (Rooms.Count > 0 && (join || polygons.First().Area() < Tolerance))
+            {
+                Rooms.Last().Perimeter =
+                    Shaper.Merge(
+                        new List<Polygon>
+                        {
+                            polygons.First().Rotate(Vector3.Origin, Angle),
+                            Rooms.Last().Perimeter
+                        }).First();
                 return;
             }
             if (Rooms.Count > 0)
@@ -406,7 +422,10 @@ namespace RoomKit
         {
             area = Math.Abs(area);
             height = Math.Abs(height);
-            if (area.NearEqual(0.0) || height.NearEqual(0.0)) return;
+            if (area.NearEqual(0.0) || height.NearEqual(0.0))
+            {
+                return;
+            }
             var room = new Room(area, 1.0, height);
             while (AddRoom(room))
             {
@@ -457,7 +476,10 @@ namespace RoomKit
         /// </returns>
         public void SetHeight(double height)
         {
-            height = height <= 0.0 ? 1.0 : height;
+            if (height.NearEqual(0.0))
+            {
+                return;
+            }
             foreach (Room room in Rooms)
             {
                 room.Height = height;
