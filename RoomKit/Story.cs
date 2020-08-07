@@ -777,7 +777,9 @@ namespace RoomKit
             {
                 ctrPnts.Add(line.End);
             }
-            ctrPnts = ctrPnts.SkipLast(1).ToList();
+            ctrPnts.Reverse();
+            ctrPnts = ctrPnts.Skip(1).ToList();
+            ctrPnts.Reverse();
             ctrPnts.Add(ctrLines.Last().PositionAt(ctrLines.Last().Length() - corridorOffset));
             var ctrCorridor = new Polyline(ctrPnts);
             var corridor = new Room(ctrCorridor.Offset(corridorWidth * 0.5, EndType.Square).First(), Height);
@@ -805,8 +807,8 @@ namespace RoomKit
             var grid = new Grid2d(perimeterJig);
             grid.U.DivideByFixedLength(rowLength, FixedDivisionMode.RemainderAtBothEnds);
             grid.V.DivideByFixedLength(rowDepth, FixedDivisionMode.RemainderAtBothEnds);
-            var uLines = grid.GetCellSeparators(GridDirection.U).Skip(1).SkipLast(1);
-            var vLines = grid.GetCellSeparators(GridDirection.V).Skip(1).SkipLast(1);
+            var uLines = grid.GetCellSeparators(GridDirection.U).Skip(1).Reverse().Skip(1).Reverse();
+            var vLines = grid.GetCellSeparators(GridDirection.V).Skip(1).Reverse().Skip(1).Reverse();
             var ctrLines = new List<Line>();
             foreach(var curve in uLines)
             {
