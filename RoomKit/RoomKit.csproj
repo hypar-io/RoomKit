@@ -3,15 +3,15 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon>roomrowcirc_buF_icon.ico</ApplicationIcon>
-    <Version>5.0.0</Version>
+    <Version>5.2.0</Version>
     <Authors>Anthony A. Hauck</Authors>
     <Company>Hypar Inc.</Company>
     <Product></Product>
     <Copyright>(c) 2020 Hypar Inc.</Copyright>
     <Description>RoomKit provides functions for creating and placing architectural rooms, corridors, services, stories, and towers.</Description>
     <PackageLicenseUrl></PackageLicenseUrl>
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <FileVersion>5.0.0.0</FileVersion>
+    <AssemblyVersion>5.2.0.0</AssemblyVersion>
+    <FileVersion>5.2.0.0</FileVersion>
     <PackageReleaseNotes></PackageReleaseNotes>
     <PackageTags>AEC Hypar Generative Design Buildings Architecture</PackageTags>
     <PackageProjectUrl>https://github.com/hypar-io/RoomKit</PackageProjectUrl>
@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="GeometryEx" Version="6.0.0" />
+    <PackageReference Include="GeometryEx" Version="6.2.0" />
     <PackageReference Include="Hypar.Elements" Version="0.7.3" />
     <PackageReference Include="Hypar.Functions" Version="0.7.3" />
     <PackageReference Include="ParagonClipper" Version="6.4.2" />
