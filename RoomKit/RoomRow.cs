@@ -31,6 +31,7 @@ namespace RoomKit
             Name = name;
             Perimeter = polygon;
             Rooms = new List<Room>();
+            Row = new Line(compass.SW, compass.SE).Rotate(Vector3.Origin, Angle);
             Tolerance = 0.1;
             UniqueID = Guid.NewGuid().ToString();
         }
@@ -44,7 +45,7 @@ namespace RoomKit
             {
                 return;
             }
-            width = width <= 0.0 ? 1.0 : width;
+            width = Math.Abs(width).NearEqual(0.0) ? 1.0 : Math.Abs(width);
             var angRads = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X);
             Angle = Math.Atan2(row.End.Y - row.Start.Y, row.End.X - row.Start.X) * (180 / Math.PI);
             var direction = angRads + Math.PI * 0.5;
@@ -60,6 +61,7 @@ namespace RoomKit
             Name = name;
             Perimeter = polygon;
             Rooms = new List<Room>();
+            Row = new Line(compass.SW, compass.SE).Rotate(Vector3.Origin, Angle);
             Tolerance = 0.1;
             UniqueID = Guid.NewGuid().ToString();
         }
@@ -68,8 +70,8 @@ namespace RoomKit
 
         #region Private
 
-        private readonly Polygon perimeterJig;
-        private readonly CompassBox compass;
+        private Polygon perimeterJig;
+        private CompassBox compass;
         private Vector3 insert;
 
         #endregion
@@ -366,17 +368,16 @@ namespace RoomKit
         public void Infill(double height, bool join = false)
         {
             height = Math.Round(Math.Abs(height));
-            if (height.NearEqual(0.0) || AreaAvailable <= Tolerance)
+            if (height.NearEqual(0.0) || insert.IsAlmostEqualTo(compass.SE))
             {
                 return;
             }
-            var polygons = 
-                Shaper.Intersections(Polygon.Rectangle(insert, compass.NE).ToList(), perimeterJig.ToList());
+            var polygons = Shaper.Intersections(Polygon.Rectangle(insert, compass.NE).ToList(), perimeterJig.ToList());
             if (polygons.Count == 0)
             {
                 return;
             }
-            if (Rooms.Count > 0 && (join || polygons.First().Area() < Tolerance))
+            if (polygons.Count > 0 && Rooms.Count > 0 && (join || polygons.First().Area() < Tolerance))
             {
                 Rooms.Last().Perimeter =
                     Shaper.Merge(
@@ -397,6 +398,61 @@ namespace RoomKit
         }
 
         /// <summary>
+        /// Joins end Rooms of an area less than the supplied area to the adjacent Room.
+        /// </summary>
+        /// <param name="minArea">Minimum area of a ditinct Room.</param>
+        /// <returns>An integer new Room count.</returns>
+        public int JoinSmallEndRooms(double minArea = 0.1)
+        {
+            for (var i = 0; i < 2; i++)
+            {
+                if (Rooms.Count < 2)
+                {
+                    return Rooms.Count;
+                }
+                var perimeter = Rooms[0].Perimeter;
+                if (perimeter.Area() < minArea)
+                {
+                    var perimeters = Shaper.Merge(new List<Polygon> { perimeter, Rooms[1].Perimeter });
+                    if (perimeters.Count == 1)
+                    {
+                        Rooms[1].Perimeter = perimeters[0];
+                        Rooms = Rooms.Skip(1).ToList();
+                    }
+                }
+                Rooms.Reverse();
+            }
+            return Rooms.Count;
+        }
+
+        /// <summary>
+        /// Joins triangular end Rooms to the adjacent Room.
+        /// </summary>
+        /// <returns>An integer new Room count.</returns>
+        public int JoinTriangleEndRooms()
+        {
+            for (var i = 0; i < 2; i++)
+            {
+                if (Rooms.Count < 2)
+                {
+                    return Rooms.Count;
+                }
+                var perimeter = Rooms[0].Perimeter;
+                if (perimeter.Vertices.Count == 3)
+                {
+                    var perimeters = Shaper.Merge(new List<Polygon> { perimeter, Rooms[1].Perimeter });
+                    if (perimeters.Count == 1)
+                    {
+                        Rooms[1].Perimeter = perimeters[0];
+                        Rooms = Rooms.Skip(1).ToList();
+                    }
+                }
+                Rooms.Reverse();
+            }
+            return Rooms.Count;
+        }
+
+        /// <summary>
         /// Moves all Rooms along a 3D vector calculated between the supplied Vector3 points.
         /// </summary>
         /// <param name="from">Vector3 base point of the move.</param>
@@ -411,6 +467,12 @@ namespace RoomKit
                 room.MoveFromTo(from, to);
             }
             Perimeter = Perimeter.MoveFromTo(from, to);
+            var ang = Perimeter.Segments().OrderByDescending(s => s.Length()).ToList().First();
+            Angle = Math.Atan2(ang.End.Y - ang.Start.Y, ang.End.X - ang.Start.X) * (180 / Math.PI);
+            perimeterJig = Perimeter.Rotate(Vector3.Origin, Angle * -1);
+            compass = perimeterJig.Compass();
+            insert.MoveFromTo(from, to);
+            Row = new Line(compass.SW, compass.SE).Rotate(Vector3.Origin, Angle);
         }
 
         /// <summary>

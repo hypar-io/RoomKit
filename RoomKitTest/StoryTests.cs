@@ -79,7 +79,6 @@ namespace RoomKitTest
             story.AddExclusion(new Room(perimeter, 1.0));
             perimeter = Polygon.Rectangle(new Vector3(10.0, 1.0), new Vector3(15.0, 15.0));
             story.AddOpening(new Room(perimeter, 1.0));
-
             var model = new Model();
             model.AddElement(new Space(story.PerimeterAsProfile, story.Height, story.ColorAsMaterial));
             foreach (Room room in story.Rooms)

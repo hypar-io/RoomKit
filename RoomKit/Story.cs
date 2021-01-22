@@ -528,7 +528,10 @@ namespace RoomKit
         /// <returns>
         /// True if one or more Rooms were added.
         /// </returns>
-        public bool AddCorridor(Room room, bool merge = true, double tolerance = 0.0)
+        public bool AddCorridor(Room room, 
+                                bool merge = true, 
+                                double tolerance = 0.0, 
+                                double minLength = 0.0)
         {
             var perimeters = Shaper.FitWithin(room.Perimeter, Perimeter);
             if (perimeters.Count == 0)
@@ -546,7 +549,7 @@ namespace RoomKit
             corridors.AddRange(CorridorsAsPolygons);
             if (merge)
             {
-                corridors = Shaper.Merge(corridors, Shaper.FillType.NonZero, tolerance);
+                corridors = Shaper.Merge(corridors);
             }
             Corridors.Clear();
             foreach (var corridor in corridors)
@@ -853,23 +856,82 @@ namespace RoomKit
         }
 
         /// <summary>
-        /// Returns a list of Rooms with a specific name.
+        /// Rooms the supplied Room.
+        /// </summary>
+        /// <param name="id">A Room.</param>
+        /// <returns>
+        /// True if the Room was removed.
+        /// </returns>
+        public bool RemoveRoom(Room room)
+        {
+            return Rooms.Remove(room);
+        }
+
+        /// <summary>
+        /// Removes a Room with the supplied UniqueID.
+        /// </summary>
+        /// <param name="id">A string GUID.</param>
+        /// <returns>
+        /// A Room or null if not found.
+        /// </returns>
+        public bool RemoveRoomByID(string id)
+        {
+            var room = RoomByID(id);
+            if (room == null)
+            {
+                return false;
+            }
+            return Rooms.Remove(room);
+        }
+
+        /// <summary>
+        /// Returns a Room with the supplied UniqueID.
+        /// </summary>
+        /// <param name="id">A string GUID.</param>
+        /// <returns>
+        /// A Room or null if not found.
+        /// </returns>
+        public Room RoomByID(string id)
+        {
+            return Rooms.Find(r => r.UniqueID == id);
+        }
+
+        /// <summary>
+        /// Returns a List of Rooms adjacent to the supplied Room.
+        /// </summary>
+        /// <param name="room">A room.</param>
+        /// <returns>
+        /// A List of Rooms in descending area order or null if none found.
+        /// </returns>/// 
+        public List<Room> RoomsAdjacent(Room room)
+        {
+            var rooms = new List<Room>(Rooms);
+            rooms.Remove(room);
+            return rooms.Where(r => r.Perimeter.Touches(room.Perimeter)).ToList();
+        }
+
+        /// <summary>
+        /// Returns a List of Rooms with a specific name.
         /// </summary>
         /// <param name="name">Name of the rooms to retrieve.</param>
         /// <returns>
-        /// None.
+        /// A List of Rooms.
         /// </returns>/// 
         public List<Room> RoomsByName (string name)
         {
-            var rooms = new List<Room>();
-            foreach (var room in Rooms)
-            {
-                if (room.Name == name)
-                {
-                    rooms.Add(room);
-                }
-            }
-            return rooms;
+            return Rooms.Where(r => r.Name == name).ToList();
+        }
+
+        /// <summary>
+        /// Returns a List of Rooms with the supplied number of Perimeter vertices.
+        /// </summary>
+        /// <param name="name">Quantity of Vector3 vertices.</param>
+        /// <returns>
+        /// A List of Rooms.
+        /// </returns>/// 
+        public List<Room> RoomsByVertices(int vertices)
+        {
+            return Rooms.Where(r => r.Perimeter.Vertices.Count == vertices).ToList();
         }
 
         /// <summary>

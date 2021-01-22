@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Xunit;
 using Elements;
@@ -134,6 +133,78 @@ namespace RoomKitTest
         }
 
         [Fact]
+        public void JoinSmallRooms()
+        {
+            var roomRow =
+                new RoomRow(
+                    new Polygon
+                    (
+                        new[]
+                        {
+                            Vector3.Origin,
+                            new Vector3(10.0, 0.0),
+                            new Vector3(8.0, 2.0),
+                            new Vector3(2.0, 2.0)
+                        }
+                    ));
+            for (var i = 0; i < 5; i++)
+            {
+                roomRow.AddRoom(
+                    new Room(new Vector3(2.0, 2.0))
+                    {
+                        Color = Palette.Aqua,
+                        Height = 1.0
+                    });
+            }
+            Assert.Equal(5, roomRow.Rooms.Count);
+            roomRow.JoinSmallEndRooms(3.0);
+            Assert.Equal(3, roomRow.Rooms.Count);
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowSmallRooms.glb");
+        }
+
+        [Fact]
+        public void JoinTriangleEndRooms()
+        {
+            var roomRow =
+                new RoomRow(
+                    new Polygon
+                    (
+                        new[]
+                        {
+                            Vector3.Origin,
+                            new Vector3(10.0, 0.0),
+                            new Vector3(8.0, 2.0),
+                            new Vector3(2.0, 2.0)
+                        }
+                    ));
+            for (var i = 0; i < 5; i++)
+            {
+                roomRow.AddRoom(
+                    new Room(new Vector3(2.0, 2.0))
+                    {
+                        Color = Palette.Aqua,
+                        Height = 1.0
+                    });
+            }
+            Assert.Equal(5, roomRow.Rooms.Count);
+            Assert.Equal(3, roomRow.Rooms.First().Perimeter.Vertices.Count);
+            Assert.Equal(3, roomRow.Rooms.Last().Perimeter.Vertices.Count);
+            roomRow.JoinTriangleEndRooms();
+            Assert.Equal(3, roomRow.Rooms.Count);
+            var model = new Model();
+            foreach (Room room in roomRow.Rooms)
+            {
+                model.AddElement(new Space(room.PerimeterAsProfile, room.Height, room.ColorAsMaterial));
+            }
+            model.ToGlTF("../../../../RoomKitTest/output/RoomRowJoinTriangleEndRooms.glb");
+        }
+
+        [Fact]
         public void LengthAvailable()
         {
             var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));
@@ -149,6 +220,20 @@ namespace RoomKitTest
             model.AddElement(new Space(new Profile(roomRow.Perimeter), 0.2, new Material(Colors.Aqua, 0.0, 0.0, false, null, false, Guid.NewGuid(), Guid.NewGuid().ToString())));
             model.ToGlTF("../../../../RoomKitTest/output/RoomRowLengthAvailable.glb");
             Assert.Equal(3.0, roomRow.LengthAvailable, 10);
+        }
+
+        [Fact]
+        public void MoveFromTo()
+        {
+            var roomRow = new RoomRow(Polygon.Rectangle(Vector3.Origin, new Vector3(9.0, 3.0)));
+            for (int i = 0; i < 3; i++)
+            {
+                Assert.True(roomRow.AddRoom(new Room(new Vector3(3.0, 3.0, 3.0))));
+            }
+            roomRow.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
+            Assert.Equal(20.0, roomRow.Row.Start.X);
+            Assert.Equal(20.0, roomRow.Row.Start.Y);
+            Assert.Equal(0.0, roomRow.Row.Start.Z);
         }
 
         [Fact]
@@ -220,28 +305,6 @@ namespace RoomKitTest
         }
 
         [Fact]
-        public void UniqueID()
-        {
-            var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));
-            Assert.NotNull(roomRow.UniqueID);
-        }
-
-        [Fact]
-        public void MoveFromTo()
-        {
-            var roomRow = new RoomRow(Polygon.Rectangle(Vector3.Origin, new Vector3(9.0, 3.0)));
-            for (int i = 0; i < 3; i++)
-            {
-                Assert.True(roomRow.AddRoom(new Room(new Vector3(3.0, 3.0, 3.0))));
-            }
-            roomRow.MoveFromTo(Vector3.Origin, new Vector3(20.0, 20.0, 20.0));
-
-            //Assert.Equal(20.0, roomRow.Row.Start.X);
-            //Assert.Equal(20.0, roomRow.Row.Start.Y);
-            //Assert.Equal(0.0, roomRow.Row.Start.Z);
-        }
-
-        [Fact]
         public void Rotate()
         {
             var roomRow = new RoomRow(Polygon.Rectangle(Vector3.Origin, new Vector3(9.0, 3.0)));
@@ -294,6 +357,13 @@ namespace RoomKitTest
             {
                 Assert.Equal(10.0, room.Height);
             }
+        }
+
+        [Fact]
+        public void UniqueID()
+        {
+            var roomRow = new RoomRow(Polygon.Rectangle(9.0, 3.0));
+            Assert.NotNull(roomRow.UniqueID);
         }
     }
 }
